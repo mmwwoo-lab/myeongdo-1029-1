@@ -157,7 +157,7 @@ function startRecital(id,btn){
  if(currentSpeech===id){stopRecital();return}
  const poem=poemVoiceMap.get(id);if(!poem)return;
  stopRecital();
- if(!('speechSynthesis' in window)){showAudioLink(poem);return}
+ if(/FBAN|FBAV|FB_IAB|Instagram/i.test(navigator.userAgent)||!('speechSynthesis' in window)){showAudioLink(poem);return}
  const synth=window.speechSynthesis,voice=voiceForPoetry();
  if(!voice){showAudioLink(poem);return}
  document.querySelectorAll('video,audio').forEach(a=>a.pause());
@@ -249,7 +249,7 @@ const sections = [
 ];
 const tocButton=(title,page)=>`<button data-page="${page}">${esc(title)}<span>${String(page+1).padStart(2,'0')}</span></button>`;
 Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{if(!r.ok)throw Error(file);return r.json()}))).then(async ([poems,recordings])=>{
- await document.fonts.load('32px "Myeongdo Brush"');
+ if(document.fonts&&document.fonts.load){try{await Promise.race([document.fonts.load('32px "Myeongdo Brush"'),new Promise(resolve=>setTimeout(resolve,1800))])}catch(e){/* Continue with system fonts in embedded browsers. */}}
  poemVoiceMap=new Map(poems.map((p,i)=>[p.id||'p'+String(i+1).padStart(2,'0'),p]));
  for(const p of poems){p.recital=recordings.entries.find(r=>r.title===p.title);if(!p.recital)throw Error('Missing recital: '+p.title)}
  pages=[cover,song,'',''];
@@ -294,4 +294,4 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
   go(position+(backward?-step():step()));
  };
  const match=location.hash.match(/^#page-(\d+)$/);if(match){position=Math.min(pages.length-step(),Math.max(0,Number(match[1])-1));if(!mobile.matches)position-=position%2}render();
-}).catch(()=>{$('#error').hidden=false;$('#prev').disabled=true;$('#next').disabled=true});
+}).catch(error=>{console.error('Poetry reader failed to initialize:',error);$('#error').hidden=false;$('#prev').disabled=true;$('#next').disabled=true});
