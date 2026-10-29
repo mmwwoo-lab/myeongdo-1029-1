@@ -80,3 +80,8 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 .verse-columns{column-count:2;column-gap:24px;column-rule:1px solid #e2e6db;column-fill:auto;height:var(--verse-height);font-size:var(--verse-size,14.5px);line-height:1.8;overflow-wrap:anywhere;word-break:normal}
 @media(max-width:800px){.poem-heading{grid-template-columns:minmax(0,1fr) 88px;min-height:88px;gap:10px}.poem-art{width:88px;height:88px}.verse-columns{column-gap:16px}.poem-header{font-size:9px;letter-spacing:0}}
 @media print{.verse-columns{height:auto;column-fill:balance}}
+
+/* White reading background requested for the digital poetry book. */
+body{background:#fff!important}
+.page,.left,.right,.turn .page{background:#fff!important}
+.book-frame{background:#fff}
