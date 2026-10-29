@@ -136,3 +136,44 @@ body{background:#ffffff!important;color:#263c3b}
 .cover.hardcover-front .cover-type,
 .cover.hardcover-front .author,
 .cover.hardcover-front .imprint{position:absolute;z-index:3}
+
+/* Typographic front cover, no illustration or photographic layer. */
+.cover.hardcover-front.editorial-cover{
+ display:block!important;position:relative!important;width:100%;height:100%;
+ padding:0!important;margin:0;background:#173B32!important;
+ background-image:none!important;border:1px solid #8ba392!important;
+ overflow:hidden;box-shadow:inset 0 0 24px #081e1933!important;
+}
+.cover.hardcover-front.editorial-cover::after{content:none!important;display:none!important}
+.editorial-cover .editorial-cover-frame{
+ position:relative;display:flex;flex-direction:column;justify-content:space-between;
+ width:calc(100% - 38px);height:calc(100% - 38px);margin:19px;padding:36px 29px 35px;
+ border:1px solid #d9c69377;box-shadow:inset 0 0 0 1px #e9d9af20;
+ text-align:center;color:#efe6d0;
+}
+.editorial-cover-kicker{
+ margin:0!important;font:500 11px/1.65 'Batang',serif;letter-spacing:.24em;color:#e3d6b3!important;
+}
+.editorial-cover-main{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:0;transform:translateY(-3%)}
+.editorial-cover-rule{width:48px;height:1px;background:#d5be83;margin-bottom:34px}
+.editorial-cover .editorial-cover-title{
+ margin:0!important;font:400 clamp(39px,4vw,57px)/1.35 'Myeongdo Brush','Batang',serif!important;
+ color:#f1ddb1!important;letter-spacing:-.045em!important;text-align:center;word-break:keep-all;
+ background:none!important;-webkit-text-fill-color:#f1ddb1!important;-webkit-text-stroke:0!important;
+ text-shadow:0 2px 8px #081b1766!important;
+}
+.editorial-cover-subtitle{
+ margin:25px 0 0!important;font:400 12px/1.8 'Batang',serif!important;
+ letter-spacing:.14em!important;color:#eee5ce!important;
+}
+.editorial-cover-footer{
+ display:flex;flex-direction:column;align-items:center;gap:10px;
+ color:#e6dbc1!important;font:400 12px/1.5 'Batang',serif!important;letter-spacing:.15em;
+}
+.editorial-cover-footer span:last-child{font-size:10px;opacity:.8}
+@media(max-width:800px){
+ .editorial-cover .editorial-cover-frame{width:calc(100% - 24px);height:calc(100% - 24px);margin:12px;padding:33px 15px 28px}
+ .editorial-cover .editorial-cover-title{font-size:clamp(37px,9vw,49px)!important}
+ .editorial-cover-subtitle{font-size:11px!important;letter-spacing:.08em!important}
+ .editorial-cover-rule{margin-bottom:28px}
+}
