@@ -7,6 +7,7 @@ const cover=`<section class="cover hardcover-front editorial-cover" aria-label="
 const backCover=`<section class="back-cover"><div class="back-cover-mark">明道齋</div><p class="back-cover-quote">기억을 건너,<br>계절을 지나.<br><br>마음에 머문 풍경이<br>한 권의 시가 됩니다.</p><div class="back-cover-title gold-foil">${BOOK_TITLE}</div><p class="back-cover-author">명도재 이명우 창작 시집</p><div class="back-cover-imprint">명도재 제작</div></section>`;
 function setPaperContent(paper,html,number){
  paper.innerHTML=html||'';paper.dataset.number=String(number+1).padStart(2,'0');
+ if(html){paper.querySelectorAll('.recital').forEach(el=>el.remove());const section=paper.querySelector('section');if(section){const control=document.createElement('div');control.className='page-read-control';control.innerHTML='<button type="button" data-page-read="'+number+'" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>';section.append(control)}}
  paper.classList.toggle('cover-page',Boolean(paper.querySelector('.cover,.back-cover')));
  paper.classList.toggle('back-cover-page',Boolean(paper.querySelector('.back-cover')));
  paper.scrollTop=0;
@@ -55,7 +56,7 @@ function go(target){
  target=Math.max(0,Math.min(pages.length-step(),target));
  if(!mobile.matches)target-=target%2;
  if(busy||target===position)return;
- if(currentSpeech&&!Array.from({length:step()},(_,i)=>pageRecitalIds[target+i]).includes(currentSpeech))stopRecital();
+ if(currentSpeech!==null)stopRecital();
  busy=true;
  playPageTurnSound();
  document.querySelectorAll('video,audio').forEach(v=>v.pause());
@@ -148,8 +149,8 @@ function stopRecital(){
  recitalPaused=false;
  if('speechSynthesis' in window)window.speechSynthesis.cancel();
  updateRecitalStatus();
- document.querySelectorAll('[data-recital-id]').forEach(b=>{
-  b.textContent='▶ 시 낭송';b.setAttribute('aria-pressed','false');
+ document.querySelectorAll('[data-page-read]').forEach(b=>{
+  b.textContent='▶ 이 페이지 읽기';b.setAttribute('aria-pressed','false');
  });
  currentSpeech=null;
  updateRecitalStatus();
@@ -157,7 +158,7 @@ function stopRecital(){
 function updateRecitalStatus(){
  const status=document.getElementById('recital-status');
  if(status){status.hidden=!currentSpeech;status.textContent=recitalPaused?'⏸ 시낭송 일시정지 · 화면을 누르면 이어 읽기':'🔊 시낭송 중 · 화면을 누르면 일시정지';}
- document.querySelectorAll('[data-recital-id]').forEach(b=>{if(b.dataset.recitalId===currentSpeech){b.textContent=recitalPaused?'▶ 이어 읽기':'⏸ 일시정지';b.setAttribute('aria-pressed','true')}});
+ document.querySelectorAll('[data-recital-id]').forEach(b=>{if('page-'+b.dataset.pageRead===currentSpeech){b.textContent=recitalPaused?'▶ 이어 읽기':'⏸ 일시정지';b.setAttribute('aria-pressed','true')}});
 }
 function toggleRecitalPause(){
  if(!currentSpeech||!('speechSynthesis' in window))return false;
@@ -170,24 +171,34 @@ function voiceForPoetry(){
 }
 function startRecital(id,btn){
  if(currentSpeech===id){toggleRecitalPause();return}
- const poem=poemVoiceMap.get(id);if(!poem)return;
  stopRecital();
- if(/FBAN|FBAV|FB_IAB|Instagram/i.test(navigator.userAgent)||!('speechSynthesis' in window)){showAudioLink(poem);return}
- const synth=window.speechSynthesis,voice=voiceForPoetry();
- if(!voice){showAudioLink(poem);return}
+ if(!('speechSynthesis' in window)){alert('이 브라우저에서는 읽어주기를 지원하지 않습니다. 크롬에서 열어 주세요.');return}
+ const synth=window.speechSynthesis;
+ const voice=voiceForPoetry();
+ const pageNumber=Number(id.slice(5));
+ const host=document.querySelector('.page[data-number="'+String(pageNumber+1).padStart(2,'0')+'"]:not(.measure-page)');
+ if(!host)return;
+ const section=host.querySelector('section');
+ if(!section)return;
+ const copy=section.cloneNode(true);
+ copy.querySelectorAll('button,.page-read-control,.recital,.poem-header,video,audio,script,.chapter-list').forEach(el=>el.remove());
+ const reading=(copy.classList.contains('poem')?
+  [copy.querySelector('.poem-title, h1, h2, h3')?.textContent||'',copy.querySelector('.verse')?.textContent||'']:
+  [copy.textContent||'']).join('\n').trim();
+ const lines=reading.split(/\n+/).map(t=>t.trim()).filter(Boolean);
+ if(!lines.length)return;
  document.querySelectorAll('video,audio').forEach(a=>a.pause());
  const token=++recitalToken;currentSpeech=id;recitalPaused=false;
  updateRecitalStatus();
- const lines=[poem.title,'이명우',...poem.text.split(/\n+/)].map(t=>t.trim()).filter(Boolean);
  let index=0;
  const next=()=>{
   if(token!==recitalToken)return;
   if(index>=lines.length){stopRecital();return}
-  const utterance=new SpeechSynthesisUtterance(lines[index++]);
-  utterance.lang='ko-KR';utterance.voice=voice;utterance.rate=.84;utterance.pitch=1.07;utterance.volume=1;
-  utterance.onend=next;
-  utterance.onerror=()=>{if(token===recitalToken){stopRecital();showAudioLink(poem)}};
-  synth.speak(utterance);
+  const u=new SpeechSynthesisUtterance(lines[index++]);
+  u.lang='ko-KR';if(voice)u.voice=voice;u.rate=.86;u.pitch=1.05;
+  u.onend=next;
+  u.onerror=()=>{if(token===recitalToken)stopRecital()};
+  synth.speak(u);
  };
  next();
 }
@@ -203,9 +214,9 @@ function showAudioLink(poem){
  dlg.append(heading,message,link,close);document.body.append(dlg);dlg.addEventListener('close',()=>dlg.remove(),{once:true});dlg.showModal();
 }
 document.addEventListener('click',e=>{
- const b=e.target.closest('[data-recital-id]');
+ const b=e.target.closest('[data-page-read]');
  if(!b)return;
- e.preventDefault();startRecital(b.dataset.recitalId,b);
+ e.preventDefault();startRecital('page-'+b.dataset.pageRead,b);
 });
 window.addEventListener('pagehide',stopRecital);
 function recitalPlayer(p,startLine,endLine){
