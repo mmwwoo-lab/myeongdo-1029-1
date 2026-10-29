@@ -267,7 +267,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
    let lineOffset=0;
    chunks.forEach(({text,font,height},i)=>{
     const heading=poemHeading(p,i>0),nextLine=lineOffset+text.split('\n').length;
-    pages.push(`<section class="poem">${header}${heading}<p class="verse verse-columns" style="--verse-size:${font}px;--verse-height:${height}px">${esc(text)}</p>${recitalPlayer(p,lineOffset,nextLine)}</section>`);
+    pages.push(`<section class="poem">${header}${heading}<p class="verse verse-columns" style="--verse-size:${font}px;--verse-height:${height}px">${esc(text)}</p>${i===0?recitalPlayer(p,lineOffset,nextLine):''}</section>`);
     lineOffset=nextLine;
    });
   }
