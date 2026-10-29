@@ -158,7 +158,7 @@ function stopRecital(){
 function updateRecitalStatus(){
  const status=document.getElementById('recital-status');
  if(status){status.hidden=!currentSpeech;status.textContent=recitalPaused?'⏸ 시낭송 일시정지 · 화면을 누르면 이어 읽기':'🔊 시낭송 중 · 화면을 누르면 일시정지';}
- document.querySelectorAll('[data-recital-id]').forEach(b=>{if('page-'+b.dataset.pageRead===currentSpeech){b.textContent=recitalPaused?'▶ 이어 읽기':'⏸ 일시정지';b.setAttribute('aria-pressed','true')}});
+ document.querySelectorAll('[data-page-read]').forEach(b=>{if('page-'+b.dataset.pageRead===currentSpeech){b.textContent=recitalPaused?'▶ 이어 읽기':'⏸ 일시정지';b.setAttribute('aria-pressed','true')}});
 }
 function toggleRecitalPause(){
  if(!currentSpeech||!('speechSynthesis' in window))return false;
