@@ -76,4 +76,4 @@ GitHub Pages 주소는 **현재 공개 운영 주소가 아닙니다.** Pages를
 - **📋 주소 복사** 버튼으로 https://myeongdo-1029-1.vercel.app/ 주소를 복사할 수 있습니다. 소셜 앱에서 외부 호출을 막는 경우 직접 Chrome에 붙여넣으세요.
 - PC 웹페이지는 사용자의 기본 브라우저를 강제로 Chrome으로 바꿀 수 없어 새 창 열기와 주소 복사를 제공합니다.
 - 별도 안내 페이지: `chrome.html` (공개 배포 반영 후 `https://myeongdo-1029-1.vercel.app/chrome.html` 경로에서 접근 가능).
-- GitHub 파일은 수정됐지만 Vercel은 GitHub에 자동 연결되어 있지 않으므로 **Vercel에서 재배포해야 공개 페이지에도 버튼이 보입니다**. 공개 페이지에 버튼이 보이지 않는 경우 배포 이전 버전입니다.
+- **2026-10-29 Vercel 프로덕션 배포 성공:** Chrome 안내 배너와 `chrome.html`이 공개 주소로 배포되었고 배포 상태는 `READY`로 확인했습니다. 추후 GitHub 파일을 다시 변경한다면 Vercel에 재배포해야 합니다.
