@@ -29,3 +29,28 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 @media(max-width:800px){.poem-heading{grid-template-columns:minmax(0,1fr) 106px;gap:10px;min-height:106px}.poem-art{width:106px;height:106px}.poem-heading h2{font-size:23px}}
 @media print{.poem-art{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 .poem-art{mask-image:radial-gradient(ellipse at center,#000 55%,#000d 65%,transparent 76%);-webkit-mask-image:radial-gradient(ellipse at center,#000 55%,#000d 65%,transparent 76%)}
+
+@font-face{font-family:'Myeongdo Brush';src:url('media/fonts/NanumBrushScript-Regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+/* Hardcover boards have their own cloth, raised rims and layered board edges. */
+.page.cover-page{padding:12px;background:#e3d5b8;border:1px solid #b8a37e;box-shadow:inset 5px 0 9px #51402244,inset -2px 0 3px #fff9;overflow:hidden}
+.page.cover-page:after{display:none}
+.page.cover-page:before{content:'';position:absolute;inset:4px;z-index:2;pointer-events:none;border:1px solid #c8b48a;box-shadow:inset 0 0 0 2px #fff3,0 0 0 2px #8f7e5b44}
+.cover.hardcover-front{height:100%;padding:0;border:1px solid #d0bc91;background:#f4eddf;overflow:hidden;box-shadow:3px 3px 0 #b29c73,5px 5px 0 #e8d9b9,inset 0 0 10px #8e784333}
+.cover-art{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill}
+.cover-type{position:absolute;z-index:1;left:5%;right:5%;top:6%;text-align:center}
+.cover-type .eyebrow{font-size:10px;letter-spacing:3px;color:#645d4c}
+.cover .calligraphy{font:400 42px/1.4 'Myeongdo Brush','Batang',serif;letter-spacing:0;color:#20343c;margin:16px 0 4px;word-break:keep-all;text-shadow:0 1px #fff8}
+.cover-subtitle{font:11px/1.7 'Batang',serif;letter-spacing:2px;color:#776952;margin:0}
+.cover.hardcover-front .author{position:absolute;top:84%;left:0;right:0;letter-spacing:4px;font-size:12px;color:#4b544f}
+.cover.hardcover-front .imprint{bottom:5%;font-size:10px;letter-spacing:2px;color:#776b54}
+.page.back-cover-page{background:#1d343f;border-color:#102630;box-shadow:inset 6px 0 8px #0006,inset -2px 0 3px #83939255}
+.page.back-cover-page:before{border-color:#77918d66;box-shadow:inset 0 0 0 2px #ffffff0a,0 0 0 2px #0b202980}
+.back-cover{position:relative;height:100%;text-align:center;color:#d9d3bc;border:1px solid #ac9b6e80;background-color:#233d48;background-image:repeating-linear-gradient(0deg,#fff2 0,#fff0 1px,#0001 2px,#0000 3px),repeating-linear-gradient(90deg,#fff1 0,#fff0 1px,#0002 2px,#0000 4px);box-shadow:3px 3px 0 #142a32,5px 5px 0 #526360;overflow:hidden}
+.back-cover-mark{font:24px/1.5 'Batang',serif;letter-spacing:7px;margin-top:60px;color:#d0c29b}
+.back-cover-quote{font:15px/2.4 'Batang',serif;margin:65px 25px 42px;letter-spacing:2px;color:#e0dfd3}
+.back-cover-title{font:36px/1.6 'Myeongdo Brush','Batang',serif;color:#dacfaf}
+.back-cover-author{font-size:11px;letter-spacing:3px;color:#b5c3be;margin-top:16px}
+.back-cover-imprint{position:absolute;bottom:38px;left:0;right:0;font-size:10px;letter-spacing:3px;color:#a5b5ad}
+.cover-sheet{box-shadow:0 0 0 3px #9d8960,0 0 0 5px #cdbb96,10px 3px 28px #0005}
+@media(max-width:800px){.page.cover-page{padding:10px}.cover .calligraphy{font-size:34px;margin:18px 0 8px}.cover-type{top:6%}.cover-type .eyebrow{font-size:9px;letter-spacing:1.5px}.cover-subtitle{font-size:10px;letter-spacing:1px}.cover.hardcover-front .imprint{font-size:9px;letter-spacing:1px}.back-cover-quote{font-size:13px;margin-top:65px}.back-cover-mark{margin-top:55px}}
+@media print{.cover-page,.cover,.back-cover{print-color-adjust:exact;-webkit-print-color-adjust:exact}}

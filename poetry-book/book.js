@@ -2,7 +2,15 @@
 const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let pages=[],position=0,busy=false;const mobile=matchMedia('(max-width:800px)');let step=()=>mobile.matches?1:2;
 const song=`<section class="song"><div class="eyebrow">OPENING · 시에서 노래로</div><h1>물에게<br>길을 묻다</h1><p class="lead">한 편의 시가 노래가 되어,<br>책의 첫 장에 흐릅니다.</p><video controls playsinline preload="metadata" poster="media/song-poster.jpg" aria-label="물에게 길을 묻다 창작시 노래 영상"><source src="media/asking-water.mp4" type="video/mp4">이 브라우저에서는 영상을 재생할 수 없습니다.</video><div class="caption">「물에게 길을 묻다」 · 창작시를 노래로 만든 영상<br>시 이명우 · 제공 영상 수록 · 3분 47초</div><hr><p class="intro">물의 흐름을 따라 삶의 방향을 묻는 시.<br>먼저 노래로 만나고, 다음 장에서 시의 문장으로 천천히 돌아오세요.</p></section>`;
-const cover=`<section class="cover"><div class="eyebrow">MYEONGDO · POETRY</div><h2 class="vertical">물에게<br>길을 묻다</h2><p class="author">명도재 이명우 창작 시집</p><div class="imprint">기억을 건너, 계절을 지나</div></section>`;
+const cover=`<section class="cover hardcover-front"><img class="cover-art" src="media/hardcover-art.png" alt="푸른 하늘과 구름을 배경으로 꽃무늬 도자기 위에 서 있는 다채로운 어릿광대 조형물, 작가 제공 그림을 활용한 표지"><div class="cover-type"><div class="eyebrow">명도재 이명우 창작 시집</div><h2 class="calligraphy">물에게 길을 묻다</h2><p class="cover-subtitle">기억을 건너, 계절을 지나</p></div><p class="author">이명우 지음</p><div class="imprint">明道齋 · 서른여덟 편의 시와 그림</div></section>`;
+const backCover=`<section class="back-cover"><div class="back-cover-mark">明道齋</div><p class="back-cover-quote">기억을 건너,<br>계절을 지나.<br><br>마음에 머문 풍경이<br>한 권의 시가 됩니다.</p><div class="back-cover-title">물에게 길을 묻다</div><p class="back-cover-author">명도재 이명우 창작 시집</p><div class="back-cover-imprint">시 38편 · 디지털 시화집</div></section>`;
+function setPaperContent(paper,html,number){
+ paper.innerHTML=html||'';paper.dataset.number=String(number+1).padStart(2,'0');
+ paper.classList.toggle('cover-page',Boolean(paper.querySelector('.cover,.back-cover')));
+ paper.classList.toggle('back-cover-page',Boolean(paper.querySelector('.back-cover')));
+ paper.scrollTop=0;
+}
+
 let soundEnabled=true,audioContext=null;
 try{soundEnabled=localStorage.getItem('myeongdo-page-sound')!=='off'}catch{}
 function updateSoundControl(){
@@ -37,7 +45,7 @@ function playPageTurnSound(){
 }
 $('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
 updateSoundControl();
-function render(){for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;el.innerHTML=pages[n]||'';el.dataset.number=String(n+1).padStart(2,'0');el.scrollTop=0;el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
+function render(){for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
 function go(target){
  if(!pages.length)return;
  target=Math.max(0,Math.min(pages.length-step(),target));
@@ -50,7 +58,8 @@ function go(target){
  const source=$(mobile.matches?'#left':backward?'#left':'#right');
  const makeFace=(html,number,side)=>{
   const face=document.createElement('div');face.className=`sheet-face sheet-${side}`;
-  const paper=document.createElement('div');paper.className='page';paper.dataset.number=String(number+1).padStart(2,'0');paper.innerHTML=html;
+  const paper=document.createElement('div');paper.className='page';setPaperContent(paper,html,number);
+  face.classList.toggle('cover-sheet',paper.classList.contains('cover-page'));
   paper.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
   paper.querySelectorAll('video').forEach(v=>{v.removeAttribute('controls');v.preload='none';v.removeAttribute('autoplay')});
   face.append(paper);return face;
@@ -63,7 +72,7 @@ function go(target){
  // Reveal the destination under the turning sheet, never through it.
  const under=$(mobile.matches?'#left':backward?'#left':'#right');
  const underIndex=mobile.matches?target:backward?target:target+1;
- under.innerHTML=pages[underIndex]||'';under.dataset.number=String(underIndex+1).padStart(2,'0');under.scrollTop=0;
+ setPaperContent(under,pages[underIndex],underIndex);
  let finished=false;
  const finish=()=>{
   if(finished)return;finished=true;clearTimeout(fallback);turn.removeEventListener('animationend',onEnd);
@@ -173,7 +182,9 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
  pages[3]=`<section class="book-contents"><div class="eyebrow">CONTENTS · 차례</div><h2>네 갈래의 길</h2><p class="section-subtitle">물에게 길을 묻다<br><small>기억을 건너, 계절을 지나</small></p>${sections.map((section,i)=>`<div class="part-link">${tocButton(`제${i+1}부 ${section.title}`,section.page)}<p>${esc(section.subtitle)} · ${section.poems.length}편</p></div>`).join('')}<p class="caption">각 부의 첫 장에서 작품별 차례를 만날 수 있습니다.<br>상단 ‘목차’에서는 모든 작품으로 바로 이동할 수 있습니다.</p></section>`;
  const closing=pages.length;entries.push({title:'책을 덮으며 · 판권',page:closing});
  pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『물에게 길을 묻다』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
- if(pages.length%2)pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');
+ // Keep the back cover as the final right-hand page on a desktop spread.
+ if(pages.length%2===0)pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');
+ entries.push({title:'뒷표지',page:pages.length});pages.push(backCover);
  $('#toc-list').innerHTML=entries.map(e=>e.heading?`<h3>${tocButton(e.title,e.page)}</h3>`:tocButton(e.title,e.page)).join('');
  const navigate=e=>{const button=e.target.closest('[data-page]');if(button){if(!$('#toc').hidden)toggleToc(false);go(Number(button.dataset.page))}};
  $('#toc-list').onclick=navigate;
