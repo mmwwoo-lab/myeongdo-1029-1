@@ -1,0 +1,40 @@
+name: Deploy Myeongdo art magazine to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Verify static files
+        shell: bash
+        run: |
+          test -s index.html
+          test -f assets/images/portrait.webp
+          test -f assets/music/cosmos.mp3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
