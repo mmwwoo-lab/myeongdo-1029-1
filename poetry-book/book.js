@@ -141,7 +141,7 @@ function poemHeading(p,continued=false){
 const recitalDialog=document.createElement('dialog');
 recitalDialog.setAttribute('aria-label','작품 시낭송');
 recitalDialog.style.cssText='width:min(720px,92vw);max-height:90vh;padding:18px;border:1px solid #ccd7ce;border-radius:16px;background:#fafbf5;color:#263f34';
-recitalDialog.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0;font:600 20px system-ui" id="recital-title"></h2><button type="button" style="font:16px system-ui;padding:8px 14px" aria-label="낭송 창 닫기">닫기 ×</button></div><p style="font:13px/1.6 system-ui">아래 재생창에서 재생 버튼을 눌러 주세요.</p><div id="recital-frame"></div>';
+recitalDialog.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0;font:600 20px system-ui" id="recital-title"></h2><button type="button" style="font:16px system-ui;padding:8px 14px" aria-label="낭송 창 닫기">닫기 ×</button></div><p style="font:13px/1.6 system-ui">시 낭송 재생 버튼을 눌러 주세요.</p><div id="recital-frame"></div>';
 document.body.append(recitalDialog);
 function closeRecital(){recitalDialog.querySelector('#recital-frame').replaceChildren();if(recitalDialog.open)recitalDialog.close()}
 recitalDialog.querySelector('button').addEventListener('click',closeRecital);
@@ -190,7 +190,7 @@ document.addEventListener('click',e=>{
 window.addEventListener('pagehide',haltPoemVoice);
 function recitalPlayer(p,startLine,endLine){
  const recording=p.recital;
- return `<div class="recital"><div class="recital-label"><span>이 작품 전체 낭송</span><button type="button" data-recital-url="${esc(recording.url)}" data-recital-title="${esc(p.title)}" aria-haspopup="dialog" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:6px 12px;cursor:pointer">▶ 이 페이지에서 듣기</button><button type="button" data-poem-speak="${esc(p.id)}" aria-pressed="false" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:6px 12px;cursor:pointer">🎙️ 여성 목소리로 시 낭송</button></div><small>한국어 여성 음성 우선 · 목소리는 기기별로 다릅니다. 기존 AI 음성도 이용 가능합니다.</small></div>`;
+ return `<div class="recital"><div class="recital-label"><span>🎙️ 작품 시낭송</span><button type="button" data-recital-url="${esc(recording.url)}" data-recital-title="${esc(p.title)}" aria-haspopup="dialog" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:7px 16px;cursor:pointer">▶ 시 낭송</button></div><small>버튼을 누르면 이 시의 음성 낭송을 들을 수 있습니다.</small></div>`;
 }
 function splitIllustratedPoem(p,header){
  const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
