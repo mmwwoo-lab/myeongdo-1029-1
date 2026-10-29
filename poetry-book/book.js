@@ -159,8 +159,8 @@ const sections = [
 ];
 const tocButton=(title,page)=>`<button data-page="${page}">${esc(title)}<span>${String(page+1).padStart(2,'0')}</span></button>`;
 fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).then(poems=>{
- pages=[song,cover,'',''];
- const entries=[{title:'시에서 노래로 · 여는 장',page:0},{title:'이 책을 펼치며 · 편집의 말',page:2},{title:'차례 · 네 갈래의 길',page:3}];
+ pages=[cover,song,'',''];
+ const entries=[{title:'앞표지',page:0},{title:'시에서 노래로 · 여는 장',page:1},{title:'이 책을 펼치며 · 편집의 말',page:2},{title:'차례 · 네 갈래의 길',page:3}];
  let count=0;
  for(const [sectionIndex,section] of sections.entries()){
   section.poems=poems.filter(p=>section.categories.includes(p.category));
