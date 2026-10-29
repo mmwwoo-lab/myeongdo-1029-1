@@ -375,3 +375,24 @@ body{background:#ffffff!important;color:#263c3b}
 .searchable-index li span{color:#667870}
 .searchable-index li p{color:#7b827c;font-size:11px;margin:2px 0 0}
 @media(max-width:800px){.searchable-index{padding:0 15px}.searchable-index ol{columns:1}}
+
+/* Crescent-shaped page turn indicators, centered on outside page edges. */
+.book .page-crescent{
+ position:absolute;top:50%;z-index:24;transform:translateY(-50%);
+ display:flex;justify-content:center;align-items:center;
+ width:39px;height:82px;padding:0;border:1px solid #b8a77d;
+ background:linear-gradient(135deg,#efe3bb,#d7c28c);
+ color:#493d25;font-family:Georgia,serif;font-size:35px;line-height:1;
+ box-shadow:0 3px 9px rgba(29,34,30,.17);
+ cursor:pointer;transition:background .2s ease,filter .2s ease;
+}
+.book .crescent-prev{left:0;border-left:0;border-radius:0 90px 90px 0;padding-right:5px}
+.book .crescent-next{right:0;border-right:0;border-radius:90px 0 0 90px;padding-left:5px}
+.book .page-crescent:hover{background:#eddaa5;filter:brightness(1.04)}
+.book .page-crescent:focus-visible{outline:3px solid #94753b;outline-offset:3px}
+.book .page-crescent[hidden]{display:none!important}
+@media(max-width:800px){
+ .book .page-crescent{width:35px;height:76px;font-size:34px}
+ .book .crescent-prev{left:0}
+ .book .crescent-next{right:0}
+}
