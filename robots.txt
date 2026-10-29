@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mmwwoo-lab.github.io/myeongdo-1029-1/sitemap.xml
