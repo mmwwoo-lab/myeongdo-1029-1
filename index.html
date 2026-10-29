@@ -99,6 +99,25 @@ function renderPoems(){
  q('#poem-list').innerHTML=selected.length?selected.map((p,i)=>`<article class="poem-card ${i<4?'featured':''}" id="poem-${p.id}"><div class="ptop"><span class="topic">${esc(p.category)}</span><span class="read-counter">시인 이명우</span></div><h3>${esc(p.title)}</h3><p class="poem-lede">${esc(p.insight)}</p><div class="poem-actions"><button type="button" data-toggle="${p.id}" aria-expanded="false">＋ 시 원문 보기</button><button type="button" data-say="poem:${p.id}">▶ 시 낭송</button><button type="button" data-say="poemnote:${p.id}">▶ 시 해설</button></div><div class="poem-body"><div class="poem-original">${esc(p.text)}</div><div class="poem-explain"><b>작품 소개 · 200자 이내</b><p>${esc(p.intro)}</p><b>시화 기획 해설</b><p>${esc(p.artNote)}</p></div></div></article>`).join(''):'<div class="empty">검색 결과가 없습니다. 다른 시어나 제목으로 다시 검색하세요.</div>';
 }
 renderPoems();
+(function(){
+ const box=document.createElement('div');
+ box.className='voice-settings';
+ box.style.cssText='padding:12px 16px;margin:14px 0;background:#eef8f7;border:1px solid #b9d7d8;border-radius:10px;font-size:14px';
+ box.innerHTML='<label for="poem-voice-choice"><b>🎙️ 시낭송 목소리</b></label> <select id="poem-voice-choice" aria-label="한국어 음성 선택" style="max-width:100%;padding:7px;border-radius:6px;border:1px solid #b9d7d8;background:white"><option value="">한국어 여성 음성 우선 (자동)</option></select><p style="font-size:12px;margin:6px 0 0">여성 음성이 설치되어 있으면 우선 사용합니다. 실제 목소리는 기기와 브라우저에 따라 다릅니다.</p>';
+ const target=q('#poem-list');target.parentNode.insertBefore(box,target);
+ const select=box.querySelector('select');
+ const female=/female|woman|여성|heami|sunhi|sora|jiyeon|yuna|yuri|seo[- ]?yeon|seoyeon|ji[- ]?young|jiyoung|sooyeon|suyeon|nari|seonhi|hyemi|하미|선희|소라|지연|유나|유리|서연|지영|수연|나리|혜미/i;
+ function refresh(){
+  if(!('speechSynthesis' in window))return;
+  const voices=window.speechSynthesis.getVoices().filter(v=>/^ko([-_]|$)/i.test(v.lang));
+  const saved=localStorage.getItem('myeongdo-poem-voice')||'';
+  select.replaceChildren(new Option('한국어 여성 음성 우선 (자동)',''));
+  voices.sort((a,b)=>Number(female.test(b.name))-Number(female.test(a.name))).forEach(v=>select.add(new Option(v.name+(female.test(v.name)?' · 여성 음성 후보':''),v.voiceURI)));
+  select.value=voices.some(v=>v.voiceURI===saved)?saved:'';
+ }
+ select.addEventListener('change',()=>{try{localStorage.setItem('myeongdo-poem-voice',select.value)}catch(e){}});
+ refresh();window.speechSynthesis?.addEventListener?.('voiceschanged',refresh);
+})();
 q('#poem-search').addEventListener('input',e=>{keyword=e.target.value.trim().toLowerCase();renderPoems()});
 q('#poem-filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;category=b.dataset.filter;q('#poem-filters').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));renderPoems()});
 q('#poem-list').addEventListener('click',e=>{let b=e.target.closest('[data-toggle]');if(!b)return;const card=b.closest('.poem-card');const opened=card.classList.toggle('open');b.textContent=opened?'− 시 원문 접기':'＋ 시 원문 보기';b.setAttribute('aria-expanded',opened?'true':'false')});
@@ -110,9 +129,14 @@ function say(txt){
  const parts=(String(txt).replace(/\r/g,'')).split(/(?<=[.!?。])\s+|\n+/).filter(Boolean);
  const chunks=[];
  for(const part of parts){if(part.length<=150){chunks.push(part)}else{for(let i=0;i<part.length;i+=120)chunks.push(part.slice(i,i+120))}}
- const voices=synth.getVoices();const ko=voices.find(v=>v.lang.toLowerCase().startsWith('ko')&&/female|여성|heami|sunhi|sora|jiyeon|yuna/i.test(v.name))||voices.find(v=>v.lang.toLowerCase().startsWith('ko'));
- q('#stop-speech').classList.add('visible');speechStatus.textContent='한국어 음성 재생 중';
- let idx=0;function play(){if(token!==speechToken)return;if(idx>=chunks.length){stopSpeech();return}const utt=new SpeechSynthesisUtterance(chunks[idx++]);utt.lang='ko-KR';if(ko)utt.voice=ko;utt.rate=.89;utt.pitch=1.04;utt.volume=1;utt.onend=()=>{if(token===speechToken)play()};utt.onerror=ev=>{if(token===speechToken){speechStatus.textContent='음성 재생이 중단되었습니다. 크롬 한국어 음성을 확인하세요.';q('#stop-speech').classList.remove('visible')}};synth.speak(utt)}
+ const voices=synth.getVoices();
+ const korean=voices.filter(v=>/^ko([-_]|$)/i.test(v.lang));
+ const femalePattern=/female|woman|여성|heami|sunhi|sora|jiyeon|yuna|yuri|seo[- ]?yeon|seoyeon|ji[- ]?young|jiyoung|sooyeon|suyeon|nari|seonhi|hyemi|하미|선희|소라|지연|유나|유리|서연|지영|수연|나리|혜미/i;
+ const preferred=localStorage.getItem('myeongdo-poem-voice')||'';
+ const ko=korean.find(v=>v.voiceURI===preferred)||korean.find(v=>femalePattern.test(v.name))||korean[0];
+ if(!ko){speechStatus.textContent='한국어 음성이 설치되지 않았습니다. Chrome의 한국어 음성을 설치해 주세요.';q('#stop-speech').classList.remove('visible');return}
+ q('#stop-speech').classList.add('visible');speechStatus.textContent='시낭송 재생 중 · '+ko.name;
+ let idx=0;function play(){if(token!==speechToken)return;if(idx>=chunks.length){stopSpeech();return}const utt=new SpeechSynthesisUtterance(chunks[idx++]);utt.lang='ko-KR';if(ko)utt.voice=ko;utt.rate=.84;utt.pitch=1.09;utt.volume=1;utt.onend=()=>{if(token===speechToken)play()};utt.onerror=ev=>{if(token===speechToken){speechStatus.textContent='음성 재생이 중단되었습니다. 크롬 한국어 음성을 확인하세요.';q('#stop-speech').classList.remove('visible')}};synth.speak(utt)}
  play();
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-say]');if(!b)return;const [mode,id]=b.dataset.say.split(':');if(mode==='profile')return say('명도재 이명우 작가 소개. '+DATA.intro+' 창작 철학. 붓 대신 프롬프트로 그리자.');if(mode==='criticism')return say('명도재 이명우 창작세계 기획평론. '+DATA.criticism);if(mode==='art')return say(workById[id].title+'. '+workById[id].critique);if(mode==='arttitle')return say(workById[id].title+'. '+workById[id].caption+' '+workById[id].type);if(mode==='poem')return say(poemById[id].title+'. 이명우. '+poemById[id].text);if(mode==='poemnote')return say(poemById[id].title+' 작품 해설. '+poemById[id].intro)});
