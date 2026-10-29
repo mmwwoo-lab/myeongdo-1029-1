@@ -1,6 +1,6 @@
 'use strict';
 const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let pages=[],position=0,busy=false;const mobile=matchMedia('(max-width:800px)');let step=()=>mobile.matches?1:2;
+let pages=[],pageRecitalIds=[],position=0,busy=false;const mobile=matchMedia('(max-width:800px)');let step=()=>mobile.matches?1:2;
 const BOOK_TITLE='물빛에 놓아둔 마음';
 const song=`<section class="song"><div class="eyebrow">OPENING · 시에서 노래로</div><h1>물에게<br>길을 묻다</h1><p class="lead">한 편의 시가 노래가 되어,<br>책의 첫 장에 흐릅니다.</p><video controls playsinline preload="metadata" poster="media/song-poster.jpg" aria-label="물에게 길을 묻다 창작시 노래 영상"><source src="media/asking-water.mp4" type="video/mp4">이 브라우저에서는 영상을 재생할 수 없습니다.</video><div class="caption">「물에게 길을 묻다」 · 창작시를 노래로 만든 영상<br>시 이명우 · 제공 영상 수록 · 3분 47초</div><hr><p class="intro">물의 흐름을 따라 삶의 방향을 묻는 시.<br>먼저 노래로 만나고, 다음 장에서 시의 문장으로 천천히 돌아오세요.</p></section>`;
 const cover=`<section class="cover hardcover-front editorial-cover" aria-label="물빛에 놓아둔 마음 시집 앞표지"><div class="editorial-cover-frame"><p class="editorial-cover-kicker">明道齋 · 창작 시집</p><div class="editorial-cover-main"><span class="editorial-cover-rule" aria-hidden="true"></span><h1 class="editorial-cover-title">물빛에<br>놓아둔 마음</h1><p class="editorial-cover-subtitle">기억을 건너, 계절을 지나</p></div><div class="editorial-cover-footer"><span>이명우 지음</span><span>명도재 제작</span></div></div></section>`;
@@ -55,6 +55,7 @@ function go(target){
  target=Math.max(0,Math.min(pages.length-step(),target));
  if(!mobile.matches)target-=target%2;
  if(busy||target===position)return;
+ if(currentSpeech&&!Array.from({length:step()},(_,i)=>pageRecitalIds[target+i]).includes(currentSpeech))stopRecital();
  busy=true;
  playPageTurnSound();
  document.querySelectorAll('video,audio').forEach(v=>v.pause());
@@ -266,7 +267,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
  if(document.fonts&&document.fonts.load){try{await Promise.race([document.fonts.load('32px "Myeongdo Brush"'),new Promise(resolve=>setTimeout(resolve,1800))])}catch(e){/* Continue with system fonts in embedded browsers. */}}
  poemVoiceMap=new Map(poems.map((p,i)=>[p.id||'p'+String(i+1).padStart(2,'0'),p]));
  for(const p of poems){p.recital=recordings.entries.find(r=>r.title===p.title);if(!p.recital)throw Error('Missing recital: '+p.title)}
- pages=[cover,song,'',''];
+ pages=[cover,song,'',''];pageRecitalIds=[null,null,null,null];
  const entries=[{title:'앞표지',page:0},{title:'시에서 노래로 · 여는 장',page:1},{title:'이 책을 펼치며 · 편집의 말',page:2},{title:'차례 · 네 갈래의 길',page:3}];
  let count=0;
  for(const [sectionIndex,section] of sections.entries()){
@@ -282,6 +283,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
    chunks.forEach(({text,font,height},i)=>{
     const heading=poemHeading(p,i>0),nextLine=lineOffset+text.split('\n').length;
     pages.push(`<section class="poem">${header}${heading}<p class="verse verse-columns" style="--verse-size:${font}px;--verse-height:${height}px">${esc(text)}</p>${i===0?recitalPlayer(p,lineOffset,nextLine):''}</section>`);
+    pageRecitalIds.push(p.recital.id);
     lineOffset=nextLine;
    });
   }
@@ -291,10 +293,10 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
  pages[2]=`<section class="colophon editorial"><div class="eyebrow">EDITOR’S NOTE · 편집의 말</div><h2>기억을 건너,<br>계절을 지나</h2><p>『${BOOK_TITLE}』는 명도재 이명우의 창작시 서른여덟 편을 네 갈래의 길로 엮은 디지털 시집입니다.</p><p>가족의 기억에서 계절의 표정으로, 도시의 저녁에서 주리못의 물가로. 서로 다른 풍경을 지나며 삶을 바라보는 시선의 결을 따라갑니다.</p><p>첫 장의 노래를 듣고, 마음이 머무는 작품을 골라 읽어도 좋습니다. 천천히 한 장씩 넘기며 자신만의 순서로 이 책을 만나보세요.</p><p class="caption">시 제목과 본문은 기존 원문을 보존했습니다.<br>부제·부 구성·부별 여는 글은 이 디지털 판의 편집입니다.<br>편집의 말은 시인의 서문과 구분합니다.</p></section>`;
  pages[3]=`<section class="book-contents"><div class="eyebrow">CONTENTS · 차례</div><h2>네 갈래의 길</h2><p class="section-subtitle">${BOOK_TITLE}<br><small>기억을 건너, 계절을 지나</small></p>${sections.map((section,i)=>`<div class="part-link">${tocButton(`제${i+1}부 ${section.title}`,section.page)}<p>${esc(section.subtitle)} · ${section.poems.length}편</p></div>`).join('')}<p class="caption">각 부의 첫 장에서 작품별 차례를 만날 수 있습니다.<br>상단 ‘목차’에서는 모든 작품으로 바로 이동할 수 있습니다.</p></section>`;
  const closing=pages.length;entries.push({title:'책을 덮으며 · 판권',page:closing});
- pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『${BOOK_TITLE}』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>시낭송 · 방문자 기기의 한국어 음성합성 기능 사용, 시인 육성 아님.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
+ pageRecitalIds.push(null);pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『${BOOK_TITLE}』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>시낭송 · 방문자 기기의 한국어 음성합성 기능 사용, 시인 육성 아님.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
  // Keep the back cover as the final right-hand page on a desktop spread.
- if(pages.length%2===0)pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');
- entries.push({title:'뒷표지',page:pages.length});pages.push(backCover);
+ if(pages.length%2===0){pageRecitalIds.push(null);pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');}
+ entries.push({title:'뒷표지',page:pages.length});pages.push(backCover);pageRecitalIds.push(null);
  $('#toc-list').innerHTML=entries.map(e=>e.heading?`<h3>${tocButton(e.title,e.page)}</h3>`:tocButton(e.title,e.page)).join('');
  const navigate=e=>{const button=e.target.closest('[data-page]');if(button){if(!$('#toc').hidden)toggleToc(false);go(Number(button.dataset.page))}};
  $('#toc-list').onclick=navigate;
