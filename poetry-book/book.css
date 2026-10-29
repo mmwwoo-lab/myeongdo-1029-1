@@ -320,3 +320,19 @@ body{background:#ffffff!important;color:#263c3b}
  .song video{max-height:150px!important}
  .song .opening-art,.colophon.editorial .opening-art{aspect-ratio:16/9}
 }
+
+/* Page 2 video: preserve its original aspect ratio without cropping or distortion. */
+.song video{
+ display:block!important;
+ width:100%!important;
+ height:auto!important;
+ aspect-ratio:16 / 9!important;
+ max-height:none!important;
+ object-fit:contain!important;
+ background:#162825;
+ margin:12px 0 9px!important;
+ border:1px solid #dde0d9;
+}
+@media(max-width:800px){
+ .song video{width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:16 / 9!important}
+}
