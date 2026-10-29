@@ -336,3 +336,16 @@ body{background:#ffffff!important;color:#263c3b}
 @media(max-width:800px){
  .song video{width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:16 / 9!important}
 }
+
+/* Opening video locked to a true 16:9 display box on all screens. */
+.song video{
+ width:100%!important;
+ aspect-ratio:16 / 9!important;
+ height:auto!important;
+ max-height:none!important;
+ display:block!important;
+ object-fit:contain!important;
+}
+@supports(aspect-ratio:16 / 9){
+ .song video{height:auto!important;aspect-ratio:16 / 9!important}
+}
