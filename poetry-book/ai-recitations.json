@@ -1,0 +1,311 @@
+{
+  "provider": "AI Voice Generator",
+  "voice_style": "delicate",
+  "notice": "작품 전체 낭송 · 외부 페이지에서 듣기 및 다운로드",
+  "entries": [
+    {
+      "id": "p01",
+      "title": "재봉틀 앞의 시간",
+      "url": "https://www.aidocmaker.com/g0/audio?name=1287e8c3ff7244399e896c5e00dc93e8",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p02",
+      "title": "풍경소리",
+      "url": "https://www.aidocmaker.com/g0/audio?name=265a2fbea32b4d4e8e1f0b27755cb9cf",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p03",
+      "title": "연꽃을 바라보며",
+      "url": "https://www.aidocmaker.com/g0/audio?name=d3559a379e4547eca69faeb4cf733221",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p04",
+      "title": "산딸기 루비반지",
+      "url": "https://www.aidocmaker.com/g0/audio?name=1d771d8bdfff484d9516c432f484a817",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p05",
+      "title": "마지막 버스가 지나간 뒤",
+      "url": "https://www.aidocmaker.com/g0/audio?name=70cd409796a14c6e8be36d9d3cab58d9",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p06",
+      "title": "가창 405번 버스가 가을을 싣고",
+      "url": "https://www.aidocmaker.com/g0/audio?name=7ecbb7a727cc414689efb8078f0fad8f",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p07",
+      "title": "재봉틀",
+      "url": "https://www.aidocmaker.com/g0/audio?name=5a34aed807584d84802a5c51e6cddc88",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p08",
+      "title": "천사의 나팔꽃",
+      "url": "https://www.aidocmaker.com/g0/audio?name=13272e9f0e1d43f1aaf7af028474a260",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p09",
+      "title": "아버지의 길",
+      "url": "https://www.aidocmaker.com/g0/audio?name=8cb3252a15b64627b9e5dc3bcfed7745",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p10",
+      "title": "재봉틀과 어머니",
+      "url": "https://www.aidocmaker.com/g0/audio?name=24a3a22936da4bf18d5ba3ba60a7cebd",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p11",
+      "title": "어머니",
+      "url": "https://www.aidocmaker.com/g0/audio?name=a3812b63eea443009234048aee107acb",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p12",
+      "title": "북국의 봇나무",
+      "url": "https://www.aidocmaker.com/g0/audio?name=6b5c7927c5eb4c92b91488539d318381",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p13",
+      "title": "상사화(想思花)",
+      "url": "https://www.aidocmaker.com/g0/audio?name=71102a21d16749d49f038b11b5063fb8",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p14",
+      "title": "매화꽃 어머니",
+      "url": "https://www.aidocmaker.com/g0/audio?name=79c0bec61287415a9858c31ed9fcd933",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p15",
+      "title": "나비가 코스모스에게 머무는 법",
+      "url": "https://www.aidocmaker.com/g0/audio?name=1d3f88bc49034ad191855b6abd495ca0",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p16",
+      "title": "가장 느린 걸음이 저녁을 건넌다",
+      "url": "https://www.aidocmaker.com/g0/audio?name=391f9eba571d4a03b6da2321e91366c2",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p17",
+      "title": "우뭇가사리 한 그릇이 바다를 품다",
+      "url": "https://www.aidocmaker.com/g0/audio?name=ed456d52ea3c4ab891fc85cc7f3608b2",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p18",
+      "title": "신천의 저녁 한때",
+      "url": "https://www.aidocmaker.com/g0/audio?name=33b3f3dd3a1e483bb38eb709642a616b",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p19",
+      "title": "바람 속의 어머니",
+      "url": "https://www.aidocmaker.com/g0/audio?name=b30aa186d0364c85a0f7f1627bc43402",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p20",
+      "title": "베란다에 가을이 먼저 왔다",
+      "url": "https://www.aidocmaker.com/g0/audio?name=89d6bdd73dcb4e0e92ec24ee0aa4d1bb",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p21",
+      "title": "장갑 한 짝",
+      "url": "https://www.aidocmaker.com/g0/audio?name=6eadc2f09bfe419aa8c077ca8b02f05b",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p22",
+      "title": "앞산제색도",
+      "url": "https://www.aidocmaker.com/g0/audio?name=b34f9ce2d6414fb58d3a7cba8a11f073",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p23",
+      "title": "바람은 어디서 오는가",
+      "url": "https://www.aidocmaker.com/g0/audio?name=4afce1458b6e41a981eca8feb43cb4b3",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p24",
+      "title": "앞산을 바라보며",
+      "url": "https://www.aidocmaker.com/g0/audio?name=3ebf35b4e85d4e438851f4021beac46a",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p25",
+      "title": "오래 신은 구두",
+      "url": "https://www.aidocmaker.com/g0/audio?name=d5bd07666c8344daaba210a10941e229",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p26",
+      "title": "물에게 길을 묻다",
+      "url": "https://www.aidocmaker.com/g0/audio?name=dfdd8f79a66743a7bf58e600fda0ac46",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p27",
+      "title": "가을이 오기 전에",
+      "url": "https://www.aidocmaker.com/g0/audio?name=2f296ffa806145859683fcd5b5a1a519",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p28",
+      "title": "핑크빛 빈 벤치",
+      "url": "https://www.aidocmaker.com/g0/audio?name=9cb35ef01e314257b05aa0b2ce23eafc",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p29",
+      "title": "주리못둑의 핑크빛 빈 벤치",
+      "url": "https://www.aidocmaker.com/g0/audio?name=323a1b29bee74f479225bfae75ded691",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p30",
+      "title": "주리못, 어머니의 수를 놓는 날",
+      "url": "https://www.aidocmaker.com/g0/audio?name=9f9f9b0cc6584f2190e1e7e16385d94e",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p31",
+      "title": "(동시) 물방울 친구들",
+      "url": "https://www.aidocmaker.com/g0/audio?name=491d32960834451183b60cf968f67ab5",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p32",
+      "title": "가을 속에 남은 사람",
+      "url": "https://www.aidocmaker.com/g0/audio?name=8d74ca0751164e5d86f995403d4154c1",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p33",
+      "title": "한여름 주리못",
+      "url": "https://www.aidocmaker.com/g0/audio?name=ebec921b57304863a912b85621b7d531",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p34",
+      "title": "이팝꽃",
+      "url": "https://www.aidocmaker.com/g0/audio?name=561703f24bdf48aba680936ad48ec52f",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p35",
+      "title": "낮달",
+      "url": "https://www.aidocmaker.com/g0/audio?name=49a4932fc9164b3bab87bc545b14e088",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p36",
+      "title": "천년의 달, 두 고도를 걷다",
+      "url": "https://www.aidocmaker.com/g0/audio?name=8711964309194b5e896076867d1165d8",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p37",
+      "title": "전깃줄 위의 낮달",
+      "url": "https://www.aidocmaker.com/g0/audio?name=d5c0ffd56a4947d7b5e04675ac6d846a",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    },
+    {
+      "id": "p38",
+      "title": "못물",
+      "url": "https://www.aidocmaker.com/g0/audio?name=d0b7feba76404558bcc428800094f992",
+      "voice_style": "delicate",
+      "provider": "AI Voice Generator",
+      "playback": "external_full_poem"
+    }
+  ]
+}
