@@ -46,7 +46,7 @@ function playPageTurnSound(){
 }
 $('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
 updateSoundControl();
-function render(){for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
+function render(){document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
 function go(target){
  if(!pages.length)return;
  target=Math.max(0,Math.min(pages.length-step(),target));
@@ -54,7 +54,7 @@ function go(target){
  if(busy||target===position)return;
  busy=true;
  playPageTurnSound();
- document.querySelectorAll('video').forEach(v=>v.pause());
+ document.querySelectorAll('video,audio').forEach(v=>v.pause());
  const backward=target<position,turn=$('#turn');
  const source=$(mobile.matches?'#left':backward?'#left':'#right');
  const makeFace=(html,number,side)=>{
@@ -62,7 +62,7 @@ function go(target){
   const paper=document.createElement('div');paper.className='page';setPaperContent(paper,html,number);
   face.classList.toggle('cover-sheet',paper.classList.contains('cover-page'));
   paper.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
-  paper.querySelectorAll('video').forEach(v=>{v.removeAttribute('controls');v.preload='none';v.removeAttribute('autoplay')});
+  paper.querySelectorAll('video,audio').forEach(v=>{v.removeAttribute('controls');v.preload='none';v.removeAttribute('autoplay')});
   face.append(paper);return face;
  };
  const front=makeFace(source.innerHTML,Number(source.dataset.number)-1,'front');
@@ -87,9 +87,9 @@ function go(target){
 }
 function toggleToc(open){$('#toc').hidden=!open;$('#contents').setAttribute('aria-expanded',String(open));if(open)$('#close').focus();else $('#contents').focus()}
 $('#prev').onclick=()=>go(position-step());$('#next').onclick=()=>go(position+step());$('#contents').onclick=()=>toggleToc($('#toc').hidden);$('#close').onclick=()=>toggleToc(false);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleToc(false);if(!$('#toc').hidden||/INPUT|TEXTAREA|VIDEO/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();go(position+step())}if(e.key==='ArrowLeft'){e.preventDefault();go(position-step())}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleToc(false);if(!$('#toc').hidden||/INPUT|TEXTAREA|VIDEO|AUDIO/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();go(position+step())}if(e.key==='ArrowLeft'){e.preventDefault();go(position-step())}});
 let suppressClickUntil=0;
-let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
+let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video,audio'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
 // One watercolor motif for each work; source titles and text remain untouched.
 const illustrations={
  '재봉틀 앞의 시간':[0,'실타래와 목화 가지 곁의 참새'],
@@ -132,25 +132,60 @@ const illustrations={
  '못물':[15,'이슬 맺힌 풀잎 위 달팽이와 무당벌레']
 };
 function poemHeading(p,continued=false){
+ if(continued)return '';
  const motif=illustrations[p.title];if(!motif)throw Error('Missing illustration: '+p.title);
  const x=(motif[0]%5)*25,y=Math.floor(motif[0]/5)*100/3;
  return `<div class="poem-heading">${continued?'<span aria-hidden="true"></span>':`<h2>${esc(p.title)}</h2>`}<figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
 }
-function splitIllustratedPoem(p,header){
- // Measure the actual title, illustration and wrapped verses before pagination.
- const sheet=document.createElement('article');sheet.className='page measure-page';
- sheet.style.width=$('#left').offsetWidth+'px';
- sheet.innerHTML=`<section class="poem">${header}${poemHeading(p)}<p class="verse"></p></section>`;
- document.body.append(sheet);
- const verse=sheet.querySelector('.verse'),available=sheet.getBoundingClientRect().bottom-parseFloat(getComputedStyle(sheet).paddingBottom)-verse.getBoundingClientRect().top-12;
- const chunks=[];let lines=[];
- for(const line of p.text.split('\n')){
-  verse.textContent=[...lines,line].join('\n');
-  if(lines.length&&verse.getBoundingClientRect().height>available){chunks.push(lines.join('\n'));lines=[]}
-  lines.push(line);
- }
- if(lines.length)chunks.push(lines.join('\n'));sheet.remove();return chunks;
+function recitalPlayer(p,startLine,endLine){
+ const recording=p.recital,start=startLine===0?0:recording.lines[startLine].start,end=recording.lines[endLine-1].end;
+ return `<div class="recital"><div class="recital-label"><span>이 페이지 낭송</span><a href="${esc(recording.file)}" download>시 전체 MP3 ↓</a></div><audio controls preload="none" src="${esc(recording.file)}" data-start="${start}" data-end="${end}" aria-label="${esc(p.title)} 이 페이지 본문 한국어 합성 낭송"></audio><small>한국어 기본 합성음 · 시인 육성 아님</small></div>`;
 }
+function splitIllustratedPoem(p,header){
+ const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
+ const lines=p.text.split('\n');
+ const measure=(continued,font)=>{
+  sheet.innerHTML=`<section class="poem">${header}${poemHeading(p,continued)}<p class="verse verse-columns"></p>${recitalPlayer(p,0,1)}</section>`;
+  const verse=sheet.querySelector('.verse'),player=sheet.querySelector('.recital');
+  const height=Math.floor(sheet.getBoundingClientRect().bottom-parseFloat(getComputedStyle(sheet).paddingBottom)-verse.getBoundingClientRect().top-player.getBoundingClientRect().height-parseFloat(getComputedStyle(player).marginTop)-12);
+  verse.style.setProperty('--verse-size',font+'px');verse.style.setProperty('--verse-height',height+'px');
+  return {verse,height};
+ };
+ const fits=(verse,text)=>{verse.textContent=text;return verse.scrollWidth<=verse.clientWidth+1};
+ // First try a single two-column page; otherwise use exactly two pages.
+ for(const font of [14.5,14,13.5,13,12.5,12]){
+  let {verse,height}=measure(false,font);
+  if(fits(verse,p.text)){sheet.remove();return [{text:p.text,font,height}]}
+  let breakAt=0;
+  for(let i=1;i<lines.length;i++){if(fits(verse,lines.slice(0,i).join('\n')))breakAt=i;else break}
+  if(!breakAt)continue;
+  const first={text:lines.slice(0,breakAt).join('\n'),font,height};
+  ({verse,height}=measure(true,font));
+  const rest=lines.slice(breakAt).join('\n');
+  if(fits(verse,rest)){sheet.remove();return [first,{text:rest,font,height}]}
+ }
+ sheet.remove();throw Error('Poem exceeds two-page layout: '+p.title);
+}
+// Constrain a full MP3 recording to the lines shown on this page.
+$('#book').addEventListener('loadedmetadata',e=>{
+ const audio=e.target;if(!audio.matches('audio[data-start]'))return;
+ audio.currentTime=Number(audio.dataset.start);
+},true);
+$('#book').addEventListener('play',e=>{
+ const media=e.target;if(!media.matches('audio,video'))return;
+ document.querySelectorAll('audio,video').forEach(other=>{if(other!==media)other.pause()});
+ if(media.matches('audio[data-start]')){
+  const start=Number(media.dataset.start),end=Number(media.dataset.end);
+  if(media.currentTime<start||media.currentTime>=end-.05)media.currentTime=start;
+ }
+},true);
+$('#book').addEventListener('timeupdate',e=>{
+ const audio=e.target;if(!audio.matches('audio[data-end]'))return;
+ const start=Number(audio.dataset.start),end=Number(audio.dataset.end);
+ if(!audio.paused&&audio.currentTime<start-.2)audio.currentTime=start;
+ if(!audio.paused&&audio.currentTime>=end)audio.pause();
+},true);
+
 const sections = [
  {title:'어머니의 시간',subtitle:'가족의 기억과 오래된 뿌리',categories:['가족과 기억','역사와 뿌리'],intro:'바늘이 지나간 자리에는 옷감만 이어지는 것이 아닙니다. 어머니와 아버지의 손길에서 시작한 기억은, 우리가 걸어온 오래된 길로 이어집니다.'},
  {title:'꽃이 머무는 계절',subtitle:'피어나고 저무는 것들 곁에서',categories:['꽃과 서정','계절과 사색','동시와 동심'],intro:'꽃과 작은 물방울, 계절 사이에 잠시 머물러 봅니다. 피어나는 순간과 저무는 순간을 함께 바라보며 삶의 속도를 늦추는 시간입니다.'},
@@ -158,7 +193,9 @@ const sections = [
  {title:'물이 기억하는 풍경',subtitle:'앞산에서 주리못까지',categories:['대구의 풍경','주리못 연작'],intro:'앞산과 신천, 주리못의 물가에 발걸음을 멈춥니다. 흘러가는 물과 돌아오는 계절을 바라보며, 오늘의 길을 다시 묻습니다.'}
 ];
 const tocButton=(title,page)=>`<button data-page="${page}">${esc(title)}<span>${String(page+1).padStart(2,'0')}</span></button>`;
-fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).then(poems=>{
+Promise.all(['poems.json','recitals.json'].map(file=>fetch(file).then(r=>{if(!r.ok)throw Error(file);return r.json()}))).then(async ([poems,recordings])=>{
+ await document.fonts.load('32px "Myeongdo Brush"');
+ for(const p of poems){p.recital=recordings.entries.find(r=>r.title===p.title);if(!p.recital)throw Error('Missing recital: '+p.title)}
  pages=[cover,song,'',''];
  const entries=[{title:'앞표지',page:0},{title:'시에서 노래로 · 여는 장',page:1},{title:'이 책을 펼치며 · 편집의 말',page:2},{title:'차례 · 네 갈래의 길',page:3}];
  let count=0;
@@ -171,9 +208,11 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
    count++;const entry={title:p.title,page:pages.length};entries.push(entry);section.entries.push(entry);
    const header=`<div class="poem-header"><span>제${sectionIndex+1}부 · ${esc(section.title)}</span><span>${String(count).padStart(2,'0')} / 38</span></div>`;
    const chunks=splitIllustratedPoem(p,header);
-   chunks.forEach((text,i)=>{
-    const heading=poemHeading(p,i>0);
-    pages.push(`<section class="poem">${header}${heading}<p class="verse">${esc(text)}</p></section>`);
+   let lineOffset=0;
+   chunks.forEach(({text,font,height},i)=>{
+    const heading=poemHeading(p,i>0),nextLine=lineOffset+text.split('\n').length;
+    pages.push(`<section class="poem">${header}${heading}<p class="verse verse-columns" style="--verse-size:${font}px;--verse-height:${height}px">${esc(text)}</p>${recitalPlayer(p,lineOffset,nextLine)}</section>`);
+    lineOffset=nextLine;
    });
   }
   pages[section.page]=`<section class="section-opener"><div class="eyebrow">PART ${String(sectionIndex+1).padStart(2,'0')} · ${section.poems.length}편</div><h2>${esc(section.title)}</h2><p class="section-subtitle">${esc(section.subtitle)}</p><p class="section-note">${esc(section.intro)}</p><div class="chapter-list">${section.entries.map(e=>tocButton(e.title,e.page)).join('')}</div></section>`;
@@ -182,7 +221,7 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
  pages[2]=`<section class="colophon editorial"><div class="eyebrow">EDITOR’S NOTE · 편집의 말</div><h2>기억을 건너,<br>계절을 지나</h2><p>『${BOOK_TITLE}』는 명도재 이명우의 창작시 서른여덟 편을 네 갈래의 길로 엮은 디지털 시집입니다.</p><p>가족의 기억에서 계절의 표정으로, 도시의 저녁에서 주리못의 물가로. 서로 다른 풍경을 지나며 삶을 바라보는 시선의 결을 따라갑니다.</p><p>첫 장의 노래를 듣고, 마음이 머무는 작품을 골라 읽어도 좋습니다. 천천히 한 장씩 넘기며 자신만의 순서로 이 책을 만나보세요.</p><p class="caption">시 제목과 본문은 기존 원문을 보존했습니다.<br>부제·부 구성·부별 여는 글은 이 디지털 판의 편집입니다.<br>편집의 말은 시인의 서문과 구분합니다.</p></section>`;
  pages[3]=`<section class="book-contents"><div class="eyebrow">CONTENTS · 차례</div><h2>네 갈래의 길</h2><p class="section-subtitle">${BOOK_TITLE}<br><small>기억을 건너, 계절을 지나</small></p>${sections.map((section,i)=>`<div class="part-link">${tocButton(`제${i+1}부 ${section.title}`,section.page)}<p>${esc(section.subtitle)} · ${section.poems.length}편</p></div>`).join('')}<p class="caption">각 부의 첫 장에서 작품별 차례를 만날 수 있습니다.<br>상단 ‘목차’에서는 모든 작품으로 바로 이동할 수 있습니다.</p></section>`;
  const closing=pages.length;entries.push({title:'책을 덮으며 · 판권',page:closing});
- pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『${BOOK_TITLE}』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
+ pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『${BOOK_TITLE}』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>시낭송 · eSpeak NG 한국어 합성음, 시인 육성 아님.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
  // Keep the back cover as the final right-hand page on a desktop spread.
  if(pages.length%2===0)pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');
  entries.push({title:'뒷표지',page:pages.length});pages.push(backCover);
@@ -192,7 +231,7 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
  $('#book').onclick=e=>{
   if(e.target.closest('[data-page]')){navigate(e);return}
   if(busy||Date.now()<suppressClickUntil||!$('#toc').hidden)return;
-  if(e.target.closest('a,button,video,input,textarea,select')||window.getSelection()?.toString())return;
+  if(e.target.closest('a,button,video,audio,input,textarea,select')||window.getSelection()?.toString())return;
   const page=e.target.closest('#left,#right');if(!page)return;
   const rect=page.getBoundingClientRect();
   const backward=mobile.matches?e.clientX<rect.left+rect.width/2:page.id==='left';

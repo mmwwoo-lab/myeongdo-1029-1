@@ -60,3 +60,23 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 .cover.hardcover-front .imprint{font-size:13px;letter-spacing:3px;color:#423c2f;text-align:center;left:0;right:0}
 .back-cover-imprint{font-size:13px;letter-spacing:3px;color:#e3d7b3;text-align:center}
 @media(max-width:800px){.cover .gold-foil,.back-cover .gold-foil{-webkit-text-stroke:.6px #211c13}.cover.hardcover-front .imprint,.back-cover-imprint{font-size:11px;letter-spacing:2px}}
+
+/* Brighter stock; illustrations belong only to a poem's opening title page. */
+:root{--paper:#fffef9}
+.left{background:linear-gradient(90deg,var(--paper) 96%,#f0ede5)}.right{background:linear-gradient(90deg,#f1eee7,var(--paper) 5%)}.turn .page{background:linear-gradient(90deg,#f0ece3,var(--paper) 8%)}
+.poem-heading h2{font-family:'Myeongdo Brush','Batang',serif;font-size:32px;line-height:1.45;font-weight:400;letter-spacing:0;color:#273c3c}
+.recital{margin-top:16px;padding-top:9px;border-top:1px solid #e2e4d8;cursor:auto}
+.recital-label{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:#5e746a;line-height:1.6}
+.recital-label a{color:#647665;text-decoration:underline;text-underline-offset:3px}
+.recital audio{display:block;width:100%;height:32px;margin:5px 0 3px;cursor:auto}
+.recital small{display:block;font-size:9px;line-height:1.5;color:#818b7b}
+@media(max-width:800px){.poem-heading h2{font-size:29px}.recital-label{font-size:10px}}
+@media print{.recital{display:none}}
+
+/* One poem on one page where possible, never more than two; read down each column. */
+.poem-header{margin-bottom:18px;padding-bottom:10px;letter-spacing:1px}
+.poem-heading{grid-template-columns:minmax(0,1fr) 104px;min-height:104px;margin-bottom:18px}
+.poem-art{width:104px;height:104px}
+.verse-columns{column-count:2;column-gap:24px;column-rule:1px solid #e2e6db;column-fill:auto;height:var(--verse-height);font-size:var(--verse-size,14.5px);line-height:1.8;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:800px){.poem-heading{grid-template-columns:minmax(0,1fr) 88px;min-height:88px;gap:10px}.poem-art{width:88px;height:88px}.verse-columns{column-gap:16px}.poem-header{font-size:9px;letter-spacing:0}}
+@media print{.verse-columns{height:auto;column-fill:balance}}
