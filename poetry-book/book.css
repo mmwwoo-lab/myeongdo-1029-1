@@ -349,3 +349,19 @@ body{background:#ffffff!important;color:#263c3b}
 @supports(aspect-ratio:16 / 9){
  .song video{height:auto!important;aspect-ratio:16 / 9!important}
 }
+
+/* Section-divider leaves: soft ivory distinguishing pages 5, 24, 34, 47. */
+.book>.page[data-number="05"],.book>.page[data-number="24"],
+.book>.page[data-number="34"],.book>.page[data-number="47"],
+.turn .page[data-number="05"],.turn .page[data-number="24"],
+.turn .page[data-number="34"],.turn .page[data-number="47"]{
+ background:linear-gradient(105deg,#faf5e9 0%,#f9f3e5 50%,#f6efdf 100%)!important;
+}
+.book>.page.left[data-number="05"],.book>.page.left[data-number="24"],
+.book>.page.left[data-number="34"],.book>.page.left[data-number="47"]{
+ box-shadow:inset -10px 0 16px -10px rgba(61,53,43,.16)!important;
+}
+.book>.page.right[data-number="05"],.book>.page.right[data-number="24"],
+.book>.page.right[data-number="34"],.book>.page.right[data-number="47"]{
+ box-shadow:inset 10px 0 16px -10px rgba(61,53,43,.16)!important;
+}
