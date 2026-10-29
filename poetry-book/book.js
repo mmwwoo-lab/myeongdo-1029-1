@@ -4,11 +4,47 @@ let pages=[],position=0,busy=false;const mobile=matchMedia('(max-width:800px)');
 const song=`<section class="song"><div class="eyebrow">OPENING · 시에서 노래로</div><h1>물에게<br>길을 묻다</h1><p class="lead">한 편의 시가 노래가 되어,<br>책의 첫 장에 흐릅니다.</p><video controls playsinline preload="metadata" poster="media/song-poster.jpg" aria-label="물에게 길을 묻다 창작시 노래 영상"><source src="media/asking-water.mp4" type="video/mp4">이 브라우저에서는 영상을 재생할 수 없습니다.</video><div class="caption">「물에게 길을 묻다」 · 창작시를 노래로 만든 영상<br>시 이명우 · 제공 영상 수록 · 3분 47초</div><hr><p class="intro">물의 흐름을 따라 삶의 방향을 묻는 시.<br>먼저 노래로 만나고, 다음 장에서 시의 문장으로 천천히 돌아오세요.</p></section>`;
 const cover=`<section class="cover"><div class="eyebrow">MYEONGDO · POETRY</div><h2 class="vertical">물에게<br>길을 묻다</h2><p class="author">명도재 이명우 창작 시집</p><div class="imprint">기억을 건너, 계절을 지나</div></section>`;
 function render(){for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;el.innerHTML=pages[n]||'';el.dataset.number=String(n+1).padStart(2,'0');el.scrollTop=0;el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
-function go(target){target=Math.max(0,Math.min(pages.length-step(),target));if(!mobile.matches)target-=target%2;if(busy||target===position)return;busy=true;document.querySelectorAll('video').forEach(v=>v.pause());const backward=target<position,turn=$('#turn'),source=$(mobile.matches?'#left':backward?'#left':'#right');turn.innerHTML=`<div class="page">${source.innerHTML}</div>`;turn.querySelectorAll('video').forEach(v=>{v.removeAttribute('controls');v.preload='none'});turn.className=`turn active${backward?' back':''}`;const finish=()=>{turn.className='turn';turn.innerHTML='';position=target;render();busy=false;history.replaceState(null,'',`#page-${position+1}`)};turn.addEventListener('animationend',finish,{once:true});}
+function go(target){
+ if(!pages.length)return;
+ target=Math.max(0,Math.min(pages.length-step(),target));
+ if(!mobile.matches)target-=target%2;
+ if(busy||target===position)return;
+ busy=true;
+ document.querySelectorAll('video').forEach(v=>v.pause());
+ const backward=target<position,turn=$('#turn');
+ const source=$(mobile.matches?'#left':backward?'#left':'#right');
+ const makeFace=(html,number,side)=>{
+  const face=document.createElement('div');face.className=`sheet-face sheet-${side}`;
+  const paper=document.createElement('div');paper.className='page';paper.dataset.number=String(number+1).padStart(2,'0');paper.innerHTML=html;
+  paper.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+  paper.querySelectorAll('video').forEach(v=>{v.removeAttribute('controls');v.preload='none';v.removeAttribute('autoplay')});
+  face.append(paper);return face;
+ };
+ const front=makeFace(source.innerHTML,Number(source.dataset.number)-1,'front');
+ const reverseIndex=mobile.matches?target:backward?target+1:target;
+ const back=makeFace(pages[reverseIndex],reverseIndex,'back');
+ turn.replaceChildren(front,back);
+ front.firstElementChild.scrollTop=source.scrollTop;
+ // Reveal the destination under the turning sheet, never through it.
+ const under=$(mobile.matches?'#left':backward?'#left':'#right');
+ const underIndex=mobile.matches?target:backward?target:target+1;
+ under.innerHTML=pages[underIndex]||'';under.dataset.number=String(underIndex+1).padStart(2,'0');under.scrollTop=0;
+ let finished=false;
+ const finish=()=>{
+  if(finished)return;finished=true;clearTimeout(fallback);turn.removeEventListener('animationend',onEnd);
+  turn.className='turn';turn.replaceChildren();position=target;render();busy=false;
+  history.replaceState(null,'',`#page-${position+1}`);
+ };
+ const onEnd=e=>{if(e.target===turn)finish()};
+ const fallback=setTimeout(finish,1100);
+ turn.addEventListener('animationend',onEnd);
+ turn.className=`turn active${backward?' back':''}`;
+}
 function toggleToc(open){$('#toc').hidden=!open;$('#contents').setAttribute('aria-expanded',String(open));if(open)$('#close').focus();else $('#contents').focus()}
 $('#prev').onclick=()=>go(position-step());$('#next').onclick=()=>go(position+step());$('#contents').onclick=()=>toggleToc($('#toc').hidden);$('#close').onclick=()=>toggleToc(false);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleToc(false);if(!$('#toc').hidden||/INPUT|TEXTAREA|VIDEO/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();go(position+step())}if(e.key==='ArrowLeft'){e.preventDefault();go(position-step())}});
-let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)go(position+(dx<0?step():-step()))},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
+let suppressClickUntil=0;
+let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
 const sections = [
  {title:'어머니의 시간',subtitle:'가족의 기억과 오래된 뿌리',categories:['가족과 기억','역사와 뿌리'],intro:'바늘이 지나간 자리에는 옷감만 이어지는 것이 아닙니다. 어머니와 아버지의 손길에서 시작한 기억은, 우리가 걸어온 오래된 길로 이어집니다.'},
  {title:'꽃이 머무는 계절',subtitle:'피어나고 저무는 것들 곁에서',categories:['꽃과 서정','계절과 사색','동시와 동심'],intro:'꽃과 작은 물방울, 계절 사이에 잠시 머물러 봅니다. 피어나는 순간과 저무는 순간을 함께 바라보며 삶의 속도를 늦추는 시간입니다.'},
@@ -42,6 +78,15 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
  if(pages.length%2)pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');
  $('#toc-list').innerHTML=entries.map(e=>e.heading?`<h3>${tocButton(e.title,e.page)}</h3>`:tocButton(e.title,e.page)).join('');
  const navigate=e=>{const button=e.target.closest('[data-page]');if(button){if(!$('#toc').hidden)toggleToc(false);go(Number(button.dataset.page))}};
- $('#toc-list').onclick=navigate;$('#book').onclick=navigate;
+ $('#toc-list').onclick=navigate;
+ $('#book').onclick=e=>{
+  if(e.target.closest('[data-page]')){navigate(e);return}
+  if(busy||Date.now()<suppressClickUntil||!$('#toc').hidden)return;
+  if(e.target.closest('a,button,video,input,textarea,select')||window.getSelection()?.toString())return;
+  const page=e.target.closest('#left,#right');if(!page)return;
+  const rect=page.getBoundingClientRect();
+  const backward=mobile.matches?e.clientX<rect.left+rect.width/2:page.id==='left';
+  go(position+(backward?-step():step()));
+ };
  const match=location.hash.match(/^#page-(\d+)$/);if(match){position=Math.min(pages.length-step(),Math.max(0,Number(match[1])-1));if(!mobile.matches)position-=position%2}render();
 }).catch(()=>{$('#error').hidden=false;$('#prev').disabled=true;$('#next').disabled=true});
