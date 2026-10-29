@@ -194,7 +194,7 @@ document.addEventListener('click',e=>{
 });
 window.addEventListener('pagehide',stopRecital);
 function recitalPlayer(p,startLine,endLine){
- return \`<div class="recital"><div class="recital-label"><span>🎙️ 작품 시낭송</span><button type="button" data-recital-id="\${esc(p.id)}" aria-pressed="false" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:7px 16px;cursor:pointer">▶ 시 낭송</button></div><small>한국어 음성 낭송 · 다시 누르면 중지합니다. 음성 미지원 환경에서는 기존 녹음 파일로 연결됩니다.</small></div>\`;
+ return `<div class="recital"><div class="recital-label"><span>🎙️ 작품 시낭송</span><button type="button" data-recital-id="${esc(p.recital.id)}" aria-pressed="false" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:7px 16px;cursor:pointer">▶ 시 낭송</button></div><small>한국어 음성 낭송 · 다시 누르면 중지합니다. 음성 미지원 환경에서는 기존 녹음 파일로 연결됩니다.</small></div>`;
 }
 function splitIllustratedPoem(p,header){
  const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
