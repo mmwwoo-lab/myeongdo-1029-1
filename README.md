@@ -46,3 +46,15 @@ GitHub Pages 주소는 **현재 공개 운영 주소가 아닙니다.** Pages를
 - 크롬에서 직접 여는 전용 완성본은 ChatGPT 대화에 제공된 **명도재_크롬실행_수정완료.zip** 속 `명도재_크롬바로열기.html`입니다. 그림·음악이 단일 파일에 내장되어 있어 Vite/npm/서버 없이 실행됩니다.
 - ZIP을 전부 압축 해제하고 `크롬에서_열기.bat`를 실행하거나 단일 HTML을 크롬으로 여세요.
 - GitHub Pages 공개 URL은 저장소의 Settings → Pages에서 최초 활성화·배포가 완료되어야 작동합니다. GitHub에 코드가 있다는 사실만으로 공개 URL이 활성화되지는 않습니다.
+
+
+## ✅ GitHub에서 내려받아 Chrome으로 바로 실행
+
+원본 `index.html`과 `assets/` 폴더는 GitHub Pages/일반 웹서버용입니다. 파일만 복사하여 열면 이미지·음악이 빠질 수 있습니다.
+
+1. [Code → Download ZIP](https://github.com/mmwwoo-lab/myeongdo-1029-1/archive/refs/heads/main.zip)으로 **저장소 전체**를 다운로드하고 압축 해제합니다.
+2. Windows에서 `open-chrome.bat`를 더블클릭하면 `build-offline.ps1`가 기존 그림 6개·음악 4곡을 하나의 `myeongdo-chrome-offline.html`에 포함시킵니다.
+3. 만들어진 `myeongdo-chrome-offline.html`은 Chrome에서 서버·Vite·npm 없이 열 수 있습니다. 단, **Windows PowerShell과 Chrome이 설치**돼 있어야 하고, 음성 읽기는 Chrome/Windows의 한국어 TTS에 따라 달라집니다.
+4. 온라인 공개 주소 `https://mmwwoo-lab.github.io/myeongdo-1029-1/`은 별개입니다. 먼저 GitHub 저장소 **Settings → Pages**를 활성화해야 합니다. GitHub Pages가 비활성화된 상태에서는 URL이 열리지 않습니다.
+
+크롬 단일 HTML 완성본은 ChatGPT 대화에 제공한 `명도재_크롬실행_수정완료.zip`에도 포함됩니다.
