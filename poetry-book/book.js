@@ -46,14 +46,14 @@ function playPageTurnSound(){
 }
 $('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
 updateSoundControl();
-function render(){haltPoemVoice();document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
+function render(){stopRecital();document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
 function go(target){
  if(!pages.length)return;
  target=Math.max(0,Math.min(pages.length-step(),target));
  if(!mobile.matches)target-=target%2;
  if(busy||target===position)return;
  busy=true;
- haltPoemVoice();
+ stopRecital();
  playPageTurnSound();
  document.querySelectorAll('video,audio').forEach(v=>v.pause());
  const backward=target<position,turn=$('#turn');
@@ -138,59 +138,63 @@ function poemHeading(p,continued=false){
  const x=(motif[0]%5)*25,y=Math.floor(motif[0]/5)*100/3;
  return `<div class="poem-heading">${continued?'<span aria-hidden="true"></span>':`<h2>${esc(p.title)}</h2>`}<figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
 }
-const recitalDialog=document.createElement('dialog');
-recitalDialog.setAttribute('aria-label','작품 시낭송');
-recitalDialog.style.cssText='width:min(720px,92vw);max-height:90vh;padding:18px;border:1px solid #ccd7ce;border-radius:16px;background:#fafbf5;color:#263f34';
-recitalDialog.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0;font:600 20px system-ui" id="recital-title"></h2><button type="button" style="font:16px system-ui;padding:8px 14px" aria-label="낭송 창 닫기">닫기 ×</button></div><p style="font:13px/1.6 system-ui">시 낭송 재생 버튼을 눌러 주세요.</p><div id="recital-frame"></div>';
-document.body.append(recitalDialog);
-function closeRecital(){recitalDialog.querySelector('#recital-frame').replaceChildren();if(recitalDialog.open)recitalDialog.close()}
-recitalDialog.querySelector('button').addEventListener('click',closeRecital);
-recitalDialog.addEventListener('close',()=>recitalDialog.querySelector('#recital-frame').replaceChildren());
-recitalDialog.addEventListener('click',e=>{if(e.target===recitalDialog){const r=recitalDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeRecital()}});
-document.addEventListener('click',e=>{
- const button=e.target.closest('[data-recital-url]');if(!button)return;
- const url=new URL(button.dataset.recitalUrl);if(url.origin!=='https://www.aidocmaker.com')return;
- document.querySelectorAll('audio,video').forEach(media=>media.pause());
- recitalDialog.querySelector('#recital-title').textContent=button.dataset.recitalTitle+' · 시낭송';
- const frame=document.createElement('iframe');frame.src=url.href;frame.title=button.dataset.recitalTitle+' 낭송 재생창';frame.allow='autoplay';frame.style.cssText='width:100%;height:60vh;min-height:300px;border:0;background:white';
- recitalDialog.querySelector('#recital-frame').replaceChildren(frame);if(!recitalDialog.open)recitalDialog.showModal();
-});
-window.addEventListener('pagehide',closeRecital);
-let poemVoiceMap=new Map(),speechRun=0;
-function haltPoemVoice(){
- speechRun++;
+// One stable, native recital button per poem; no cross-origin iframe dependency.
+let poemVoiceMap=new Map(),currentSpeech=null,recitalToken=0;
+function stopRecital(){
+ recitalToken++;
  if('speechSynthesis' in window)window.speechSynthesis.cancel();
- document.querySelectorAll('[data-poem-speak]').forEach(b=>{b.textContent='🎙️ 여성 목소리로 시 낭송';b.setAttribute('aria-pressed','false')});
+ document.querySelectorAll('[data-recital-id]').forEach(b=>{
+  b.textContent='▶ 시 낭송';b.setAttribute('aria-pressed','false');
+ });
+ currentSpeech=null;
 }
-function selectKoreanVoice(){
+function voiceForPoetry(){
  const voices=window.speechSynthesis.getVoices().filter(v=>/^ko([-_]|$)/i.test(v.lang));
  const feminine=/female|woman|여성|heami|sunhi|sora|jiyeon|yuna|yuri|seoyeon|seo[- ]?yeon|jiyoung|ji[- ]?young|suyeon|sooyeon|nari|hyemi|혜미|선희|소라|지연|유나|유리|서연|지영|수연|나리/i;
- return voices.find(v=>feminine.test(v.name))||voices[0];
+ return voices.find(v=>feminine.test(v.name))||voices[0]||null;
 }
-function startPoemVoice(id,button){
- if(!('speechSynthesis' in window)){alert('음성 읽기를 지원하지 않는 브라우저입니다. 크롬으로 열어주세요.');return}
- if(button.getAttribute('aria-pressed')==='true'){haltPoemVoice();return}
- const p=poemVoiceMap.get(id);if(!p)return;
- haltPoemVoice();const synth=window.speechSynthesis,run=++speechRun;
- const voice=selectKoreanVoice();if(!voice){alert('이 기기에 한국어 음성이 없습니다. 크롬의 한국어 음성을 설치하거나 기존 AI 낭송을 이용해 주세요.');return}
- document.querySelectorAll('video,audio').forEach(m=>m.pause());
- button.textContent='■ 낭송 중지';button.setAttribute('aria-pressed','true');
- const lines=(p.title+'\n이명우\n'+p.text).split(/\n+/).map(x=>x.trim()).filter(Boolean);
- let i=0;const speakNext=()=>{
-  if(run!==speechRun)return;
-  if(i>=lines.length){haltPoemVoice();return}
-  const line=lines[i++];const u=new SpeechSynthesisUtterance(line);u.lang='ko-KR';u.voice=voice;u.rate=.83;u.pitch=1.08;u.volume=1;
-  u.onend=speakNext;u.onerror=()=>{if(run===speechRun)haltPoemVoice()};
-  synth.speak(u);
- };speakNext();
+function startRecital(id,btn){
+ if(currentSpeech===id){stopRecital();return}
+ const poem=poemVoiceMap.get(id);if(!poem)return;
+ stopRecital();
+ if(!('speechSynthesis' in window)){showAudioLink(poem);return}
+ const synth=window.speechSynthesis,voice=voiceForPoetry();
+ if(!voice){showAudioLink(poem);return}
+ document.querySelectorAll('video,audio').forEach(a=>a.pause());
+ const token=++recitalToken;currentSpeech=id;
+ btn.textContent='■ 시 낭송 중지';btn.setAttribute('aria-pressed','true');
+ const lines=[poem.title,'이명우',...poem.text.split(/\n+/)].map(t=>t.trim()).filter(Boolean);
+ let index=0;
+ const next=()=>{
+  if(token!==recitalToken)return;
+  if(index>=lines.length){stopRecital();return}
+  const utterance=new SpeechSynthesisUtterance(lines[index++]);
+  utterance.lang='ko-KR';utterance.voice=voice;utterance.rate=.84;utterance.pitch=1.07;utterance.volume=1;
+  utterance.onend=next;
+  utterance.onerror=()=>{if(token===recitalToken){stopRecital();showAudioLink(poem)}};
+  synth.speak(utterance);
+ };
+ next();
+}
+function showAudioLink(poem){
+ const url=poem.recital?.url;
+ if(!url)return;
+ const dlg=document.createElement('dialog');
+ dlg.style.cssText='border:1px solid #b6c8be;border-radius:14px;padding:22px;max-width:90vw;background:#fffef9;color:#263c3b';
+ const heading=document.createElement('h2');heading.textContent=poem.title+' · 시 낭송';
+ const message=document.createElement('p');message.textContent='이 브라우저에서 한국어 음성 낭송을 시작할 수 없습니다. 아래 링크에서 기존 녹음 파일을 재생할 수 있습니다.';
+ const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='🎧 음성파일 열기';link.style.cssText='display:inline-block;padding:10px;color:#174a5f';
+ const close=document.createElement('button');close.type='button';close.textContent='닫기';close.onclick=()=>dlg.close();
+ dlg.append(heading,message,link,close);document.body.append(dlg);dlg.addEventListener('close',()=>dlg.remove(),{once:true});dlg.showModal();
 }
 document.addEventListener('click',e=>{
- const b=e.target.closest('[data-poem-speak]');if(b){e.preventDefault();startPoemVoice(b.dataset.poemSpeak,b)}
+ const b=e.target.closest('[data-recital-id]');
+ if(!b)return;
+ e.preventDefault();startRecital(b.dataset.recitalId,b);
 });
-window.addEventListener('pagehide',haltPoemVoice);
+window.addEventListener('pagehide',stopRecital);
 function recitalPlayer(p,startLine,endLine){
- const recording=p.recital;
- return `<div class="recital"><div class="recital-label"><span>🎙️ 작품 시낭송</span><button type="button" data-recital-url="${esc(recording.url)}" data-recital-title="${esc(p.title)}" aria-haspopup="dialog" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:7px 16px;cursor:pointer">▶ 시 낭송</button></div><small>버튼을 누르면 이 시의 음성 낭송을 들을 수 있습니다.</small></div>`;
+ return \`<div class="recital"><div class="recital-label"><span>🎙️ 작품 시낭송</span><button type="button" data-recital-id="\${esc(p.id)}" aria-pressed="false" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:7px 16px;cursor:pointer">▶ 시 낭송</button></div><small>한국어 음성 낭송 · 다시 누르면 중지합니다. 음성 미지원 환경에서는 기존 녹음 파일로 연결됩니다.</small></div>\`;
 }
 function splitIllustratedPoem(p,header){
  const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
@@ -246,7 +250,7 @@ const sections = [
 const tocButton=(title,page)=>`<button data-page="${page}">${esc(title)}<span>${String(page+1).padStart(2,'0')}</span></button>`;
 Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{if(!r.ok)throw Error(file);return r.json()}))).then(async ([poems,recordings])=>{
  await document.fonts.load('32px "Myeongdo Brush"');
- poemVoiceMap=new Map(poems.map(p=>[p.id,p]));
+ poemVoiceMap=new Map(poems.map((p,i)=>[p.id||'p'+String(i+1).padStart(2,'0'),p]));
  for(const p of poems){p.recital=recordings.entries.find(r=>r.title===p.title);if(!p.recital)throw Error('Missing recital: '+p.title)}
  pages=[cover,song,'',''];
  const entries=[{title:'앞표지',page:0},{title:'시에서 노래로 · 여는 장',page:1},{title:'이 책을 펼치며 · 편집의 말',page:2},{title:'차례 · 네 갈래의 길',page:3}];
