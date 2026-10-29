@@ -85,3 +85,8 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 body{background:#fff!important}
 .page,.left,.right,.turn .page{background:#fff!important}
 .book-frame{background:#fff}
+
+/* Consistent white background across desktop, mobile, cover-adjacent and page-turn states. */
+html,body,main,.book-frame,.book,.reader,.above,footer{background-color:#ffffff!important}
+body{background:#ffffff!important;color:#263c3b}
+.page:not(.cover-page):not(.back-cover-page),.left:not(.cover-page),.right:not(.cover-page),.turn .page:not(.cover-page):not(.back-cover-page){background:#ffffff!important}
