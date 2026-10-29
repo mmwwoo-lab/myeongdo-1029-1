@@ -137,9 +137,27 @@ function poemHeading(p,continued=false){
  const x=(motif[0]%5)*25,y=Math.floor(motif[0]/5)*100/3;
  return `<div class="poem-heading">${continued?'<span aria-hidden="true"></span>':`<h2>${esc(p.title)}</h2>`}<figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
 }
+const recitalDialog=document.createElement('dialog');
+recitalDialog.setAttribute('aria-label','작품 시낭송');
+recitalDialog.style.cssText='width:min(720px,92vw);max-height:90vh;padding:18px;border:1px solid #ccd7ce;border-radius:16px;background:#fafbf5;color:#263f34';
+recitalDialog.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0;font:600 20px system-ui" id="recital-title"></h2><button type="button" style="font:16px system-ui;padding:8px 14px" aria-label="낭송 창 닫기">닫기 ×</button></div><p style="font:13px/1.6 system-ui">아래 재생창에서 재생 버튼을 눌러 주세요.</p><div id="recital-frame"></div>';
+document.body.append(recitalDialog);
+function closeRecital(){recitalDialog.querySelector('#recital-frame').replaceChildren();if(recitalDialog.open)recitalDialog.close()}
+recitalDialog.querySelector('button').addEventListener('click',closeRecital);
+recitalDialog.addEventListener('close',()=>recitalDialog.querySelector('#recital-frame').replaceChildren());
+recitalDialog.addEventListener('click',e=>{if(e.target===recitalDialog){const r=recitalDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeRecital()}});
+document.addEventListener('click',e=>{
+ const button=e.target.closest('[data-recital-url]');if(!button)return;
+ const url=new URL(button.dataset.recitalUrl);if(url.origin!=='https://www.aidocmaker.com')return;
+ document.querySelectorAll('audio,video').forEach(media=>media.pause());
+ recitalDialog.querySelector('#recital-title').textContent=button.dataset.recitalTitle+' · 시낭송';
+ const frame=document.createElement('iframe');frame.src=url.href;frame.title=button.dataset.recitalTitle+' 낭송 재생창';frame.allow='autoplay';frame.style.cssText='width:100%;height:60vh;min-height:300px;border:0;background:white';
+ recitalDialog.querySelector('#recital-frame').replaceChildren(frame);if(!recitalDialog.open)recitalDialog.showModal();
+});
+window.addEventListener('pagehide',closeRecital);
 function recitalPlayer(p,startLine,endLine){
  const recording=p.recital;
- return `<div class="recital"><div class="recital-label"><span>이 작품 전체 낭송</span><a href="${esc(recording.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(p.title)} 전체 낭송 듣기 및 다운로드 · 새 창">▶ 낭송 듣기 · 다운로드 ↗</a></div><small>AI Voice Generator · 부드러운 음성 · 외부 재생 페이지에서 작품 전체를 듣습니다.</small></div>`;
+ return `<div class="recital"><div class="recital-label"><span>이 작품 전체 낭송</span><button type="button" data-recital-url="${esc(recording.url)}" data-recital-title="${esc(p.title)}" aria-haspopup="dialog" style="font:inherit;color:#365b49;background:#edf3e8;border:1px solid #c8d5bd;border-radius:6px;padding:6px 12px;cursor:pointer">▶ 이 페이지에서 듣기</button></div><small>AI Voice Generator · 시집 안의 재생창에서 듣습니다.</small></div>`;
 }
 function splitIllustratedPoem(p,header){
  const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
