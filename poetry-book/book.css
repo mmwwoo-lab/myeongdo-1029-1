@@ -96,3 +96,30 @@ body{background:#ffffff!important;color:#263c3b}
 .page[data-number="69"]>section{width:100%;max-width:440px;text-align:center;margin:auto 0}
 .page[data-number="69"] .colophon h2{margin:22px 0 24px}
 @media(max-width:800px){.page[data-number="69"]>section{max-width:100%}}
+
+/* 2026-10-30: matching deep forest-green hardcover boards */
+.page.cover-page,.page.back-cover-page{
+ background:#173b32!important;border-color:#0c2b24!important;
+ box-shadow:inset 5px 0 12px #071d1888,inset -2px 0 4px #b9cda544!important;
+}
+.page.cover-page:before,.page.back-cover-page:before{
+ border-color:#a6b99a88!important;box-shadow:inset 0 0 0 2px #f8eedc18,0 0 0 2px #071d1866!important;
+}
+.cover.hardcover-front,.back-cover{
+ background-color:#173b32!important;
+ border-color:#9bae91aa!important;
+ box-shadow:3px 3px 0 #0b2a22,5px 5px 0 #426756!important;
+}
+.cover.hardcover-front:after{
+ content:"";position:absolute;inset:0;background:linear-gradient(180deg,#123a3199 0%,#123a3155 40%,#123a31aa 100%);pointer-events:none;
+}
+.cover.hardcover-front .cover-type,.cover.hardcover-front .author,.cover.hardcover-front .imprint{z-index:2}
+.cover .calligraphy,.cover .gold-foil,.back-cover .gold-foil{
+ color:#e6d4a2!important;-webkit-text-fill-color:#e6d4a2!important;-webkit-text-stroke:.4px #10251e!important;
+ background:none!important;filter:none!important;text-shadow:0 1px 3px #081f1b!important;
+}
+.cover-type .eyebrow,.cover-subtitle,.cover.hardcover-front .author,.cover.hardcover-front .imprint,
+.back-cover-mark,.back-cover-quote,.back-cover-author,.back-cover-imprint{
+ color:#eee5cc!important;text-shadow:0 1px 2px #071c17aa;
+}
+.back-cover-title{color:#e6d4a2!important}
