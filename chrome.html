@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>명도재 홈페이지 · 크롬에서 열기</title>
+<meta name="description" content="명도재 예술전문지가 실행되지 않을 때 Chrome으로 열기 안내">
+<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(145deg,#e7f4fe,#eef8e7);color:#16475d;font-family:'Malgun Gothic',Arial,sans-serif;padding:22px}.card{width:min(100%,570px);padding:35px 26px;border-radius:20px;background:#fff;box-shadow:0 16px 40px #25627a25;border:1px solid #c4e4dc}h1{font-size:clamp(25px,5vw,34px);margin:10px 0}p{line-height:1.85;color:#54717a}.btn{display:block;text-align:center;margin:13px 0;padding:15px 20px;background:#15658a;color:white;font-weight:800;border-radius:12px;text-decoration:none;font-size:17px;border:0;cursor:pointer;width:100%}.btn.second{background:#f0f9fc;color:#175977;border:1px solid #b7d6e1}.small{font-size:13px}input{width:100%;padding:12px;border:1px solid #afcdd7;border-radius:8px;color:#376474}.status{color:#25624d;font-weight:700;min-height:24px}</style></head>
+<body><main class="card"><div>🌸 명도재 예술전문지</div><h1>Google Chrome으로 열기</h1>
+<p>페이스북·카카오톡 앱 안에서 화면이 열리지 않거나 시낭송·음악이 동작하지 않으면 아래 버튼을 누르세요.</p>
+<a class="btn" id="launch" href="https://myeongdo-1029-1.vercel.app/" rel="noopener noreferrer">🌐 크롬에서 홈페이지 열기</a>
+<button class="btn second" id="copy" type="button">📋 홈페이지 주소 복사</button>
+<p class="small">전환이 제한된다면 주소를 복사한 다음 Chrome 앱을 직접 실행해 주소창에 붙여넣으세요. 컴퓨터에서는 Chrome을 직접 열어야 합니다.</p>
+<input id="addr" readonly value="https://myeongdo-1029-1.vercel.app/" aria-label="홈페이지 주소">
+<p class="status" id="status" role="status" aria-live="polite"></p>
+</main><script>
+(function(){
+var url='https://myeongdo-1029-1.vercel.app/',a=document.getElementById('launch'),c=document.getElementById('copy'),i=document.getElementById('addr'),s=document.getElementById('status'),ua=navigator.userAgent||'';
+if(/Android/i.test(ua))a.href='intent://myeongdo-1029-1.vercel.app/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(url)+';end';
+else if(/iPad|iPhone|iPod/i.test(ua))a.href='googlechromes://myeongdo-1029-1.vercel.app/';
+else{a.target='_blank';a.textContent='🌐 홈페이지 새 창 열기'}
+a.onclick=function(){s.textContent='Chrome이 실행되지 않으면 주소를 복사해 직접 붙여넣으세요.'};
+c.onclick=async function(){var ok=false;try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(url);ok=true}}catch(e){}if(!ok){i.focus();i.select();try{ok=document.execCommand('copy')}catch(e){}}s.textContent=ok?'주소를 복사했습니다. Chrome에 붙여넣으세요.':'아래 주소를 선택하여 복사해 주세요.'};
+})();
+</script></body></html>
