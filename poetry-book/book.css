@@ -123,3 +123,16 @@ body{background:#ffffff!important;color:#263c3b}
  color:#eee5cc!important;text-shadow:0 1px 2px #071c17aa;
 }
 .back-cover-title{color:#e6d4a2!important}
+
+/* First-page cover: visibly match the deep forest-green back cover. */
+.page.cover-page:has(.hardcover-front){background:#173b32!important}
+.cover.hardcover-front{background:#173b32!important}
+.cover.hardcover-front .cover-art{
+ opacity:.25!important;
+ mix-blend-mode:luminosity!important;
+ filter:grayscale(1) contrast(.8)!important;
+}
+.cover.hardcover-front:after{background:linear-gradient(180deg,#173b3266,#173b3255 42%,#173b3288)!important}
+.cover.hardcover-front .cover-type,
+.cover.hardcover-front .author,
+.cover.hardcover-front .imprint{position:absolute;z-index:3}
