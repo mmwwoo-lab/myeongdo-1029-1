@@ -90,3 +90,9 @@ body{background:#fff!important}
 html,body,main,.book-frame,.book,.reader,.above,footer{background-color:#ffffff!important}
 body{background:#ffffff!important;color:#263c3b}
 .page:not(.cover-page):not(.back-cover-page),.left:not(.cover-page),.right:not(.cover-page),.turn .page:not(.cover-page):not(.back-cover-page){background:#ffffff!important}
+
+/* Page 69: center the closing text on the printed page without changing other pages. */
+.page[data-number="69"]{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.page[data-number="69"]>section{width:100%;max-width:440px;text-align:center;margin:auto 0}
+.page[data-number="69"] .colophon h2{margin:22px 0 24px}
+@media(max-width:800px){.page[data-number="69"]>section{max-width:100%}}
