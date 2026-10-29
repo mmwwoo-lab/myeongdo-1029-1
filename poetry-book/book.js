@@ -46,7 +46,9 @@ function playPageTurnSound(){
 }
 $('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
 updateSoundControl();
-function render(){stopRecital();document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
+function render(){stopRecital();document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#edge-prev').hidden=position===0;$('#edge-next').hidden=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
+$('#edge-prev').addEventListener('click',()=>go(position-step()));
+$('#edge-next').addEventListener('click',()=>go(position+step()));
 function go(target){
  if(!pages.length)return;
  target=Math.max(0,Math.min(pages.length-step(),target));
