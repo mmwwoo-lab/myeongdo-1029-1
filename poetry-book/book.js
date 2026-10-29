@@ -121,10 +121,10 @@ const illustrations={
  '전깃줄 위의 낮달':[13,'가느다란 버드나무 가지와 반달'],
  '못물':[15,'이슬 맺힌 풀잎 위 달팽이와 무당벌레']
 };
-function poemHeading(p){
+function poemHeading(p,continued=false){
  const motif=illustrations[p.title];if(!motif)throw Error('Missing illustration: '+p.title);
  const x=(motif[0]%5)*25,y=Math.floor(motif[0]/5)*100/3;
- return `<div class="poem-heading"><h2>${esc(p.title)}</h2><figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
+ return `<div class="poem-heading">${continued?'<span aria-hidden="true"></span>':`<h2>${esc(p.title)}</h2>`}<figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
 }
 function splitIllustratedPoem(p,header){
  // Measure the actual title, illustration and wrapped verses before pagination.
@@ -162,7 +162,7 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
    const header=`<div class="poem-header"><span>제${sectionIndex+1}부 · ${esc(section.title)}</span><span>${String(count).padStart(2,'0')} / 38</span></div>`;
    const chunks=splitIllustratedPoem(p,header);
    chunks.forEach((text,i)=>{
-    const heading=poemHeading(p).replace('</h2>',`${i?'<span class="continuation">계속</span>':''}</h2>`);
+    const heading=poemHeading(p,i>0);
     pages.push(`<section class="poem">${header}${heading}<p class="verse">${esc(text)}</p></section>`);
    });
   }
