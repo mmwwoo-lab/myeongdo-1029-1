@@ -365,3 +365,13 @@ body{background:#ffffff!important;color:#263c3b}
 .book>.page.right[data-number="34"],.book>.page.right[data-number="47"]{
  box-shadow:inset 10px 0 16px -10px rgba(61,53,43,.16)!important;
 }
+
+/* Accessible, crawler-visible index of the 38 original poems. */
+.searchable-index{max-width:1020px;margin:22px auto 38px;padding:0 30px;color:#31463e}
+.searchable-index details{border:1px solid #d9e1dc;background:#fafbf8;border-radius:10px;padding:14px 18px}
+.searchable-index summary{cursor:pointer;font-weight:700;font-size:14px;color:#305548}
+.searchable-index ol{columns:2;column-gap:35px;padding-left:23px;margin:15px 0}
+.searchable-index li{break-inside:avoid;margin:0 0 13px;font-size:12px;line-height:1.55}
+.searchable-index li span{color:#667870}
+.searchable-index li p{color:#7b827c;font-size:11px;margin:2px 0 0}
+@media(max-width:800px){.searchable-index{padding:0 15px}.searchable-index ol{columns:1}}
