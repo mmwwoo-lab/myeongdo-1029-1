@@ -46,16 +46,16 @@ function playPageTurnSound(){
 }
 $('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
 updateSoundControl();
-function render(){stopRecital();document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#edge-prev').hidden=position===0;$('#edge-next').hidden=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
+function render(){document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#edge-prev').hidden=position===0;$('#edge-next').hidden=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
 $('#edge-prev').addEventListener('click',()=>go(position-step()));
 $('#edge-next').addEventListener('click',()=>go(position+step()));
+ document.addEventListener('click',e=>{if(e.target.id==='recital-status')toggleRecitalPause()});
 function go(target){
  if(!pages.length)return;
  target=Math.max(0,Math.min(pages.length-step(),target));
  if(!mobile.matches)target-=target%2;
  if(busy||target===position)return;
  busy=true;
- stopRecital();
  playPageTurnSound();
  document.querySelectorAll('video,audio').forEach(v=>v.pause());
  const backward=target<position,turn=$('#turn');
@@ -141,14 +141,26 @@ function poemHeading(p,continued=false){
  return `<div class="poem-heading">${continued?'<span aria-hidden="true"></span>':`<h2>${esc(p.title)}</h2>`}<figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
 }
 // One stable, native recital button per poem; no cross-origin iframe dependency.
-let poemVoiceMap=new Map(),currentSpeech=null,recitalToken=0;
+let poemVoiceMap=new Map(),currentSpeech=null,recitalToken=0,recitalPaused=false;
 function stopRecital(){
  recitalToken++;
+ recitalPaused=false;
  if('speechSynthesis' in window)window.speechSynthesis.cancel();
+ updateRecitalStatus();
  document.querySelectorAll('[data-recital-id]').forEach(b=>{
   b.textContent='▶ 시 낭송';b.setAttribute('aria-pressed','false');
  });
  currentSpeech=null;
+ updateRecitalStatus();
+}
+function updateRecitalStatus(){
+ const status=document.getElementById('recital-status');
+ if(status){status.hidden=!currentSpeech;status.textContent=recitalPaused?'⏸ 시낭송 일시정지 · 화면을 누르면 이어 읽기':'🔊 시낭송 중 · 화면을 누르면 일시정지';}
+ document.querySelectorAll('[data-recital-id]').forEach(b=>{if(b.dataset.recitalId===currentSpeech){b.textContent=recitalPaused?'▶ 이어 읽기':'⏸ 일시정지';b.setAttribute('aria-pressed','true')}});
+}
+function toggleRecitalPause(){
+ if(!currentSpeech||!('speechSynthesis' in window))return false;
+ try{if(recitalPaused){window.speechSynthesis.resume();recitalPaused=false}else{window.speechSynthesis.pause();recitalPaused=true}updateRecitalStatus();return true}catch(e){return false}
 }
 function voiceForPoetry(){
  const voices=window.speechSynthesis.getVoices().filter(v=>/^ko([-_]|$)/i.test(v.lang));
@@ -156,15 +168,15 @@ function voiceForPoetry(){
  return voices.find(v=>feminine.test(v.name))||voices[0]||null;
 }
 function startRecital(id,btn){
- if(currentSpeech===id){stopRecital();return}
+ if(currentSpeech===id){toggleRecitalPause();return}
  const poem=poemVoiceMap.get(id);if(!poem)return;
  stopRecital();
  if(/FBAN|FBAV|FB_IAB|Instagram/i.test(navigator.userAgent)||!('speechSynthesis' in window)){showAudioLink(poem);return}
  const synth=window.speechSynthesis,voice=voiceForPoetry();
  if(!voice){showAudioLink(poem);return}
  document.querySelectorAll('video,audio').forEach(a=>a.pause());
- const token=++recitalToken;currentSpeech=id;
- btn.textContent='■ 시 낭송 중지';btn.setAttribute('aria-pressed','true');
+ const token=++recitalToken;currentSpeech=id;recitalPaused=false;
+ updateRecitalStatus();
  const lines=[poem.title,'이명우',...poem.text.split(/\n+/)].map(t=>t.trim()).filter(Boolean);
  let index=0;
  const next=()=>{
@@ -290,6 +302,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
   if(e.target.closest('[data-page]')){navigate(e);return}
   if(busy||Date.now()<suppressClickUntil||!$('#toc').hidden)return;
   if(e.target.closest('a,button,video,audio,input,textarea,select')||window.getSelection()?.toString())return;
+  if(currentSpeech){toggleRecitalPause();return;}
   const page=e.target.closest('#left,#right');if(!page)return;
   const rect=page.getBoundingClientRect();
   const backward=mobile.matches?e.clientX<rect.left+rect.width/2:page.id==='left';
