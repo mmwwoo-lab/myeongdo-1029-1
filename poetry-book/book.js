@@ -200,7 +200,7 @@ function splitIllustratedPoem(p,header){
  const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
  const lines=p.text.split('\n');
  const measure=(continued,font)=>{
-  sheet.innerHTML=`<section class="poem">${header}${poemHeading(p,continued)}<p class="verse verse-columns"></p>${recitalPlayer(p,0,1)}</section>`;
+  sheet.innerHTML=`<section class="poem">${header}${poemHeading(p,continued)}<p class="verse verse-columns"></p>${continued?'':recitalPlayer(p,0,1)}</section>`;
   const verse=sheet.querySelector('.verse'),player=sheet.querySelector('.recital');
   const height=Math.floor(sheet.getBoundingClientRect().bottom-parseFloat(getComputedStyle(sheet).paddingBottom)-verse.getBoundingClientRect().top-player.getBoundingClientRect().height-parseFloat(getComputedStyle(player).marginTop)-12);
   verse.style.setProperty('--verse-size',font+'px');verse.style.setProperty('--verse-height',height+'px');
