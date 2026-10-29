@@ -1,5 +1,15 @@
 # 명도재 예술전문지 | AI 전문가 이명우의 문예융합 창작세계
 
+## 현재 공개 홈페이지
+
+- **Vercel 공개 주소:** https://myeongdo-1029-1-mmwwoo-6434.vercel.app/
+- 배포: Vercel 정적 HTML 프로덕션 배포(2026-10-29); Vercel API 상태 READY, 공개 도메인 연결 확인
+- 검증: index.html 자바스크립트 구문 검사 통과, 이미지 6개 및 60초 음악 MP3 4개 존재 확인, 내부 메뉴 앵커 검사 통과
+- 참고: 외부 크롬에서의 HTTP 응답과 브라우저 음성합성은 이 작업 환경의 웹 연결 제한으로 별도 실기기 확인이 필요합니다.
+- 현재 Vercel은 GitHub 계정 연동 없이 개별 파일로 배포되었습니다. GitHub에 변경사항을 올린다고 Vercel에 자동 재배포되지는 않습니다. 자동 배포가 필요하면 Vercel에서 GitHub Login Connection을 연결해야 합니다.
+- GitHub Pages 주소와 Vercel 공개 주소는 별도입니다. GitHub Pages 최초 설정이 미완료되어도 위 Vercel 주소를 이용할 수 있습니다.
+
+
 2026-10-29 디지털 특별호. 화면을 실행할 때 Vite 또는 npm 설치가 필요 없는 정적 웹사이트입니다.
 
 ## 구성
