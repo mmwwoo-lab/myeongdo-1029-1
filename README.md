@@ -13,6 +13,12 @@
 
 **표기 참고:** 작품 제목은 사용자가 정식 제목을 제공하지 않아 `편집 제안 제목`으로 표기합니다. 그림 원본에 표시된 도장·플랫폼 워터마크는 그대로 유지했습니다. 한국어 음성은 각 방문자의 기기에서 제공하는 Web Speech API를 통해 실행됩니다. 고정 MP3 낭독파일을 생성한 것은 아닙니다.
 
+## 공개 홈페이지 (2026-10-29 정상 배포)
+
+**접속 주소: https://myeongdo-1029-1.vercel.app/**
+
+GitHub Pages 서비스는 처음 활성화하지 않아 동작하지 않습니다. 파일은 GitHub에 보존하고, 현재 공개 홈페이지는 Vercel 정적 배포로 운영합니다. 방문자 비밀번호/로그인은 요구하지 않도록 설정했습니다. Vercel은 현재 GitHub 자동 연결 상태가 아니므로 저장소를 수정한 경우 별도 배포가 필요합니다. 회화와 음악은 GitHub의 공개 원본 주소를 통해 불러옵니다.
+
 ## 로컬 실행
 
 압축을 풀고 `index.html`을 Chrome에서 열면 됩니다. 일부 환경에서 로컬 파일의 음성 또는 이미지 접근이 제한된다면 폴더 내에서 다음 명령을 실행하세요.
@@ -23,13 +29,9 @@ py -m http.server 4174 --bind 127.0.0.1
 
 일반 Chrome 주소창에서 `http://127.0.0.1:4174/`로 접속합니다. `http://localhost:4174/**`처럼 끝에 `**`를 붙이지 마세요.
 
-## GitHub Pages 공개
+## GitHub Pages (추후 선택 사항)
 
-1. GitHub 계정 `mmwwoo-lab`에 `myeongdo-1029-1` 공개 저장소를 생성합니다. 기존 저장소가 있으면 그대로 이용할 수 있습니다.
-2. 이 폴더에서 `index.html`과 `assets/`를 저장소 **루트**로 업로드합니다. `src/`와 `make_magazine.py`는 출처·재현용이므로 공개에 필수는 아닙니다.
-3. GitHub 저장소 **Settings → Pages → Build and deployment → Deploy from a branch → main / (root)**로 설정하고 저장합니다.
-4. 공개 예상 주소: `https://mmwwoo-lab.github.io/myeongdo-1029-1/` (저장소 생성·Pages 설정 전에는 작동하지 않을 수 있습니다).
-5. PC Chrome 및 휴대전화에서 화면, 시 원문 토글, 검색, 음성 재생, MP3 재생, 공유 미리보기를 실제 점검합니다.
+GitHub Pages 주소는 **현재 공개 운영 주소가 아닙니다.** Pages를 이용하려면 저장소 Settings → Pages에서 Source를 GitHub Actions로 설정하고, Actions의 `Deploy Myeongdo art magazine to GitHub Pages` 워크플로를 수동으로 실행해야 합니다. 이 작업은 사이트 생성 권한이 없어 자동으로 활성화할 수 없습니다.
 
 ## 웹 접근성 및 기능 제약
 
