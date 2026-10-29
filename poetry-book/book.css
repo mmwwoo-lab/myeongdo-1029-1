@@ -270,3 +270,31 @@ body{background:#ffffff!important;color:#263c3b}
 @media(max-width:800px){
  .book>.page:not(.cover-page){box-shadow:0 8px 19px rgba(26,39,37,.11)}
 }
+
+/* Publisher editorial corrections: opening pages 2–4. */
+.song{max-width:440px;margin:0 auto}
+.song h1{font-size:27px!important;line-height:1.38!important;letter-spacing:-.035em!important;margin:14px 0 9px!important;font-weight:400!important}
+.song .lead{font-size:13px!important;line-height:1.75!important;margin:0 0 14px}
+.song video{margin:15px 0 9px!important;max-height:235px;object-fit:contain}
+.song .caption{font-size:10px;line-height:1.65}
+.song hr{margin:15px 0!important}
+.song .intro{font-size:12px;line-height:1.8;margin:9px 0}
+.colophon.editorial{max-width:440px;margin:0 auto}
+.colophon.editorial h2{font-size:25px!important;line-height:1.5!important;letter-spacing:-.035em;margin:20px 0 20px!important}
+.colophon.editorial p{font-size:12.5px!important;line-height:1.88!important;margin:0 0 15px;word-break:keep-all}
+.colophon.editorial .caption{border-top:1px solid #e5e6e1;padding-top:12px;font-size:10px!important;line-height:1.75!important;color:#6f7973}
+.book-contents{max-width:440px;margin:0 auto}
+.book-contents h2{font-size:25px!important;line-height:1.4!important;margin:12px 0 7px!important}
+.book-contents>.section-subtitle{font-size:12px!important;line-height:1.65!important;margin:0 0 15px;color:#69746d}
+.book-contents .part-link{margin:0!important;padding:8px 0 9px;border-bottom:1px solid #e2e4de}
+.book-contents .part-link:first-of-type{border-top:1px solid #e2e4de}
+.book-contents .part-link button{font-size:15px!important;line-height:1.5!important;padding:0!important;border:0!important;gap:9px;align-items:start}
+.book-contents .part-link button span{font-size:10px;line-height:1.7}
+.book-contents .part-link p{font-size:10.5px;line-height:1.5;margin:4px 0 0;word-break:keep-all}
+.book-contents>.caption{margin:17px 0 0!important;padding-top:9px;border-top:1px solid #e2e4de;font-size:10px;line-height:1.7}
+@media(max-width:800px){
+ .song h1{font-size:25px!important}
+ .colophon.editorial h2{font-size:24px!important}
+ .book-contents h2{font-size:24px!important}
+ .book-contents .part-link{padding:7px 0}
+}
