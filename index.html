@@ -26,12 +26,50 @@
 @media(max-width:740px){.page{padding:0 15px}.mast-inner{height:72px}.mast-right .mast-quote{display:none}.brand-mini{font-size:15px}.stamp{width:44px}.navitems{gap:4px}.navlink{padding:7px 12px;font-size:12px}.right-pill{display:none}.hero{grid-template-columns:1fr;margin-top:14px}.hero-copy{padding:36px 26px}.hero h1{font-size:35px;margin:14px 0}.hero-sub{font-size:15px}.hero-art{min-height:280px;height:280px}.hero-art:before{background:linear-gradient(180deg,#ecf9f1 0%,transparent 35%)}.section{padding-top:49px}.section-heading{align-items:flex-start}.section-note{display:none}.split-intro,.two-cols,.art-grid,.poem-list,.feature-essay{grid-template-columns:1fr}.profile-img{max-width:165px;max-height:175px;object-position:center 20%;aspect-ratio:1}.profile-bio{padding:24px}.art-photo{aspect-ratio:16/10}.critical{min-height:auto}.essay-visual{max-height:280px;min-height:230px}.essay-content{padding:24px}.foot-inner{display:block}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{.topnav,.hero-actions,.poem-tools,.poem-actions,.art-audio,.art-toolbar,.floating{display:none!important}body{background:#fff}.section{break-inside:avoid}.poem-body{display:block!important}}
+
+/* Chrome access helper */
+.chrome-guide{margin:18px 0 0;padding:20px 24px;background:linear-gradient(105deg,#eef8ff,#f5fbee);border:1px solid #b6d8e0;border-radius:15px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 26px;align-items:center;box-shadow:0 8px 24px rgba(34,90,106,.07)}
+.chrome-guide .guide-kicker{display:inline-block;color:#426f6a;font-size:12px;font-weight:800;letter-spacing:.05em}
+.chrome-guide h2{margin:3px 0 4px;color:#154a60;font-size:20px;line-height:1.4}
+.chrome-guide p{margin:0;color:#436871;font-size:13px;line-height:1.75}
+.chrome-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.chrome-launch,.chrome-copy{min-height:44px;border-radius:10px;padding:10px 18px;font-size:14px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.chrome-launch{background:#17668b;color:#fff;border:1px solid #17668b}
+.chrome-launch:hover{background:#104b69}
+.chrome-copy{background:#fff;color:#155772;border:1px solid #91bdcf}
+.chrome-guide .chrome-more{grid-column:1/-1;padding-top:10px;border-top:1px solid #d5e8e6}
+.chrome-more summary{cursor:pointer;color:#24566b;font-size:13px;font-weight:800}
+.chrome-more p{margin-top:10px}
+.chrome-url-field{margin-top:9px;width:100%;max-width:520px;padding:9px 12px;border:1px solid #afcfd0;border-radius:8px;background:#fff;color:#31546a;font-size:12px}
+.chrome-guide #chrome-help-status{font-size:12px;color:#326451;font-weight:700;min-height:1.2em;grid-column:1/-1}
+@media(max-width:740px){.chrome-guide{grid-template-columns:1fr;padding:17px;margin-top:12px;gap:12px}.chrome-guide h2{font-size:18px}.chrome-actions{justify-content:stretch}.chrome-launch{flex:1}.chrome-copy{flex:1}}
+@media print{.chrome-guide{display:none!important}}
+
 </style>
 </head>
 <body>
 <header class="masthead"><div class="page mast-inner"><a href="#top" class="brand-mini">명도재 예술전문지<small>MYEONGDO ART & LITERATURE REVIEW</small></a><div class="mast-right"><span class="mast-quote">붓 대신 프롬프트로 그리자!<br><b>2026년 10월 29일 · 창간 특별호</b></span><img class="stamp" src="assets/images/seal.webp" alt="명도(明道) 붉은 낙관"></div></div></header>
 <nav class="topnav" aria-label="주요 메뉴"><div class="page navitems"><a class="navlink active" href="#top" data-nav="top">표지</a><a class="navlink" href="#poetry" data-nav="poetry"><span class="symbol">✒</span>시 문학관</a><a class="navlink" href="#art" data-nav="art"><span class="symbol">▧</span>그림 미술관</a><a class="navlink" href="#profile" data-nav="profile">작가 소개</a><a class="navlink" href="#criticism" data-nav="criticism">문학평론</a><span class="right-pill">시 38편 · 회화 4점 · 음성 해설 · 창작 음악</span></div></nav>
 <main class="page" id="top">
+
+<section class="chrome-guide" id="chrome-help" aria-labelledby="chrome-help-title">
+  <div><span class="guide-kicker">🌐 홈페이지 접속 안내</span>
+    <h2 id="chrome-help-title">화면이 열리지 않거나 시낭송이 재생되지 않나요?</h2>
+    <p>페이스북·카카오톡 앱 내부에서는 일부 기능이 제한될 수 있습니다. 아래 버튼으로 Google Chrome 실행을 시도해 보세요.</p>
+  </div>
+  <div class="chrome-actions">
+    <a id="chrome-launch" class="chrome-launch" href="https://myeongdo-1029-1.vercel.app/" rel="noopener noreferrer">🌐 크롬으로 열기</a>
+    <button id="chrome-copy" class="chrome-copy" type="button">📋 주소 복사</button>
+  </div>
+  <details class="chrome-more"><summary>크롬 실행이 안 될 때 해결 방법 보기</summary>
+    <p><b>안드로이드 휴대폰:</b> 위 버튼을 눌러 Chrome으로 전환하세요. 앱에서 전환을 막으면 ‘주소 복사’를 누른 뒤 Chrome 앱의 주소창에 붙여넣으세요.</p>
+    <p><b>PC:</b> ‘주소 복사’를 누르고 Chrome 주소창에 붙여넣으세요. 웹페이지가 다른 브라우저를 강제로 Chrome으로 바꿀 수는 없습니다.</p>
+    <p><b>아이폰:</b> Chrome 앱이 설치되어 있으면 전환이 시도됩니다. 열리지 않으면 주소를 복사해 Chrome에 붙여넣으세요.</p>
+    <input id="chrome-url" class="chrome-url-field" aria-label="복사할 홈페이지 주소" type="text" readonly value="https://myeongdo-1029-1.vercel.app/">
+  </details>
+  <span id="chrome-help-status" role="status" aria-live="polite"></span>
+</section>
+
 <section class="hero" aria-label="이번 호 특집 표지"><div class="hero-copy"><div class="kicker">MYEONGDO SPECIAL ISSUE · 2026.10.29</div><h1>AI 전문가 이명우의<br><em>문예융합 창작세계</em></h1><p class="hero-sub">시에서 그림으로, 그림에서 음악으로.<br>삶의 언어와 인공지능 기술이 만나 새롭게 펼치는 문학·예술의 현장.</p><div class="hero-actions"><a class="primary" href="#poetry">창작시 38편 감상하기 ↗</a><a class="outline" href="#art">창작 그림 4점 보기 ↗</a></div><div class="caution" style="margin-top:26px">명도재(明道齋) 이명우 · 작가 제공 공식 약력 및 창작 작품을 바탕으로 구성</div></div><div class="hero-art"><img class="background" src="assets/images/cosmos.webp" alt="명도재 창작 그림, 가을 코스모스와 나비"><div class="hero-sticker">“붓 대신 프롬프트로 그리자!”</div></div></section>
 <section class="section" id="profile"><div class="section-heading"><div><div class="section-en">ARTIST PROFILE</div><h2 class="section-title">명도재 이명우 | 작가의 창작 세계</h2></div><div class="section-note">문학 · 시각예술 · AI 교육의 세 지평</div></div><div class="split-intro"><div><img class="profile-img" src="assets/images/portrait.webp" alt="명도재 이명우 작가가 푸른 정장을 입고 있는 수채화풍 인물화"><p class="art-credits">작가 제공 이미지 · 일러스트 초상</p></div><div class="profile-bio"><div class="kicker">明道齋 · Myeongdojae</div><h3>이명우 <span style="font-size:15px;color:#799095">LEE MYEONG-WOO</span></h3><div class="role">AI 전문가 · 시인 · 수필가 · 현대미술가 · 사진작가 · 교육자 · AI 챗봇 개발자</div><p id="official-bio"></p><p>사진에서 시를 발견하고, 시를 회화·음악·영상·디지털 전시로 확장한다. 작품에 내재한 감각을 잃지 않으면서도 기술을 새로운 표현의 도구로 활용하는 창작 실험을 이어 간다.</p><button class="say-quick" data-say="profile">▶ 작가 소개 음성으로 듣기</button> <span class="speech-status" id="speech-status" role="status" aria-live="polite"></span><p class="caution">음성은 방문자 기기의 한국어 음성합성 기능으로 재생되며, 브라우저·운영체제에 따라 목소리가 다릅니다.</p></div></div><div class="two-cols"><div class="info-box"><h3>주요 자격 12종</h3><div class="tags" id="qualification-tags"></div><p class="caution">별도 교원자격: 중등 미술교사 · 컴퓨터교사 · 상담교사 / 작가 제공 자료 기준</p></div><div class="info-box sky"><h3>창작 철학</h3><p class="mini-quote">“붓 대신 프롬프트로 그리자!”</p><p>전통예술의 감성과 인공지능 기술을 연결해 누구나 창작의 주체가 되는 시대를 지향한다. 문학·미술·음악·교육이 서로 이어지는 AI 융합예술 생태계를 모색한다.</p></div></div></section>
 <section class="section" id="art"><div class="section-heading"><div><div class="section-en">ART GALLERY & CRITIQUE</div><h2 class="section-title">그림 미술관 | 명도재 창작 회화</h2></div><div class="section-note">작품 이미지 4점 · 300자 이내 작품평 · 음성 해설 · 60초 음악</div></div><p class="section-intro">작가가 제공한 회화를 원본의 구도와 낙관을 유지하여 수록했습니다. 작품명은 별도 확인 전까지 <b>편집 제안 제목</b>으로 표기합니다.</p><div class="art-grid" id="art-grid"></div></section>
@@ -83,5 +121,47 @@ document.querySelectorAll('audio').forEach(a=>a.addEventListener('play',()=>{sto
 q('.topnav').addEventListener('click',e=>{const x=e.target.closest('[data-nav]');if(!x)return;q('.topnav').querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b===x))});
 window.addEventListener('pagehide',stopSpeech);
 </script>
+
+<script>
+(function(){
+  'use strict';
+  var target='https://myeongdo-1029-1.vercel.app/';
+  var launch=document.getElementById('chrome-launch');
+  var copy=document.getElementById('chrome-copy');
+  var field=document.getElementById('chrome-url');
+  var status=document.getElementById('chrome-help-status');
+  if(!launch||!copy||!field||!status)return;
+  var ua=navigator.userAgent||'';
+  if(/Android/i.test(ua)){
+    launch.href='intent://myeongdo-1029-1.vercel.app/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(target)+';end';
+    launch.removeAttribute('target');
+  }else if(/iPad|iPhone|iPod/i.test(ua)){
+    launch.href='googlechromes://myeongdo-1029-1.vercel.app/';
+    launch.removeAttribute('target');
+  }else{
+    launch.href=target;
+    launch.target='_blank';
+    launch.textContent='🌐 홈페이지 새 창 열기';
+  }
+  launch.addEventListener('click',function(){
+    status.textContent='크롬이 실행되지 않으면 아래 ‘주소 복사’ 후 Chrome 주소창에 붙여넣으세요.';
+  });
+  copy.addEventListener('click',async function(){
+    var done=false;
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(target);done=true;
+      }
+    }catch(err){}
+    if(!done){
+      field.focus();field.select();
+      try{done=document.execCommand('copy');}catch(err){}
+    }
+    status.textContent=done?'홈페이지 주소를 복사했습니다. Chrome 주소창에 붙여넣으세요.':'아래 주소를 길게 눌러 복사한 뒤 Chrome에 붙여넣으세요.';
+    if(!done){field.closest('details').open=true;field.focus();field.select();}
+  });
+})();
+</script>
+
 </body>
 </html>
