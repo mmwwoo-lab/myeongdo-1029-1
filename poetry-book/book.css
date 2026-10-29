@@ -298,3 +298,25 @@ body{background:#ffffff!important;color:#263c3b}
  .book-contents h2{font-size:24px!important}
  .book-contents .part-link{padding:7px 0}
 }
+
+/* Consistent lower-page framed landscapes on opening spreads. */
+.song,.colophon.editorial{position:relative;min-height:100%;display:flex;flex-direction:column}
+.song .opening-art,.colophon.editorial .opening-art{
+ margin:auto 0 0!important;padding:5px;background:#fff;
+ border:1px solid #ccd0c8;box-shadow:0 3px 9px rgba(34,43,39,.10);
+ width:100%;aspect-ratio:16 / 9;flex:0 0 auto;overflow:hidden;
+}
+.opening-art img{display:block;width:100%;height:100%;object-fit:cover}
+.song h1{font-size:25px!important;margin:10px 0 6px!important}
+.song .lead{margin-bottom:8px!important}
+.song video{max-height:175px!important;margin:9px 0 5px!important}
+.song .caption{font-size:9px!important;line-height:1.45!important}
+.song hr{margin:9px 0!important}
+.song .intro{font-size:11px!important;line-height:1.55!important;margin:5px 0 11px!important}
+.colophon.editorial h2{font-size:24px!important;margin:14px 0 16px!important}
+.colophon.editorial p{font-size:12px!important;line-height:1.7!important;margin-bottom:11px!important}
+.colophon.editorial .caption{font-size:9.5px!important;line-height:1.55!important;padding-top:8px!important}
+@media(max-width:800px){
+ .song video{max-height:150px!important}
+ .song .opening-art,.colophon.editorial .opening-art{aspect-ratio:16/9}
+}
