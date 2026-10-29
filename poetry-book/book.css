@@ -406,3 +406,20 @@ body{background:#ffffff!important;color:#263c3b}
 .page-read-control{position:sticky;bottom:0;z-index:8;display:flex;justify-content:center;padding:6px 0 3px;pointer-events:none}
 .page-read-control button{pointer-events:auto;background:#e8efe4;border:1px solid #a9bda9;color:#234b39;border-radius:18px;padding:7px 14px;font-size:12px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .page-read-control button:focus-visible{outline:2px solid #355b43;outline-offset:2px}
+
+/* Make the read-aloud control available on every page, including covers and section leaves. */
+.book .page{position:relative}
+.book .page .page-read-control{
+ position:sticky!important;bottom:0!important;left:0;right:0;
+ z-index:30!important;display:flex!important;justify-content:center;
+ margin-top:-2px;padding:5px 0 2px;pointer-events:none;
+}
+.book .page .page-read-control button{
+ pointer-events:auto;display:inline-block;min-height:38px;
+ background:#e8efe4;color:#234b39;border:1px solid #a9bda9;
+ border-radius:22px;padding:8px 16px;font-size:12px;font-weight:700;
+ box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+.book .page.cover-page .page-read-control button{
+ background:#eee2bb;color:#28443b;border-color:#d0bb83;
+}
