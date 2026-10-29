@@ -273,7 +273,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
  for(const [sectionIndex,section] of sections.entries()){
   section.poems=poems.filter(p=>section.categories.includes(p.category));
   if(sectionIndex===3)section.poems.sort((a,b)=>Number(b.title==='물에게 길을 묻다')-Number(a.title==='물에게 길을 묻다'));
-  section.page=pages.length;pages.push('');section.entries=[];
+  section.page=pages.length;pages.push('');pageRecitalIds.push(null);section.entries=[];
   entries.push({title:`제${sectionIndex+1}부 ${section.title}`,page:section.page,heading:true});
   for(const p of section.poems){
    count++;const entry={title:p.title,page:pages.length};entries.push(entry);section.entries.push(entry);
