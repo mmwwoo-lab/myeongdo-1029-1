@@ -177,3 +177,23 @@ body{background:#ffffff!important;color:#263c3b}
  .editorial-cover-subtitle{font-size:11px!important;letter-spacing:.08em!important}
  .editorial-cover-rule{margin-bottom:28px}
 }
+
+/* Bold hand-brushed calligraphy for the front-cover title. */
+.editorial-cover .editorial-cover-title{
+ font-family:'Myeongdo Brush','Nanum Brush Script','Batang',serif!important;
+ font-size:clamp(45px,4.8vw,65px)!important;
+ font-weight:700!important;
+ line-height:1.26!important;
+ letter-spacing:-.055em!important;
+ color:#f1ddb1!important;
+ -webkit-text-fill-color:#f1ddb1!important;
+ -webkit-text-stroke:1.25px #f1ddb1!important;
+ paint-order:stroke fill;
+ text-shadow:1px 2px 1px #0b251f,0 4px 9px #071a1666!important;
+}
+@media(max-width:800px){
+ .editorial-cover .editorial-cover-title{
+  font-size:clamp(41px,10vw,56px)!important;
+  -webkit-text-stroke:1.05px #f1ddb1!important;
+ }
+}
