@@ -17,3 +17,5 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 .reader{color:#f0f0e9}.reader button{border-color:#858b89;background:#3d4043}.reader>div{color:#d8dbd4}.track{background:#666c68}.track i{background:#c8d6bc}.hint,footer{color:#c3c7c2}footer{border-color:#53565a}
 @media(max-width:800px){.book-frame{height:666px}.book{height:740px}.turn{width:100%;left:0}}
 @media print{.book-frame{width:100%;height:auto;box-shadow:none}.book{width:100%;height:auto;transform:none}header,footer{color:var(--ink)}}
+
+.header-actions{display:flex;align-items:center;gap:22px}.sound-toggle{color:#e5e8df;font-size:12px;border:1px solid #747b76;border-radius:20px;padding:7px 12px}.sound-toggle[aria-pressed="false"]{color:#b8bdb7}@media(max-width:800px){.header-actions{gap:12px}.sound-toggle{font-size:10px;padding:6px 8px}header .brand span{display:none}}@media print{.header-actions{display:none}}

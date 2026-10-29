@@ -3,6 +3,40 @@ const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"']/g,c=>({'
 let pages=[],position=0,busy=false;const mobile=matchMedia('(max-width:800px)');let step=()=>mobile.matches?1:2;
 const song=`<section class="song"><div class="eyebrow">OPENING · 시에서 노래로</div><h1>물에게<br>길을 묻다</h1><p class="lead">한 편의 시가 노래가 되어,<br>책의 첫 장에 흐릅니다.</p><video controls playsinline preload="metadata" poster="media/song-poster.jpg" aria-label="물에게 길을 묻다 창작시 노래 영상"><source src="media/asking-water.mp4" type="video/mp4">이 브라우저에서는 영상을 재생할 수 없습니다.</video><div class="caption">「물에게 길을 묻다」 · 창작시를 노래로 만든 영상<br>시 이명우 · 제공 영상 수록 · 3분 47초</div><hr><p class="intro">물의 흐름을 따라 삶의 방향을 묻는 시.<br>먼저 노래로 만나고, 다음 장에서 시의 문장으로 천천히 돌아오세요.</p></section>`;
 const cover=`<section class="cover"><div class="eyebrow">MYEONGDO · POETRY</div><h2 class="vertical">물에게<br>길을 묻다</h2><p class="author">명도재 이명우 창작 시집</p><div class="imprint">기억을 건너, 계절을 지나</div></section>`;
+let soundEnabled=true,audioContext=null;
+try{soundEnabled=localStorage.getItem('myeongdo-page-sound')!=='off'}catch{}
+function updateSoundControl(){
+ const button=$('#sound-toggle');button.textContent=soundEnabled?'소리 켜짐':'소리 꺼짐';
+ button.setAttribute('aria-pressed',String(soundEnabled));button.setAttribute('aria-label',soundEnabled?'책장 효과음 끄기':'책장 효과음 켜기');
+}
+function playPageTurnSound(){
+ if(!soundEnabled)return;
+ try{
+  const AudioEngine=window.AudioContext||window.webkitAudioContext;if(!AudioEngine)return;
+  audioContext??=new AudioEngine();
+  const play=()=>{
+   if(!soundEnabled||audioContext.state!=='running')return;
+   const now=audioContext.currentTime;
+   // A brief tap, followed by filtered noise shaped like a paper rustle.
+   const tap=audioContext.createOscillator(),tapGain=audioContext.createGain();
+   tap.type='triangle';tap.frequency.setValueAtTime(1050,now);tap.frequency.exponentialRampToValueAtTime(380,now+.025);
+   tapGain.gain.setValueAtTime(.0001,now);tapGain.gain.exponentialRampToValueAtTime(.08,now+.002);tapGain.gain.exponentialRampToValueAtTime(.0001,now+.035);
+   tap.connect(tapGain);tapGain.connect(audioContext.destination);tap.start(now);tap.stop(now+.04);
+   tap.onended=()=>{tap.disconnect();tapGain.disconnect()};
+   const duration=.62,buffer=audioContext.createBuffer(1,Math.ceil(audioContext.sampleRate*duration),audioContext.sampleRate),data=buffer.getChannelData(0);
+   for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*(.7+.3*Math.sin(i/audioContext.sampleRate*90));
+   const paper=audioContext.createBufferSource(),filter=audioContext.createBiquadFilter(),gain=audioContext.createGain();
+   paper.buffer=buffer;filter.type='bandpass';filter.Q.value=.65;
+   filter.frequency.setValueAtTime(1100,now+.04);filter.frequency.exponentialRampToValueAtTime(3100,now+.26);filter.frequency.exponentialRampToValueAtTime(850,now+.66);
+   gain.gain.setValueAtTime(.0001,now);gain.gain.setValueAtTime(.0001,now+.04);gain.gain.exponentialRampToValueAtTime(.15,now+.14);gain.gain.exponentialRampToValueAtTime(.06,now+.36);gain.gain.exponentialRampToValueAtTime(.0001,now+.66);
+   paper.connect(filter);filter.connect(gain);gain.connect(audioContext.destination);paper.start(now+.04);paper.stop(now+.67);
+   paper.onended=()=>{paper.disconnect();filter.disconnect();gain.disconnect()};
+  };
+  if(audioContext.state==='suspended')audioContext.resume().then(play).catch(()=>{});else play();
+ }catch{/* Audio support must never block reading. */}
+}
+$('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
+updateSoundControl();
 function render(){for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;el.innerHTML=pages[n]||'';el.dataset.number=String(n+1).padStart(2,'0');el.scrollTop=0;el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;}
 function go(target){
  if(!pages.length)return;
@@ -10,6 +44,7 @@ function go(target){
  if(!mobile.matches)target-=target%2;
  if(busy||target===position)return;
  busy=true;
+ playPageTurnSound();
  document.querySelectorAll('video').forEach(v=>v.pause());
  const backward=target<position,turn=$('#turn');
  const source=$(mobile.matches?'#left':backward?'#left':'#right');
