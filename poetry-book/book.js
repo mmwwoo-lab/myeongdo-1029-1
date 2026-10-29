@@ -7,7 +7,7 @@ const cover=`<section class="cover hardcover-front editorial-cover" aria-label="
 const backCover=`<section class="back-cover"><div class="back-cover-mark">明道齋</div><p class="back-cover-quote">기억을 건너,<br>계절을 지나.<br><br>마음에 머문 풍경이<br>한 권의 시가 됩니다.</p><div class="back-cover-title gold-foil">${BOOK_TITLE}</div><p class="back-cover-author">명도재 이명우 창작 시집</p><div class="back-cover-imprint">명도재 제작</div></section>`;
 function setPaperContent(paper,html,number){
  paper.innerHTML=html||'';paper.dataset.number=String(number+1).padStart(2,'0');
- if(html){paper.querySelectorAll('.recital').forEach(el=>el.remove());const section=paper.querySelector('section');if(section){const control=document.createElement('div');control.className='page-read-control';control.innerHTML='<button type="button" data-page-read="'+number+'" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>';section.append(control)}}
+ if(html){paper.querySelectorAll('.recital').forEach(el=>el.remove());const control=document.createElement('div');control.className='page-read-control';control.innerHTML='<button type="button" data-page-read="'+number+'" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>';paper.append(control)}
  paper.classList.toggle('cover-page',Boolean(paper.querySelector('.cover,.back-cover')));
  paper.classList.toggle('back-cover-page',Boolean(paper.querySelector('.back-cover')));
  paper.scrollTop=0;
