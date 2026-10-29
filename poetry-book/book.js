@@ -80,6 +80,67 @@ $('#prev').onclick=()=>go(position-step());$('#next').onclick=()=>go(position+st
 document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleToc(false);if(!$('#toc').hidden||/INPUT|TEXTAREA|VIDEO/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();go(position+step())}if(e.key==='ArrowLeft'){e.preventDefault();go(position-step())}});
 let suppressClickUntil=0;
 let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
+// One watercolor motif for each work; source titles and text remain untouched.
+const illustrations={
+ '재봉틀 앞의 시간':[0,'실타래와 목화 가지 곁의 참새'],
+ '풍경소리':[1,'물고기 모양 풍경과 날아오는 제비'],
+ '연꽃을 바라보며':[2,'분홍 연꽃과 연잎 아래 은빛 물고기'],
+ '산딸기 루비반지':[3,'붉은 산딸기 가지에 앉은 뻐꾸기'],
+ '마지막 버스가 지나간 뒤':[9,'비 내린 길 위 클로버와 작은 참새'],
+ '가창 405번 버스가 가을을 싣고':[12,'물가의 오리 가족과 갈대 위 잠자리'],
+ '재봉틀':[0,'어머니의 시간을 닮은 실타래와 참새'],
+ '천사의 나팔꽃':[4,'흰 나팔꽃 아래 잠든 고양이'],
+ '아버지의 길':[11,'굽은 소나무와 안개에 잠긴 산길'],
+ '재봉틀과 어머니':[0,'목화와 실타래, 곁을 지키는 참새'],
+ '어머니':[5,'매화 가지에 머무는 작은 새'],
+ '북국의 봇나무':[8,'하얀 자작나무 숲과 작은 올빼미'],
+ '상사화(想思花)':[6,'긴 꽃술을 펼친 분홍 상사화'],
+ '매화꽃 어머니':[5,'꽃망울을 피운 오래된 매화 가지와 새'],
+ '나비가 코스모스에게 머무는 법':[7,'코스모스와 강아지풀 사이의 흰나비'],
+ '가장 느린 걸음이 저녁을 건넌다':[9,'비 그친 길과 클로버 곁의 참새'],
+ '우뭇가사리 한 그릇이 바다를 품다':[16,'물결 같은 해초와 조개, 하늘을 나는 갈매기'],
+ '신천의 저녁 한때':[10,'물살을 바라보는 왜가리와 강가의 돌'],
+ '바람 속의 어머니':[18,'바람에 기우는 풀과 작은 나비'],
+ '베란다에 가을이 먼저 왔다':[14,'보랏빛 들국화와 가을 풀벌레'],
+ '장갑 한 짝':[9,'젖은 길가에 내려앉은 참새와 빗방울'],
+ '앞산제색도':[11,'먹빛 산봉우리와 오래된 소나무'],
+ '바람은 어디서 오는가':[18,'바람을 따라 휘어지는 강아지풀과 나비'],
+ '앞산을 바라보며':[11,'흰 안개 사이 푸른 산과 소나무'],
+ '오래 신은 구두':[9,'비에 젖은 보도와 작은 참새'],
+ '물에게 길을 묻다':[10,'흐르는 물과 돌 위에 선 왜가리'],
+ '가을이 오기 전에':[14,'들국화 곁의 귀뚜라미와 마른 풀'],
+ '핑크빛 빈 벤치':[17,'분홍 벤치 곁의 나리꽃과 개망초'],
+ '주리못둑의 핑크빛 빈 벤치':[17,'나리꽃과 개망초가 감싼 분홍 벤치'],
+ '주리못, 어머니의 수를 놓는 날':[13,'물 위에 드리운 버드나무와 옅은 달'],
+ '(동시) 물방울 친구들':[15,'풀잎 위 이슬과 달팽이, 무당벌레'],
+ '가을 속에 남은 사람':[12,'갈대 사이를 지나는 오리 가족과 잠자리'],
+ '한여름 주리못':[12,'물결 위 오리와 풀잎에 앉은 잠자리'],
+ '이팝꽃':[0,'흰 꽃을 닮은 목화 가지와 작은 참새'],
+ '낮달':[13,'버드나무 가지 너머 낮달과 물결'],
+ '천년의 달, 두 고도를 걷다':[19,'기와지붕 위 달과 소나무 곁의 사슴'],
+ '전깃줄 위의 낮달':[13,'가느다란 버드나무 가지와 반달'],
+ '못물':[15,'이슬 맺힌 풀잎 위 달팽이와 무당벌레']
+};
+function poemHeading(p){
+ const motif=illustrations[p.title];if(!motif)throw Error('Missing illustration: '+p.title);
+ const x=(motif[0]%5)*25,y=Math.floor(motif[0]/5)*100/3;
+ return `<div class="poem-heading"><h2>${esc(p.title)}</h2><figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
+}
+function splitIllustratedPoem(p,header){
+ // Measure the actual title, illustration and wrapped verses before pagination.
+ const sheet=document.createElement('article');sheet.className='page measure-page';
+ sheet.style.width=$('#left').offsetWidth+'px';
+ sheet.innerHTML=`<section class="poem">${header}${poemHeading(p)}<p class="verse"></p></section>`;
+ document.body.append(sheet);
+ const verse=sheet.querySelector('.verse'),available=sheet.getBoundingClientRect().bottom-parseFloat(getComputedStyle(sheet).paddingBottom)-verse.getBoundingClientRect().top-12;
+ const chunks=[];let lines=[];
+ for(const line of p.text.split('\n')){
+  verse.textContent=[...lines,line].join('\n');
+  if(lines.length&&verse.getBoundingClientRect().height>available){chunks.push(lines.join('\n'));lines=[]}
+  lines.push(line);
+ }
+ if(lines.length)chunks.push(lines.join('\n'));sheet.remove();return chunks;
+}
 const sections = [
  {title:'어머니의 시간',subtitle:'가족의 기억과 오래된 뿌리',categories:['가족과 기억','역사와 뿌리'],intro:'바늘이 지나간 자리에는 옷감만 이어지는 것이 아닙니다. 어머니와 아버지의 손길에서 시작한 기억은, 우리가 걸어온 오래된 길로 이어집니다.'},
  {title:'꽃이 머무는 계절',subtitle:'피어나고 저무는 것들 곁에서',categories:['꽃과 서정','계절과 사색','동시와 동심'],intro:'꽃과 작은 물방울, 계절 사이에 잠시 머물러 봅니다. 피어나는 순간과 저무는 순간을 함께 바라보며 삶의 속도를 늦추는 시간입니다.'},
@@ -98,10 +159,12 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
   entries.push({title:`제${sectionIndex+1}부 ${section.title}`,page:section.page,heading:true});
   for(const p of section.poems){
    count++;const entry={title:p.title,page:pages.length};entries.push(entry);section.entries.push(entry);
-   // Preserve every original line, including blank stanza separators.
-   const lines=p.text.split('\n'),chunks=[];let chunk=[],units=0;
-   for(const line of lines){const cost=Math.max(1,Math.ceil(line.length/23));if(units+cost>18&&chunk.length){chunks.push(chunk.join('\n'));chunk=[];units=0}chunk.push(line);units+=cost}if(chunk.length)chunks.push(chunk.join('\n'));
-   chunks.forEach((text,i)=>pages.push(`<section class="poem"><div class="poem-header"><span>제${sectionIndex+1}부 · ${esc(section.title)}</span><span>${String(count).padStart(2,'0')} / 38</span></div><h2>${esc(p.title)}${i?'<span class="continuation">계속</span>':''}</h2><p class="verse">${esc(text)}</p></section>`));
+   const header=`<div class="poem-header"><span>제${sectionIndex+1}부 · ${esc(section.title)}</span><span>${String(count).padStart(2,'0')} / 38</span></div>`;
+   const chunks=splitIllustratedPoem(p,header);
+   chunks.forEach((text,i)=>{
+    const heading=poemHeading(p).replace('</h2>',`${i?'<span class="continuation">계속</span>':''}</h2>`);
+    pages.push(`<section class="poem">${header}${heading}<p class="verse">${esc(text)}</p></section>`);
+   });
   }
   pages[section.page]=`<section class="section-opener"><div class="eyebrow">PART ${String(sectionIndex+1).padStart(2,'0')} · ${section.poems.length}편</div><h2>${esc(section.title)}</h2><p class="section-subtitle">${esc(section.subtitle)}</p><p class="section-note">${esc(section.intro)}</p><div class="chapter-list">${section.entries.map(e=>tocButton(e.title,e.page)).join('')}</div></section>`;
  }
@@ -109,7 +172,7 @@ fetch('poems.json').then(r=>{if(!r.ok)throw Error('poems');return r.json()}).the
  pages[2]=`<section class="colophon editorial"><div class="eyebrow">EDITOR’S NOTE · 편집의 말</div><h2>기억을 건너,<br>계절을 지나</h2><p>『물에게 길을 묻다』는 명도재 이명우의 창작시 서른여덟 편을 네 갈래의 길로 엮은 디지털 시집입니다.</p><p>가족의 기억에서 계절의 표정으로, 도시의 저녁에서 주리못의 물가로. 서로 다른 풍경을 지나며 삶을 바라보는 시선의 결을 따라갑니다.</p><p>첫 장의 노래를 듣고, 마음이 머무는 작품을 골라 읽어도 좋습니다. 천천히 한 장씩 넘기며 자신만의 순서로 이 책을 만나보세요.</p><p class="caption">시 제목과 본문은 기존 원문을 보존했습니다.<br>부제·부 구성·부별 여는 글은 이 디지털 판의 편집입니다.<br>편집의 말은 시인의 서문과 구분합니다.</p></section>`;
  pages[3]=`<section class="book-contents"><div class="eyebrow">CONTENTS · 차례</div><h2>네 갈래의 길</h2><p class="section-subtitle">물에게 길을 묻다<br><small>기억을 건너, 계절을 지나</small></p>${sections.map((section,i)=>`<div class="part-link">${tocButton(`제${i+1}부 ${section.title}`,section.page)}<p>${esc(section.subtitle)} · ${section.poems.length}편</p></div>`).join('')}<p class="caption">각 부의 첫 장에서 작품별 차례를 만날 수 있습니다.<br>상단 ‘목차’에서는 모든 작품으로 바로 이동할 수 있습니다.</p></section>`;
  const closing=pages.length;entries.push({title:'책을 덮으며 · 판권',page:closing});
- pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『물에게 길을 묻다』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
+ pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『물에게 길을 묻다』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
  if(pages.length%2)pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');
  $('#toc-list').innerHTML=entries.map(e=>e.heading?`<h3>${tocButton(e.title,e.page)}</h3>`:tocButton(e.title,e.page)).join('');
  const navigate=e=>{const button=e.target.closest('[data-page]');if(button){if(!$('#toc').hidden)toggleToc(false);go(Number(button.dataset.page))}};

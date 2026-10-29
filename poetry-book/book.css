@@ -19,3 +19,13 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 @media print{.book-frame{width:100%;height:auto;box-shadow:none}.book{width:100%;height:auto;transform:none}header,footer{color:var(--ink)}}
 
 .header-actions{display:flex;align-items:center;gap:22px}.sound-toggle{color:#e5e8df;font-size:12px;border:1px solid #747b76;border-radius:20px;padding:7px 12px}.sound-toggle[aria-pressed="false"]{color:#b8bdb7}@media(max-width:800px){.header-actions{gap:12px}.sound-toggle{font-size:10px;padding:6px 8px}header .brand span{display:none}}@media print{.header-actions{display:none}}
+
+/* Editorial watercolor cameos: separate from the verse, carried with the paper. */
+.poem-heading{display:grid;grid-template-columns:minmax(0,1fr) 132px;align-items:center;gap:14px;margin:0 0 22px;min-height:132px}
+.poem-heading h2{margin:0;position:relative;padding-bottom:15px}
+.poem-heading .continuation{position:absolute;bottom:0;left:0;margin:0;line-height:1;font:10px Arial,sans-serif}
+.poem-art{display:block;width:132px;height:132px;margin:0;background-image:url('media/poetry-watercolors.png');background-size:500% 400%;background-position:var(--art-x) var(--art-y);background-repeat:no-repeat;border-radius:3px;mix-blend-mode:multiply}
+.measure-page{position:fixed!important;top:0;left:-20000px;visibility:hidden;pointer-events:none;overflow:hidden}
+@media(max-width:800px){.poem-heading{grid-template-columns:minmax(0,1fr) 106px;gap:10px;min-height:106px}.poem-art{width:106px;height:106px}.poem-heading h2{font-size:23px}}
+@media print{.poem-art{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.poem-art{mask-image:radial-gradient(ellipse at center,#000 55%,#000d 65%,transparent 76%);-webkit-mask-image:radial-gradient(ellipse at center,#000 55%,#000d 65%,transparent 76%)}
