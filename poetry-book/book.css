@@ -197,3 +197,55 @@ body{background:#ffffff!important;color:#263c3b}
   -webkit-text-stroke:1.05px #f1ddb1!important;
  }
 }
+
+/* Editorial finishing pass — restrained linen cloth and refined book gutter. */
+:root{--book-cover:#173b32;--book-foil:#eddbac;--book-rule:#d8dde0}
+.cover.hardcover-front.editorial-cover,
+.back-cover{
+ background-color:var(--book-cover)!important;
+ background-image:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.042) 0 1px,transparent 1px 7px),
+  repeating-linear-gradient(0deg,rgba(235,231,207,.020) 0 1px,transparent 1px 5px),
+  linear-gradient(125deg,rgba(255,255,255,.035),transparent 46%,rgba(0,0,0,.09))!important;
+ background-blend-mode:normal!important;
+}
+.cover.hardcover-front.editorial-cover{
+ border:1px solid #83998b!important;
+ box-shadow:inset 0 0 0 1px #d8c69022,inset 12px 0 17px #081d172e,3px 3px 0 #0d2922,5px 5px 0 #476357!important;
+}
+.editorial-cover .editorial-cover-frame{
+ border-color:#e4d5a780!important;
+ box-shadow:inset 0 0 0 1px #e4d5a71a!important;
+}
+.editorial-cover .editorial-cover-title{
+ color:var(--book-foil)!important;-webkit-text-fill-color:var(--book-foil)!important;
+ -webkit-text-stroke:1px var(--book-foil)!important;
+ max-width:100%;text-wrap:balance;
+}
+.editorial-cover-kicker,.editorial-cover-subtitle,.editorial-cover-footer{position:relative;z-index:1}
+.page.back-cover-page{background:var(--book-cover)!important;border:1px solid #83998b!important}
+.back-cover{
+ border:1px solid #cfbc8a85!important;
+ box-shadow:inset 0 0 0 1px #e4d5a71e,inset 9px 0 19px #061d1738,3px 3px 0 #0d2922,5px 5px 0 #476357!important;
+}
+.back-cover-mark{color:var(--book-foil)!important;letter-spacing:.19em}
+.back-cover-title{color:var(--book-foil)!important;-webkit-text-fill-color:var(--book-foil)!important}
+.back-cover-quote{color:#f1ead8!important;line-height:2.25!important}
+.back-cover-author,.back-cover-imprint{color:#e7dbc2!important}
+/* A subtle neutral-gray center binding; no visual line on single-page mobile view. */
+@media(min-width:801px){
+ .book{isolation:isolate}
+ .book::before{
+  content:"";position:absolute;z-index:4;pointer-events:none;
+  left:calc(50% - 1px);top:0;bottom:0;width:2px;
+  background:linear-gradient(90deg,#b9bfc2 0%,#d9ddde 48%,#afb5b8 100%);
+  box-shadow:-5px 0 10px #313b4218,5px 0 10px #313b4218;
+ }
+ .book>.page.left:not(.cover-page){box-shadow:inset -7px 0 12px #3038400d}
+ .book>.page.right:not(.cover-page){box-shadow:inset 7px 0 12px #3038400d}
+}
+@media(max-width:800px){
+ .book::before{content:none!important}
+ .editorial-cover .editorial-cover-frame{padding-inline:16px}
+}
+@media(prefers-reduced-motion:reduce){.turn.active,.turn.back{animation-duration:.01ms!important}}
