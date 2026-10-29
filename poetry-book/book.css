@@ -54,3 +54,9 @@ header{color:#f0f0e9;border-color:#53565a}.edition{color:#bdc1bb}.above{color:#c
 .cover-sheet{box-shadow:0 0 0 3px #9d8960,0 0 0 5px #cdbb96,10px 3px 28px #0005}
 @media(max-width:800px){.page.cover-page{padding:10px}.cover .calligraphy{font-size:34px;margin:18px 0 8px}.cover-type{top:6%}.cover-type .eyebrow{font-size:9px;letter-spacing:1.5px}.cover-subtitle{font-size:10px;letter-spacing:1px}.cover.hardcover-front .imprint{font-size:9px;letter-spacing:1px}.back-cover-quote{font-size:13px;margin-top:65px}.back-cover-mark{margin-top:55px}}
 @media print{.cover-page,.cover,.back-cover{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+/* Gold-foil brush lettering with a fine dark keyline for clear contours. */
+.cover .gold-foil,.back-cover .gold-foil{color:#d5a53e;background:linear-gradient(163deg,#94621d 0%,#e8bc59 18%,#fff0aa 32%,#b38129 44%,#edc765 55%,#fff1b0 66%,#ba8730 79%,#e3b451 91%,#8d601e 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:.7px #211c13;paint-order:stroke fill;text-shadow:none;filter:drop-shadow(0 1px 0 #fff8) drop-shadow(0 1px 1px #3e2a1533)}
+.cover.hardcover-front .imprint{font-size:13px;letter-spacing:3px;color:#423c2f;text-align:center;left:0;right:0}
+.back-cover-imprint{font-size:13px;letter-spacing:3px;color:#e3d7b3;text-align:center}
+@media(max-width:800px){.cover .gold-foil,.back-cover .gold-foil{-webkit-text-stroke:.6px #211c13}.cover.hardcover-front .imprint,.back-cover-imprint{font-size:11px;letter-spacing:2px}}
