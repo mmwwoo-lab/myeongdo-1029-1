@@ -175,7 +175,7 @@ function startPoemVoice(id,button){
  const voice=selectKoreanVoice();if(!voice){alert('이 기기에 한국어 음성이 없습니다. 크롬의 한국어 음성을 설치하거나 기존 AI 낭송을 이용해 주세요.');return}
  document.querySelectorAll('video,audio').forEach(m=>m.pause());
  button.textContent='■ 낭송 중지';button.setAttribute('aria-pressed','true');
- const lines=(p.title+'\\n이명우\\n'+p.text).split(/\\n+/).map(x=>x.trim()).filter(Boolean);
+ const lines=(p.title+'\n이명우\n'+p.text).split(/\n+/).map(x=>x.trim()).filter(Boolean);
  let i=0;const speakNext=()=>{
   if(run!==speechRun)return;
   if(i>=lines.length){haltPoemVoice();return}
