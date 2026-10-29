@@ -138,8 +138,8 @@ function poemHeading(p,continued=false){
  return `<div class="poem-heading">${continued?'<span aria-hidden="true"></span>':`<h2>${esc(p.title)}</h2>`}<figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(motif[1])}" style="--art-x:${x}%;--art-y:${y}%"></figure></div>`;
 }
 function recitalPlayer(p,startLine,endLine){
- const recording=p.recital,start=startLine===0?0:recording.lines[startLine].start,end=recording.lines[endLine-1].end;
- return `<div class="recital"><div class="recital-label"><span>이 페이지 낭송</span><a href="${esc(recording.file)}" download>시 전체 MP3 ↓</a></div><audio controls preload="none" src="${esc(recording.file)}" data-start="${start}" data-end="${end}" aria-label="${esc(p.title)} 이 페이지 본문 한국어 합성 낭송"></audio><small>한국어 기본 합성음 · 시인 육성 아님</small></div>`;
+ const recording=p.recital;
+ return `<div class="recital"><div class="recital-label"><span>이 작품 전체 낭송</span><a href="${esc(recording.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(p.title)} 전체 낭송 듣기 및 다운로드 · 새 창">▶ 낭송 듣기 · 다운로드 ↗</a></div><small>AI Voice Generator · 부드러운 음성 · 외부 재생 페이지에서 작품 전체를 듣습니다.</small></div>`;
 }
 function splitIllustratedPoem(p,header){
  const sheet=document.createElement('article');sheet.className='page measure-page';sheet.style.width=$('#left').offsetWidth+'px';document.body.append(sheet);
@@ -193,7 +193,7 @@ const sections = [
  {title:'물이 기억하는 풍경',subtitle:'앞산에서 주리못까지',categories:['대구의 풍경','주리못 연작'],intro:'앞산과 신천, 주리못의 물가에 발걸음을 멈춥니다. 흘러가는 물과 돌아오는 계절을 바라보며, 오늘의 길을 다시 묻습니다.'}
 ];
 const tocButton=(title,page)=>`<button data-page="${page}">${esc(title)}<span>${String(page+1).padStart(2,'0')}</span></button>`;
-Promise.all(['poems.json','recitals.json'].map(file=>fetch(file).then(r=>{if(!r.ok)throw Error(file);return r.json()}))).then(async ([poems,recordings])=>{
+Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{if(!r.ok)throw Error(file);return r.json()}))).then(async ([poems,recordings])=>{
  await document.fonts.load('32px "Myeongdo Brush"');
  for(const p of poems){p.recital=recordings.entries.find(r=>r.title===p.title);if(!p.recital)throw Error('Missing recital: '+p.title)}
  pages=[cover,song,'',''];
