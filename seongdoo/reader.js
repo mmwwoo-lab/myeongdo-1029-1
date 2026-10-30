@@ -123,21 +123,22 @@ function start(data){
    const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
    const poem=String(p.text||'원문을 확인 중입니다.').trim().replace(/\n{3,}/g,'\n\n');
    const lines=poem.split('\n');
-   // Balance visual line heights while retaining original left-to-right reading order.
-   const measure=line=>line.trim()?Math.max(1,Math.ceil(line.length/18)):0.85;
+   // Apply the same conservative two-column typesetting to every part.
+   // A narrower capacity deliberately reserves space at the bottom of the paper.
+   const measure=line=>line.trim()?Math.max(1,Math.ceil(line.length/16)):0.9;
    const total=lines.reduce((sum,line)=>sum+measure(line),0);
-   const two=total>16;
    let cut=lines.length;
-   if(two){
-    let before=0,score=Infinity;
+   if(total>13.5){
+    let used=0,best=1,score=Infinity;
     for(let i=1;i<lines.length;i++){
-     before+=measure(lines[i-1]);
-     const after=total-before;
-     const overflow=Math.max(0,before-16)+Math.max(0,after-16);
-     const stanza=lines[i-1].trim()===''||lines[i].trim()==='';
-     const nextScore=Math.abs(before-after)+overflow*10-(stanza?3:0);
-     if(nextScore<score){score=nextScore;cut=i}
+     used+=measure(lines[i-1]);
+     const remaining=total-used;
+     const overflow=Math.max(0,used-13.5)+Math.max(0,remaining-13.5);
+     const boundary=lines[i-1].trim()===''||lines[i].trim()==='';
+     const value=overflow*30+Math.abs(used-remaining)-(boundary?1.2:0);
+     if(value<score){score=value;best=i}
     }
+    cut=best;
    }
    const leftText=lines.slice(0,cut).join('\n').trim();
    const rightText=lines.slice(cut).join('\n').trim();
