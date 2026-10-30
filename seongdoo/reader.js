@@ -54,6 +54,23 @@ function readPage(i){
  }
  next();render();
 }
+function splitPoemIntoPages(text){
+ // Preserve stanza breaks while limiting each paper page to a legible size.
+ const stanzas=String(text).trim().split(/\n\s*\n+/);
+ const units=[];
+ for(const stanza of stanzas){
+  const lines=stanza.split(/\n/);
+  while(lines.length){units.push(lines.splice(0,Math.min(lines.length,8)).join('\n'))}
+ }
+ const result=[];let section=[],lines=0,chars=0;
+ function flush(){if(section.length){result.push(section.join('\n\n'));section=[];lines=0;chars=0}}
+ for(const unit of units){
+  const count=unit.split('\n').length,size=unit.length;
+  if(section.length&&(lines+count>13||chars+size>385))flush();
+  section.push(unit);lines+=count;chars+=size;
+ }
+ flush();return result.length?result:[''];
+}
 function start(data){
  const parts=data.parts,poems=data.poems;
  add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>시평·편집 명도재 이명우</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 시평과 편집 명도재 이명우.','cover');
@@ -63,9 +80,16 @@ function start(data){
  const list=poems.filter(p=>p.part===part);
  const section=pages.length;toc.push({title:'제'+part+'부 · '+parts[part-1],page:section});
  add('<div class="partnum">PART '+String(part).padStart(2,'0')+'</div><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 원시 / 명도재 이명우 시평</p><p>다음 장부터 시와 작품 해설을 감상하실 수 있습니다.</p>','제'+part+'부 '+parts[part-1]+'. 이성두 시인.','divider');
- for(const p of list){const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});const poemLines=p.text||'원문을 확인 중입니다.';
- add('<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="verse">'+esc(poemLines)+'</div></section>',p.title+'\n이성두\n'+poemLines);
- add('<section class="critical"><p class="poem-number">明道齋 · 작품 읽기</p><h2>'+esc(p.title)+' · 시평</h2><p>'+esc(p.commentary||'시평 원본을 확인해 주세요.')+'</p><p class="poet">시평·편집 명도재 이명우</p></section>',p.title+' 시평\n'+(p.commentary||'시평 원본을 확인해 주세요.'));
+ for(const p of list){
+  const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
+  const chunks=splitPoemIntoPages(p.text||'원문을 확인 중입니다.');
+  chunks.forEach((chunk,k)=>{
+   const continuation=k>0;
+   add('<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+(continuation?' · 이어지는 시':'')+'</p><h2>'+esc(p.title)+(continuation?' <small>· 계속</small>':'')+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="verse">'+esc(chunk)+'</div>'+(k<chunks.length-1?'<p class="poem-continued">다음 페이지에 이어집니다 →</p>':'')+'</section>',(continuation?'이어지는 시. ':'')+p.title+'\n'+chunk);
+  });
+  const crit=String(p.commentary||'시평 원본을 확인해 주세요.');
+  add('<section class="critical"><p class="poem-number">明道齋 · 작품 읽기</p><h2>'+esc(p.title)+' · 시평</h2><p>'+esc(crit)+'</p><p class="poet">시평·편집 명도재 이명우</p></section>',p.title+' 시평\n'+crit);
+ }
  }
  }
  add('<div><p class="kicker">COLOPHON</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>시평·편집 명도재 이명우</p><p>시와 시평의 저작권은 각 권리자에게 있습니다.</p></div>','별꽃은 피고 지고. 원시 이성두. 시평과 편집 명도재 이명우.','cover');
