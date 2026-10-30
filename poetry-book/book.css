@@ -472,3 +472,17 @@ header button:focus-visible,header a:focus-visible{outline:3px solid #6e537f;out
 .book #toc #toc-list h3{font-size:11px!important;margin:13px 0 3px!important;line-height:1.35;}
 .book #toc #toc-list h3 button{font-size:12px!important;font-weight:650;}
 @media(max-width:800px){.book #toc{padding:14px 17px!important;}}
+
+/* Place the page read-aloud control immediately above the printed page number. */
+.book .page{position:relative!important;}
+.book .page:after{bottom:13px!important;z-index:4;pointer-events:none;}
+.book .page > .page-read-control{
+ position:absolute!important;left:0!important;right:0!important;bottom:33px!important;
+ margin:0!important;padding:0!important;z-index:32!important;
+ display:flex!important;justify-content:center;align-items:center;pointer-events:none;
+}
+.book .page > .page-read-control button{
+ pointer-events:auto!important;min-height:30px!important;padding:5px 13px!important;
+ font-size:11px!important;line-height:1.2!important;
+}
+.book .page:has(> .page-read-control)>section{padding-bottom:49px!important;box-sizing:border-box;}
