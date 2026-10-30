@@ -11,8 +11,8 @@ function render(){
  el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':p?.kind==='illustration-page'?' illustration-page':p?.kind==='poem-page'?' poem-page':p?.kind==='reading-page'?' reading-page':'')+(p?' page-index-'+(x+1):'')+(p?.kind==='poem-page'&&x>=102?' late-poem':'')+(mobile.matches&&i?' hide-mobile':'');
  el.innerHTML=p?((p.kind==='poem-page'||p.kind==='reading-page')?readBtn(x):'')+p.html+'<div class="number">'+(x+1)+'</div>':'';el.scrollTop=0}
  $('progress').textContent=(pos+1)+' — '+Math.min(pos+step(),pages.length)+' / '+pages.length;
- $('prev').disabled=$('edgePrev').hidden=pos===0;
- $('next').disabled=$('edgeNext').hidden=pos+step()>=pages.length;
+ $('edgePrev').hidden=pos===0;
+ $('edgeNext').hidden=pos+step()>=pages.length;
  document.querySelectorAll('[data-read]').forEach(b=>{if(speechId===Number(b.dataset.read))b.textContent=paused?'▶ 이어 읽기':'⏸ 일시정지'});
  fitVisiblePages();
 }
@@ -168,8 +168,8 @@ document.addEventListener('click',e=>{
  const read=e.target.closest('[data-read]');if(read){e.preventDefault();readPage(Number(read.dataset.read));return}
  const link=e.target.closest('[data-go]');if(link){$('tocPanel').hidden=true;go(Number(link.dataset.go));return}
 });
-$('prev').onclick=$('edgePrev').onclick=()=>go(pos-step());
-$('next').onclick=$('edgeNext').onclick=()=>go(pos+step());
+$('edgePrev').onclick=()=>go(pos-step());
+$('edgeNext').onclick=()=>go(pos+step());
 $('contents').onclick=()=>{const panel=$('tocPanel');panel.hidden=!panel.hidden;if(!panel.hidden){panel.scrollTop=0;$('contents').setAttribute('aria-expanded','true')}else $('contents').setAttribute('aria-expanded','false')};
 $('pauseToggle').onclick=pauseResume;
 $('book').addEventListener('click',e=>{if(e.target.closest('button'))return;if(speechId!==null){pauseResume();return}const el=e.target.closest('.page');if(!el)return;go(pos+(el.id==='left'?-step():step()))});
