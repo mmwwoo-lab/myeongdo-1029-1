@@ -140,6 +140,16 @@ function start(data){
     }
     cut=best;
    }
+   // For poems from page 103 onward, favor the original stanza break when distributing columns.
+   if(pages.length+1>=103&&cut<lines.length){
+    let preferred=cut;
+    for(let i=Math.max(1,cut-2);i<=Math.min(lines.length-1,cut+2);i++){
+     if(lines[i-1].trim()===''||lines[i].trim()===''){
+      preferred=i;break;
+     }
+    }
+    cut=preferred;
+   }
    const leftText=lines.slice(0,cut).join('\n').trim();
    const rightText=lines.slice(cut).join('\n').trim();
    const poemMarkup='<section class="poem part-'+part+'"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poem-columns'+(rightText?' two':'')+'"><div class="verse">'+esc(leftText)+'</div>'+(rightText?'<div class="verse">'+esc(rightText)+'</div>':'')+'</div></section>';
