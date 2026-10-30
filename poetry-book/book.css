@@ -436,3 +436,7 @@ header button{font-weight:650;}
 header .sound-toggle{background:#f9f6fc!important;border:1px solid #b5a5ca!important;color:#34323b!important;}
 header button:focus-visible,header a:focus-visible{outline:3px solid #6e537f;outline-offset:3px;}
 @media(max-width:800px){header{padding-inline:14px;border-radius:0 0 9px 9px;}}
+
+/* Pages are fixed book sheets; content is fitted in JS instead of internally scrolling. */
+.book .page{overflow:hidden!important;scrollbar-width:none!important;}
+.book .page::-webkit-scrollbar{display:none!important;}
