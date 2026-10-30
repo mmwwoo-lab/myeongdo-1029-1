@@ -117,6 +117,7 @@ function start(data){
   const list=poems.filter(p=>p.part===part);
   partToc.push({part,title:parts[part-1],poems:list.map(x=>({title:x.title,n:x.n}))});
   add('<div class="part-intro"><p class="partnum">PART '+String(part).padStart(2,'0')+'</p><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 시인</p><p>'+esc(introductions[part-1])+'</p></div>','제'+part+'부 '+parts[part-1]+'\n'+introductions[part-1],'divider');
+  add('<section class="part-toc"><h2>제'+part+'부 · '+esc(parts[part-1])+' 목차</h2><div class="part-toc-list">'+list.map(p=>'<p>'+esc(p.n+'. '+p.title)+'</p>').join('')+'</div></section>','제'+part+'부 시 목차','divider');
   for(const p of list){
    const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
    const poem=String(p.text||'원문을 확인 중입니다.').trim().replace(/\n{3,}/g,'\n\n');
