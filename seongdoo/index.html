@@ -47,6 +47,14 @@ main{max-width:1150px;margin:22px auto;padding:0 20px}.overline{font-size:12px;l
 .poem-continued{text-align:right;font-size:12px;color:#90784c;margin:12px 0}
 .page .read{position:sticky;top:0;z-index:12;min-height:48px;margin:0 0 10px;padding:5px 0;background:#fcfaf3}
 @media(max-width:800px){.poem .verse{font-size:15px;line-height:1.8}}
+.book .page{overflow:hidden!important;scrollbar-width:none!important;padding:29px 42px 24px!important}
+.book .page::-webkit-scrollbar{display:none!important}
+.book .page .read{position:relative!important;top:auto!important;margin:0 0 8px!important;padding:0!important;min-height:38px!important}
+.book .page .poem h2{font-size:22px!important;margin:7px 0 5px!important}
+.book .page .poem .verse{font-size:15px!important;line-height:1.65!important;margin:12px 0!important;white-space:pre-wrap}
+.book .page .critical{font-size:13px!important;line-height:1.72!important}
+.book .page .critical p{margin:13px 0}
+@media(max-width:800px){.book .page{padding:22px 24px!important}.book .page .poem .verse{font-size:14px!important;line-height:1.55!important}}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
@@ -54,4 +62,4 @@ main{max-width:1150px;margin:22px auto;padding:0 20px}.overline{font-size:12px;l
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
 <div class="notice">원시 © 이성두 시인 · 시평·편집 명도재 이명우. 원저작자 이용 허락 확인 후 공개하는 디지털 감상판입니다. 제공된 PDF를 바탕으로 편집했으며 작품 번호와 일부 전사 내용은 원시집 최종 교열 대상입니다. 음성은 방문자 브라우저의 한국어 음성합성입니다. 영상은 포함하지 않았습니다.</div>
-</main><script src="reader.js?v=20261030paginate1"></script></body></html>
+</main><script src="reader.js?v=20261030noscroll2"></script></body></html>
