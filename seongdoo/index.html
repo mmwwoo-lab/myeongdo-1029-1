@@ -213,10 +213,20 @@ main>.overline{margin-bottom:7px!important}
 .book .page .part-toc-list{grid-auto-flow:column!important;grid-template-rows:repeat(14,auto)!important;align-content:start!important}
  .book .page.poem-page{padding-bottom:55px!important}
  .book .page.poem-page .poem{height:calc(100% - 74px)!important}
+
+/* Keep each Lee Myeong-woo reading as one unclipped page with comfortable lower margin. */
+.book .page.reading-page{overflow:hidden!important;padding-bottom:44px!important}
+.book .page.reading-page .critical{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;max-height:calc(100% - 54px)!important;overflow:visible!important}
+.book .page.reading-page .critical>p:not(.poem-number):not(.poet){font-size:14px!important;line-height:1.65!important;margin:14px 0 10px!important;overflow-wrap:break-word!important;word-break:keep-all!important}
+.book .page.reading-page .critical .poet{margin-top:12px!important}
+@media(max-width:800px){
+ .book .page.reading-page{padding-bottom:40px!important}
+ .book .page.reading-page .critical>p:not(.poem-number):not(.poet){font-size:13.5px!important;line-height:1.58!important}
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="tocPanel" hidden></div><div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
-</main><script src="reader.js?v=20261030bottomspace11"></script></body></html>
+</main><script src="reader.js?v=20261030reading500"></script></body></html>
