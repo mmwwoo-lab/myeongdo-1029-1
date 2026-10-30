@@ -170,7 +170,7 @@ document.addEventListener('click',e=>{
 });
 $('prev').onclick=$('edgePrev').onclick=()=>go(pos-step());
 $('next').onclick=$('edgeNext').onclick=()=>go(pos+step());
-$('contents').onclick=()=>{$('tocPanel').hidden=!$('tocPanel').hidden};
+$('contents').onclick=()=>{const panel=$('tocPanel');panel.hidden=!panel.hidden;if(!panel.hidden){panel.scrollTop=0;$('contents').setAttribute('aria-expanded','true')}else $('contents').setAttribute('aria-expanded','false')};
 $('pauseToggle').onclick=pauseResume;
 $('book').addEventListener('click',e=>{if(e.target.closest('button'))return;if(speechId!==null){pauseResume();return}const el=e.target.closest('.page');if(!el)return;go(pos+(el.id==='left'?-step():step()))});
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(pos+step());if(e.key==='ArrowLeft')go(pos-step())});
