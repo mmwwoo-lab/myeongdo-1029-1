@@ -150,6 +150,25 @@ main>.overline{margin-bottom:7px!important}
  .book .page .poem h2,.book .page .critical h2{font-size:29px!important}
  .book .page .part-intro h2,.book .page.divider h2{font-size:42px!important}
 }
+
+/* Gulim title hierarchy; override earlier handwritten heading rules. */
+.book .cover h1,.book .page .poem h2,.book .page .critical h2,
+.book .page .part-intro h2,.book .page.divider h2,
+.book .page .editorial h2,#tocPanel h2 {
+ font-family:'Gulim','굴림','Malgun Gothic',sans-serif!important;
+ letter-spacing:-.035em!important;
+}
+.book .cover h1{font-size:clamp(42px,4.5vw,62px)!important;font-weight:800!important;line-height:1.38!important}
+.book .page .part-intro h2,.book .page.divider h2{font-size:34px!important;font-weight:750!important;line-height:1.35!important}
+.book .page .poem h2{font-size:24px!important;font-weight:750!important;line-height:1.35!important}
+.book .page .critical h2{font-size:21px!important;font-weight:700!important;line-height:1.4!important}
+.book .page .editorial h2,#tocPanel h2{font-size:26px!important;font-weight:700!important}
+@media(max-width:800px){
+ .book .cover h1{font-size:43px!important}
+ .book .page .part-intro h2,.book .page.divider h2{font-size:30px!important}
+ .book .page .poem h2{font-size:22px!important}
+ .book .page .critical h2{font-size:19px!important}
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
