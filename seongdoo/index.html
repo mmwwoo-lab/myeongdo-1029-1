@@ -368,6 +368,25 @@ header .actions #tocPanel:not([hidden]){
  header .actions #tocPanel:not([hidden]){right:0!important;width:min(88vw,430px)!important;max-height:55vh!important}
  .book .page.cover h1{font-size:clamp(49px,10vw,73px)!important}
 }
+
+/* Contents opens over the right-hand (second) book page. */
+header .actions #tocPanel:not([hidden]){
+ position:fixed!important;
+ top:clamp(115px,16vh,185px)!important;
+ left:calc(50% + 16px)!important;
+ right:auto!important;
+ transform:none!important;
+ width:min(480px,calc(50vw - 45px))!important;
+ max-height:65vh!important;
+ overflow-y:auto!important;
+ z-index:2000!important;
+}
+@media(max-width:800px){
+ header .actions #tocPanel:not([hidden]){
+  top:115px!important;left:50%!important;transform:translateX(-50%)!important;
+  width:90vw!important;max-height:62vh!important;
+ }
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents" aria-expanded="false" aria-controls="tocPanel">목차</button><div id="tocPanel" hidden></div></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
