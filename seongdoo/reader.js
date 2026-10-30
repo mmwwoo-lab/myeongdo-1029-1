@@ -55,21 +55,23 @@ function readPage(i){
  next();render();
 }
 function splitPoemIntoPages(text){
- // Preserve stanza breaks while limiting each paper page to a legible size.
- const stanzas=String(text).trim().split(/\n\s*\n+/);
- const units=[];
- for(const stanza of stanzas){
-  const lines=stanza.split(/\n/);
-  while(lines.length){units.push(lines.splice(0,Math.min(lines.length,5)).join('\n'))}
+ // Most poems occupy a single fixed-layout page; exceptionally long poems use two.
+ // Keep original line and stanza boundaries; do not alter poem wording.
+ const whole=String(text||'').trim().replace(/\n{3,}/g,'\n\n');
+ const lines=whole.split('\n');
+ const visibleLines=lines.reduce((n,line)=>n+(line.trim()?Math.max(1,Math.ceil(line.length/29)):0.65),0);
+ if(visibleLines<=22&&whole.length<=580)return [whole];
+ let best=1,score=Infinity;
+ for(let i=1;i<lines.length;i++){
+  const left=lines.slice(0,i).join('\n'),right=lines.slice(i).join('\n');
+  const weight=x=>x.split('\n').reduce((n,line)=>n+(line.trim()?Math.max(1,Math.ceil(line.length/29)):0.65),0);
+  const l=weight(left),rr=weight(right);
+  const penalty=Math.max(0,l-22)*100+Math.max(0,rr-22)*100;
+  const mid=Math.abs(l-rr),stanza=lines[i-1]?.trim()===''||lines[i]?.trim()===''?-2:0;
+  const v=penalty+mid+stanza;
+  if(v<score){score=v;best=i}
  }
- const result=[];let section=[],lines=0,chars=0;
- function flush(){if(section.length){result.push(section.join('\n\n'));section=[];lines=0;chars=0}}
- for(const unit of units){
-  const count=unit.split('\n').length,size=unit.length;
-  if(section.length&&(lines+count>9||chars+size>255))flush();
-  section.push(unit);lines+=count;chars+=size;
- }
- flush();return result.length?result:[''];
+ return [lines.slice(0,best).join('\n').trim(),lines.slice(best).join('\n').trim()].filter(Boolean);
 }
 function start(data){
  const parts=data.parts,poems=data.poems;
