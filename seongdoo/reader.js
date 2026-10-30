@@ -125,7 +125,7 @@ function start(data){
    const lines=poem.split('\n');
    // Fill the left column in reading order; move only the remaining lines to the right.
    const measure=line=>line.trim()?Math.max(1,Math.ceil(line.length/16)):0.7;
-   const capacity=19;
+   const capacity=15;
    let used=0,cut=lines.length;
    for(let i=0;i<lines.length;i++){
     const next=used+measure(lines[i]);
