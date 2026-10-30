@@ -60,13 +60,13 @@ function splitPoemIntoPages(text){
  const units=[];
  for(const stanza of stanzas){
   const lines=stanza.split(/\n/);
-  while(lines.length){units.push(lines.splice(0,Math.min(lines.length,8)).join('\n'))}
+  while(lines.length){units.push(lines.splice(0,Math.min(lines.length,5)).join('\n'))}
  }
  const result=[];let section=[],lines=0,chars=0;
  function flush(){if(section.length){result.push(section.join('\n\n'));section=[];lines=0;chars=0}}
  for(const unit of units){
   const count=unit.split('\n').length,size=unit.length;
-  if(section.length&&(lines+count>13||chars+size>385))flush();
+  if(section.length&&(lines+count>9||chars+size>255))flush();
   section.push(unit);lines+=count;chars+=size;
  }
  flush();return result.length?result:[''];
@@ -88,7 +88,8 @@ function start(data){
    add('<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+(continuation?' · 이어지는 시':'')+'</p><h2>'+esc(p.title)+(continuation?' <small>· 계속</small>':'')+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="verse">'+esc(chunk)+'</div>'+(k<chunks.length-1?'<p class="poem-continued">다음 페이지에 이어집니다 →</p>':'')+'</section>',(continuation?'이어지는 시. ':'')+p.title+'\n'+chunk);
   });
   const crit=String(p.commentary||'시평 원본을 확인해 주세요.');
-  add('<section class="critical"><p class="poem-number">明道齋 · 작품 읽기</p><h2>'+esc(p.title)+' · 시평</h2><p>'+esc(crit)+'</p><p class="poet">시평·편집 명도재 이명우</p></section>',p.title+' 시평\n'+crit);
+  const critChunks=crit.match(/[\s\S]{1,290}/gu)||[crit];
+  critChunks.forEach((piece,k)=>add('<section class="critical"><p class="poem-number">明道齋 · 작품 읽기</p><h2>'+esc(p.title)+' · 시평'+(k?' (계속)':'')+'</h2><p>'+esc(piece)+'</p><p class="poet">시평·편집 명도재 이명우</p></section>',p.title+' 시평\n'+piece));
  }
  }
  add('<div><p class="kicker">COLOPHON</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>시평·편집 명도재 이명우</p><p>시와 시평의 저작권은 각 권리자에게 있습니다.</p></div>','별꽃은 피고 지고. 원시 이성두. 시평과 편집 명도재 이명우.','cover');
