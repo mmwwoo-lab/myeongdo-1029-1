@@ -461,3 +461,14 @@ header button:focus-visible,header a:focus-visible{outline:3px solid #6e537f;out
 .book .page > .song .intro{font-size:15px!important;line-height:1.65!important;margin:2px 0!important;}
 .book .page > .song hr{width:85%;margin:5px auto!important;}
 @media(max-width:800px){.book .page > .song h1{font-size:35px!important}.book .page > .song video{max-height:240px!important}.book .page > .song .lead{font-size:16px!important}.book .page > .song .intro{font-size:14px!important}}
+
+/* Compact contents overlay: tighter spacing without reducing tap usability. */
+.book #toc{padding:16px 20px!important;}
+.book #toc .toc-head{font-size:10px;letter-spacing:1.5px;}
+.book #toc .toc-head button{padding:5px 8px;min-width:32px;min-height:32px;}
+.book #toc h2{font-size:19px!important;margin:11px 0 12px!important;line-height:1.4;}
+.book #toc #toc-list button{font-size:12px!important;line-height:1.35!important;padding:7px 2px!important;gap:8px!important;min-height:32px;align-items:center;}
+.book #toc #toc-list button span{font-size:10px!important;flex-shrink:0;}
+.book #toc #toc-list h3{font-size:11px!important;margin:13px 0 3px!important;line-height:1.35;}
+.book #toc #toc-list h3 button{font-size:12px!important;font-weight:650;}
+@media(max-width:800px){.book #toc{padding:14px 17px!important;}}
