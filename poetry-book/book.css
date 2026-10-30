@@ -440,3 +440,14 @@ header button:focus-visible,header a:focus-visible{outline:3px solid #6e537f;out
 /* Pages are fixed book sheets; content is fitted in JS instead of internally scrolling. */
 .book .page{overflow:hidden!important;scrollbar-width:none!important;}
 .book .page::-webkit-scrollbar{display:none!important;}
+
+/* Compact full-height reader layout, 2026-10-30. */
+@media screen{
+  html,body{margin:0;min-height:100%;overflow-x:hidden;}
+  main{margin-top:8px!important;padding-bottom:0!important;}
+  .above{display:none!important;}
+  .book-frame{height:calc(var(--book-natural-height,720px) * var(--book-viewport-scale,.9))!important;}
+  .book{height:var(--book-natural-height,720px)!important;width:calc(100% / var(--book-viewport-scale,.9))!important;transform:scale(var(--book-viewport-scale,.9))!important;transform-origin:top left!important;}
+  footer{display:none!important;}
+  @media(max-width:800px){.book-frame{--book-natural-height:740px;}}
+}
