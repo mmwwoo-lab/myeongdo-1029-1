@@ -119,13 +119,20 @@ function start(data){
    const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
    const poem=String(p.text||'원문을 확인 중입니다.').trim().replace(/\n{3,}/g,'\n\n');
    const lines=poem.split('\n');
-   let cut=Math.ceil(lines.length/2);
-   if(lines.length>1){
-    const total=lines.reduce((n,v)=>n+Math.max(1,Math.ceil(v.length/27)),0);
-    let acc=0;for(let i=0;i<lines.length;i++){acc+=Math.max(1,Math.ceil(lines[i].length/27));if(acc>=total/2){cut=i+1;break}}
-    if(lines[cut-1]?.trim()===''&&cut<lines.length)cut++;
+   const measure=line=>line.trim()?Math.max(1,Math.ceil(line.length/24)):0.65;
+   const total=lines.reduce((n,line)=>n+measure(line),0);
+   const needsColumns=total>17||poem.length>250;
+   let cut=lines.length;
+   if(needsColumns){
+    const half=total/2;let bestScore=Infinity;
+    for(let i=1;i<lines.length;i++){
+     const before=lines.slice(0,i).reduce((n,line)=>n+measure(line),0);
+     const after=total-before;
+     const stanzaBoundary=lines[i-1].trim()===''||lines[i].trim()==='';
+     const score=Math.abs(before-after)-(stanzaBoundary?1.4:0);
+     if(score<bestScore){bestScore=score;cut=i}
+    }
    }
-   const needsColumns=lines.length>15||poem.length>280;
    const leftText=needsColumns?lines.slice(0,cut).join('\n').trim():poem;
    const rightText=needsColumns?lines.slice(cut).join('\n').trim():'';
    const poemMarkup='<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="poem-columns'+(rightText?' two':'')+'"><div class="verse">'+esc(leftText)+'</div>'+(rightText?'<div class="verse">'+esc(rightText)+'</div>':'')+'</div></section>';
