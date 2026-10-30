@@ -14,6 +14,26 @@ function render(){
  $('prev').disabled=$('edgePrev').hidden=pos===0;
  $('next').disabled=$('edgeNext').hidden=pos+step()>=pages.length;
  document.querySelectorAll('[data-read]').forEach(b=>{if(speechId===Number(b.dataset.read))b.textContent=paused?'▶ 이어 읽기':'⏸ 일시정지'});
+ fitVisiblePages();
+}
+function fitVisiblePages(){
+ document.querySelectorAll('.page:not(.hide-mobile)').forEach(page=>{
+  const content=page.querySelector('.poem, .critical, .editorial, .part-intro');
+  if(!content)return;
+  // Keep a fixed paper height and shrink text only when the body would overflow.
+  const verse=content.querySelectorAll('.verse');
+  const editable=verse.length?[...verse]:[content];
+  let tries=0;
+  while(tries<14&&content.getBoundingClientRect().bottom>page.getBoundingClientRect().bottom-20){
+   editable.forEach(el=>{
+    const style=getComputedStyle(el);
+    const fs=parseFloat(style.fontSize);
+    if(fs>10)el.style.setProperty('font-size',Math.max(10,fs-0.45)+'px','important');
+    const lh=parseFloat(style.lineHeight);
+    if(Number.isFinite(lh)&&lh>15)el.style.setProperty('line-height',Math.max(1.25,(lh-1)/Math.max(10,fs-0.45)),'important');
+   });tries++;
+  }
+ });
 }
 function stop(){token++;speechId=null;paused=false;if('speechSynthesis'in window)window.speechSynthesis.cancel();$('readingStatus').hidden=true}
 function go(page){let p=Math.max(0,Math.min(pages.length-step(),page));if(!mobile.matches)p-=p%2;if(p===pos)return;stop();pos=p;render();history.replaceState(null,'','#page-'+(pos+1))}
@@ -131,4 +151,5 @@ $('pauseToggle').onclick=pauseResume;
 $('book').addEventListener('click',e=>{if(e.target.closest('button'))return;if(speechId!==null){pauseResume();return}const el=e.target.closest('.page');if(!el)return;go(pos+(el.id==='left'?-step():step()))});
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(pos+step());if(e.key==='ArrowLeft')go(pos-step())});
 window.addEventListener('pagehide',stop);
+window.addEventListener('resize',()=>{if(pages.length)render()});
 fetch('./poems.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('작품 파일을 열 수 없습니다.');return r.json()}).then(start).catch(e=>{$('progress').textContent='시집 불러오기 실패';console.error(e)});
