@@ -76,11 +76,45 @@ main{max-width:1150px;margin:22px auto;padding:0 20px}.overline{font-size:12px;l
 .book .page .poem .poet{margin:5px 0!important}
 .book .page .poem-continued{margin:8px 0!important}
 @media(max-width:800px){.book .page .poem .verse{font-size:13px!important;line-height:1.43!important}}
+
+/* Consolidated paper geometry for paired digital book spreads */
+.book{min-height:0!important;align-items:stretch;overflow:hidden}
+.book .page{height:min(590px,calc(100dvh - 158px))!important;min-height:440px;overflow:hidden!important;scrollbar-width:none!important;padding:22px 44px 20px!important}
+.book .page::-webkit-scrollbar{display:none!important}
+.book .page .read{position:relative!important;top:auto!important;bottom:auto!important;min-height:36px!important;padding:0!important;margin:0 0 8px!important;z-index:4}
+.book .page .read button{min-height:34px!important;padding:5px 12px!important;font-size:12px}
+.book .page .poem,.book .page .critical{margin:0!important;padding:0!important}
+.book .page .poem h2,.book .page .critical h2{font-family:"Nanum Brush Script","Nanum Pen Script","Segoe Print",cursive;font-size:27px!important;line-height:1.15!important;margin:4px 0 8px!important}
+.cover h1,.part-intro h2,.page.divider h2{font-family:"Nanum Brush Script","Nanum Pen Script",cursive!important;font-weight:500!important}
+.book .page .poem .verse{font-size:12.8px!important;line-height:1.47!important;margin:8px 0!important;white-space:pre-wrap!important;overflow-wrap:anywhere}
+.book .page .poem-columns{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+.book .page .poem-columns.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.book .page .poem-columns.two .verse{min-width:0;word-break:keep-all}
+.book .page .critical{font-size:13px!important;line-height:1.75!important}
+.book .page .critical p{margin:10px 0}
+.book .page.illustration-page{display:flex;align-items:center;justify-content:center}
+.illustration{width:min(85%,360px);max-height:84%;display:flex;justify-content:center;align-items:center}
+.illustration svg{display:block;width:100%;height:auto;max-height:400px}
+.part-intro{display:flex;min-height:72%;flex-direction:column;justify-content:center;align-items:flex-start}
+.part-intro h2{font-size:42px!important;margin:24px 0!important}
+.page .poem-number{font-size:10px!important;margin:3px 0!important}
+.page .poem .poet{font-size:11px!important;margin:3px 0!important}
+.number{position:absolute!important;right:20px;bottom:8px!important}
+nav.nav{margin:10px auto!important}
+main{margin-top:8px!important}
+main>.overline{margin-bottom:7px!important}
+@media(max-width:800px){
+ .book{grid-template-columns:1fr!important}
+ .book .page{height:min(610px,calc(100dvh - 150px))!important;min-height:440px;padding:20px 30px!important}
+ .book .page.hide-mobile{display:none!important}
+ .book .page .poem .verse{font-size:12.5px!important;line-height:1.45!important}
+ .book .page .poem-columns.two{gap:12px}
+ .part-intro h2{font-size:36px!important}
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="tocPanel" hidden></div><div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
-<div class="notice">원시 © 이성두 시인 · 이명우 시읽기 · 명도재 편집. 원저작자 이용 허락 확인 후 공개하는 디지털 감상판입니다. 제공된 PDF를 바탕으로 편집했으며 작품 번호와 일부 전사 내용은 원시집 최종 교열 대상입니다. 음성은 방문자 브라우저의 한국어 음성합성입니다. 영상은 포함하지 않았습니다.</div>
-</main><script src="reader.js?v=20261030twopage5"></script></body></html>
+</main><script src="reader.js?v=20261030finalfit7"></script></body></html>
