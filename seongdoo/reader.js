@@ -91,7 +91,6 @@ function start(data){
   add('<section class="critical"><p class="poem-number">明道齋 · 작품 읽기</p><h2>'+esc(p.title)+' · 시평</h2><p>'+esc(crit)+'</p><p class="poet">시평·편집 명도재 이명우</p></section>',p.title+' 시평\n'+crit);
  }
  }
- }
  add('<div><p class="kicker">COLOPHON</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>시평·편집 명도재 이명우</p><p>시와 시평의 저작권은 각 권리자에게 있습니다.</p></div>','별꽃은 피고 지고. 원시 이성두. 시평과 편집 명도재 이명우.','cover');
  if(pages.length%2) add('<div class="partnum">明道齋</div><h2>시의 여운이<br>오래 머물기를.</h2>','시의 여운이 오래 머물기를.','divider');
  $('tocPanel').innerHTML='<h2>작품 차례</h2>'+toc.map(x=>'<button data-go="'+x.page+'">'+esc(x.title)+'</button>').join('');
