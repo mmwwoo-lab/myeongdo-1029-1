@@ -8,8 +8,8 @@ function add(html,txt,kind='page'){pages.push({html,txt,kind})}
 function readBtn(i){return '<div class="read"><button data-read="'+i+'" aria-label="이 페이지 읽기">▶ 이 페이지 읽기</button></div>'}
 function render(){
  for(let i=0;i<2;i++){let x=pos+i,el=$(i?'right':'left'),p=pages[x];
- el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':p?.kind==='illustration-page'?' illustration-page':'')+(mobile.matches&&i?' hide-mobile':'');
- el.innerHTML=p?readBtn(x)+p.html+'<div class="number">'+(x+1)+'</div>':'';el.scrollTop=0}
+ el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':p?.kind==='illustration-page'?' illustration-page':p?.kind==='poem-page'?' poem-page':p?.kind==='reading-page'?' reading-page':'')+(mobile.matches&&i?' hide-mobile':'');
+ el.innerHTML=p?((p.kind==='poem-page'||p.kind==='reading-page')?readBtn(x):'')+p.html+'<div class="number">'+(x+1)+'</div>':'';el.scrollTop=0}
  $('progress').textContent=(pos+1)+' — '+Math.min(pos+step(),pages.length)+' / '+pages.length;
  $('prev').disabled=$('edgePrev').hidden=pos===0;
  $('next').disabled=$('edgeNext').hidden=pos+step()>=pages.length;
@@ -41,7 +41,7 @@ function pauseResume(){if(speechId===null)return;try{if(paused){speechSynthesis.
 function readPage(i){
  if(speechId===i){pauseResume();return}
  stop();
- const p=pages[i];if(!p||!p.txt.trim())return;
+ const p=pages[i];if(!p||!['poem-page','reading-page'].includes(p.kind)||!p.txt.trim())return;
  if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window)){alert('이 환경에서는 낭송을 지원하지 않습니다. 크롬에서 열어 주세요.');return}
  const synth=window.speechSynthesis;
  synth.cancel();
