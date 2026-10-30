@@ -47,7 +47,7 @@ function playPageTurnSound(){
 }
 $('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
 updateSoundControl();
-function render(){document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#prev').disabled=position===0;$('#next').disabled=position+step()>=pages.length;$('#edge-prev').hidden=position===0;$('#edge-next').hidden=position+step()>=pages.length;$('#progress').textContent=mobile.matches?`${position+1} / ${pages.length}`:`${position+1} — ${Math.min(position+2,pages.length)} / ${pages.length}`;$('#fill').style.width=`${Math.min(100,(position+step())/pages.length*100)}%`;updateRecitalStatus();}
+function render(){document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#edge-prev').hidden=position===0;$('#edge-next').hidden=position+step()>=pages.length;updateRecitalStatus();}
 $('#edge-prev').addEventListener('click',()=>go(position-step()));
 $('#edge-next').addEventListener('click',()=>go(position+step()));
  document.addEventListener('click',e=>{if(e.target.id==='recital-status')toggleRecitalPause()});
@@ -91,7 +91,7 @@ function go(target){
  turn.className=`turn active${backward?' back':''}`;
 }
 function toggleToc(open){$('#toc').hidden=!open;$('#contents').setAttribute('aria-expanded',String(open));if(open)$('#close').focus();else $('#contents').focus()}
-$('#prev').onclick=()=>go(position-step());$('#next').onclick=()=>go(position+step());$('#contents').onclick=()=>toggleToc($('#toc').hidden);$('#close').onclick=()=>toggleToc(false);
+$('#contents').onclick=()=>toggleToc($('#toc').hidden);$('#close').onclick=()=>toggleToc(false);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleToc(false);if(!$('#toc').hidden||/INPUT|TEXTAREA|VIDEO|AUDIO/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();go(position+step())}if(e.key==='ArrowLeft'){e.preventDefault();go(position-step())}});
 let suppressClickUntil=0;
 let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video,audio'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
@@ -322,4 +322,4 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
   go(position+(backward?-step():step()));
  };
  const match=location.hash.match(/^#page-(\d+)$/);if(match){position=Math.min(pages.length-step(),Math.max(0,Number(match[1])-1));if(!mobile.matches)position-=position%2}render();
-}).catch(error=>{console.error('Poetry reader failed to initialize:',error);$('#error').hidden=false;$('#prev').disabled=true;$('#next').disabled=true});
+}).catch(error=>{console.error('Poetry reader failed to initialize:',error);$('#error').hidden=false;});
