@@ -55,6 +55,18 @@ main{max-width:1150px;margin:22px auto;padding:0 20px}.overline{font-size:12px;l
 .book .page .critical{font-size:13px!important;line-height:1.72!important}
 .book .page .critical p{margin:13px 0}
 @media(max-width:800px){.book .page{padding:22px 24px!important}.book .page .poem .verse{font-size:14px!important;line-height:1.55!important}}
+
+/* Inset poetry and reading notes symmetrically to avoid a tilted page impression. */
+.book .page{padding-left:54px!important;padding-right:54px!important}
+.book .page .poem,.book .page .critical{width:100%;max-width:100%;margin-left:auto;margin-right:auto;text-align:left;transform:none;letter-spacing:normal}
+.book .page .poem .verse{font-size:14px!important;line-height:1.54!important;margin:10px 0!important;word-break:keep-all;overflow-wrap:anywhere}
+.book .page .critical{font-size:12.5px!important;line-height:1.7!important;word-break:keep-all;overflow-wrap:anywhere}
+.book .page .poem h2,.book .page .critical h2{font-size:20px!important;line-height:1.4!important}
+@media(max-width:800px){
+ .book .page{padding-left:36px!important;padding-right:36px!important}
+ .book .page .poem .verse{font-size:13.5px!important;line-height:1.53!important}
+ .book .page .critical{font-size:12.5px!important;line-height:1.6!important}
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
