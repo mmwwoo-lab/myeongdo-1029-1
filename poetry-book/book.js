@@ -5,12 +5,23 @@ const BOOK_TITLE='물빛에 놓아둔 마음';
 const song=`<section class="song"><div class="eyebrow">OPENING · 시에서 노래로</div><h1>물에게<br>길을 묻다</h1><p class="lead">한 편의 시가 노래가 되어,<br>책의 첫 장에 흐릅니다.</p><video controls playsinline preload="metadata" poster="media/song-poster.jpg" aria-label="물에게 길을 묻다 창작시 노래 영상"><source src="media/asking-water.mp4" type="video/mp4">이 브라우저에서는 영상을 재생할 수 없습니다.</video><div class="caption">「물에게 길을 묻다」 · 창작시를 노래로 만든 영상<br>시 이명우 · 제공 영상 수록 · 3분 47초</div><hr><p class="intro">물의 흐름을 따라 삶의 방향을 묻는 시.<br>먼저 노래로 만나고, 다음 장에서 시의 문장으로 천천히 돌아오세요.</p></section>`;
 const cover=`<section class="cover hardcover-front editorial-cover" aria-label="물빛에 놓아둔 마음 시집 앞표지"><div class="editorial-cover-frame"><p class="editorial-cover-kicker">明道齋 · 창작 시집</p><div class="editorial-cover-main"><span class="editorial-cover-rule" aria-hidden="true"></span><h1 class="editorial-cover-title">물빛에<br>놓아둔 마음</h1><p class="editorial-cover-subtitle">기억을 건너, 계절을 지나</p></div><div class="editorial-cover-footer"><span>이명우 지음</span><span>명도재 제작</span></div></div></section>`;
 const backCover=`<section class="back-cover"><div class="back-cover-mark">明道齋</div><p class="back-cover-quote">기억을 건너,<br>계절을 지나.<br><br>마음에 머문 풍경이<br>한 권의 시가 됩니다.</p><div class="back-cover-title gold-foil">${BOOK_TITLE}</div><p class="back-cover-author">명도재 이명우 창작 시집</p><div class="back-cover-imprint">명도재 제작</div></section>`;
+function fitPaperWithoutScroll(paper){
+ const section=paper.querySelector(':scope > section');
+ if(!section)return;
+ section.style.zoom='1';
+ // Shrink only overflowing content, while retaining whole original poem text.
+ for(let value=100;value>=60;value-=2){
+  section.style.zoom=String(value/100);
+  if(paper.scrollHeight<=paper.clientHeight+1&&paper.scrollWidth<=paper.clientWidth+1)break;
+ }
+}
 function setPaperContent(paper,html,number){
  paper.innerHTML=html||'';paper.dataset.number=String(number+1).padStart(2,'0');
  if(html){paper.querySelectorAll('.recital').forEach(el=>el.remove());const control=document.createElement('div');control.className='page-read-control';control.innerHTML='<button type="button" data-page-read="'+number+'" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>';paper.append(control)}
  paper.classList.toggle('cover-page',Boolean(paper.querySelector('.cover,.back-cover')));
  paper.classList.toggle('back-cover-page',Boolean(paper.querySelector('.back-cover')));
  paper.scrollTop=0;
+ fitPaperWithoutScroll(paper);
 }
 
 let soundEnabled=true,audioContext=null;
