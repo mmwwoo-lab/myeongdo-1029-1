@@ -276,10 +276,28 @@ main>.overline{margin-bottom:7px!important}
 .book .page.poem-page .poem h2{margin-bottom:5px!important}
 .book .page.poem-page .poem-columns{flex:0 1 auto!important;align-items:start!important;align-content:start!important;margin-top:7px!important}
 .book .page.poem-page .poem-columns .verse{align-self:start!important}
+
+/* Upper metadata strip and raised content on poetry / commentary pages. */
+.book .page.poem-page,.book .page.reading-page{position:relative!important;padding-top:12px!important}
+.book .page.poem-page .read,.book .page.reading-page .read{margin-bottom:1px!important;min-height:29px!important}
+.book .page.poem-page .read button,.book .page.reading-page .read button{min-height:27px!important;padding:3px 9px!important;font-size:11px!important}
+.book .page.poem-page .poem-number,.book .page.reading-page .poem-number{
+ display:block!important;position:relative!important;
+ background:#e7ece3!important;color:#3b5548!important;
+ border-left:3px solid #829b81!important;
+ font-size:10px!important;line-height:1.3!important;
+ padding:5px 9px!important;margin:0 0 7px!important;
+}
+.book .page.poem-page .poem h2,.book .page.reading-page .critical h2{margin:2px 0 5px!important}
+.book .page.poem-page .poem{height:auto!important;max-height:calc(100% - 30px)!important}
+.book .page.poem-page .poem-columns{margin-top:3px!important;flex:0 1 auto!important;align-content:start!important;align-items:start!important}
+.book .page.poem-page .poem-columns .verse{margin:0!important;align-self:start!important}
+.book .page.reading-page .critical>p:not(.poem-number):not(.poet){margin-top:8px!important}
+@media(max-width:800px){.book .page.poem-page,.book .page.reading-page{padding-top:10px!important}}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="tocPanel" hidden></div><div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
-</main><script src="reader.js?v=20261030poemtop16"></script></body></html>
+</main><script src="reader.js?v=20261030topband17"></script></body></html>
