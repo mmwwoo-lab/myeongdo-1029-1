@@ -331,6 +331,10 @@ main>.overline{margin-bottom:7px!important}
 #tocPanel .toc-items{display:flex;flex-wrap:wrap;gap:3px!important}
 #tocPanel button{font-size:11px!important;line-height:1.25!important;padding:3px 6px!important;margin:1px!important;border-radius:3px!important;min-height:0!important;box-shadow:none!important}
 @media(max-width:800px){#tocPanel{width:96%!important;max-height:30vh!important;padding:8px!important}#tocPanel button{font-size:10px!important;padding:3px 5px!important}}
+
+/* Open the compact contents directly below the top toolbar. */
+#tocPanel:not([hidden]){position:fixed!important;top:58px!important;left:50%!important;transform:translateX(-50%)!important;z-index:1000!important;width:min(780px,94vw)!important;max-height:min(55vh,540px)!important;overflow-y:auto!important;box-shadow:0 14px 35px #0003!important;border:1px solid #c4c9b8!important}
+@media(max-width:800px){#tocPanel:not([hidden]){top:52px!important;width:96vw!important;max-height:58vh!important}}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
