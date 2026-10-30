@@ -416,7 +416,7 @@ header .actions #tocPanel:not([hidden]){
  radial-gradient(circle at 100% 0,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) top right / 90px 90px no-repeat,
  radial-gradient(circle at 0 100%,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) bottom left / 90px 90px no-repeat,
  radial-gradient(circle at 100% 100%,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) bottom right / 90px 90px no-repeat;
- opacity:.8;z-index:-1;
+ opacity:.8;z-index:0;
 }
 .book .page.cover:after{
  content:"❧  ◇  ❧"!important;position:absolute!important;left:18%!important;right:18%!important;
@@ -433,10 +433,14 @@ header .actions #tocPanel:not([hidden]){
 .book .page.reading-page .critical{max-width:100%!important;min-width:0!important}
 .book .page.reading-page .critical>p:not(.poem-number):not(.poet){text-align:justify!important;word-break:keep-all!important;overflow-wrap:break-word!important;line-height:1.52!important;font-size:13.7px!important}
 @media(max-width:800px){.book .page.reading-page .critical>p:not(.poem-number):not(.poet){font-size:12.5px!important;line-height:1.43!important}}
+
+/* Maintain comfortable interior text margins on both pages. */
+.book .page.poem-page .poem,.book .page.reading-page .critical{padding-bottom:8px!important}
+.book .page.reading-page .critical>p:not(.poem-number):not(.poet){margin-top:10px!important;margin-bottom:10px!important}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents" aria-expanded="false" aria-controls="tocPanel">목차</button><div id="tocPanel" hidden></div></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <div id="progress" class="sr-only" aria-live="polite">로딩 중</div>
-</main><script src="reader.js?v=20261030finalpolish26"></script></body></html>
+</main><script src="reader.js?v=20261030finalpolish28"></script></body></html>
