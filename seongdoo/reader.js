@@ -8,7 +8,7 @@ function add(html,txt,kind='page'){pages.push({html,txt,kind})}
 function readBtn(i){return '<div class="read"><button data-read="'+i+'" aria-label="이 페이지 읽기">▶ 이 페이지 읽기</button></div>'}
 function render(){
  for(let i=0;i<2;i++){let x=pos+i,el=$(i?'right':'left'),p=pages[x];
- el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':'')+(mobile.matches&&i?' hide-mobile':'');
+ el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':p?.kind==='illustration-page'?' illustration-page':'')+(mobile.matches&&i?' hide-mobile':'');
  el.innerHTML=p?readBtn(x)+p.html+'<div class="number">'+(x+1)+'</div>':'';el.scrollTop=0}
  $('progress').textContent=(pos+1)+' — '+Math.min(pos+step(),pages.length)+' / '+pages.length;
  $('prev').disabled=$('edgePrev').hidden=pos===0;
@@ -73,28 +73,49 @@ function splitPoemIntoPages(text){
  }
  return [lines.slice(0,best).join('\n').trim(),lines.slice(best).join('\n').trim()].filter(Boolean);
 }
+function partIllustration(part){
+ const motifs=[
+  '<path d="M85 460 Q175 280 355 145" fill="none" stroke="#544a35" stroke-width="7" stroke-linecap="round"/><path d="M198 338 Q125 270 88 235 M275 242 Q334 244 390 210" fill="none" stroke="#66533a" stroke-width="4"/>'
+  +Array.from({length:8},(_,i)=>{const x=135+i*34,y=402-i*32;return '<g transform="translate('+x+' '+y+')"><circle r="20" fill="#dba9a7" opacity=".7"/><circle cx="-12" cy="-8" r="15" fill="#efd1ca"/><circle cx="12" cy="-9" r="15" fill="#e7b1ae"/><circle cx="0" cy="-20" r="14" fill="#f6ded2"/><circle r="5" fill="#c8a358"/></g>'}).join(''),
+  '<circle cx="340" cy="145" r="70" fill="#efdfb2" opacity=".85"/><path d="M60 465 Q170 340 300 380 T450 365" stroke="#6b806b" stroke-width="8" fill="none"/><path d="M225 410 Q210 310 245 215" stroke="#5f735b" stroke-width="6" fill="none"/><g transform="translate(248 208)"><path d="M0 0 Q-100 -50 -38 -102 Q0 -132 36 -90 Q90 -40 0 0" fill="#f3e6b6" stroke="#c3b987" stroke-width="3"/><circle cy="-45" r="12" fill="#bf9c60"/></g>',
+  '<rect x="98" y="92" width="304" height="335" rx="10" fill="none" stroke="#9c9a85" stroke-width="8"/><path d="M250 95 V424 M100 264 H399" stroke="#bbb49e" stroke-width="7"/><circle cx="348" cy="151" r="54" fill="#e7cba2" opacity=".8"/><path d="M140 432 Q260 280 375 390" stroke="#77866d" stroke-width="5" fill="none"/><path d="M150 425 Q98 375 135 344 Q191 345 205 407 M302 380 Q323 314 381 320 Q378 375 302 380" fill="#9cab92" opacity=".8"/>',
+  '<path d="M88 463 Q158 265 350 123" fill="none" stroke="#645746" stroke-width="7"/><path d="M171 332 Q101 269 110 222 M286 186 Q348 182 391 136" fill="none" stroke="#71624e" stroke-width="4"/>'
+  +Array.from({length:9},(_,i)=>{const x=135+i*29,y=406-i*31;return '<g transform="translate('+x+' '+y+')"><circle r="11" fill="#f2e3cb"/><circle cx="-12" cy="-9" r="10" fill="#e7dfcc"/><circle cx="12" cy="-7" r="10" fill="#f2e8d5"/><circle cx="0" cy="-16" r="10" fill="#f1e4d5"/><circle r="4" fill="#d2b56a"/></g>'}).join('')
+ ];
+ return '<div class="illustration" aria-label="제'+part+'부 수묵담채풍 꽃과 자연 삽화"><svg viewBox="0 0 500 520" role="img" aria-hidden="true"><ellipse cx="248" cy="460" rx="170" ry="22" fill="#c7c6ae" opacity=".18"/>'+motifs[part-1]+'</svg></div>';
+}
 function start(data){
  const parts=data.parts,poems=data.poems;
- add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 이명우 시읽기. 명도재 편집.','cover');
- add('<div class="divider"><p class="partnum">EDITORIAL NOTE</p><h2>이 책을 펼치며</h2><p>이성두 시인의 시를 읽고, 명도재 이명우의 작품별 시읽기를 함께 감상하는 디지털 시집입니다.</p><p>네 부의 시를 책장 넘김 형식으로 엮었습니다. 각 페이지의 낭송 버튼은 해당 페이지의 내용만 읽어줍니다.</p><p>사진 대조 PDF에서 옮긴 교정 초고이므로 원시집과의 최종 대조가 필요합니다.</p></div>','이 책을 펼치며\n이성두 시인의 시와 명도재 이명우의 작품별 시읽기를 함께 감상하는 디지털 시집입니다.\n네 부로 구성하였습니다.','divider');
+ add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 이명우 시읽기.','cover');
+ add('<div class="editorial"><p class="partnum">明道齋</p><h2>이 책을 펼치며</h2><p>이성두 시인의 원시와 이명우의 시읽기를 함께 감상하는 디지털 시집입니다.</p><p>왼쪽에는 시, 오른쪽에는 이명우 시읽기를 배치했습니다. 각 페이지의 음성 버튼으로 내용을 들을 수 있습니다.</p></div>','이 책을 펼치며\n이성두 시인의 원시와 이명우 시읽기를 함께 감상합니다.','divider');
  const toc=[];
  for(let part=1;part<=4;part++){
- const list=poems.filter(p=>p.part===part);
- const section=pages.length;toc.push({title:'제'+part+'부 · '+parts[part-1],page:section});
- add('<div class="partnum">PART '+String(part).padStart(2,'0')+'</div><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 원시 / 명도재 이명우 시읽기</p><p>다음 장부터 시와 작품 해설을 감상하실 수 있습니다.</p>','제'+part+'부 '+parts[part-1]+'. 이성두 시인.','divider');
- for(const p of list){
-  const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
-  const chunks=splitPoemIntoPages(p.text||'원문을 확인 중입니다.');
-  chunks.forEach((chunk,k)=>{
-   const continuation=k>0;
-   add('<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+(continuation?' · 이어지는 시':'')+'</p><h2>'+esc(p.title)+(continuation?' <small>· 계속</small>':'')+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="verse">'+esc(chunk)+'</div>'+(k<chunks.length-1?'<p class="poem-continued">다음 페이지에 이어집니다 →</p>':'')+'</section>',(continuation?'이어지는 시. ':'')+p.title+'\n'+chunk);
-  });
-  const crit=String(p.commentary||'작품 해설을 확인해 주세요.');
-  add('<section class="critical"><p class="poem-number">明道齋 · 이명우 시읽기</p><h2>'+esc(p.title)+' · 이명우 시읽기</h2><p>'+esc(crit)+'</p><p class="poet">이명우 시읽기 · 명도재</p></section>',p.title+' 이명우 시읽기\n'+crit);
+  const section=pages.length;
+  add(partIllustration(part),'제'+part+'부 삽화','illustration-page');
+  toc.push({title:'제'+part+'부 · '+parts[part-1],page:section});
+  const list=poems.filter(p=>p.part===part);
+  add('<div class="part-intro"><p class="partnum">PART '+String(part).padStart(2,'0')+'</p><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 시인</p><p>이성두의 시와 이명우 시읽기를 함께 펼쳐 읽습니다.</p></div>','제'+part+'부 '+parts[part-1]+'\n이성두 시인','divider');
+  for(const p of list){
+   const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
+   const poem=String(p.text||'원문을 확인 중입니다.').trim().replace(/\n{3,}/g,'\n\n');
+   const lines=poem.split('\n');
+   let cut=Math.ceil(lines.length/2);
+   if(lines.length>1){
+    const total=lines.reduce((n,v)=>n+Math.max(1,Math.ceil(v.length/27)),0);
+    let acc=0;for(let i=0;i<lines.length;i++){acc+=Math.max(1,Math.ceil(lines[i].length/27));if(acc>=total/2){cut=i+1;break}}
+    if(lines[cut-1]?.trim()===''&&cut<lines.length)cut++;
+   }
+   const needsColumns=lines.length>15||poem.length>280;
+   const leftText=needsColumns?lines.slice(0,cut).join('\n').trim():poem;
+   const rightText=needsColumns?lines.slice(cut).join('\n').trim():'';
+   const poemMarkup='<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="poem-columns'+(rightText?' two':'')+'"><div class="verse">'+esc(leftText)+'</div>'+(rightText?'<div class="verse">'+esc(rightText)+'</div>':'')+'</div></section>';
+   add(poemMarkup,p.title+'\n'+poem,'poem-page');
+   const comment=String(p.commentary||'').trim();
+   add('<section class="critical"><p class="poem-number">明道齋 · 이명우 시읽기</p><h2>'+esc(p.title)+' · 이명우 시읽기</h2><p>'+esc(comment)+'</p><p class="poet">이명우 시읽기 · 명도재</p></section>',p.title+' 이명우 시읽기\n'+comment,'reading-page');
+  }
  }
- }
- add('<div><p class="kicker">COLOPHON</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>이명우 시읽기 · 명도재 편집</p><p>시와 시읽기의 저작권은 각 권리자에게 있습니다.</p></div>','별꽃은 피고 지고. 원시 이성두. 이명우 시읽기. 명도재 편집.','cover');
- if(pages.length%2) add('<div class="partnum">明道齋</div><h2>시의 여운이<br>오래 머물기를.</h2>','시의 여운이 오래 머물기를.','divider');
+ add('<div><p class="kicker">明道齋</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고. 원시 이성두. 이명우 시읽기.','cover');
+ if(pages.length%2)add('<div class="partnum">明道齋</div><h2>시의 여운이 오래 머물기를.</h2>','시의 여운이 오래 머물기를.','divider');
  $('tocPanel').innerHTML='<h2>작품 차례</h2>'+toc.map(x=>'<button data-go="'+x.page+'">'+esc(x.title)+'</button>').join('');
  const match=location.hash.match(/^#page-(\d+)/);if(match)pos=Number(match[1])-1;
  pos=Math.max(0,Math.min(pos,pages.length-step()));if(!mobile.matches)pos-=pos%2;render();
