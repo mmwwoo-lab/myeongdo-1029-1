@@ -176,4 +176,30 @@ $('book').addEventListener('click',e=>{if(e.target.closest('button'))return;if(s
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(pos+step());if(e.key==='ArrowLeft')go(pos-step())});
 window.addEventListener('pagehide',stop);
 window.addEventListener('resize',()=>{if(pages.length)render()});
-fetch('./poems.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('작품 파일을 열 수 없습니다.');return r.json()}).then(async data=>{for(let part=1;part<=4;part++){const response=await fetch('./reading-part'+part+'.json',{cache:'no-store'});if(!response.ok)continue;const records=await response.json();for(const record of records){const poem=data.poems.find(x=>x.part===part&&String(x.n)===String(record.n));if(poem)poem.commentary=String(record.commentary||'').slice(0,500)}}start(data)}).catch(e=>{$('progress').textContent='시집 불러오기 실패';console.error(e)});
+async function loadBook(){
+ try{
+  const source=await fetch('./poems.json',{cache:'no-store'});
+  if(!source.ok)throw Error('작품 파일 응답: '+source.status);
+  const data=await source.json();
+  if(!data||!Array.isArray(data.poems)||!data.poems.length)throw Error('작품 데이터가 비어 있습니다.');
+  // The original poems are sufficient to display the book; supplementary critiques are optional.
+  start(data);
+  Promise.allSettled([1,2,3,4].map(async part=>{
+   const response=await fetch('./reading-part'+part+'.json',{cache:'no-store'});
+   if(!response.ok)return;
+   const records=await response.json();
+   for(const record of records){
+    const poem=data.poems.find(x=>x.part===part&&String(x.n)===String(record.n));
+    if(poem)poem.commentary=String(record.commentary||'').slice(0,500);
+   }
+  })).then(()=>{
+   // Preserve the current book position while refreshing revised commentary.
+   pages=[];start(data);
+  });
+ }catch(error){
+  console.error('시집 불러오기 실패:',error);
+  $('progress').textContent='시집 불러오기 실패: '+error.message;
+  $('left').innerHTML='<div style="padding:24px;color:#633">시집 자료를 불러오지 못했습니다. 페이지를 새로고침해 주세요.</div>';
+ }
+}
+loadBook();
