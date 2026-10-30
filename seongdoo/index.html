@@ -169,6 +169,25 @@ main>.overline{margin-bottom:7px!important}
  .book .page .poem h2{font-size:22px!important}
  .book .page .critical h2{font-size:19px!important}
 }
+
+/* Slightly larger reading text and wider poetry columns, with page-fit safeguard. */
+.book .page.poem-page .poem .verse{
+ font-size:13.5px!important;
+ line-height:1.43!important;
+}
+.book .page.poem-page .poem-columns.two{
+ column-gap:19px!important;
+ gap:19px!important;
+}
+.book .page.reading-page .critical{
+ font-size:14px!important;
+ line-height:1.65!important;
+}
+@media(max-width:800px){
+ .book .page.poem-page .poem .verse{font-size:13px!important;line-height:1.4!important}
+ .book .page.poem-page .poem-columns.two{column-gap:14px!important;gap:14px!important}
+ .book .page.reading-page .critical{font-size:13.5px!important;line-height:1.56!important}
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
