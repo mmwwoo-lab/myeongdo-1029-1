@@ -308,10 +308,14 @@ main>.overline{margin-bottom:7px!important}
 /* Page 93 only: tighten verse leading to lift lower lines. */
 .book .page.page-index-93.poem-page .poem .verse{line-height:1.32!important}
 .book .page.page-index-93.poem-page .poem-columns{margin-top:0!important}
+
+/* From page 103: poem text only, protect stanza rhythm and lower page space. */
+.book .page.poem-page:is(.page-index-103,.page-index-105) .poem .verse{line-height:1.34!important}
+.book .page.poem-page .poem .verse{overflow-wrap:break-word}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="tocPanel" hidden></div><div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
-</main><script src="reader.js?v=20261030page93tight"></script></body></html>
+</main><script src="reader.js?v=20261030after103"></script></body></html>
