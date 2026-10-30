@@ -20,19 +20,23 @@ function fitVisiblePages(){
  document.querySelectorAll('.page:not(.hide-mobile)').forEach(page=>{
   const content=page.querySelector('.poem, .critical, .editorial, .part-intro');
   if(!content)return;
-  // Keep a fixed paper height and shrink text only when the body would overflow.
-  const verse=content.querySelectorAll('.verse');
-  const editable=verse.length?[...verse]:[content];
+  const columns=[...content.querySelectorAll('.verse')];
+  const text=content.querySelector('.critical>p:not(.poem-number):not(.poet)');
+  const editable=columns.length?columns:text?[text]:[content];
+  const bottom=()=>page.getBoundingClientRect().bottom-36;
+  const fits=()=>content.getBoundingClientRect().bottom<=bottom() &&
+    [...content.querySelectorAll('.verse')].every(v=>v.getBoundingClientRect().right<=page.getBoundingClientRect().right-12);
   let tries=0;
-  while(tries<14&&content.getBoundingClientRect().bottom>page.getBoundingClientRect().bottom-20){
+  while(!fits()&&tries++<30){
+   let adjusted=false;
    editable.forEach(el=>{
-    const style=getComputedStyle(el);
-    const fs=parseFloat(style.fontSize);
-    if(fs>10)el.style.setProperty('font-size',Math.max(10,fs-0.45)+'px','important');
-    const lh=parseFloat(style.lineHeight);
-    if(Number.isFinite(lh)&&lh>15)el.style.setProperty('line-height',Math.max(1.25,(lh-1)/Math.max(10,fs-0.45)),'important');
-   });tries++;
+    const fs=parseFloat(getComputedStyle(el).fontSize);
+    if(fs>9.6){el.style.setProperty('font-size',Math.max(9.6,fs-.3)+'px','important');adjusted=true}
+   });
+   if(!adjusted)break;
   }
+  // Preserve stanza breaks and poem ordering; avoid pushing the text beneath the page.
+  if(!fits())page.classList.add('tight-page');
  });
 }
 function stop(){token++;speechId=null;paused=false;if('speechSynthesis'in window)window.speechSynthesis.cancel();$('readingStatus').hidden=true}
