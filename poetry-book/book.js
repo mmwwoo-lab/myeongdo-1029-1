@@ -17,7 +17,7 @@ function fitPaperWithoutScroll(paper){
 }
 function setPaperContent(paper,html,number){
  paper.innerHTML=html||'';paper.dataset.number=String(number+1).padStart(2,'0');
- if(html){paper.querySelectorAll('.recital').forEach(el=>el.remove());const control=document.createElement('div');control.className='page-read-control';control.innerHTML='<button type="button" data-page-read="'+number+'" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>';paper.append(control)}
+ if(html){paper.querySelectorAll('.recital').forEach(el=>el.remove());const section=paper.querySelector(':scope > section');const readEligible=section&&(section.classList.contains('poem')||section.classList.contains('poem-explain')||section.classList.contains('poem-note')||section.classList.contains('poem-commentary'));if(readEligible){const control=document.createElement('div');control.className='page-read-control';control.innerHTML='<button type="button" data-page-read="'+number+'" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>';paper.append(control)}}
  paper.classList.toggle('cover-page',Boolean(paper.querySelector('.cover,.back-cover')));
  paper.classList.toggle('back-cover-page',Boolean(paper.querySelector('.back-cover')));
  paper.scrollTop=0;
