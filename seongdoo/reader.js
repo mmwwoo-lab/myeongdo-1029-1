@@ -176,4 +176,4 @@ $('book').addEventListener('click',e=>{if(e.target.closest('button'))return;if(s
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(pos+step());if(e.key==='ArrowLeft')go(pos-step())});
 window.addEventListener('pagehide',stop);
 window.addEventListener('resize',()=>{if(pages.length)render()});
-fetch('./poems.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('작품 파일을 열 수 없습니다.');return r.json()}).then(start).catch(e=>{$('progress').textContent='시집 불러오기 실패';console.error(e)});
+fetch('./poems.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('작품 파일을 열 수 없습니다.');return r.json()}).then(async data=>{for(let part=1;part<=4;part++){const response=await fetch('./reading-part'+part+'.json',{cache:'no-store'});if(!response.ok)continue;const records=await response.json();for(const record of records){const poem=data.poems.find(x=>x.part===part&&String(x.n)===String(record.n));if(poem)poem.commentary=String(record.commentary||'').slice(0,500)}}start(data)}).catch(e=>{$('progress').textContent='시집 불러오기 실패';console.error(e)});
