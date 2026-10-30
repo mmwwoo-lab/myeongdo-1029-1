@@ -166,7 +166,8 @@ function start(data){
 }
 document.addEventListener('click',e=>{
  const read=e.target.closest('[data-read]');if(read){e.preventDefault();readPage(Number(read.dataset.read));return}
- const link=e.target.closest('[data-go]');if(link){$('tocPanel').hidden=true;go(Number(link.dataset.go));return}
+ const link=e.target.closest('[data-go]');if(link){$('tocPanel').hidden=true;$('contents').setAttribute('aria-expanded','false');go(Number(link.dataset.go));return}
+ const panel=$('tocPanel');if(!panel.hidden&&!panel.contains(e.target)&&!$('contents').contains(e.target)){panel.hidden=true;$('contents').setAttribute('aria-expanded','false')}
 });
 $('edgePrev').onclick=()=>go(pos-step());
 $('edgeNext').onclick=()=>go(pos+step());
