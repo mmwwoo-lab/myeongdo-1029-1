@@ -109,13 +109,14 @@ function start(data){
  add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 이명우 시읽기.','cover');
  add('<div class="editorial"><p class="partnum">明道齋</p><h2>이 책을 펼치며</h2><p>이성두 시인의 원시와 이명우의 시읽기를 함께 감상하는 디지털 시집입니다.</p><p>왼쪽에는 시, 오른쪽에는 이명우 시읽기를 배치했습니다. 각 페이지의 음성 버튼으로 내용을 들을 수 있습니다.</p></div>','이 책을 펼치며\n이성두 시인의 원시와 이명우 시읽기를 함께 감상합니다.','divider');
  const toc=[];const partToc=[];
+ const introductions=["가족의 기억과 오래된 골목, 유년의 풍경 속에서 그리움과 삶의 흔적을 만나는 작품들입니다.","기다림과 사랑, 돌봄과 침묵 사이에서 흔들리는 마음의 결을 따라가는 작품들입니다.","지나온 시간과 떠나간 사람을 돌아보며 기억과 존재의 깊이를 헤아리는 작품들입니다.","작은 꽃과 빛, 일상의 순간에 남아 있는 생명의 온기와 희망을 만나는 작품들입니다."];
  for(let part=1;part<=4;part++){
   const section=pages.length;
   add(partIllustration(part),'제'+part+'부 삽화','illustration-page');
   toc.push({title:'제'+part+'부 · '+parts[part-1],page:section});
   const list=poems.filter(p=>p.part===part);
   partToc.push({part,title:parts[part-1],poems:list.map(x=>({title:x.title,n:x.n}))});
-  add('<div class="part-intro"><p class="partnum">PART '+String(part).padStart(2,'0')+'</p><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 시인</p><p>이성두의 시와 이명우 시읽기를 함께 펼쳐 읽습니다.</p></div>','제'+part+'부 '+parts[part-1]+'\n이성두 시인','divider');
+  add('<div class="part-intro"><p class="partnum">PART '+String(part).padStart(2,'0')+'</p><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 시인</p><p>'+esc(introductions[part-1])+'</p></div>','제'+part+'부 '+parts[part-1]+'\n'+introductions[part-1],'divider');
   for(const p of list){
    const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
    const poem=String(p.text||'원문을 확인 중입니다.').trim().replace(/\n{3,}/g,'\n\n');
