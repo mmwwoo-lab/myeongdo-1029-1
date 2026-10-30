@@ -314,10 +314,18 @@ main>.overline{margin-bottom:7px!important}
  .book .page.poem-page.late-poem .poem-columns{margin-top:2px!important;align-content:start!important}
 .book .page.poem-page.late-poem .poem-columns.two{align-items:start!important}
 .book .page.poem-page.late-poem .poem .verse{overflow-wrap:break-word!important}
+
+/* Keep newly expanded critiques readable on one fixed paper page. */
+.book .page.reading-page .critical>p:not(.poem-number):not(.poet){
+ font-size:13px!important;line-height:1.48!important;
+ margin-top:7px!important;margin-bottom:5px!important;
+}
+.book .page.reading-page .critical h2{font-size:20px!important;line-height:1.25!important}
+@media(max-width:800px){.book .page.reading-page .critical>p:not(.poem-number):not(.poet){font-size:12.5px!important;line-height:1.42!important}}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="tocPanel" hidden></div><div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
-</main><script src="reader.js?v=20261030critical500spacing112"></script></body></html>
+</main><script src="reader.js?v=20261030readingrevised2"></script></body></html>
