@@ -108,12 +108,13 @@ function start(data){
  const parts=data.parts,poems=data.poems;
  add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 이명우 시읽기.','cover');
  add('<div class="editorial"><p class="partnum">明道齋</p><h2>이 책을 펼치며</h2><p>이성두 시인의 원시와 이명우의 시읽기를 함께 감상하는 디지털 시집입니다.</p><p>왼쪽에는 시, 오른쪽에는 이명우 시읽기를 배치했습니다. 각 페이지의 음성 버튼으로 내용을 들을 수 있습니다.</p></div>','이 책을 펼치며\n이성두 시인의 원시와 이명우 시읽기를 함께 감상합니다.','divider');
- const toc=[];
+ const toc=[];const partToc=[];
  for(let part=1;part<=4;part++){
   const section=pages.length;
   add(partIllustration(part),'제'+part+'부 삽화','illustration-page');
   toc.push({title:'제'+part+'부 · '+parts[part-1],page:section});
   const list=poems.filter(p=>p.part===part);
+  partToc.push({part,title:parts[part-1],poems:list.map(x=>({title:x.title,n:x.n}))});
   add('<div class="part-intro"><p class="partnum">PART '+String(part).padStart(2,'0')+'</p><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 시인</p><p>이성두의 시와 이명우 시읽기를 함께 펼쳐 읽습니다.</p></div>','제'+part+'부 '+parts[part-1]+'\n이성두 시인','divider');
   for(const p of list){
    const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
@@ -143,7 +144,7 @@ function start(data){
  }
  add('<div><p class="kicker">明道齋</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고. 원시 이성두. 이명우 시읽기.','cover');
  if(pages.length%2)add('<div class="partnum">明道齋</div><h2>시의 여운이 오래 머물기를.</h2>','시의 여운이 오래 머물기를.','divider');
- $('tocPanel').innerHTML='<h2>작품 차례</h2>'+toc.map(x=>'<button data-go="'+x.page+'">'+esc(x.title)+'</button>').join('');
+ $('tocPanel').innerHTML='<h2>『별꽃은 피고 지고』 · 차례</h2>'+partToc.map(group=>'<section class="toc-part"><h3>제'+group.part+'부 · '+esc(group.title)+'</h3><div class="toc-items">'+group.poems.map(poem=>{const entry=toc.find(t=>t.title===poem.n+' · '+poem.title);return '<button data-go="'+(entry?entry.page:0)+'">'+poem.n+'. '+esc(poem.title)+'</button>'}).join('')+'</div></section>').join('');
  const match=location.hash.match(/^#page-(\d+)/);if(match)pos=Number(match[1])-1;
  pos=Math.max(0,Math.min(pos,pages.length-step()));if(!mobile.matches)pos-=pos%2;render();
 }
