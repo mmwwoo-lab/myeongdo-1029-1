@@ -73,13 +73,13 @@ function splitPoemIntoPages(text){
 }
 function start(data){
  const parts=data.parts,poems=data.poems;
- add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>시평·편집 명도재 이명우</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 시평과 편집 명도재 이명우.','cover');
- add('<div class="divider"><p class="partnum">EDITORIAL NOTE</p><h2>이 책을 펼치며</h2><p>이성두 시인의 시를 읽고, 명도재 이명우의 작품별 시평을 함께 감상하는 디지털 시집입니다.</p><p>네 부의 시를 책장 넘김 형식으로 엮었습니다. 각 페이지의 낭송 버튼은 해당 페이지의 내용만 읽어줍니다.</p><p>사진 대조 PDF에서 옮긴 교정 초고이므로 원시집과의 최종 대조가 필요합니다.</p></div>','이 책을 펼치며\n이성두 시인의 시와 명도재 이명우의 작품별 시평을 함께 감상하는 디지털 시집입니다.\n네 부로 구성하였습니다.','divider');
+ add('<div><p class="kicker">明道齋 · 시 읽기</p><h1>별꽃은<br>피고 지고</h1><p>이성두 시인의 다섯 번째 시집</p><p class="author">원시 이성두<br>이명우 시읽기 · 명도재 편집</p></div>','별꽃은 피고 지고\n이성두 시인의 다섯 번째 시집\n원시 이성두. 이명우 시읽기. 명도재 편집.','cover');
+ add('<div class="divider"><p class="partnum">EDITORIAL NOTE</p><h2>이 책을 펼치며</h2><p>이성두 시인의 시를 읽고, 명도재 이명우의 작품별 시읽기를 함께 감상하는 디지털 시집입니다.</p><p>네 부의 시를 책장 넘김 형식으로 엮었습니다. 각 페이지의 낭송 버튼은 해당 페이지의 내용만 읽어줍니다.</p><p>사진 대조 PDF에서 옮긴 교정 초고이므로 원시집과의 최종 대조가 필요합니다.</p></div>','이 책을 펼치며\n이성두 시인의 시와 명도재 이명우의 작품별 시읽기를 함께 감상하는 디지털 시집입니다.\n네 부로 구성하였습니다.','divider');
  const toc=[];
  for(let part=1;part<=4;part++){
  const list=poems.filter(p=>p.part===part);
  const section=pages.length;toc.push({title:'제'+part+'부 · '+parts[part-1],page:section});
- add('<div class="partnum">PART '+String(part).padStart(2,'0')+'</div><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 원시 / 명도재 이명우 시평</p><p>다음 장부터 시와 작품 해설을 감상하실 수 있습니다.</p>','제'+part+'부 '+parts[part-1]+'. 이성두 시인.','divider');
+ add('<div class="partnum">PART '+String(part).padStart(2,'0')+'</div><h2>'+esc(parts[part-1])+'</h2><p>'+list.length+'편 · 이성두 원시 / 명도재 이명우 시읽기</p><p>다음 장부터 시와 작품 해설을 감상하실 수 있습니다.</p>','제'+part+'부 '+parts[part-1]+'. 이성두 시인.','divider');
  for(const p of list){
   const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
   const chunks=splitPoemIntoPages(p.text||'원문을 확인 중입니다.');
@@ -87,12 +87,11 @@ function start(data){
    const continuation=k>0;
    add('<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+(continuation?' · 이어지는 시':'')+'</p><h2>'+esc(p.title)+(continuation?' <small>· 계속</small>':'')+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="verse">'+esc(chunk)+'</div>'+(k<chunks.length-1?'<p class="poem-continued">다음 페이지에 이어집니다 →</p>':'')+'</section>',(continuation?'이어지는 시. ':'')+p.title+'\n'+chunk);
   });
-  const crit=String(p.commentary||'시평 원본을 확인해 주세요.');
-  const critChunks=crit.match(/[\s\S]{1,290}/gu)||[crit];
-  critChunks.forEach((piece,k)=>add('<section class="critical"><p class="poem-number">明道齋 · 작품 읽기</p><h2>'+esc(p.title)+' · 시평'+(k?' (계속)':'')+'</h2><p>'+esc(piece)+'</p><p class="poet">시평·편집 명도재 이명우</p></section>',p.title+' 시평\n'+piece));
+  const crit=String(p.commentary||'작품 해설을 확인해 주세요.');
+  add('<section class="critical"><p class="poem-number">明道齋 · 이명우 시읽기</p><h2>'+esc(p.title)+' · 이명우 시읽기</h2><p>'+esc(crit)+'</p><p class="poet">이명우 시읽기 · 명도재</p></section>',p.title+' 이명우 시읽기\n'+crit);
  }
  }
- add('<div><p class="kicker">COLOPHON</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>시평·편집 명도재 이명우</p><p>시와 시평의 저작권은 각 권리자에게 있습니다.</p></div>','별꽃은 피고 지고. 원시 이성두. 시평과 편집 명도재 이명우.','cover');
+ add('<div><p class="kicker">COLOPHON</p><h1>별꽃은<br>피고 지고</h1><p>원시 이성두<br>이명우 시읽기 · 명도재 편집</p><p>시와 시읽기의 저작권은 각 권리자에게 있습니다.</p></div>','별꽃은 피고 지고. 원시 이성두. 이명우 시읽기. 명도재 편집.','cover');
  if(pages.length%2) add('<div class="partnum">明道齋</div><h2>시의 여운이<br>오래 머물기를.</h2>','시의 여운이 오래 머물기를.','divider');
  $('tocPanel').innerHTML='<h2>작품 차례</h2>'+toc.map(x=>'<button data-go="'+x.page+'">'+esc(x.title)+'</button>').join('');
  const match=location.hash.match(/^#page-(\d+)/);if(match)pos=Number(match[1])-1;
