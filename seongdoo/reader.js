@@ -123,22 +123,23 @@ function start(data){
    const idx=pages.length;toc.push({title:(p.n||'')+' · '+p.title,page:idx});
    const poem=String(p.text||'원문을 확인 중입니다.').trim().replace(/\n{3,}/g,'\n\n');
    const lines=poem.split('\n');
-   const measure=line=>line.trim()?Math.max(1,Math.ceil(line.length/24)):0.65;
-   const total=lines.reduce((n,line)=>n+measure(line),0);
-   const needsColumns=total>17||poem.length>250;
-   let cut=lines.length;
-   if(needsColumns){
-    const half=total/2;let bestScore=Infinity;
-    for(let i=1;i<lines.length;i++){
-     const before=lines.slice(0,i).reduce((n,line)=>n+measure(line),0);
-     const after=total-before;
-     const stanzaBoundary=lines[i-1].trim()===''||lines[i].trim()==='';
-     const score=Math.abs(before-after)-(stanzaBoundary?1.4:0);
-     if(score<bestScore){bestScore=score;cut=i}
+   // Fill the left column in reading order; move only the remaining lines to the right.
+   const measure=line=>line.trim()?Math.max(1,Math.ceil(line.length/16)):0.7;
+   const capacity=19;
+   let used=0,cut=lines.length;
+   for(let i=0;i<lines.length;i++){
+    const next=used+measure(lines[i]);
+    if(next>capacity&&i>0){cut=i;break}
+    used=next;
+   }
+   // Prefer a stanza boundary near the end of the left column.
+   if(cut<lines.length){
+    for(let j=cut;j>=Math.max(1,cut-2);j--){
+     if(lines[j-1]?.trim()===''){cut=j;break}
     }
    }
-   const leftText=needsColumns?lines.slice(0,cut).join('\n').trim():poem;
-   const rightText=needsColumns?lines.slice(cut).join('\n').trim():'';
+   const leftText=lines.slice(0,cut).join('\n').trim();
+   const rightText=lines.slice(cut).join('\n').trim();
    const poemMarkup='<section class="poem"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="poem-columns'+(rightText?' two':'')+'"><div class="verse">'+esc(leftText)+'</div>'+(rightText?'<div class="verse">'+esc(rightText)+'</div>':'')+'</div></section>';
    add(poemMarkup,p.title+'\n'+poem,'poem-page');
    const comment=String(p.commentary||'').trim();
