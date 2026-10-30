@@ -142,7 +142,7 @@ function start(data){
    }
    const leftText=lines.slice(0,cut).join('\n').trim();
    const rightText=lines.slice(cut).join('\n').trim();
-   const poemMarkup='<section class="poem part-'+part+'"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poet">이성두 · 『별꽃은 피고 지고』</div><div class="poem-columns'+(rightText?' two':'')+'"><div class="verse">'+esc(leftText)+'</div>'+(rightText?'<div class="verse">'+esc(rightText)+'</div>':'')+'</div></section>';
+   const poemMarkup='<section class="poem part-'+part+'"><p class="poem-number">제'+part+'부 · '+esc(parts[part-1])+'</p><h2>'+esc(p.title)+'</h2><div class="poem-columns'+(rightText?' two':'')+'"><div class="verse">'+esc(leftText)+'</div>'+(rightText?'<div class="verse">'+esc(rightText)+'</div>':'')+'</div></section>';
    add(poemMarkup,p.title+'\n'+poem,'poem-page');
    const comment=String(p.commentary||'').trim();
    add('<section class="critical"><p class="poem-number">明道齋 · 이명우 시읽기</p><h2>'+esc(p.title)+' · 이명우 시읽기</h2><p>'+esc(comment)+'</p><p class="poet">이명우 시읽기 · 명도재</p></section>',p.title+' 이명우 시읽기\n'+comment,'reading-page');
