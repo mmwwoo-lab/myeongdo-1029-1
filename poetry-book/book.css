@@ -423,3 +423,8 @@ body{background:#ffffff!important;color:#263c3b}
 .book .page.cover-page .page-read-control button{
  background:#eee2bb;color:#28443b;border-color:#d0bb83;
 }
+
+/* TOC: anchored to the book's right page, never to the viewport. */
+.book #toc{position:absolute;z-index:50;left:50%;right:0;top:0;bottom:0;width:50%;height:100%;max-height:100%;background:#faf7ee;box-shadow:-8px 0 26px #13251c33;overflow-y:auto;overscroll-behavior:contain;padding:30px;}
+.book #toc[hidden]{display:none!important;}
+@media(max-width:800px){.book #toc{left:0;right:0;width:100%;padding:24px 25px;}}
