@@ -128,6 +128,28 @@ main>.overline{margin-bottom:7px!important}
    padding-left:min(30mm, 8vw)!important;padding-right:min(30mm, 8vw)!important;
  }
 }
+
+/* Consistent Korean brush-lettering titles across the entire digital poetry book. */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
+.book .cover h1,
+.book .page .poem h2,
+.book .page .critical h2,
+.book .page .part-intro h2,
+.book .page.divider h2,
+.book .page .editorial h2,
+#tocPanel h2{
+ font-family:'Nanum Brush Script','Nanum Pen Script','Malgun Gothic',cursive!important;
+ font-weight:400!important;
+ letter-spacing:.015em!important;
+}
+.book .cover h1{font-size:clamp(48px,5vw,72px)!important;line-height:1.27!important}
+.book .page .poem h2,.book .page .critical h2{font-size:32px!important;line-height:1.12!important}
+.book .page .part-intro h2,.book .page.divider h2{font-size:48px!important;line-height:1.2!important}
+.book .page .editorial h2{font-size:38px!important}
+@media(max-width:800px){
+ .book .page .poem h2,.book .page .critical h2{font-size:29px!important}
+ .book .page .part-intro h2,.book .page.divider h2{font-size:42px!important}
+}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
