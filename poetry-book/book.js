@@ -26,10 +26,7 @@ function setPaperContent(paper,html,number){
 
 let soundEnabled=true,audioContext=null;
 try{soundEnabled=localStorage.getItem('myeongdo-page-sound')!=='off'}catch{}
-function updateSoundControl(){
- const button=$('#sound-toggle');button.textContent=soundEnabled?'소리 켜짐':'소리 꺼짐';
- button.setAttribute('aria-pressed',String(soundEnabled));button.setAttribute('aria-label',soundEnabled?'책장 효과음 끄기':'책장 효과음 켜기');
-}
+
 function playPageTurnSound(){
  if(!soundEnabled)return;
  try{
@@ -56,8 +53,7 @@ function playPageTurnSound(){
   if(audioContext.state==='suspended')audioContext.resume().then(play).catch(()=>{});else play();
  }catch{/* Audio support must never block reading. */}
 }
-$('#sound-toggle').onclick=()=>{soundEnabled=!soundEnabled;updateSoundControl();try{localStorage.setItem('myeongdo-page-sound',soundEnabled?'on':'off')}catch{}};
-updateSoundControl();
+
 function render(){document.querySelectorAll('audio,video').forEach(v=>v.pause());for(const [i,side] of ['left','right'].entries()){const el=$('#'+side),n=position+i;setPaperContent(el,pages[n],n);el.classList.toggle('mobile-hidden',mobile.matches&&i===1)}$('#edge-prev').hidden=position===0;$('#edge-next').hidden=position+step()>=pages.length;updateRecitalStatus();}
 $('#edge-prev').addEventListener('click',()=>go(position-step()));
 $('#edge-next').addEventListener('click',()=>go(position+step()));
