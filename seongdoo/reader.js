@@ -8,7 +8,7 @@ function add(html,txt,kind='page'){pages.push({html,txt,kind})}
 function readBtn(i){return '<div class="read"><button data-read="'+i+'" aria-label="이 페이지 읽기">▶ 이 페이지 읽기</button></div>'}
 function render(){
  for(let i=0;i<2;i++){let x=pos+i,el=$(i?'right':'left'),p=pages[x];
- el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':p?.kind==='illustration-page'?' illustration-page':p?.kind==='poem-page'?' poem-page':p?.kind==='reading-page'?' reading-page':'')+(mobile.matches&&i?' hide-mobile':'');
+ el.className='page'+(p?.kind==='cover'?' cover':p?.kind==='divider'?' divider':p?.kind==='illustration-page'?' illustration-page':p?.kind==='poem-page'?' poem-page':p?.kind==='reading-page'?' reading-page':'')+(p?' page-index-'+(x+1):'')+(mobile.matches&&i?' hide-mobile':'');
  el.innerHTML=p?((p.kind==='poem-page'||p.kind==='reading-page')?readBtn(x):'')+p.html+'<div class="number">'+(x+1)+'</div>':'';el.scrollTop=0}
  $('progress').textContent=(pos+1)+' — '+Math.min(pos+step(),pages.length)+' / '+pages.length;
  $('prev').disabled=$('edgePrev').hidden=pos===0;
