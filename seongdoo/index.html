@@ -397,10 +397,46 @@ header .actions #tocPanel:not([hidden]){
  filter:drop-shadow(1px 3px 2px rgba(35,24,5,.35))!important;
 }
 #readingStatus{display:none!important}
+
+/* Final premium cover: engraved Art Deco cornerwork, fine gold filigree and linen texture. */
+.book .page.cover{
+ position:relative!important;isolation:isolate!important;overflow:hidden!important;
+ background:
+ radial-gradient(ellipse at 48% 32%,#35614b55,transparent 64%),
+ repeating-linear-gradient(100deg,#ffffff05 0px,#ffffff05 1px,transparent 1px,transparent 5px),
+ linear-gradient(155deg,#172f29,#10251f 65%,#223d30)!important;
+ border:10px double #ad8d40!important;
+ box-shadow:inset 0 0 0 6px #10251f,inset 0 0 0 8px #b28c3d,inset 0 0 55px #0008!important;
+}
+.book .page.cover:before{
+ content:""!important;position:absolute!important;inset:22px!important;pointer-events:none!important;
+ border:1px solid #cba65499!important;
+ background:
+ radial-gradient(circle at 0 0,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) top left / 90px 90px no-repeat,
+ radial-gradient(circle at 100% 0,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) top right / 90px 90px no-repeat,
+ radial-gradient(circle at 0 100%,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) bottom left / 90px 90px no-repeat,
+ radial-gradient(circle at 100% 100%,transparent 26px,#c6a052 27px,#c6a052 28px,transparent 29px) bottom right / 90px 90px no-repeat;
+ opacity:.8;z-index:-1;
+}
+.book .page.cover:after{
+ content:"❧  ◇  ❧"!important;position:absolute!important;left:18%!important;right:18%!important;
+ bottom:43px!important;text-align:center!important;letter-spacing:1.1em!important;
+ font-size:17px!important;color:#d3aa53!important;opacity:.9;pointer-events:none!important;
+}
+.book .page.cover>div{max-width:90%!important;position:relative!important;z-index:1!important}
+.book .page.cover h1{-webkit-text-fill-color:#e2b338!important;color:#e2b338!important;-webkit-text-stroke:0!important}
+.book .page.poem-page,.book .page.reading-page{overflow:hidden!important}
+.book .page.poem-page .poem{width:100%!important;max-width:100%!important;min-width:0!important}
+.book .page.poem-page .poem-columns{min-width:0!important;max-width:100%!important}
+.book .page.poem-page .poem-columns.two>.verse{min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important}
+.book .page.poem-page .poem .verse{white-space:pre-wrap!important;word-break:keep-all!important;overflow-wrap:anywhere!important}
+.book .page.reading-page .critical{max-width:100%!important;min-width:0!important}
+.book .page.reading-page .critical>p:not(.poem-number):not(.poet){text-align:justify!important;word-break:keep-all!important;overflow-wrap:break-word!important;line-height:1.52!important;font-size:13.7px!important}
+@media(max-width:800px){.book .page.reading-page .critical>p:not(.poem-number):not(.poet){font-size:12.5px!important;line-height:1.43!important}}
 </style></head><body>
 <header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents" aria-expanded="false" aria-controls="tocPanel">목차</button><div id="tocPanel" hidden></div></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
 <div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
 <div id="progress" class="sr-only" aria-live="polite">로딩 중</div>
-</main><script src="reader.js?v=20261030tocoutside23"></script></body></html>
+</main><script src="reader.js?v=20261030finalpolish26"></script></body></html>
