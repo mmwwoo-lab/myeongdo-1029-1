@@ -338,10 +338,39 @@ main>.overline{margin-bottom:7px!important}
 
 /* Hide bottom page navigation; retain edge arrows and keyboard page-turning. */
 nav.nav{display:none!important}
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap');
+/* Embossed gold foil calligraphy with dark lettering outline on front cover only. */
+.book .page.cover h1{
+ font-family:'Nanum Brush Script','Nanum Pen Script','Gulim',cursive!important;
+ font-size:clamp(60px,6vw,90px)!important;font-weight:700!important;
+ line-height:1.23!important;letter-spacing:0.01em!important;
+ color:#e8c15b!important;
+ background:linear-gradient(170deg,#fff5b4 2%,#f9d96c 16%,#946413 35%,#ffefa0 50%,#c58d21 66%,#fff4ad 82%,#a67613 100%)!important;
+ -webkit-background-clip:text!important;background-clip:text!important;
+ -webkit-text-fill-color:transparent!important;
+ -webkit-text-stroke:1.15px #13120f!important;
+ filter:drop-shadow(1px 2px 0 #573a15) drop-shadow(2px 4px 1px #080a08b3) drop-shadow(0 0 8px #f3d67370)!important;
+ text-shadow:none!important;
+}
+/* Small contents panel opens beside top header button. */
+header{position:relative!important;z-index:1001!important}
+header .actions{position:relative!important;display:flex!important;align-items:center!important}
+header .actions #tocPanel:not([hidden]){
+ position:absolute!important;top:calc(100% + 9px)!important;right:0!important;left:auto!important;
+ transform:none!important;width:min(550px,90vw)!important;max-height:54vh!important;
+ margin:0!important;padding:10px!important;z-index:1200!important;
+ overflow-y:auto!important;box-shadow:0 14px 30px #0005!important;
+}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important}
+@media(max-width:800px){
+ header .actions #tocPanel:not([hidden]){right:0!important;width:min(88vw,430px)!important;max-height:55vh!important}
+ .book .page.cover h1{font-size:clamp(49px,10vw,73px)!important}
+}
 </style></head><body>
-<header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents">목차</button></div></header>
+<header><div class="brand">明道齋 · 이성두 시집</div><div class="actions"><button id="contents" aria-expanded="false" aria-controls="tocPanel">목차</button><div id="tocPanel" hidden></div></div></header>
 <main><p class="overline">LEE SEONG-DOO · THE FIFTH POETRY COLLECTION</p>
-<div id="tocPanel" hidden></div><div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
+<div id="readingStatus" class="status" hidden><button id="pauseToggle">⏸ 낭송 일시정지</button></div>
 <div class="book" id="book"><article class="page" id="left"></article><article class="page" id="right"></article><button class="crescent prev" id="edgePrev" aria-label="이전 페이지">‹</button><button class="crescent next" id="edgeNext" aria-label="다음 페이지">›</button></div>
-<nav class="nav"><button id="prev">← 이전</button><strong id="progress">로딩 중</strong><button id="next">다음 →</button></nav>
-</main><script src="reader.js?v=20261030toctop18"></script></body></html>
+<div id="progress" class="sr-only" aria-live="polite">로딩 중</div>
+</main><script src="reader.js?v=20261030goldmenu20"></script></body></html>
