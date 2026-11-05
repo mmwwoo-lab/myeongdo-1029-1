@@ -18,6 +18,7 @@ function render(){
 }
 function fitVisiblePages(){
  document.querySelectorAll('.page:not(.hide-mobile)').forEach(page=>{
+  if(mobile.matches&&(page.classList.contains('poem-page')||page.classList.contains('reading-page')))return;
   const content=page.querySelector('.poem, .critical, .editorial, .part-intro');
   if(!content)return;
   const columns=[...content.querySelectorAll('.verse')];
