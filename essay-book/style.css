@@ -269,3 +269,30 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page .cover.hardback-front::after,
  .book .page .cover.hardback-back::after{inset:27px!important;}
 }
+
+/* v1.9: dark natural hanji covers — no rectangular lines, gilding or ornament. */
+.book .page .cover.hardback-front,
+.book .page .cover.hardback-back{
+ background-color:#41372f!important;
+ background-image:url('images/cover.svg')!important;
+ background-repeat:no-repeat!important;
+ background-size:100% 100%!important;
+ background-position:center!important;
+ border:0!important;
+}
+.book .page .cover.hardback-back{background-image:url('images/back-cover.svg')!important;}
+.book .page .cover.hardback-front::before,
+.book .page .cover.hardback-back::before,
+.book .page .cover.hardback-front::after,
+.book .page .cover.hardback-back::after{content:none!important;display:none!important;border:0!important;outline:0!important;box-shadow:none!important;}
+.book .page .cover .cover-copy{
+ color:#f4ead9!important;
+ text-shadow:none!important;
+ background:transparent!important;
+ box-shadow:none!important;
+}
+.book .page .cover.hardback-front h1{color:#fff5e3!important;text-shadow:none!important;}
+.book .page .cover .cover-copy .eyebrow,
+.book .page .cover .cover-subtitle,
+.book .page .cover .author,
+.book .page .cover.hardback-back .back-quote{color:#f0e3ce!important;text-shadow:none!important;}
