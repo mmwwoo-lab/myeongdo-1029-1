@@ -15,6 +15,10 @@ function formatParagraph(source,essay){
 const mobile=matchMedia('(max-width:800px)');let pages=[],index=0,speech=null,paused=false,speechToken=0;
 // Measure text in a real-sized, hidden book leaf, never by character count.
 function fragments(essay){
+ // Author-edited six-page essay: retain exact leaf boundaries and poem stanzas.
+ // On very small screens, its text region can scroll without cutting off content.
+ if(Array.isArray(essay.pageParts) && essay.pageParts.length===6)
+  return essay.pageParts.map(part=>part.slice());
  const paragraphs=essay.text.split(/\n\s*\n/).map(s=>s.trim()).filter(s=>s&&s!=='〔삽입시 끝〕');
  const host=document.createElement('article');
  host.className='page measure-leaf';
@@ -92,7 +96,7 @@ if(p.type==='intro')return '<section class="frontmatter intro-preface"><span cla
 if(p.type==='back')return '<section class="cover hardback-back"><div class="cover-copy back-copy"><p class="back-quote">명도재는 나의 두 번째 출근지이다.<br>오늘도 창작으로 다시 걷는다.</p><p class="author">명도재에서 이명우지음</p></div></section>';
 if(p.type==='blank')return '<section class="frontmatter"></section>';
 if(p.type==='end')return '<section class="frontmatter"><span class="emblem">✦</span><h2>그늘을 지나면<br>다시 햇살이 있다</h2><p>열세 편의 수필을 덮으며, 오늘의 평범한 하루가 내일의 문장이 되기를.</p><p class="disclaimer">© 명도재 이명우 · 작가 최종 승인 전 시안</p></section>';
-const e=p.essay,first=p.partNumber===1;return `<section class="essay" data-essay="${e.id}"><div class="eyebrow">명도재 생활수필 · 제${e.number}편 · ${p.partNumber}/${p.total}</div>${first?`<h2>${escapeHtml(e.title)}</h2><p class="subtitle">${escapeHtml(e.subtitle)}</p><img src="images/${escapeHtml(e.illustration)}.svg" alt="${escapeHtml(e.motif)}을 소재로 그린 수필 삽화">`:`<div class="continued">${escapeHtml(e.title)} — 이어 읽기</div>`}<div class="essay-body">${p.part.map(x=>formatParagraph(x,e)).join('')}</div></section><button class="page-read" data-read>▶ 이 페이지 읽기</button>`}
+const e=p.essay,first=p.partNumber===1;return `<section class="essay${e.number===13?' essay-thirteen':''}" data-essay="${e.number}"><div class="eyebrow">명도재 생활수필 · 제${e.number}편 · ${p.partNumber}/${p.total}</div>${first?`<h2>${escapeHtml(e.title)}</h2><p class="subtitle">${escapeHtml(e.subtitle)}</p><img src="images/${escapeHtml(e.illustration)}.svg" alt="${escapeHtml(e.motif)}을 소재로 그린 수필 삽화">`:`<div class="continued">${escapeHtml(e.title)} — 이어 읽기</div>`}<div class="essay-body">${p.part.map(x=>formatParagraph(x,e)).join('')}</div></section><button class="page-read" data-read>▶ 이 페이지 읽기</button>`}
 function stop(){speechToken++;if('speechSynthesis'in window)window.speechSynthesis.cancel();speech=null;paused=false;updateReads()}
 function updateReads(){document.querySelectorAll('[data-read]').forEach(b=>b.textContent=speech===Number(b.closest('.page').dataset.page)?(paused?'▶ 이어 읽기':'⏸ 일시정지'):'▶ 이 페이지 읽기')}
 function read(i){if(!('speechSynthesis'in window)){alert('이 브라우저는 한국어 음성 읽기를 지원하지 않습니다. 크롬을 이용해 주세요.');return}if(speech===i){paused=!paused;if(paused)speechSynthesis.pause();else speechSynthesis.resume();updateReads();return}stop();const p=pages[i];if(!p||p.type!=='essay')return;const text=[p.partNumber===1?p.essay.title:'',...p.part].filter(Boolean).join('. ').replace(/〔삽입시〕|〔삽입시 끝〕/g,'');const voices=speechSynthesis.getVoices(),ko=voices.filter(v=>/^ko/i.test(v.lang)),female=ko.find(v=>/female|여성|sora|sunhi|yuna|heami|seoyeon/i.test(v.name))||ko[0];const chunks=text.match(/.{1,150}(?:[.!?。]|$)/g)||[text];const token=++speechToken;speech=i;updateReads();let at=0;const next=()=>{if(token!==speechToken)return;if(at>=chunks.length){speech=null;updateReads();return}const u=new SpeechSynthesisUtterance(chunks[at++]);u.lang='ko-KR';if(female)u.voice=female;u.rate=.83;u.pitch=1.03;u.onend=next;u.onerror=()=>{speech=null;updateReads()};speechSynthesis.speak(u)};next()}
