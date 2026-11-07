@@ -14,10 +14,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="web.css?v=2">
+<link rel="stylesheet" href="web.css?v=3">
 </head>
 <body>
-<a class="skip" href="#works">본문 바로가기</a>
+<a class="skip" href="#works">\n<section id="chrome-guide" class="chrome-guide" aria-label="크롬으로 열기 안내" hidden>
+<div class="chrome-guide-inner"><div><strong>🔊 음성 읽기가 실행되지 않나요?</strong><p>페이스북·카카오톡 내부 브라우저에서는 낭독이 제한될 수 있습니다. Chrome으로 열면 더 안정적으로 사용할 수 있습니다.</p><p class="chrome-steps">① 아래 ‘크롬으로 열기’ 선택 → ② 열리지 않으면 오른쪽 위 <b>⋮</b> 또는 <b>…</b> 메뉴 → ③ <b>외부 브라우저로 열기 / Chrome에서 열기</b> 선택</p></div><div class="chrome-actions"><button type="button" id="open-chrome">크롬으로 열기</button><button type="button" id="copy-chrome-link">주소 복사</button><button type="button" id="chrome-guide-close" aria-label="크롬 안내 닫기">닫기</button></div></div></section>본문 바로가기</a>
 <header class="site-header">
  <div class="header-inner"><a class="logo" href="web.html" aria-label="명도재 수필관 홈">明道齋 <span>명도재 이명우의 수필관</span></a>
  <nav aria-label="주 메뉴"><a href="#newspaper">신문 미리보기</a><a href="#about">책 소개</a><a href="#works">작품 목록</a><a href="#author">지은이</a><a href="index.html" class="header-book">책장형 보기 <span aria-hidden="true">↗</span></a></nav></div>
@@ -45,7 +46,7 @@
  <div id="essay-grid" class="essay-grid" aria-live="polite"></div><p id="empty-state" class="empty-state" hidden>검색된 작품이 없습니다. 다른 낱말로 찾아보세요.</p>
 </div></section>
 <section id="reader" class="reader-section section" hidden tabindex="-1"><div class="section-inner">
- <div class="reader-bar"><a href="#works" id="back-works">← 전체 목차</a><div class="reading-tools"><button type="button" id="smaller" aria-label="본문 글씨 줄이기">가−</button><button type="button" id="larger" aria-label="본문 글씨 키우기">가+</button><button type="button" id="read-aloud">▶ 듣기</button><button type="button" id="stop-aloud">■ 정지</button></div></div>
+ <div class="reader-bar"><a href="#works" id="back-works">← 전체 목차</a><div class="reading-tools"><button type="button" id="smaller" aria-label="본문 글씨 줄이기">가−</button><button type="button" id="larger" aria-label="본문 글씨 키우기">가+</button><button type="button" id="read-aloud">▶ 듣기</button><button type="button" id="stop-aloud">■ 정지</button><button type="button" id="reading-help">크롬 읽기 안내</button></div></div>
  <article class="essay-article"><p class="essay-number" id="article-number"></p><h2 id="article-title"></h2><p class="essay-subtitle" id="article-subtitle"></p>
  <img id="article-img" alt="" loading="lazy"><div class="essay-prose" id="article-body"></div><p class="article-author">글 · 명도재 이명우</p></article>
  <div class="reader-bottom"><button type="button" id="previous-essay">← 이전 작품</button><button type="button" id="next-essay">다음 작품 →</button></div>
@@ -60,5 +61,5 @@
  </dl></div></div></section>
 </main>
 <footer><div class="section-inner"><span>© 명도재 이명우 · 디지털 수필관</span><span>본 수필집은 원작 시와 생활 경험을 바탕으로 문학적으로 재구성한 편집본입니다.</span><a href="#hero-title">맨 위로 ↑</a></div></footer>
-<script src="essays.js?v=9"></script><script src="web.js?v=2"></script>
+<script src="essays.js?v=9"></script><script src="web.js?v=3"></script>
 </body></html>
