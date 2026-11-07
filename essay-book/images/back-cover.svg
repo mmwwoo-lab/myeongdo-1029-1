@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620">
 <defs><linearGradient id="velvet" x2="1" y2="1"><stop stop-color="#063b2c"/><stop offset=".48" stop-color="#00412d"/><stop offset="1" stop-color="#002e24"/></linearGradient><linearGradient id="gold" x2=".2" x1="0" y2="1" y1="0"><stop stop-color="#b37924"/><stop offset=".25" stop-color="#fff0a5"/><stop offset=".52" stop-color="#c89433"/><stop offset=".73" stop-color="#fff1a9"/><stop offset="1" stop-color="#956522"/></linearGradient><pattern id="stripes" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M1 0V10" stroke="#ffffff" opacity=".055"/><path d="M6 0V10" stroke="#020a06" opacity=".2"/></pattern><pattern id="grain" width="5" height="6" patternUnits="userSpaceOnUse"><path d="M1 2h1" stroke="#f2eab7" opacity=".11"/><path d="M4 4h1" stroke="#020a06" opacity=".15"/></pattern></defs>
 <rect width="900" height="620" fill="url(#velvet)"/><rect width="900" height="620" fill="url(#stripes)"/><rect width="900" height="620" fill="url(#grain)"/>
-<rect x="20" y="18" width="860" height="584" rx="3" fill="none" stroke="url(#gold)" stroke-width="5"/><rect x="32" y="29" width="836" height="562" fill="none" stroke="#d7ac5a" stroke-width="1.7"/>
+
 <g fill="none" stroke="url(#gold)" stroke-width="2.8" stroke-linecap="round">
 <path d="M40 120Q40 42 120 42Q76 48 72 83Q104 66 125 36M860 120Q860 42 780 42Q824 48 828 83Q796 66 775 36"/>
 <path d="M40 500Q40 577 120 577Q76 572 72 538Q104 550 125 583M860 500Q860 577 780 577Q824 572 828 538Q796 550 775 583"/>
