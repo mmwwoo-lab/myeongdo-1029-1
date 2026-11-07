@@ -78,3 +78,13 @@
  .book .essay h2{font-size:34px!important;line-height:1.2!important;}
  .book .frontmatter h2{font-size:38px!important;}
 }
+
+/* Title scale refinement: retain calligraphy, give prose more room. */
+.book .cover h1{font-size:clamp(39px,3.8vw,56px)!important;line-height:1.2!important;}
+.book .essay h2{font-size:clamp(25px,2.35vw,32px)!important;line-height:1.22!important;}
+.book .frontmatter h2{font-size:clamp(27px,2.55vw,35px)!important;line-height:1.25!important;}
+@media(max-width:800px){
+ .book .cover h1{font-size:clamp(34px,7.2vw,47px)!important;}
+ .book .essay h2{font-size:27px!important;line-height:1.22!important;}
+ .book .frontmatter h2{font-size:30px!important;}
+}
