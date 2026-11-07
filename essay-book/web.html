@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e9e3d9">
+<meta name="description" content="명도재 이명우의 디지털 수필관. 수필집 『명도재, 창작으로 다시 걷다』 제1권 수록 12편을 삽화와 함께 읽고 한국어 음성으로 감상합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="명도재 이명우의 수필관 | 창작으로 다시 걷다">
+<meta property="og:description" content="일상의 풍경에서 문학을 발견하는 열두 편의 이야기">
+<meta property="og:image" content="https://mmwwoo-lab.github.io/myeongdo-1029-1/essay-book/images/cover.svg">
+<meta property="og:url" content="https://mmwwoo-lab.github.io/myeongdo-1029-1/essay-book/web.html">
+<title>명도재 이명우의 수필관 | 창작으로 다시 걷다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="web.css?v=1">
+</head>
+<body>
+<a class="skip" href="#works">본문 바로가기</a>
+<header class="site-header">
+ <div class="header-inner"><a class="logo" href="web.html" aria-label="명도재 수필관 홈">明道齋 <span>명도재 이명우의 수필관</span></a>
+ <nav aria-label="주 메뉴"><a href="#about">책 소개</a><a href="#works">작품 목록</a><a href="#author">지은이</a><a href="index.html" class="header-book">책장형 보기 <span aria-hidden="true">↗</span></a></nav></div>
+</header>
+<main>
+<section class="hero" aria-labelledby="hero-title"><div class="hero-inner">
+ <div class="hero-copy"><p class="kicker">명도재 문학관 · 생활수필 제1권</p><h1 id="hero-title">명도재,<br>창작으로 다시 걷다</h1>
+ <p class="hero-lead">일상의 풍경을 한 문장씩 길어 올리다.<br>신천의 물소리부터 비 갠 앞산까지, 열두 편의 삶과 기억을 전합니다.</p>
+ <p class="hero-author">글 · 명도재 이명우</p>
+ <div class="hero-actions"><a class="primary" href="#works">열두 편 읽기</a><a class="secondary" href="index.html">디지털 책장으로 읽기</a></div>
+ </div>
+ <div class="hero-art" aria-hidden="true"><div class="book-cover"><div class="book-kicker">명도재 이명우 · 디지털 수필집 제1권</div><div class="book-title">명도재,<br>창작으로<br>다시 걷다</div><div class="book-foot">명도재에서 이명우지음</div></div></div>
+</div></section>
+<section id="about" class="about section"><div class="section-inner">
+ <p class="section-kicker">ABOUT THE COLLECTION</p><h2>삶이 문장이 되는 시간</h2>
+ <p>삼십육 년의 교직 생활을 마치고도 배움은 끝나지 않았습니다. 신천 강변과 월촌역의 친구들, 오래된 이발소의 아버지와 주리못의 어머니, 산딸기와 마지막 버스가 하나씩 이야기가 되었습니다. 미술과 문학, 디지털 기술을 함께 탐색하는 명도재의 기록을 정성껏 엮었습니다.</p>
+ <div class="about-meta"><span>수록 작품 <b>12편</b></span><span>형태 <b>온라인 수필관</b></span><span>읽기 <b>본문 · 음성</b></span></div>
+</div></section>
+<section id="works" class="works section"><div class="section-inner">
+ <div class="section-heading"><div><p class="section-kicker">ESSAYS · VOL. 01</p><h2>수필 목차</h2><p class="section-description">그림을 누르거나 작품 제목을 선택하면 전문을 읽을 수 있습니다.</p></div><label class="search-box"><span class="visually-hidden">작품 검색</span><input type="search" id="search" placeholder="제목 또는 내용 검색" autocomplete="off"><span aria-hidden="true">⌕</span></label></div>
+ <div id="essay-grid" class="essay-grid" aria-live="polite"></div><p id="empty-state" class="empty-state" hidden>검색된 작품이 없습니다. 다른 낱말로 찾아보세요.</p>
+</div></section>
+<section id="reader" class="reader-section section" hidden tabindex="-1"><div class="section-inner">
+ <div class="reader-bar"><a href="#works" id="back-works">← 전체 목차</a><div class="reading-tools"><button type="button" id="smaller" aria-label="본문 글씨 줄이기">가−</button><button type="button" id="larger" aria-label="본문 글씨 키우기">가+</button><button type="button" id="read-aloud">▶ 듣기</button><button type="button" id="stop-aloud">■ 정지</button></div></div>
+ <article class="essay-article"><p class="essay-number" id="article-number"></p><h2 id="article-title"></h2><p class="essay-subtitle" id="article-subtitle"></p>
+ <img id="article-img" alt="" loading="lazy"><div class="essay-prose" id="article-body"></div><p class="article-author">글 · 명도재 이명우</p></article>
+ <div class="reader-bottom"><button type="button" id="previous-essay">← 이전 작품</button><button type="button" id="next-essay">다음 작품 →</button></div>
+ </div></section>
+<section id="author" class="author-section section"><div class="section-inner author-layout">
+ <div><p class="section-kicker">AUTHOR</p><h2>지은이 · 명도재 이명우</h2><p>미술교사로서의 오랜 경험을 바탕으로 그림과 글, 사진과 디지털 창작을 잇는 작업을 이어가고 있습니다.</p></div>
+ <div class="author-profile"><dl>
+ <dt>활동</dt><dd>한국미술협회·대구미술협회 회원, 대구미술대전 초대작가</dd>
+ <dt>수상</dt><dd>대구미술대전 최우수상, 무등미술대전 우수상, 매일미술대전 우수상</dd>
+ <dt>심사</dt><dd>대한민국미술대전·대구미술대전·강주미술대전·대전미술대전·부산미술대전 심사위원 역임</dd>
+ <dt>저서</dt><dd>시집 『물빛에 놓아둔 마음』, 수필집 『명도재, 창작으로 다시 걷다』</dd>
+ </dl></div></div></section>
+</main>
+<footer><div class="section-inner"><span>© 명도재 이명우 · 디지털 수필관</span><span>본 수필집은 원작 시와 생활 경험을 바탕으로 문학적으로 재구성한 편집본입니다.</span><a href="#hero-title">맨 위로 ↑</a></div></footer>
+<script src="essays.js?v=9"></script><script src="web.js?v=1"></script>
+</body></html>
