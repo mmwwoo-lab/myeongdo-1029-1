@@ -400,14 +400,33 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
 .book .page .essay-body .poem-stanza{font-family:var(--myeongjo)!important;line-height:1.8!important;text-align:center!important;color:#614f42!important;white-space:normal!important;margin:9px 0!important;}
 .book .page.compact-leaf .essay-body .poem-stanza{line-height:1.57!important;}
 
-/* Chapter 13: six curated pages. Allow internal scrolling only where narrow
-   screens cannot accommodate the intact six-page editorial setting. */
+/* Thirteenth essay: exactly six curated leaves, with no inner scrolling.
+   Text is concise and optionally fitted down a little for narrow screens. */
 .book .page:has(.essay-thirteen) .essay-body{
- overflow-y:auto!important;
- overflow-x:hidden!important;
- scrollbar-width:thin;
- scrollbar-color:#c6b3a0 transparent;
- overscroll-behavior:contain;
+ overflow:hidden!important;
+ overscroll-behavior:auto!important;
+ scrollbar-width:none!important;
+ font-size:13.3px!important;
+ line-height:1.48!important;
+ padding:2px 0 24px!important;
 }
-.book .page:has(.essay-thirteen) .essay-body .poem-heading{break-inside:avoid;}
-.book .page:has(.essay-thirteen) .essay-body .poem-stanza{break-inside:avoid;white-space:normal!important;}
+.book .page:has(.essay-thirteen) .essay-body::-webkit-scrollbar{display:none!important}
+.book .page:has(.essay-thirteen) .essay-body p{margin-bottom:4px!important;line-height:inherit!important}
+.book .page:has(.essay-thirteen) .essay-body .poem-heading{
+ padding:2px 0!important;
+ margin:4px 0!important;
+ line-height:1.35!important;
+}
+.book .page:has(.essay-thirteen) .essay-body .poem-stanza{
+ line-height:1.50!important;
+ margin:5px 0!important;
+ white-space:normal!important;
+}
+@media(max-width:800px){
+ .book .page:has(.essay-thirteen) .essay-body{
+  font-size:12.2px!important;
+  line-height:1.42!important;
+  padding-bottom:23px!important;
+ }
+ .book .page:has(.essay-thirteen) .essay-body .poem-stanza{line-height:1.40!important;margin:3px 0!important}
+}
