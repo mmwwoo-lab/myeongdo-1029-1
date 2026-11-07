@@ -46,3 +46,8 @@
  .book .page .essay-body p:last-child{margin-bottom:0!important;}
 }
 @media screen and (max-width:800px){.book .page .essay-body p{margin-bottom:4px!important;}}
+
+/* Invisible height-measuring leaf; does not participate in book grid or clicks. */
+.book .page.measure-leaf{position:absolute!important;left:0!important;top:0!important;z-index:-1!important;visibility:hidden!important;pointer-events:none!important;overflow:hidden!important;}
+.book .page .essay-body{display:block!important;justify-content:initial!important;align-content:initial!important;overflow:hidden!important;}
+.book .page .essay-body p{display:block!important;break-inside:avoid;}
