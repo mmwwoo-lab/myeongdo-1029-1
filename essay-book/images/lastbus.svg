@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="가을밤 마지막 버스의 붉은 미등, 텅 빈 벤치와 은행잎">
+<defs><linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3c4d70"/><stop offset="1" stop-color="#7387a1"/></linearGradient><linearGradient id="street" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#7e8592"/><stop offset="1" stop-color="#b7a6a0"/></linearGradient><radialGradient id="lamp"><stop stop-color="#ffe4a8" stop-opacity=".8"/><stop offset="1" stop-color="#fff0cc" stop-opacity="0"/></radialGradient></defs>
+<rect width="900" height="520" fill="url(#night)"/>
+<g opacity=".63"><path d="M0 140H148V340H0ZM144 80H330V351H144ZM314 125H445V341H314ZM646 99H900V349H646Z" fill="#59677d"/></g>
+<g fill="#c7bdad" opacity=".48"><rect x="43" y="188" width="33" height="42"/><rect x="97" y="190" width="29" height="40"/><rect x="171" y="137" width="36" height="48"/><rect x="226" y="136" width="38" height="49"/><rect x="674" y="157" width="47" height="54"/><rect x="740" y="156" width="38" height="54"/></g>
+<path d="M0 344Q475 330 900 345V520H0Z" fill="url(#street)"/>
+<path d="M365 520L482 344H578L762 520Z" fill="#74818f" opacity=".5"/>
+<path d="M0 412Q300 391 452 416" stroke="#c7bc9c" opacity=".65" fill="none" stroke-width="3"/>
+<g transform="translate(538 300)"><path d="M-82-36Q0-49 83-29L94 50H-93Z" fill="#5c6a87" stroke="#344b69" stroke-width="5"/><rect x="-71" y="-29" width="142" height="42" rx="7" fill="#94a7b8" opacity=".9"/><rect x="-78" y="23" width="45" height="23" rx="6" fill="#d65255"/><rect x="35" y="23" width="45" height="23" rx="6" fill="#d65255"/><rect x="-11" y="-19" width="33" height="17" rx="2" fill="#dae1c2"/><text x="5" y="-6" font-size="13" font-family="sans-serif" font-weight="bold" fill="#576277" text-anchor="middle">막차</text></g>
+<g><path d="M112 82V413" stroke="#515a68" stroke-width="8"/><path d="M107 100Q100 66 135 62Q163 60 165 100Z" fill="#e8c589"/><circle cx="134" cy="125" r="132" fill="url(#lamp)"/></g>
+<path d="M20 279H317V348H20Z" fill="#747989" opacity=".67"/><path d="M35 287H305V339H35Z" fill="#b5bdc0" opacity=".27"/>
+<g transform="translate(190 404)"><path d="M-109-22H109V0H-109Z" fill="#91765f"/><path d="M-113-64H113V-30H-113Z" fill="#a38a73"/><path d="M-85 0L-94 66M88 0L98 66" stroke="#5c5a5d" stroke-width="11"/><path d="M-118-66L-108 0M117-66L108 0" stroke="#5c5a5d" stroke-width="8"/></g>
+<g fill="#e6c56b"><path d="M173 391q-13-15 3-30q20 8 10 21q15-7 18 3q-6 12-20 7q2 12-7 12q-11-3-4-13z"/><path d="M285 479q-9-12 6-24q14 8 5 19q12-3 13 6q-8 10-19 5q-4 9-10 5z"/><path d="M75 470q-9-12 7-27q18 6 7 21q13-5 16 5q-8 10-19 5q-2 8-9 8z"/></g>
+<path d="M0 50Q130 67 243 11" stroke="#756b5e" stroke-width="14" fill="none"/>
+<g fill="#eac769" opacity=".87"><ellipse cx="51" cy="62" rx="31" ry="15" transform="rotate(15 51 62)"/><ellipse cx="108" cy="43" rx="27" ry="14" transform="rotate(-20 108 43)"/><ellipse cx="193" cy="35" rx="34" ry="16" transform="rotate(18 193 35)"/></g>
+</svg>
