@@ -38,3 +38,11 @@
  .page .essay .subtitle{font-size:12px;margin-bottom:5px;}
  .page .cover{margin:-20px calc(-1 * clamp(47px,10vw,65px)) -49px!important;height:calc(100dvh - 110px)!important;}
 }
+
+/* Tight and natural paragraph rhythm: never distribute blank height between paragraphs. */
+@media screen{
+ .book .page .essay-body{justify-content:flex-start!important;align-content:start!important;gap:0!important;}
+ .book .page .essay-body p{flex:none!important;margin-top:0!important;margin-bottom:5px!important;}
+ .book .page .essay-body p:last-child{margin-bottom:0!important;}
+}
+@media screen and (max-width:800px){.book .page .essay-body p{margin-bottom:4px!important;}}
