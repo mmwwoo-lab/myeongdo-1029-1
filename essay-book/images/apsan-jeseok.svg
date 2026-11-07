@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="비 갠 대구 앞산에 구름이 걷히는 수묵담채화 풍경과 도시의 지붕">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#edf0e9"/><stop offset=".7" stop-color="#dce5de"/><stop offset="1" stop-color="#f8f2e8"/></linearGradient>
+<linearGradient id="mountain" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#566a65"/><stop offset="1" stop-color="#8b9e8d"/></linearGradient>
+<linearGradient id="distant" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#97aaa0"/><stop offset="1" stop-color="#ccd6c8"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<rect width="900" height="520" fill="url(#sky)"/>
+<path d="M0 299Q120 218 234 244Q343 147 452 198Q543 143 631 192Q752 121 900 228V425H0Z" fill="url(#distant)" opacity=".7"/>
+<path d="M0 330Q160 218 248 267Q351 168 421 221Q496 193 571 226Q688 134 779 194Q846 208 900 247V423H0Z" fill="url(#mountain)" opacity=".85"/>
+<g stroke="#405b50" stroke-width="2.5" fill="none" opacity=".38">
+<path d="M51 326Q170 254 248 267M285 293Q344 214 421 221M489 271Q546 244 571 226M645 256Q713 192 779 194"/>
+<path d="M63 349Q205 280 328 332M410 320Q570 269 703 310M756 286Q818 264 879 292"/>
+</g>
+<g fill="#f8f6f1" opacity=".82" filter="url(#blur)"><ellipse cx="201" cy="272" rx="178" ry="26"/><ellipse cx="476" cy="237" rx="170" ry="25"/><ellipse cx="727" cy="289" rx="187" ry="29"/></g>
+<path d="M0 386Q211 363 377 379Q603 354 900 364V520H0Z" fill="#e3e7dc" opacity=".94"/>
+<g fill="#b3b8ad" opacity=".7">
+<rect x="30" y="390" width="110" height="95"/><rect x="155" y="407" width="85" height="78"/><rect x="251" y="378" width="66" height="107"/><rect x="330" y="406" width="115" height="79"/><rect x="485" y="382" width="76" height="103"/><rect x="584" y="417" width="110" height="68"/><rect x="713" y="390" width="61" height="95"/><rect x="790" y="415" width="104" height="70"/>
+</g>
+<g stroke="#657777" stroke-width="1.5" opacity=".35"><path d="M30 421H140M155 437H240M251 417H317M330 441H445M485 411H561M713 420H774"/></g>
+<g fill="#f4f5ef" opacity=".7"><rect x="62" y="422" width="15" height="27"/><rect x="88" y="422" width="15" height="27"/><rect x="365" y="435" width="15" height="23"/><rect x="398" y="435" width="15" height="23"/><rect x="508" y="411" width="13" height="25"/></g>
+<path d="M0 472Q224 449 412 467Q647 437 900 462V520H0Z" fill="#c4cbbc" opacity=".88"/>
+<g stroke="#859787" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"><path d="M89 520L92 467M128 520L114 479M788 520L780 469M827 520L840 479"/></g>
+<g fill="#879f8b" opacity=".6"><ellipse cx="90" cy="468" rx="14" ry="29" transform="rotate(-23 90 468)"/><ellipse cx="117" cy="481" rx="12" ry="26" transform="rotate(16 117 481)"/><ellipse cx="781" cy="469" rx="14" ry="32" transform="rotate(22 781 469)"/></g>
+</svg>
