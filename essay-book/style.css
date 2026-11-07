@@ -356,3 +356,41 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  text-shadow:none!important;
 }
 .book .page .cover.hardback-back .back-quote{color:#45382F!important;text-shadow:none!important;}
+
+/* Author biography placed at the bottom of the single-page preface. */
+.book .page .intro-preface{
+ justify-content:flex-start!important;
+ gap:8px!important;
+ padding:5px 0 2px!important;
+ text-align:center!important;
+}
+.book .page .intro-preface .author-bio{
+ width:100%;margin-top:auto;
+ padding:12px 2px 4px;
+ border-top:1px solid rgba(116,93,76,.36);
+ text-align:left;
+ color:#50463d;
+ font-family:var(--myeongjo);
+}
+.book .page .intro-preface .author-bio h3{
+ font:700 15px/1.5 var(--myeongjo)!important;
+ color:#574335;margin:0 0 6px!important;
+}
+.book .page .intro-preface .author-bio h3 span{
+ font-size:13px;font-weight:500;margin-left:7px;color:#756456;
+}
+.book .page .intro-preface .author-bio p{
+ font-size:10.6px!important;
+ line-height:1.5!important;
+ margin:0 0 3px!important;
+ text-align:left!important;
+ word-break:keep-all;
+}
+.book .page .intro-preface .author-bio b{color:#715a48;font-weight:700;margin-right:5px;}
+.book .page .intro-preface .disclaimer{margin-top:4px!important;font-size:9px!important;}
+@media(max-width:800px){
+ .book .page .intro-preface{gap:6px!important;}
+ .book .page .intro-preface .author-bio{padding-top:9px;}
+ .book .page .intro-preface .author-bio h3{font-size:13px!important;margin-bottom:4px!important;}
+ .book .page .intro-preface .author-bio p{font-size:9.6px!important;line-height:1.42!important;}
+}
