@@ -318,3 +318,41 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
 @media (prefers-contrast:more){
  .book .page .essay-body .key-line{color:#4f231c!important;text-decoration-color:currentColor;}
 }
+
+/* v2.1: light greige hanji with dark brown typography, restrained premium literary cover. */
+.book .page .cover.hardback-front,
+.book .page .cover.hardback-back{
+ background-color:#D8CFC3!important;
+ background-image:url('images/cover.svg?v=2')!important;
+ background-position:center!important;
+ background-size:100% 100%!important;
+ background-repeat:no-repeat!important;
+ border:0!important;
+ box-shadow:none!important;
+}
+.book .page .cover.hardback-back{background-image:url('images/back-cover.svg?v=2')!important;}
+.book .page .cover.hardback-front::before,
+.book .page .cover.hardback-front::after,
+.book .page .cover.hardback-back::before,
+.book .page .cover.hardback-back::after{
+ display:none!important;content:none!important;border:0!important;outline:0!important;
+}
+.book .page .cover.hardback-front .cover-copy,
+.book .page .cover.hardback-back .cover-copy{
+ background:transparent!important;
+ color:#45382F!important;
+ text-shadow:none!important;
+ box-shadow:none!important;
+}
+.book .page .cover.hardback-front h1{
+ color:#3F352D!important;
+ text-shadow:none!important;
+ font-weight:700!important;
+}
+.book .page .cover .cover-copy .eyebrow,
+.book .page .cover .cover-subtitle,
+.book .page .cover .author{
+ color:#5A4F46!important;
+ text-shadow:none!important;
+}
+.book .page .cover.hardback-back .back-quote{color:#45382F!important;text-shadow:none!important;}
