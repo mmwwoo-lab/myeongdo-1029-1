@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="봉덕시장의 우뭇가사리 한 그릇과 멀리 푸른 바다를 닮은 수채화">
+<defs><linearGradient id="wash" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e5eee9"/><stop offset=".6" stop-color="#bdd4cb"/><stop offset="1" stop-color="#e4dcc8"/></linearGradient><linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#85bbc1"/><stop offset="1" stop-color="#498e9b"/></linearGradient><radialGradient id="bowl"><stop stop-color="#f6f3df"/><stop offset="1" stop-color="#cadbd5"/></radialGradient></defs>
+<rect width="900" height="520" fill="url(#wash)"/>
+<path d="M0 179Q120 145 241 168T478 160Q694 139 900 169V307H0Z" fill="url(#water)" opacity=".91"/>
+<g fill="none" stroke="#eaf3e6" stroke-width="4" opacity=".7"><path d="M9 228Q180 201 306 221M362 238Q567 210 832 227M65 263Q250 240 388 268M465 277Q693 247 883 264"/></g>
+<path d="M0 316Q222 280 415 313T900 301V520H0Z" fill="#e7dcc5"/>
+<path d="M0 377Q255 345 470 379T900 368V520H0Z" fill="#d6ceb6" opacity=".55"/>
+<g transform="translate(443 362)"><ellipse cy="74" rx="254" ry="74" fill="#8eada8" opacity=".25"/><ellipse cy="12" rx="237" ry="110" fill="#f2f1e2" stroke="#779fa0" stroke-width="11"/><ellipse cy="-12" rx="209" ry="85" fill="url(#bowl)" stroke="#c1d8ce" stroke-width="5"/>
+<g stroke="#9fc2ba" stroke-width="10" stroke-linecap="round" opacity=".83"><path d="M-126-28Q-72-64-22-20M-81 22Q-7-19 56 16M42-47Q101-65 132-17M-120 45Q-34 17 39 53"/></g>
+<g stroke="#7eab76" stroke-width="10" stroke-linecap="round"><path d="M-140-37L-35 35M-117-59L-9 13M-75-57L53 39M17-56L137 20M59-56L159 9"/></g>
+<g fill="#c2b28c" opacity=".76"><circle cx="-62" cy="-12" r="4"/><circle cx="-12" cy="-29" r="5"/><circle cx="66" cy="27" r="5"/><circle cx="108" cy="-10" r="4"/><circle cx="13" cy="39" r="5"/><circle cx="-91" cy="24" r="5"/><circle cx="30" cy="-19" r="4"/></g></g>
+<g stroke="#7e9a86" stroke-width="5" fill="none" opacity=".75"><path d="M104 320Q99 250 72 220M761 339Q773 270 817 221"/></g>
+<g fill="#9db9a3" opacity=".82"><ellipse cx="79" cy="234" rx="15" ry="42" transform="rotate(-28 79 234)"/><ellipse cx="122" cy="268" rx="14" ry="38" transform="rotate(25 122 268)"/><ellipse cx="796" cy="254" rx="17" ry="43" transform="rotate(22 796 254)"/></g>
+</svg>
