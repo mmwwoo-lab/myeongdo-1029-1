@@ -2,30 +2,62 @@
 const essays=window.MYEONGDO_ESSAYS||[];
 const $=s=>document.querySelector(s),escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mobile=matchMedia('(max-width:800px)');let pages=[],index=0,speech=null,paused=false,speechToken=0;
-function fragments(text){
- const paras=text.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
- const small=mobile.matches;
- // Wider interior margins with denser typography: fit more prose on desktop.
- const openingTarget=small?195:265;
- const target=small?335:525;
- const out=[];let group=[],length=0;
- for(const para of paras){
-  const cap=out.length===0?openingTarget:target;
-  if(group.length&&length+para.length>cap){out.push(group);group=[];length=0;}
-  group.push(para);length+=para.length;
+// Measure text in a real-sized, hidden book leaf, never by character count.
+function fragments(essay){
+ const paragraphs=essay.text.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+ const host=document.createElement('article');
+ host.className='page measure-leaf';
+ host.style.width=$('#left').getBoundingClientRect().width+'px';
+ $('#book').appendChild(host);
+ let result=[],remaining=paragraphs.slice(),first=true;
+ const prepare=()=>{
+  host.innerHTML=htmlFor({type:'essay',essay,part:[],partNumber:first?1:2,total:2});
+  return host.querySelector('.essay-body');
+ };
+ const fits=(body,items)=>{
+  body.innerHTML=items.map(t=>'<p>'+escapeHtml(t)+'</p>').join('');
+  return body.scrollHeight<=body.clientHeight+1;
+ };
+ // A paragraph longer than the remaining page is split at word boundaries.
+ function splitToFit(body,current,paragraph){
+  const words=paragraph.split(/\s+/).filter(Boolean);
+  let lo=1,hi=words.length,best=0;
+  while(lo<=hi){
+   const mid=(lo+hi)>>1;
+   if(fits(body,current.concat(words.slice(0,mid).join(' ')))){best=mid;lo=mid+1}
+   else hi=mid-1;
+  }
+  if(best===0)return null;
+  return [words.slice(0,best).join(' '),words.slice(best).join(' ')];
  }
- if(group.length)out.push(group);
- // Distribute text from the last short leaf across the preceding two leaves.
- if(out.length>2&&out[out.length-1].join('').length<(small?110:195)){
-  const remainder=out.pop(),prev=out.pop(),combined=prev.concat(remainder);
-  const half=combined.reduce((n,s)=>n+s.length,0)/2;
-  const first=[],second=[];let count=0;
-  for(const line of combined){if(count<half||!first.length){first.push(line);count+=line.length;}else second.push(line);}
-  out.push(first);if(second.length)out.push(second);
+ let guard=0;
+ while(remaining.length&&guard++<200){
+  const body=prepare(),piece=[];
+  while(remaining.length){
+   const para=remaining[0];
+   if(fits(body,piece.concat(para))){piece.push(para);remaining.shift();continue}
+   if(piece.length&&body.clientHeight<70)break;
+   const split=splitToFit(body,piece,para);
+   if(split){
+    piece.push(split[0]);remaining.shift();
+    if(split[1])remaining.unshift(split[1]);
+   }
+   break;
+  }
+  if(!piece.length){
+   // Ensure progress even on unusually short screens, without silently dropping text.
+   const para=remaining.shift();
+   piece.push(para);
+   console.warn('Essay paragraph exceeds the available page height:',essay.title);
+  }
+  result.push(piece);
+  first=false;
  }
- return out;
+ host.remove();
+ if(remaining.length)console.error('Unpaginated essay text:',essay.title);
+ return result;
 }
-function build(){pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];for(const essay of essays){const parts=fragments(essay.text);parts.forEach((part,i)=>pages.push({type:'essay',essay,part,partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}))}pages.push({type:'end',title:'맺는 글'});if(pages.length%2)pages.push({type:'end',title:'뒷장'});const toc=$('#toc-list');toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||(p.type==='essay'&&p.partNumber===1))?`<button data-to="${i}">${escapeHtml(p.title)}<span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('')}
+function build(){pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];for(const essay of essays){const parts=fragments(essay);parts.forEach((part,i)=>pages.push({type:'essay',essay,part,partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}))}pages.push({type:'end',title:'맺는 글'});if(pages.length%2)pages.push({type:'end',title:'뒷장'});const toc=$('#toc-list');toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||(p.type==='essay'&&p.partNumber===1))?`<button data-to="${i}">${escapeHtml(p.title)}<span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('')}
 function htmlFor(p){if(!p)return '';
 if(p.type==='cover')return '<section class="cover"><div class="cover-copy"><div class="eyebrow">명도재 이명우 · 디지털 수필집</div><h1>그늘을 지나,<br>양지로</h1><p>삶에서 건져 올린 다섯 빛깔의 이야기</p><p class="author">이명우 지음 · 명도재 제작</p></div></section>';
 if(p.type==='intro')return '<section class="frontmatter"><span class="emblem">❧</span><h2>삶은 아직<br>쓰이는 중이다</h2><p>교실을 떠나 다시 배움을 시작하고, 강물 앞에서 자기 걸음을 돌아보고, 사람과 사람 사이의 온기를 기억한다. 오래된 거울과 입동의 백로까지, 다섯 수필은 삶의 풍경을 새로 읽는 여행이다.</p><p class="disclaimer">기존 생활수필의 주제와 핵심 장면을 바탕으로 문학적으로 재창작한 편집본입니다.</p></section>';
