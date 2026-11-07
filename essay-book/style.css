@@ -18,3 +18,23 @@
  .page .essay img{height:104px;margin-bottom:7px;}
  .page .cover{margin:-24px -39px -53px;height:calc(100dvh - 110px)!important;}
 }
+
+/* v1.2 — wider classical book margins and denser, balanced prose. */
+@media screen and (min-width:801px){
+ .book .page{padding:22px clamp(73px,6.5vw,98px) 48px!important;}
+ .page .essay-body{padding:3px 3px 35px!important;font-size:12.9px!important;line-height:1.54!important;letter-spacing:-.02em;justify-content:space-between;}
+ .page .essay-body p{margin-bottom:4px!important;line-height:inherit;}
+ .page .essay img{height:106px!important;margin:2px 0 6px!important;}
+ .page .essay .subtitle{margin:0 0 6px!important;}
+ .page .essay h2{font-size:22px;line-height:1.3;}
+ .page .cover{margin:-22px calc(-1 * clamp(73px,6.5vw,98px)) -48px!important;height:620px!important;}
+}
+@media screen and (max-width:800px){
+ .book .page{padding:20px clamp(47px,10vw,65px) 49px!important;}
+ .page .essay-body{padding:3px 2px 34px!important;font-size:12.2px!important;line-height:1.52!important;letter-spacing:-.018em;justify-content:space-between;}
+ .page .essay-body p{margin-bottom:4px!important;line-height:inherit;}
+ .page .essay img{height:88px!important;margin:2px 0 6px!important;}
+ .page .essay h2{font-size:19px;line-height:1.3;margin:5px 0 3px;}
+ .page .essay .subtitle{font-size:12px;margin-bottom:5px;}
+ .page .cover{margin:-20px calc(-1 * clamp(47px,10vw,65px)) -49px!important;height:calc(100dvh - 110px)!important;}
+}
