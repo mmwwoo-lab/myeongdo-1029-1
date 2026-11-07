@@ -15,8 +15,7 @@ function formatParagraph(source,essay){
 const mobile=matchMedia('(max-width:800px)');let pages=[],index=0,speech=null,paused=false,speechToken=0;
 // Measure text in a real-sized, hidden book leaf, never by character count.
 function fragments(essay){
- // Author-edited six-page essay: retain exact leaf boundaries and poem stanzas.
- // On very small screens, its text region can scroll without cutting off content.
+ // Authored six-page essays: preserve leaf boundaries and all paragraph breaks.
  if(Array.isArray(essay.pageParts) && essay.pageParts.length===6)
   return essay.pageParts.map(part=>part.slice());
  const paragraphs=essay.text.split(/\n\s*\n/).map(s=>s.trim()).filter(s=>s&&s!=='〔삽입시 끝〕');
@@ -91,12 +90,12 @@ function fragments(essay){
 }
 function build(){pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];for(const essay of essays){const parts=fragments(essay);parts.forEach((part,i)=>pages.push({type:'essay',essay,part,compact:!!(parts.compactLast&&i===parts.length-1),partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}))}pages.push({type:'back',title:'뒤표지'});const toc=$('#toc-list');toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||p.type==='back'||(p.type==='essay'&&p.partNumber===1))?`<button data-to="${i}">${p.type==='essay'?`제${String(p.essay.number).padStart(2,'0')}편 · `:''}${escapeHtml(p.title)}<strong class="toc-page" aria-label="시작 페이지 ${i+1}"> ${String(i+1).padStart(2,'0')}쪽</strong><span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('')}
 function htmlFor(p){if(!p)return '';
-if(p.type==='cover')return '<section class="cover hardback-front"><div class="cover-copy"><div class="eyebrow">명도재 이명우 · 디지털 수필집 제1권</div><h1>명도재,<br>창작으로 다시 걷다</h1><p class="cover-subtitle">삶에서 건져 올린 열세 빛깔의 이야기</p><p class="author">명도재에서 이명우지음</p></div></section>';
-if(p.type==='intro')return '<section class="frontmatter intro-preface"><span class="emblem">❧</span><h2>서문 · 다시 걷는 길</h2><p><strong>명도재는 교직을 마친 뒤 배움과 창작으로 다시 문을 연 나의 두 번째 교실이다.</strong></p><p>삼십육 년의 교단을 떠나 신천을 걷고 월촌역의 벗을 만나며, 아버지와 어머니의 시간을 글로 불러냈다. 시장의 한 그릇과 비 갠 앞산에서도 삶의 표정을 발견했다. 고산골 법장사 숲길에서는 나무가 써 내려가는 가을의 시를 읽었다. 열세 편의 수필은 평범한 하루에서 건져 올린 기억과 새로운 출발의 기록이다.</p><p>남은 날에도 지나가는 풍경을 그냥 흘려보내지 않고, 한 문장씩 정성껏 남기고 싶다.</p><div class="author-bio"><h3>지은이 소개 <span>명도재 이명우</span></h3><p><b>활동</b> 한국미술협회·대구미술협회 회원, 대구미술대전 초대작가</p><p><b>수상</b> 대구미술대전 최우수상, 무등미술대전 우수상, 매일미술대전 우수상</p><p><b>심사</b> 대한민국미술대전·대구미술대전·강주미술대전·대전미술대전·부산미술대전 심사위원 역임</p><p><b>저서</b> 시집 『물빛에 놓아둔 마음』, 수필집 『명도재, 창작으로 다시 걷다』</p></div><p class="disclaimer">삶의 경험과 창작시를 바탕으로 문학적으로 재구성한 수필집입니다.</p></section>';
+if(p.type==='cover')return '<section class="cover hardback-front"><div class="cover-copy"><div class="eyebrow">명도재 이명우 · 디지털 수필집 제1권</div><h1>명도재,<br>창작으로 다시 걷다</h1><p class="cover-subtitle">삶에서 건져 올린 열네 빛깔의 이야기</p><p class="author">명도재에서 이명우지음</p></div></section>';
+if(p.type==='intro')return '<section class="frontmatter intro-preface"><span class="emblem">❧</span><h2>서문 · 다시 걷는 길</h2><p><strong>명도재는 교직을 마친 뒤 배움과 창작으로 다시 문을 연 나의 두 번째 교실이다.</strong></p><p>삼십육 년의 교단을 떠나 신천을 걷고 월촌역의 벗을 만나며, 아버지와 어머니의 시간을 글로 불러냈다. 시장의 한 그릇과 비 갠 앞산에서도 삶의 표정을 발견했다. 고산골 법장사 숲길에서는 나무가 써 내려가는 가을의 시를 읽었다. 아침 페이스북에서 만난 법문은 사람에게 건네는 말의 온기를 되새기게 했다. 열네 편의 수필은 평범한 하루에서 건져 올린 기억과 새로운 출발의 기록이다.</p><p>남은 날에도 지나가는 풍경을 그냥 흘려보내지 않고, 한 문장씩 정성껏 남기고 싶다.</p><div class="author-bio"><h3>지은이 소개 <span>명도재 이명우</span></h3><p><b>활동</b> 한국미술협회·대구미술협회 회원, 대구미술대전 초대작가</p><p><b>수상</b> 대구미술대전 최우수상, 무등미술대전 우수상, 매일미술대전 우수상</p><p><b>심사</b> 대한민국미술대전·대구미술대전·강주미술대전·대전미술대전·부산미술대전 심사위원 역임</p><p><b>저서</b> 시집 『물빛에 놓아둔 마음』, 수필집 『명도재, 창작으로 다시 걷다』</p></div><p class="disclaimer">삶의 경험과 창작시를 바탕으로 문학적으로 재구성한 수필집입니다.</p></section>';
 if(p.type==='back')return '<section class="cover hardback-back"><div class="cover-copy back-copy"><p class="back-quote">명도재는 나의 두 번째 출근지이다.<br>오늘도 창작으로 다시 걷는다.</p><p class="author">명도재에서 이명우지음</p></div></section>';
 if(p.type==='blank')return '<section class="frontmatter"></section>';
-if(p.type==='end')return '<section class="frontmatter"><span class="emblem">✦</span><h2>그늘을 지나면<br>다시 햇살이 있다</h2><p>열세 편의 수필을 덮으며, 오늘의 평범한 하루가 내일의 문장이 되기를.</p><p class="disclaimer">© 명도재 이명우 · 작가 최종 승인 전 시안</p></section>';
-const e=p.essay,first=p.partNumber===1;return `<section class="essay${e.number===13?' essay-thirteen':''}" data-essay="${e.number}"><div class="eyebrow">명도재 생활수필 · 제${e.number}편 · ${p.partNumber}/${p.total}</div>${first?`<h2>${escapeHtml(e.title)}</h2><p class="subtitle">${escapeHtml(e.subtitle)}</p><img src="images/${escapeHtml(e.illustration)}.svg" alt="${escapeHtml(e.motif)}을 소재로 그린 수필 삽화">`:`<div class="continued">${escapeHtml(e.title)} — 이어 읽기</div>`}<div class="essay-body">${p.part.map(x=>formatParagraph(x,e)).join('')}</div></section><button class="page-read" data-read>▶ 이 페이지 읽기</button>`}
+if(p.type==='end')return '<section class="frontmatter"><span class="emblem">✦</span><h2>그늘을 지나면<br>다시 햇살이 있다</h2><p>열네 편의 수필을 덮으며, 오늘의 평범한 하루가 내일의 문장이 되기를.</p><p class="disclaimer">© 명도재 이명우 · 작가 최종 승인 전 시안</p></section>';
+const e=p.essay,first=p.partNumber===1;return `<section class="essay${e.number===13?' essay-thirteen':e.number===14?' essay-fourteen':''}${Array.isArray(e.pageParts)&&e.pageParts.length===6?' essay-fixed':''}" data-essay="${e.number}"><div class="eyebrow">명도재 생활수필 · 제${e.number}편 · ${p.partNumber}/${p.total}</div>${first?`<h2>${escapeHtml(e.title)}</h2><p class="subtitle">${escapeHtml(e.subtitle)}</p><img src="images/${escapeHtml(e.illustration)}.svg" alt="${escapeHtml(e.motif)}을 소재로 그린 수필 삽화">`:`<div class="continued">${escapeHtml(e.title)} — 이어 읽기</div>`}<div class="essay-body">${p.part.map(x=>formatParagraph(x,e)).join('')}</div></section><button class="page-read" data-read>▶ 이 페이지 읽기</button>`}
 function stop(){speechToken++;if('speechSynthesis'in window)window.speechSynthesis.cancel();speech=null;paused=false;updateReads()}
 function updateReads(){document.querySelectorAll('[data-read]').forEach(b=>b.textContent=speech===Number(b.closest('.page').dataset.page)?(paused?'▶ 이어 읽기':'⏸ 일시정지'):'▶ 이 페이지 읽기')}
 function read(i){if(!('speechSynthesis'in window)){alert('이 브라우저는 한국어 음성 읽기를 지원하지 않습니다. 크롬을 이용해 주세요.');return}if(speech===i){paused=!paused;if(paused)speechSynthesis.pause();else speechSynthesis.resume();updateReads();return}stop();const p=pages[i];if(!p||p.type!=='essay')return;const text=[p.partNumber===1?p.essay.title:'',...p.part].filter(Boolean).join('. ').replace(/〔삽입시〕|〔삽입시 끝〕/g,'');const voices=speechSynthesis.getVoices(),ko=voices.filter(v=>/^ko/i.test(v.lang)),female=ko.find(v=>/female|여성|sora|sunhi|yuna|heami|seoyeon/i.test(v.name))||ko[0];const chunks=text.match(/.{1,150}(?:[.!?。]|$)/g)||[text];const token=++speechToken;speech=i;updateReads();let at=0;const next=()=>{if(token!==speechToken)return;if(at>=chunks.length){speech=null;updateReads();return}const u=new SpeechSynthesisUtterance(chunks[at++]);u.lang='ko-KR';if(female)u.voice=female;u.rate=.83;u.pitch=1.03;u.onend=next;u.onerror=()=>{speech=null;updateReads()};speechSynthesis.speak(u)};next()}
@@ -110,8 +109,8 @@ function fitPreface(el){
   if(intro.scrollHeight<=intro.clientHeight+1)break;
  }
 }
-function fitThirteen(el){
- const body=el.querySelector('.essay-thirteen .essay-body');
+function fitFixedEssay(el){
+ const body=el.querySelector('.essay-fixed .essay-body');
  if(!body)return;
  // Fit writing to its fixed book leaf instead of adding an inner scrollbar.
  const initial=mobile.matches?12.2:13.3;
@@ -123,7 +122,7 @@ function fitThirteen(el){
   if(body.scrollHeight<=body.clientHeight+1)break;
  }
 }
-function renderPage(el,p,i){el.classList.toggle('compact-leaf',!!(p&&p.compact));el.innerHTML=htmlFor(p);el.dataset.page=i;el.dataset.number=String(i+1).padStart(2,'0');el.hidden=!p;fitPreface(el);fitThirteen(el);el.querySelector('[data-read]')?.addEventListener('click',()=>read(i))}
+function renderPage(el,p,i){el.classList.toggle('compact-leaf',!!(p&&p.compact));el.innerHTML=htmlFor(p);el.dataset.page=i;el.dataset.number=String(i+1).padStart(2,'0');el.hidden=!p;fitPreface(el);fitFixedEssay(el);el.querySelector('[data-read]')?.addEventListener('click',()=>read(i))}
 function render(){const step=mobile.matches?1:2;renderPage($('#left'),pages[index],index);renderPage($('#right'),mobile.matches?null:pages[index+1],index+1);$('#prev').disabled=index===0;$('#next').disabled=index+step>=pages.length;history.replaceState(null,'','#page-'+(index+1));updateReads()}
 function move(delta){const step=mobile.matches?1:2;index=Math.max(0,Math.min(Math.max(0,Math.ceil(pages.length/step)-1)*step,index+delta*step));stop();closeToc(false);render()}
 function closeToc(focus=true){$('#toc').hidden=true;$('#contents').setAttribute('aria-expanded','false');if(focus)$('#contents').focus()}
@@ -133,5 +132,5 @@ $('#toc-list').addEventListener('click',e=>{const b=e.target.closest('[data-to]'
 $('#prev').onclick=()=>move(-1);$('#next').onclick=()=>move(1);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeToc();if(!$('#toc').hidden||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
 let start=null;$('#book').addEventListener('touchstart',e=>{start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5&&$('#toc').hidden)move(dx<0?1:-1);start=null},{passive:true});
-mobile.addEventListener('change',()=>{stop();build();index=0;render()});window.addEventListener('resize',()=>{if(document.querySelector('.essay-thirteen')){fitThirteen($('#left'));fitThirteen($('#right'))}});window.addEventListener('pagehide',stop);
+mobile.addEventListener('change',()=>{stop();build();index=0;render()});window.addEventListener('resize',()=>{if(document.querySelector('.essay-fixed')){fitFixedEssay($('#left'));fitFixedEssay($('#right'))}});window.addEventListener('pagehide',stop);
 build();const match=location.hash.match(/page-(\d+)/);if(match){index=Math.min(pages.length-1,Math.max(0,Number(match[1])-1));if(!mobile.matches)index-=index%2}render();
