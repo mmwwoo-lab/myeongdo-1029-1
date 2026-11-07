@@ -300,3 +300,21 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
 /* Automatic opening page numbers for TOC items. */
 #toc-list button{position:relative;padding-right:60px;}
 #toc-list button .toc-page{position:absolute;right:5px;top:10px;min-width:45px;text-align:right;font-family:"Noto Serif KR",serif;font-variant-numeric:tabular-nums;font-size:12px;font-weight:600;color:#69576b;white-space:nowrap;}
+
+/* Literary editor's restrained signature-sentence emphasis. No callout boxes. */
+.book .page .essay-body .key-line{
+ font-family:var(--myeongjo)!important;
+ color:#794c42!important;
+ font-weight:700!important;
+ letter-spacing:-.012em;
+ text-decoration:underline;
+ text-decoration-color:rgba(162,109,88,.34);
+ text-decoration-thickness:1px;
+ text-underline-offset:3px;
+ box-decoration-break:clone;
+ -webkit-box-decoration-break:clone;
+}
+.book .page .essay-body p{orphans:2;widows:2;}
+@media (prefers-contrast:more){
+ .book .page .essay-body .key-line{color:#4f231c!important;text-decoration-color:currentColor;}
+}
