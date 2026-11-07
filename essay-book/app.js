@@ -3,24 +3,24 @@ const essays=window.MYEONGDO_ESSAYS||[];
 const $=s=>document.querySelector(s),escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mobile=matchMedia('(max-width:800px)');let pages=[],index=0,speech=null,paused=false,speechToken=0;
 function fragments(text){
- const paras=text.split(/\n\s*\n/).filter(Boolean);
- const total=paras.reduce((n,p)=>n+p.length,0);
- const openingTarget=220;
- const remaining=Math.max(0,total-openingTarget);
- const restPages=Math.max(1,Math.ceil(remaining/460));
- const target=Math.max(310,Math.min(475,Math.ceil(remaining/restPages)));
+ const paras=text.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+ const small=mobile.matches;
+ // Wider interior margins with denser typography: fit more prose on desktop.
+ const openingTarget=small?195:265;
+ const target=small?335:525;
  const out=[];let group=[],length=0;
  for(const para of paras){
   const cap=out.length===0?openingTarget:target;
-  if(group.length&&length+para.length>cap){out.push(group);group=[];length=0}
+  if(group.length&&length+para.length>cap){out.push(group);group=[];length=0;}
   group.push(para);length+=para.length;
  }
  if(group.length)out.push(group);
- // Balance the last two text leaves so that no nearly empty final page remains.
- if(out.length>2&&out[out.length-1].join('').length<200){
-  const last=out.pop(),before=out.pop(),combined=before.concat(last);
-  const mid=Math.ceil(combined.reduce((n,p)=>n+p.length,0)/2);let first=[],second=[],used=0;
-  for(const p of combined){if(used<mid||!first.length){first.push(p);used+=p.length}else second.push(p)}
+ // Distribute text from the last short leaf across the preceding two leaves.
+ if(out.length>2&&out[out.length-1].join('').length<(small?110:195)){
+  const remainder=out.pop(),prev=out.pop(),combined=prev.concat(remainder);
+  const half=combined.reduce((n,s)=>n+s.length,0)/2;
+  const first=[],second=[];let count=0;
+  for(const line of combined){if(count<half||!first.length){first.push(line);count+=line.length;}else second.push(line);}
   out.push(first);if(second.length)out.push(second);
  }
  return out;
@@ -44,5 +44,5 @@ $('#toc-list').addEventListener('click',e=>{const b=e.target.closest('[data-to]'
 $('#prev').onclick=()=>move(-1);$('#next').onclick=()=>move(1);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeToc();if(!$('#toc').hidden||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
 let start=null;$('#book').addEventListener('touchstart',e=>{start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5&&$('#toc').hidden)move(dx<0?1:-1);start=null},{passive:true});
-mobile.addEventListener('change',()=>{if(!mobile.matches)index-=index%2;render()});window.addEventListener('pagehide',stop);
+mobile.addEventListener('change',()=>{stop();build();index=0;render()});window.addEventListener('pagehide',stop);
 build();const match=location.hash.match(/page-(\d+)/);if(match){index=Math.min(pages.length-1,Math.max(0,Number(match[1])-1));if(!mobile.matches)index-=index%2}render();
