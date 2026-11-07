@@ -53,7 +53,7 @@
 .book .page .essay-body p{display:block!important;break-inside:avoid;}
 
 /* 명도재 수필집 제목: 한국어 붓글씨 캘리그래피, 본문 가독성은 유지. */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap');
+
 :root{--calligraphy:'Nanum Brush Script','Nanum Pen Script','Apple SD Gothic Neo','Malgun Gothic',cursive;}
 .book .cover h1{
  font-family:var(--calligraphy)!important;
@@ -102,4 +102,52 @@
  .book .page .intro-preface p{font-size:11.7px;line-height:1.48;}
  .book .page .intro-preface .emblem{font-size:20px;}
  .book .page .intro-preface .disclaimer{font-size:9px!important;}
+}
+
+/* v1.5 — complete Korean Myeongjo typography, reduced titles. */
+:root{--myeongjo:'Noto Serif KR','Nanum Myeongjo','Batang','AppleMyungjo',serif;}
+html,body,button,input,textarea,select,
+.masthead,.masthead *, .book,.book *,#toc,#toc *,footer,.note{
+ font-family:var(--myeongjo)!important;
+}
+.brand{font-size:21px!important;letter-spacing:.02em!important;}
+.brand small{font-size:11px!important;}
+.book .cover h1{
+ font-family:var(--myeongjo)!important;
+ font-size:clamp(31px,3vw,43px)!important;
+ font-weight:700!important;
+ line-height:1.38!important;
+ letter-spacing:-.04em!important;
+}
+.book .essay h2{
+ font-family:var(--myeongjo)!important;
+ font-size:clamp(20px,1.8vw,25px)!important;
+ font-weight:700!important;
+ line-height:1.45!important;
+ letter-spacing:-.04em!important;
+}
+.book .frontmatter h2,.book .page .intro-preface h2{
+ font-family:var(--myeongjo)!important;
+ font-size:clamp(21px,1.9vw,26px)!important;
+ font-weight:700!important;
+ line-height:1.4!important;
+ letter-spacing:-.035em!important;
+}
+.book .cover-copy .eyebrow{font-size:12px!important;letter-spacing:.04em!important;}
+.book .essay .eyebrow{font-size:10px!important;letter-spacing:.04em!important;}
+.book .essay .subtitle{font-size:11px!important;}
+.book .essay .continued{font-size:11px!important;}
+#toc .toc-head strong{font-size:15px!important;}
+#toc-list button{font-family:var(--myeongjo)!important;font-size:13px!important;}
+#toc-list button span{font-size:10px!important;}
+.book .page .essay-body{
+ font-family:var(--myeongjo)!important;
+ line-height:1.62!important;
+}
+@media(max-width:800px){
+ .brand{font-size:19px!important;}
+ .book .cover h1{font-size:clamp(27px,6.8vw,36px)!important;}
+ .book .essay h2{font-size:21px!important;}
+ .book .frontmatter h2,.book .page .intro-preface h2{font-size:22px!important;}
+ .book .page .essay-body{line-height:1.61!important;}
 }
