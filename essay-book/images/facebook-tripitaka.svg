@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="아침 창가의 스마트폰과 빛, 멀리 보이는 사찰 지붕과 목탁, 따스하게 연결되는 사람들의 문학적 풍경">
+<defs>
+<linearGradient id="sky" x1="0" x2=".9" y1="0" y2="1"><stop stop-color="#faf0de"/><stop offset=".57" stop-color="#efdec6"/><stop offset="1" stop-color="#b5c0af"/></linearGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff9ef"/><stop offset="1" stop-color="#d4dacf"/></linearGradient>
+<linearGradient id="table" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#bba588"/><stop offset="1" stop-color="#8d755e"/></linearGradient>
+<filter id="sunblur"><feGaussianBlur stdDeviation="30"/></filter>
+</defs>
+<rect width="1200" height="720" fill="url(#sky)"/>
+<circle cx="945" cy="154" r="105" fill="#ffe9b0" opacity=".73" filter="url(#sunblur)"/>
+<rect x="78" y="62" width="1040" height="474" fill="url(#glass)" opacity=".62"/>
+<g stroke="#877c6b" stroke-width="13" opacity=".55"><path d="M80 64V538H1118V64Z" fill="none"/><path d="M788 64V535M80 476H1118"/></g>
+<path d="M80 442Q256 301 451 345Q622 277 792 376Q961 283 1118 335V529H80Z" fill="#9eae9d" opacity=".6"/>
+<path d="M80 483Q286 376 487 414Q639 351 798 431Q935 385 1118 438V536H80Z" fill="#8a987e" opacity=".69"/>
+<g opacity=".8"><path d="M773 373L886 311L1000 373Z" fill="#695e50"/><path d="M793 369H979V438H793Z" fill="#c4b7a3"/><path d="M779 380Q885 362 995 380" fill="none" stroke="#544839" stroke-width="11"/><path d="M850 432V382H920V432" fill="#746655"/></g>
+<g stroke="#546650" stroke-width="15" fill="none" stroke-linecap="round"><path d="M204 492L191 215M207 311L138 263M196 373L257 282M1075 497L1094 207M1091 293L1034 240"/></g>
+<g fill="#9d794f" opacity=".75"><circle cx="184" cy="204" r="90"/><circle cx="132" cy="286" r="55"/><circle cx="249" cy="249" r="70"/><circle cx="1084" cy="219" r="78"/><circle cx="1022" cy="276" r="67"/></g>
+<path d="M0 541L1200 529V720H0Z" fill="url(#table)"/>
+<path d="M0 571L1200 553" stroke="#dbc8ac" stroke-width="8" opacity=".7"/>
+<g transform="translate(363 169) rotate(-8)">
+<rect x="0" y="0" width="301" height="451" rx="32" fill="#544d47" stroke="#332d2a" stroke-width="5"/>
+<rect x="16" y="29" width="270" height="386" rx="12" fill="#f6f2e8"/>
+<rect x="117" y="12" width="65" height="5" rx="2" fill="#ac9f90"/>
+<circle cx="150" cy="430" r="8" fill="#b0a399"/>
+<g fill="#dccdba"><rect x="40" y="74" width="225" height="61" rx="8"/><rect x="40" y="154" width="225" height="52" rx="8"/><rect x="40" y="229" width="225" height="85" rx="8"/><rect x="40" y="335" width="225" height="37" rx="8"/></g>
+<g fill="#987f62"><circle cx="70" cy="105" r="18"/><circle cx="70" cy="181" r="18"/><circle cx="70" cy="265" r="18"/></g>
+<g fill="#b0a28f"><rect x="101" y="93" width="142" height="7" rx="3"/><rect x="101" y="111" width="111" height="6" rx="3"/><rect x="101" y="169" width="127" height="7" rx="3"/><rect x="101" y="185" width="150" height="6" rx="3"/><rect x="101" y="254" width="147" height="7" rx="3"/><rect x="101" y="274" width="125" height="6" rx="3"/><rect x="101" y="291" width="145" height="6" rx="3"/></g>
+<g fill="#8da58c"><circle cx="70" cy="352" r="14"/><circle cx="111" cy="352" r="14"/><circle cx="152" cy="352" r="14"/></g>
+</g>
+<g transform="translate(729 518)" fill="#856b52"><ellipse cx="0" cy="100" rx="80" ry="23" fill="#69513e" opacity=".26"/><path d="M-46 16Q-58 -5 -24 -26Q4 -38 27 -23Q62 4 43 26L26 98H-28Z"/><ellipse cx="0" cy="14" rx="45" ry="22" fill="#b99365"/><ellipse cx="0" cy="14" rx="26" ry="10" fill="#d6b68d"/></g>
+<g fill="#be674d" opacity=".8"><path d="M173 609Q206 590 223 620Q187 632 173 609Z"/><path d="M950 637Q976 618 998 648Q972 662 950 637Z"/></g>
+<path d="M0 0H1200V720H0Z" fill="none" stroke="#bba98c" stroke-width="9" opacity=".7"/>
+</svg>
