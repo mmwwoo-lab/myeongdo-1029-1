@@ -1,10 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620">
-<defs><linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#004b34"/><stop offset=".42" stop-color="#063a2a"/><stop offset="1" stop-color="#002719"/></linearGradient><linearGradient id="g" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#c49134"/><stop offset=".2" stop-color="#fff3b4"/><stop offset=".44" stop-color="#b8822c"/><stop offset=".75" stop-color="#ffe19a"/><stop offset="1" stop-color="#97601c"/></linearGradient><pattern id="stripes" width="11" height="10" patternUnits="userSpaceOnUse"><path d="M1 0v10" stroke="#ecdf9d" opacity=".05"/><path d="M7 0v10" stroke="#03150c" opacity=".27"/></pattern><pattern id="weave" width="5" height="6" patternUnits="userSpaceOnUse"><path d="M0 2h1" stroke="#f9f3da" opacity=".12"/><path d="M3 5h1" stroke="#06150d" opacity=".3"/></pattern></defs>
-<rect width="900" height="620" fill="url(#cloth)"/><rect width="900" height="620" fill="url(#stripes)"/><rect width="900" height="620" fill="url(#weave)"/>
-
-<g fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round"><path d="M42 133C47 72 69 46 131 45Q99 72 76 71Q108 87 141 69C106 119 59 108 42 133Z"/><path d="M858 133C853 72 831 46 769 45Q801 72 824 71Q792 87 759 69C794 119 841 108 858 133Z"/><path d="M42 486C47 548 69 575 131 576Q99 549 76 548Q108 532 141 550C106 501 59 510 42 486Z"/><path d="M858 486C853 548 831 575 769 576Q801 549 824 548Q792 532 759 550C794 501 841 510 858 486Z"/></g>
-<g stroke="url(#g)" stroke-width="2" fill="none"><path d="M250 92L450 92L650 92"/><path d="M250 124H650"/><path d="M255 460H645"/></g>
-<g transform="translate(450 87)" fill="none" stroke="url(#g)" stroke-width="3"><path d="M-52 10Q-22-12 0 4Q22-12 52 10V43Q22 22 0 42Q-22 22-52 43Z"/><path d="M0 4V43"/><path d="M-22 13L-8 17M22 13L8 17M-25 24L-9 28M25 24L9 28"/><path d="M9 3L26-27 35-38Q32-20 18-3"/></g>
-<g stroke="#9d833b" stroke-width="1.5" fill="none" opacity=".55"><path d="M72 536Q161 463 240 484T384 455Q461 417 536 462Q667 398 821 502"/><path d="M78 552Q222 505 353 535T823 523"/><path d="M78 560Q190 531 340 555T826 543"/><path d="M180 572Q341 545 450 563T733 565"/></g>
-<g stroke="#a18a43" fill="none" opacity=".7"><path d="M130 535L155 430M150 469L108 432M154 454L201 422" stroke-width="4"/><path d="M155 431q-8-16-18-16m18 16q10-18 25-22M108 432q-18-5-25-16M201 422q15 2 27-7" stroke-width="2"/></g>
-<g fill="url(#g)"><path d="M450 117l5 8 9 1-7 7 2 9-9-5-9 5 2-9-7-7 9-1z"/><path d="M450 451l5 9 10 2-8 7 2 9-9-5-9 5 2-9-8-7 10-2z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+ <stop offset="0" stop-color="#51463a"/><stop offset=".52" stop-color="#41372f"/><stop offset="1" stop-color="#352e27"/>
+ </linearGradient>
+ <filter id="fiber" x="-10%" y="-10%" width="120%" height="120%">
+ <feTurbulence type="fractalNoise" baseFrequency=".34 .48" numOctaves="3" seed="17" stitchTiles="stitch" result="noise"/>
+ <feColorMatrix in="noise" type="saturate" values="0"/>
+ </filter>
+ <radialGradient id="light"><stop stop-color="#b4a18b" stop-opacity=".13"/><stop offset="1" stop-color="#231e1a" stop-opacity=".12"/></radialGradient>
+</defs>
+<rect width="900" height="620" fill="url(#paper)"/>
+<rect width="900" height="620" filter="url(#fiber)" opacity=".11" style="mix-blend-mode:soft-light"/>
+<rect width="900" height="620" fill="url(#light)"/>
+</svg>
