@@ -151,3 +151,8 @@ html,body,button,input,textarea,select,
  .book .frontmatter h2,.book .page .intro-preface h2{font-size:22px!important;}
  .book .page .essay-body{line-height:1.61!important;}
 }
+
+/* Merge a short trailing continuation into the preceding prose leaf only if measured to fit. */
+.book .page.compact-leaf .essay-body{font-size:11.9px!important;line-height:1.44!important;letter-spacing:-.027em!important;}
+.book .page.compact-leaf .essay-body p{margin-bottom:3px!important;}
+@media(max-width:800px){.book .page.compact-leaf .essay-body{font-size:11.3px!important;line-height:1.44!important;}}
