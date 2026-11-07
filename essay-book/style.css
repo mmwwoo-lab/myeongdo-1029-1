@@ -399,3 +399,15 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
 .book .page .essay-body .poem-heading{font-family:var(--myeongjo)!important;font-weight:700!important;color:#705341!important;letter-spacing:.015em!important;text-align:center!important;padding:6px 0!important;border-top:1px solid #d8cab8!important;margin-top:10px!important;}
 .book .page .essay-body .poem-stanza{font-family:var(--myeongjo)!important;line-height:1.8!important;text-align:center!important;color:#614f42!important;white-space:normal!important;margin:9px 0!important;}
 .book .page.compact-leaf .essay-body .poem-stanza{line-height:1.57!important;}
+
+/* Chapter 13: six curated pages. Allow internal scrolling only where narrow
+   screens cannot accommodate the intact six-page editorial setting. */
+.book .page:has(.essay-thirteen) .essay-body{
+ overflow-y:auto!important;
+ overflow-x:hidden!important;
+ scrollbar-width:thin;
+ scrollbar-color:#c6b3a0 transparent;
+ overscroll-behavior:contain;
+}
+.book .page:has(.essay-thirteen) .essay-body .poem-heading{break-inside:avoid;}
+.book .page:has(.essay-thirteen) .essay-body .poem-stanza{break-inside:avoid;white-space:normal!important;}
