@@ -231,3 +231,41 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page .cover .cover-subtitle{font-size:11px!important;}
  .book .page .cover.hardback-back .back-quote{font-size:13px!important;}
 }
+
+/* v1.8 | Responsive hardcover border: true rectangles with equal inset on all four sides. 
+   Borders are HTML/CSS overlays, not stretched pixels baked into the SVG. */
+.book .page .cover.hardback-front,
+.book .page .cover.hardback-back{isolation:isolate;}
+.book .page .cover.hardback-front::before,
+.book .page .cover.hardback-back::before{
+ content:""!important;
+ display:block!important;
+ position:absolute!important;
+ inset:clamp(17px,3vw,24px)!important;
+ border:3px solid #d8ad58!important;
+ border-radius:0!important;
+ outline:1px solid rgba(255,237,166,.62)!important;
+ outline-offset:-6px!important;
+ box-shadow:0 0 0 1px rgba(64,43,10,.7),inset 0 0 0 1px #815923,0 0 9px rgba(0,0,0,.2)!important;
+ pointer-events:none!important;
+ z-index:2!important;
+}
+.book .page .cover.hardback-front::after,
+.book .page .cover.hardback-back::after{
+ content:""!important;
+ display:block!important;
+ position:absolute!important;
+ inset:calc(clamp(17px,3vw,24px) + 10px)!important;
+ border:1px solid rgba(221,172,84,.83)!important;
+ border-radius:0!important;
+ pointer-events:none!important;
+ z-index:2!important;
+}
+.book .page .cover.hardback-front .cover-copy,
+.book .page .cover.hardback-back .cover-copy{z-index:3!important;max-width:76%!important;width:76%!important;}
+@media(max-width:800px){
+ .book .page .cover.hardback-front::before,
+ .book .page .cover.hardback-back::before{inset:17px!important;}
+ .book .page .cover.hardback-front::after,
+ .book .page .cover.hardback-back::after{inset:27px!important;}
+}
