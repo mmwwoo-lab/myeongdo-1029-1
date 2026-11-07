@@ -296,3 +296,7 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
 .book .page .cover .cover-subtitle,
 .book .page .cover .author,
 .book .page .cover.hardback-back .back-quote{color:#f0e3ce!important;text-shadow:none!important;}
+
+/* Automatic opening page numbers for TOC items. */
+#toc-list button{position:relative;padding-right:60px;}
+#toc-list button .toc-page{position:absolute;right:5px;top:10px;min-width:45px;text-align:right;font-family:"Noto Serif KR",serif;font-variant-numeric:tabular-nums;font-size:12px;font-weight:600;color:#69576b;white-space:nowrap;}
