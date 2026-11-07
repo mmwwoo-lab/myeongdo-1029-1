@@ -25,3 +25,16 @@
 .dialog-bottom a{color:#664b3e;text-decoration:none}
 @media(max-width:790px){.newspaper-layout{grid-template-columns:1fr;gap:28px;padding-top:52px;padding-bottom:55px}}
 @media(prefers-reduced-motion:reduce){.newspaper-visual{transition:none}}
+
+/* First-visit Android in-app browser / TTS fallback panel */
+.chrome-guide[hidden]{display:none!important}
+.chrome-guide{background:#efe7da;border-bottom:2px solid #a38b76;color:#46392f;position:relative;z-index:15}
+.chrome-guide-inner{max-width:1190px;padding:17px 28px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.chrome-guide strong{font:700 15px var(--serif)}
+.chrome-guide p{margin:5px 0;font-size:12px;line-height:1.7}
+.chrome-guide .chrome-steps{color:#765c4b}
+.chrome-actions{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+.chrome-actions button{border:1px solid #958071;border-radius:5px;padding:9px 11px;background:#fffdf8;color:#49382e;font-weight:700;font-size:12px}
+.chrome-actions #open-chrome{background:#534034;color:white;border-color:#534034}
+#reading-help{background:#f5eee5;border-color:#8a7361;color:#594231}
+@media(max-width:770px){.chrome-guide-inner{padding:14px 18px;display:block}.chrome-actions{margin-top:11px}.chrome-guide strong{font-size:14px}}
