@@ -38,3 +38,7 @@
 .chrome-actions #open-chrome{background:#534034;color:white;border-color:#534034}
 #reading-help{background:#f5eee5;border-color:#8a7361;color:#594231}
 @media(max-width:770px){.chrome-guide-inner{padding:14px 18px;display:block}.chrome-actions{margin-top:11px}.chrome-guide strong{font-size:14px}}
+
+/* Thirteenth essay: integrated inset poem */
+.essay-prose .poem-heading{font:700 19px/1.6 var(--serif);color:#684b3d;text-align:center;margin:34px 0 18px;padding-top:20px;border-top:1px solid #ded0c3}
+.essay-prose .poem-stanza{font:400 16px/2.05 var(--serif);text-align:center;color:#625448;letter-spacing:.01em;margin:15px 0}
