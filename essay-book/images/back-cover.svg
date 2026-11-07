@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620">
+<defs><linearGradient id="velvet" x2="1" y2="1"><stop stop-color="#063b2c"/><stop offset=".48" stop-color="#00412d"/><stop offset="1" stop-color="#002e24"/></linearGradient><linearGradient id="gold" x2=".2" x1="0" y2="1" y1="0"><stop stop-color="#b37924"/><stop offset=".25" stop-color="#fff0a5"/><stop offset=".52" stop-color="#c89433"/><stop offset=".73" stop-color="#fff1a9"/><stop offset="1" stop-color="#956522"/></linearGradient><pattern id="stripes" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M1 0V10" stroke="#ffffff" opacity=".055"/><path d="M6 0V10" stroke="#020a06" opacity=".2"/></pattern><pattern id="grain" width="5" height="6" patternUnits="userSpaceOnUse"><path d="M1 2h1" stroke="#f2eab7" opacity=".11"/><path d="M4 4h1" stroke="#020a06" opacity=".15"/></pattern></defs>
+<rect width="900" height="620" fill="url(#velvet)"/><rect width="900" height="620" fill="url(#stripes)"/><rect width="900" height="620" fill="url(#grain)"/>
+<rect x="20" y="18" width="860" height="584" rx="3" fill="none" stroke="url(#gold)" stroke-width="5"/><rect x="32" y="29" width="836" height="562" fill="none" stroke="#d7ac5a" stroke-width="1.7"/>
+<g fill="none" stroke="url(#gold)" stroke-width="2.8" stroke-linecap="round">
+<path d="M40 120Q40 42 120 42Q76 48 72 83Q104 66 125 36M860 120Q860 42 780 42Q824 48 828 83Q796 66 775 36"/>
+<path d="M40 500Q40 577 120 577Q76 572 72 538Q104 550 125 583M860 500Q860 577 780 577Q824 572 828 538Q796 550 775 583"/>
+<path d="M132 82q40-26 58-2t-21 30q-19-1-9-20M768 82q-40-26-58-2t21 30q19-1 9-20"/>
+<path d="M132 539q40 26 58 2t-21-30q-19 1-9 20M768 539q-40 26-58 2t21-30q19 1 9-20"/>
+</g><g stroke="#a8863e" fill="none" opacity=".48"><path d="M75 495L205 432 340 472 460 417 560 452 700 382 835 459" stroke-width="2.6"/><path d="M80 523Q230 490 365 531T830 502" stroke-width="1.3"/><path d="M80 538Q285 502 460 550T840 537" stroke-width="1.3"/></g>
+<g fill="url(#gold)"><path d="M450 166l9 19 21 3-16 15 4 21-18-10-18 10 4-21-16-15 21-3z"/><path d="M450 423l6 12 14 2-10 9 3 13-13-7-13 7 3-13-10-9 14-2z"/></g>
+<path d="M250 262H650M250 359H650" stroke="url(#gold)" stroke-width="2"/>
+</svg>
