@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" preserveAspectRatio="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" preserveAspectRatio="none" role="img" aria-label="뒤표지 밝은 그레이지 한지 질감">
 <defs>
- <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
- <stop offset="0" stop-color="#51463a"/><stop offset=".52" stop-color="#41372f"/><stop offset="1" stop-color="#352e27"/>
- </linearGradient>
- <filter id="fiber" x="-10%" y="-10%" width="120%" height="120%">
- <feTurbulence type="fractalNoise" baseFrequency=".34 .48" numOctaves="3" seed="17" stitchTiles="stitch" result="noise"/>
- <feColorMatrix in="noise" type="saturate" values="0"/>
- </filter>
- <radialGradient id="light"><stop stop-color="#b4a18b" stop-opacity=".13"/><stop offset="1" stop-color="#231e1a" stop-opacity=".12"/></radialGradient>
+<linearGradient id="greige" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#E7E0D6"/><stop offset=".5" stop-color="#D8CFC3"/><stop offset="1" stop-color="#CFC5B8"/>
+</linearGradient>
+<filter id="fiber" x="-10%" y="-10%" width="120%" height="120%">
+<feTurbulence type="fractalNoise" baseFrequency=".3 .42" numOctaves="3" seed="17" stitchTiles="stitch" result="noise"/>
+<feColorMatrix in="noise" type="saturate" values="0"/>
+</filter>
+<radialGradient id="glow" cx=".36" cy=".2" r=".83"><stop stop-color="#FFFDF6" stop-opacity=".25"/><stop offset="1" stop-color="#988776" stop-opacity=".08"/></radialGradient>
 </defs>
-<rect width="900" height="620" fill="url(#paper)"/>
-<rect width="900" height="620" filter="url(#fiber)" opacity=".11" style="mix-blend-mode:soft-light"/>
-<rect width="900" height="620" fill="url(#light)"/>
+<rect width="900" height="620" fill="url(#greige)"/>
+<rect width="900" height="620" filter="url(#fiber)" opacity=".075" style="mix-blend-mode:multiply"/>
+<rect width="900" height="620" fill="url(#glow)"/>
 </svg>
