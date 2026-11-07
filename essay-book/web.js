@@ -62,8 +62,12 @@ function renderCards(query=''){
  $('#empty-state').hidden=matches.length!==0;
 }
 function renderParagraph(p,e){
- const s=escapeHtml(p),key=e.highlight?escapeHtml(e.highlight):'',at=key?s.indexOf(key):-1;
- return '<p>'+(at===-1?s:s.slice(0,at)+'<strong class="key-line">'+key+'</strong>'+s.slice(at+key.length))+'</p>';
+ if(p==='〔삽입시 끝〕')return '';
+ if(p.startsWith('〔삽입시〕'))return '<p class="poem-heading">'+escapeHtml(p.replace('〔삽입시〕','').trim())+'</p>';
+ const head=e.text.indexOf('〔삽입시〕'),tail=e.text.indexOf('〔삽입시 끝〕'),start=e.text.indexOf(p);
+ const inPoem=head>=0&&tail>head&&start>head&&start<tail;
+ const s=escapeHtml(p).replace(/\n/g,'<br>'),key=e.highlight?escapeHtml(e.highlight):'',at=key?s.indexOf(key):-1;
+ return '<p'+(inPoem?' class="poem-stanza"':'')+'>'+(at===-1?s:s.slice(0,at)+'<strong class="key-line">'+key+'</strong>'+s.slice(at+key.length))+'</p>';
 }
 function openEssay(n,push=true){
  const e=essays.find(x=>x.number===n);if(!e)return;
@@ -81,7 +85,7 @@ function stopReading(){readToken++;if('speechSynthesis'in window)speechSynthesis
 function readEssay(){
  if(!active)return;if(!('speechSynthesis'in window)){showSpeechHelp();return}
  if(utterance){if(paused){speechSynthesis.resume();paused=false;$('#read-aloud').textContent='⏸ 일시정지'}else{speechSynthesis.pause();paused=true;$('#read-aloud').textContent='▶ 이어 듣기'}return}
- stopReading();const token=readToken;const body=active.title+'. '+active.text.replace(/\n+/g,' ');
+ stopReading();const token=readToken;const body=active.title+'. '+active.text.replace(/〔삽입시〕|〔삽입시 끝〕/g,'').replace(/\n+/g,' ');
  const chunks=body.match(/.{1,125}(?:[.!?。]|$)/g)||[body];const voice=speechSynthesis.getVoices().find(v=>/^ko/i.test(v.lang));let index=0;
  function next(){if(token!==readToken)return;if(index>=chunks.length){utterance=null;$('#read-aloud').textContent='▶ 듣기';return}const u=new SpeechSynthesisUtterance(chunks[index++]);u.lang='ko-KR';if(voice)u.voice=voice;u.rate=.86;u.onend=next;u.onerror=()=>{utterance=null;$('#read-aloud').textContent='▶ 듣기';showSpeechHelp()};utterance=u;speechSynthesis.speak(u)}
  $('#read-aloud').textContent='⏸ 일시정지';next();
