@@ -2,7 +2,29 @@
 const essays=window.MYEONGDO_ESSAYS||[];
 const $=s=>document.querySelector(s),escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mobile=matchMedia('(max-width:800px)');let pages=[],index=0,speech=null,paused=false,speechToken=0;
-function fragments(text){const paras=text.split(/\n\s*\n/).filter(Boolean);const out=[];let group=[];let length=0;for(const para of paras){const limit=out.length===0?220:360;if(length+para.length>limit&&group.length){out.push(group);group=[];length=0}group.push(para);length+=para.length}if(group.length)out.push(group);return out}
+function fragments(text){
+ const paras=text.split(/\n\s*\n/).filter(Boolean);
+ const total=paras.reduce((n,p)=>n+p.length,0);
+ const openingTarget=220;
+ const remaining=Math.max(0,total-openingTarget);
+ const restPages=Math.max(1,Math.ceil(remaining/460));
+ const target=Math.max(310,Math.min(475,Math.ceil(remaining/restPages)));
+ const out=[];let group=[],length=0;
+ for(const para of paras){
+  const cap=out.length===0?openingTarget:target;
+  if(group.length&&length+para.length>cap){out.push(group);group=[];length=0}
+  group.push(para);length+=para.length;
+ }
+ if(group.length)out.push(group);
+ // Balance the last two text leaves so that no nearly empty final page remains.
+ if(out.length>2&&out[out.length-1].join('').length<200){
+  const last=out.pop(),before=out.pop(),combined=before.concat(last);
+  const mid=Math.ceil(combined.reduce((n,p)=>n+p.length,0)/2);let first=[],second=[],used=0;
+  for(const p of combined){if(used<mid||!first.length){first.push(p);used+=p.length}else second.push(p)}
+  out.push(first);if(second.length)out.push(second);
+ }
+ return out;
+}
 function build(){pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];for(const essay of essays){const parts=fragments(essay.text);parts.forEach((part,i)=>pages.push({type:'essay',essay,part,partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}))}pages.push({type:'end',title:'맺는 글'});if(pages.length%2)pages.push({type:'end',title:'뒷장'});const toc=$('#toc-list');toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||(p.type==='essay'&&p.partNumber===1))?`<button data-to="${i}">${escapeHtml(p.title)}<span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('')}
 function htmlFor(p){if(!p)return '';
 if(p.type==='cover')return '<section class="cover"><div class="cover-copy"><div class="eyebrow">명도재 이명우 · 디지털 수필집</div><h1>그늘을 지나,<br>양지로</h1><p>삶에서 건져 올린 다섯 빛깔의 이야기</p><p class="author">이명우 지음 · 명도재 제작</p></div></section>';
