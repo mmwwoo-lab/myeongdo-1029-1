@@ -430,3 +430,25 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  }
  .book .page:has(.essay-thirteen) .essay-body .poem-stanza{line-height:1.40!important;margin:3px 0!important}
 }
+
+/* Chapter 14: six editorial leaves; fixed-page layout without internal scrollbars. */
+.book .page:has(.essay-fourteen) .essay-body{
+ overflow:hidden!important;
+ overscroll-behavior:auto!important;
+ scrollbar-width:none!important;
+ font-family:var(--myeongjo)!important;
+ font-size:13.3px!important;
+ line-height:1.46!important;
+ letter-spacing:-.025em!important;
+ padding:2px 0 22px!important;
+}
+.book .page:has(.essay-fourteen) .essay-body::-webkit-scrollbar{display:none!important}
+.book .page:has(.essay-fourteen) .essay-body p{margin:0 0 5px!important;line-height:inherit!important}
+@media(max-width:800px){
+ .book .page:has(.essay-fourteen) .essay-body{
+ font-size:12.2px!important;
+ line-height:1.40!important;
+ padding-bottom:20px!important;
+ }
+ .book .page:has(.essay-fourteen) .essay-body p{margin-bottom:4px!important}
+}
