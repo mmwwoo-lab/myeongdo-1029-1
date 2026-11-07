@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="저녁 신천 보의 물살을 견디는 왜가리와 뛰어오르는 피라미의 수채화">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b9c8cf"/><stop offset="1" stop-color="#ede0c7"/></linearGradient>
+<linearGradient id="river" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8daeb0"/><stop offset="1" stop-color="#497f88"/></linearGradient>
+<linearGradient id="weir" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e3e6db"/><stop offset="1" stop-color="#9cc3c5"/></linearGradient>
+</defs>
+<rect width="900" height="520" fill="url(#sky)"/>
+<path d="M0 238Q188 185 319 224T617 196Q790 171 900 210V310H0Z" fill="#9bada5" opacity=".53"/>
+<path d="M0 280Q175 264 345 282T900 270V520H0Z" fill="url(#river)"/>
+<path d="M-10 320Q240 327 415 312T910 303" fill="none" stroke="#e0e6dc" stroke-width="11" opacity=".68"/>
+<path d="M0 344Q205 330 411 343T900 323" fill="none" stroke="url(#weir)" stroke-width="29" opacity=".92"/>
+<g fill="none" stroke="#d7e9e5" stroke-width="5" opacity=".7">
+<path d="M20 382Q140 370 257 391M305 381Q446 393 571 370M623 399Q762 380 875 397"/>
+<path d="M93 434Q227 426 336 440M403 449Q559 429 707 444M734 462Q810 455 892 462"/>
+<path d="M50 476Q208 464 372 482M480 490Q670 476 832 491"/></g>
+<g transform="translate(610 281)" stroke="#525f5b" stroke-linecap="round" stroke-linejoin="round" fill="none">
+<path d="M-5 38L-7 121M16 38L21 121" stroke-width="6"/>
+<path d="M-7 121L-24 130M21 121L40 127" stroke-width="4"/>
+<path d="M-19 21Q-33-25 0-46Q29-58 43-24Q56 4 17 35Q-8 44-19 21Z" fill="#bdc7bb" stroke-width="2.5"/>
+<path d="M17-19Q41-56 41-82Q41-116 60-113Q77-112 68-96Q56-87 58-72Q61-47 37-16" fill="#b9c4b9" stroke-width="7"/>
+<path d="M62-109L112-96L65-98Z" fill="#b99b6e" stroke-width="2.3"/>
+<circle cx="62" cy="-110" r="2.7" fill="#202a29" stroke="none"/>
+<path d="M-14 24Q7 3 25 17" stroke="#8b9993" stroke-width="5"/>
+</g>
+<g fill="#edf2e9" stroke="#758b8e" stroke-width="2">
+<path d="M244 392Q272 368 288 393Q266 401 244 392Z"/><path d="M287 392L300 382L299 404Z"/>
+<path d="M352 361Q383 334 403 356Q383 372 352 361Z"/><path d="M401 356L413 344L413 367Z"/>
+<path d="M442 405Q474 382 491 404Q471 418 442 405Z"/><path d="M490 403L503 391L502 416Z"/>
+<path d="M181 428Q206 408 227 426Q204 443 181 428Z"/><path d="M226 426L238 417L236 437Z"/>
+</g>
+<g stroke="#eaf7ed" fill="none" stroke-width="4" opacity=".75">
+<path d="M249 398Q234 375 237 356"/><path d="M357 364Q349 346 353 329"/><path d="M448 408Q443 389 449 380"/>
+</g>
+<g stroke="#687e71" stroke-width="4" fill="none" opacity=".75"><path d="M60 520Q75 474 83 430M92 520Q100 458 124 414M810 520Q817 466 835 429M853 520Q845 480 879 448"/></g>
+<g fill="#a2b48c" opacity=".86"><ellipse cx="78" cy="455" rx="12" ry="30" transform="rotate(-25 78 455)"/><ellipse cx="118" cy="432" rx="12" ry="31" transform="rotate(20 118 432)"/><ellipse cx="838" cy="450" rx="10" ry="27" transform="rotate(-20 838 450)"/></g>
+</svg>
