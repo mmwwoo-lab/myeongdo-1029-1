@@ -47,3 +47,12 @@ $('#next-essay').onclick=()=>{if(active)openEssay(active.number+1)};
 $('#back-works').addEventListener('click',()=>{stopReading();reader.hidden=true;active=null});
 window.addEventListener('hashchange',route);window.addEventListener('popstate',route);window.addEventListener('pagehide',stopReading);
 renderCards();route();
+
+const newspaperDialog=$('#newspaper-dialog');
+function openNewspaper(){if(typeof newspaperDialog.showModal==='function')newspaperDialog.showModal();else newspaperDialog.setAttribute('open','')}
+function closeNewspaper(){if(typeof newspaperDialog.close==='function')newspaperDialog.close();else newspaperDialog.removeAttribute('open')}
+$('#newspaper-open').addEventListener('click',openNewspaper);
+$('#newspaper-image-button').addEventListener('click',openNewspaper);
+$('#newspaper-close').addEventListener('click',closeNewspaper);
+$('#newspaper-read').addEventListener('click',closeNewspaper);
+newspaperDialog.addEventListener('click',e=>{if(e.target===newspaperDialog)closeNewspaper()});
