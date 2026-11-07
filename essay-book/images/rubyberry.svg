@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="초여름 산길의 탐스러운 붉은 산딸기와 뻐꾸기, 루비반지를 연상시키는 빛">
+<defs><linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f8f3e9"/><stop offset="1" stop-color="#e3e8d4"/></linearGradient><radialGradient id="berry"><stop stop-color="#f4a6a3"/><stop offset=".38" stop-color="#d04456"/><stop offset="1" stop-color="#872c3e"/></radialGradient><linearGradient id="leaf" x2="0" y2="1"><stop stop-color="#809e69"/><stop offset="1" stop-color="#416c51"/></linearGradient></defs>
+<rect width="900" height="520" fill="url(#paper)"/>
+<path d="M0 344Q190 256 367 336T900 292V520H0Z" fill="#bdd1b2" opacity=".65"/><path d="M0 408Q210 337 412 402T900 357V520H0Z" fill="#a6be9b" opacity=".6"/>
+<path d="M0 508Q192 414 340 440T640 413Q760 374 900 388" fill="none" stroke="#d8c3a1" stroke-width="73" opacity=".45"/>
+<g stroke="#5d7752" stroke-width="8" fill="none" stroke-linecap="round"><path d="M730 520Q620 370 500 225M605 520Q582 390 482 300M900 405Q776 293 574 236M456 386Q380 342 314 251"/></g>
+<g fill="url(#leaf)" opacity=".93">
+<path d="M500 225Q412 160 400 104Q479 118 500 225M500 225Q529 143 598 117Q580 207 500 225"/>
+<path d="M482 300Q414 240 382 211Q457 206 482 300M482 300Q543 248 591 256Q560 313 482 300"/>
+<path d="M574 236Q566 163 604 127Q634 193 574 236M574 236Q646 203 696 224Q656 268 574 236"/>
+<path d="M314 251Q270 204 257 143Q327 171 314 251M314 251Q363 202 413 208Q381 265 314 251"/>
+</g>
+<g><g transform="translate(519 275)"><circle cx="0" cy="0" r="40" fill="#a6364a"/><circle cx="-16" cy="-16" r="17" fill="url(#berry)"/><circle cx="9" cy="-22" r="17" fill="url(#berry)"/><circle cx="24" cy="-4" r="17" fill="url(#berry)"/><circle cx="-21" cy="8" r="18" fill="url(#berry)"/><circle cx="6" cy="13" r="19" fill="url(#berry)"/><circle cx="0" cy="33" r="13" fill="url(#berry)"/></g>
+<g transform="translate(651 330) scale(.75)"><circle r="45" fill="#962c42"/><circle cx="-18" cy="-15" r="21" fill="url(#berry)"/><circle cx="14" cy="-22" r="20" fill="url(#berry)"/><circle cx="28" cy="6" r="18" fill="url(#berry)"/><circle cx="-17" cy="16" r="18" fill="url(#berry)"/><circle cx="10" cy="19" r="17" fill="url(#berry)"/></g>
+<g transform="translate(393 335) scale(.57)"><circle r="44" fill="#a02e49"/><circle cx="-18" cy="-17" r="21" fill="url(#berry)"/><circle cx="15" cy="-17" r="21" fill="url(#berry)"/><circle cx="-17" cy="16" r="21" fill="url(#berry)"/><circle cx="15" cy="16" r="21" fill="url(#berry)"/></g></g>
+<g stroke="#9e7c65" stroke-width="3" fill="none" opacity=".5"><path d="M92 464Q148 420 197 467M710 462Q770 422 831 449"/></g>
+<g transform="translate(180 360)" fill="none" stroke="#bb8b61" stroke-width="7" opacity=".75"><ellipse rx="38" ry="16" cx="0" cy="23"/><path d="M-8 8Q-14-13 0-20Q15-10 11 8Z" fill="#c65461" stroke="#d7a677" stroke-width="4"/></g>
+<path d="M111 117Q212 120 292 113" stroke="#998c76" stroke-width="2" opacity=".45"/>
+<path d="M196 106Q190 91 181 99Q184 114 197 112L203 119L206 117L200 106" fill="#777c74" opacity=".58"/>
+</svg>
