@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="가창 주리못 가을 풍경과 핑크빛 벤치, 405번 버스">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#dbe6ea"/><stop offset="1" stop-color="#f4e9d5"/></linearGradient>
+ <linearGradient id="water" x2="0" y2="1"><stop stop-color="#96b9ba"/><stop offset="1" stop-color="#779fa8"/></linearGradient>
+ <linearGradient id="autumn" x2="0" y2="1"><stop stop-color="#deb45e"/><stop offset="1" stop-color="#b79761"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="1.7"/></filter>
+</defs>
+<rect width="900" height="520" fill="url(#sky)"/>
+<path d="M0 265Q145 135 270 203T523 180Q703 118 900 222V348H0Z" fill="#849ca0" opacity=".57"/>
+<path d="M0 272Q155 183 286 245T552 218Q711 171 900 260V328H0Z" fill="#9caa91" opacity=".62"/>
+<path d="M0 306Q214 269 405 295T900 283V340H0Z" fill="#d4b66a"/>
+<g stroke="#f1d99f" stroke-width="2" opacity=".7"><path d="M0 319Q188 305 355 323M480 314Q715 294 900 313"/></g>
+<path d="M0 332Q230 304 438 335T900 311V520H0Z" fill="url(#water)"/>
+<g fill="none" stroke="#e5e8da" opacity=".64"><path d="M220 365Q438 351 644 360M370 394Q602 383 828 399M95 420Q317 411 511 429"/></g>
+<path d="M0 433Q136 409 296 451Q486 486 900 421V520H0Z" fill="#c4b99a"/>
+<path d="M0 470Q173 443 333 470T900 453V520H0Z" fill="#b4b599" opacity=".68"/>
+<g transform="translate(640 415)"><path d="M-93-2H91V15H-93Z" fill="#c98399" stroke="#8a5f6b" stroke-width="3"/><path d="M-99-44H99V-9H-99Z" fill="#dfa0b3" stroke="#a26a82" stroke-width="3"/><path d="M-70 15L-80 78M74 15L84 78M-101-43L-93 15M99-43L91 15" stroke="#655550" stroke-width="8" fill="none"/><path d="M-87-32H88M-86-19H87" stroke="#edd0cd" stroke-width="3"/></g>
+<g transform="translate(105 388)"><path d="M-80 33Q-72-6-41-18L63-16Q82-13 95 20L90 50H-85Z" fill="#678cab" stroke="#4f7189" stroke-width="4"/><path d="M-38-17L51-17Q66-8 77 11H-59Q-57-4-38-17Z" fill="#dae2e2"/><path d="M-80 33H92V51H-80Z" fill="#6688a4"/><circle cx="-50" cy="52" r="12" fill="#4c514e"/><circle cx="59" cy="52" r="12" fill="#4c514e"/><rect x="-1" y="31" width="46" height="17" fill="#f6eccc" rx="3"/><text x="22" y="45" font-size="14" text-anchor="middle" font-family="sans-serif" fill="#576070" font-weight="bold">405</text></g>
+<g transform="translate(480 341)" stroke="#f5f1e6" stroke-width="4" fill="none"><path d="M0 0L0-89L0 0M0-88Q36-45 52-6H0Z" fill="#fcf7e9" stroke-width="2"/><path d="M-28 0Q0 15 34 0Z" fill="#9e7764" stroke-width="2"/></g>
+<path d="M95 182H344" stroke="#545854" stroke-width="3" opacity=".76"/><g fill="#51524b"><path d="M177 174q-9-14-19-3q4 13 19 9l7 8 4-2-8-12z"/><path d="M250 176q-8-15-19-4q4 13 19 9l8 8 3-3-8-11z"/></g>
+<g stroke="#647c6c" stroke-width="3" fill="none"><path d="M30 520L49 438M91 520L86 447M784 520L802 449M829 520L842 455"/></g>
+<g fill="#f6ebdf" opacity=".9"><circle cx="56" cy="445" r="8"/><circle cx="87" cy="460" r="6"/><circle cx="110" cy="449" r="7"/><circle cx="796" cy="463" r="7"/></g>
+<g stroke="#9c7a56" stroke-width="5" stroke-linecap="round"><path d="M0 60Q101 48 172 103M763 0Q791 57 900 87"/></g>
+<g fill="#c9955d" opacity=".82"><ellipse cx="53" cy="71" rx="26" ry="12" transform="rotate(20 53 71)"/><ellipse cx="117" cy="87" rx="27" ry="14" transform="rotate(-20 117 87)"/><ellipse cx="808" cy="45" rx="31" ry="15" transform="rotate(30 808 45)"/><ellipse cx="853" cy="68" rx="31" ry="15" transform="rotate(-19 853 68)"/></g>
+</svg>
