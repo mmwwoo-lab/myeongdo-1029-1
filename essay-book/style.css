@@ -394,3 +394,8 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page .intro-preface .author-bio h3{font-size:13px!important;margin-bottom:4px!important;}
  .book .page .intro-preface .author-bio p{font-size:9.6px!important;line-height:1.42!important;}
 }
+
+/* Verse inset within the thirteenth literary essay */
+.book .page .essay-body .poem-heading{font-family:var(--myeongjo)!important;font-weight:700!important;color:#705341!important;letter-spacing:.015em!important;text-align:center!important;padding:6px 0!important;border-top:1px solid #d8cab8!important;margin-top:10px!important;}
+.book .page .essay-body .poem-stanza{font-family:var(--myeongjo)!important;line-height:1.8!important;text-align:center!important;color:#614f42!important;white-space:normal!important;margin:9px 0!important;}
+.book .page.compact-leaf .essay-body .poem-stanza{line-height:1.57!important;}
