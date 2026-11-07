@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="명도재 이명우의 디지털 수필집 신문형 소개 이미지">
+<defs><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fcfaf5"/><stop offset="1" stop-color="#e3dad0"/></linearGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="3"/></filter></defs>
+<rect width="1200" height="630" fill="url(#paper)"/><rect width="1200" height="630" filter="url(#grain)" opacity=".035"/>
+<rect x="52" y="45" width="1096" height="540" rx="3" fill="#fffefa" stroke="#cdbfb0" stroke-width="1.5"/>
+<text x="85" y="92" font-family="serif" font-size="23" fill="#746251" letter-spacing="3">명도재 문학신문</text><text x="1115" y="92" text-anchor="end" font-family="serif" font-size="17" fill="#807263">디지털 문예 특별호 · 12편 수록</text>
+<line x1="85" y1="111" x2="1115" y2="111" stroke="#604c3e" stroke-width="5"/>
+<text x="600" y="180" font-family="Batang, Noto Serif KR, serif" font-weight="bold" font-size="51" fill="#352a24" text-anchor="middle">명도재, 창작으로 다시 걷다</text>
+<text x="600" y="221" font-family="Batang, Noto Serif KR, serif" font-size="22" fill="#746252" text-anchor="middle">미술과 문학, 인공지능이 만난 새로운 디지털 수필집</text>
+<line x1="85" y1="243" x2="1115" y2="243" stroke="#c7b7a5" stroke-width="1.5"/>
+<rect x="85" y="265" width="490" height="265" fill="#d2d6cc"/>
+<path d="M85 444Q175 355 240 402Q340 315 425 359Q505 324 575 371V530H85Z" fill="#8e9c8b"/><path d="M85 479Q191 396 263 435Q384 373 480 408Q530 396 575 429V530H85Z" fill="#687a6d"/>
+<g fill="#f7f8f5" opacity=".6"><ellipse cx="290" cy="385" rx="150" ry="16"/><ellipse cx="465" cy="404" rx="125" ry="15"/></g>
+<rect x="85" y="510" width="490" height="20" fill="#d6d1c7" opacity=".55"/>
+<text x="605" y="308" font-family="Batang, Noto Serif KR, serif" font-size="30" font-weight="bold" fill="#503d32">삶의 풍경이 문장이 되다</text>
+<text x="605" y="351" font-family="Batang, Noto Serif KR, serif" font-size="20" fill="#665348">신천의 물소리, 월촌역의 우정,</text>
+<text x="605" y="383" font-family="Batang, Noto Serif KR, serif" font-size="20" fill="#665348">어머니의 바늘땀과 비 갠 앞산까지.</text>
+<text x="605" y="427" font-family="Batang, Noto Serif KR, serif" font-size="20" fill="#665348">일상에서 길어 올린 열두 편의 수필을</text>
+<text x="605" y="459" font-family="Batang, Noto Serif KR, serif" font-size="20" fill="#665348">그림과 음성 낭독으로 만나 보세요.</text>
+<line x1="605" y1="488" x2="1115" y2="488" stroke="#c7b7a5"/>
+<text x="605" y="522" font-family="serif" font-size="20" fill="#755a4b">글 · 기획 · 제작  명도재 이명우</text>
+<line x1="85" y1="551" x2="1115" y2="551" stroke="#604c3e" stroke-width="2"/>
+</svg>
