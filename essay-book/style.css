@@ -472,3 +472,24 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  }
  .book .page:has(.essay-fifteen) .essay-body p{margin-bottom:4px!important}
 }
+
+/* Chapter 16: ten fixed book leaves, no internal scrollbars. */
+.book .page:has(.essay-sixteen) .essay-body{
+ overflow:hidden!important;
+ overflow-y:hidden!important;
+ scrollbar-width:none!important;
+ font-family:var(--myeongjo)!important;
+ font-size:13.1px!important;
+ line-height:1.44!important;
+ letter-spacing:-.028em!important;
+ padding:2px 0 19px!important;
+}
+.book .page:has(.essay-sixteen) .essay-body::-webkit-scrollbar{display:none!important}
+.book .page:has(.essay-sixteen) .essay-body p{margin:0 0 4px!important;line-height:inherit!important}
+.book .page:has(.essay-sixteen) .essay-body{overflow-wrap:break-word!important;word-break:keep-all!important;}
+@media(max-width:800px){
+ .book .page:has(.essay-sixteen) .essay-body{
+ font-size:12.1px!important;line-height:1.39!important;padding-bottom:17px!important;
+ }
+ .book .page:has(.essay-sixteen) .essay-body p{margin-bottom:3px!important}
+}
