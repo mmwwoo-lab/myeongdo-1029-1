@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="고산골 늦가을 산길의 붉은 단풍과 노란 잎, 앞쪽의 보리밥과 된장찌개, 노릇한 고등어가 놓인 식탁의 수채화 풍경">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#f7e8d0"/><stop offset="1" stop-color="#f3ebdc"/></linearGradient><linearGradient id="table" x2=".7" y2="1"><stop stop-color="#c9a67e"/><stop offset="1" stop-color="#8b6955"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="17"/></filter></defs>
+<rect width="1200" height="720" fill="url(#sky)"/>
+<circle cx="801" cy="168" r="120" fill="#ffedca" filter="url(#blur)" opacity=".7"/>
+<path d="M0 412Q165 274 353 350Q522 265 710 337Q920 270 1200 372V720H0Z" fill="#a0a491" opacity=".55"/>
+<path d="M0 504Q219 372 405 418Q652 364 850 437Q1065 365 1200 422V720H0Z" fill="#7d8e75" opacity=".66"/>
+<path d="M455 609Q571 441 641 374Q661 402 699 444Q792 555 885 691L910 720H398Z" fill="#e2c69c" opacity=".82"/>
+<path d="M473 692Q587 520 645 411M838 715Q721 513 666 410" fill="none" stroke="#b8a07e" stroke-width="9" opacity=".54"/>
+<g stroke="#5a5747" fill="none" stroke-linecap="round"><path d="M161 572L194 162M994 567L971 148" stroke-width="26"/><path d="M180 297L76 214M187 245L308 186M978 280L1084 205M978 324L854 206" stroke-width="17"/></g>
+<g fill="#b95e40" opacity=".93"><circle cx="148" cy="183" r="105"/><circle cx="240" cy="185" r="101"/><circle cx="85" cy="286" r="75"/><circle cx="974" cy="157" r="98"/><circle cx="1083" cy="224" r="91"/></g>
+<g fill="#d6a155" opacity=".86"><circle cx="92" cy="162" r="72"/><circle cx="255" cy="270" r="64"/><circle cx="1069" cy="134" r="80"/><circle cx="901" cy="241" r="69"/></g>
+<g stroke="#4e6c57" stroke-linecap="round" fill="none"><path d="M394 535L385 232M393 333L330 278M393 361L458 290" stroke-width="16"/></g>
+<path d="M385 198L304 365L386 321L469 367Z" fill="#56765d"/><path d="M389 281L310 445L386 403L467 445Z" fill="#496d55"/>
+<g fill="#c27143" opacity=".9"><path d="M295 502q30-27 51 5q-28 31-51-5z"/><path d="M805 526q35-15 39 20q-30 18-39-20z"/><path d="M1113 521q32-23 48 9q-31 20-48-9z"/></g>
+<g transform="translate(25 453)">
+<ellipse cx="584" cy="244" rx="558" ry="33" fill="#75624e" opacity=".2"/>
+<path d="M0 61Q545 20 1175 63L1175 270H0Z" fill="url(#table)"/>
+<ellipse cx="288" cy="165" rx="193" ry="91" fill="#e9e2d4" stroke="#806c5c" stroke-width="10"/>
+<ellipse cx="288" cy="156" rx="173" ry="72" fill="#c3ab77"/>
+<g fill="#d9d0a4" opacity=".9"><ellipse cx="223" cy="129" rx="22" ry="11"/><ellipse cx="281" cy="165" rx="27" ry="14"/><ellipse cx="339" cy="137" rx="20" ry="10"/><ellipse cx="308" cy="191" rx="21" ry="11"/></g>
+<g fill="#63815d"><path d="M184 164q34-33 64 9q-29 33-64-9z"/><path d="M327 183q22-35 65-13q-16 37-65 13z"/><path d="M241 116q27-25 44 6q-26 22-44-6z"/></g>
+<ellipse cx="745" cy="174" rx="223" ry="91" fill="#f4e5d5" stroke="#826b59" stroke-width="10"/>
+<path d="M581 167Q640 100 730 117Q829 94 902 160Q837 212 740 206Q647 230 581 167Z" fill="#a35d43" stroke="#784939" stroke-width="7"/>
+<path d="M608 159Q680 127 736 139Q808 126 872 159" stroke="#e1ae6e" stroke-width="16" fill="none" opacity=".8"/>
+<path d="M635 178Q750 209 852 172" stroke="#e7c69a" stroke-width="12" fill="none"/>
+<ellipse cx="525" cy="76" rx="83" ry="51" fill="#f9eee0" stroke="#80715d" stroke-width="7"/>
+<ellipse cx="525" cy="70" rx="67" ry="37" fill="#997856"/><ellipse cx="525" cy="65" rx="53" ry="21" fill="#ac8b61" opacity=".85"/>
+<ellipse cx="963" cy="86" rx="82" ry="49" fill="#eee5d5" stroke="#80705e" stroke-width="8"/>
+<ellipse cx="963" cy="81" rx="65" ry="32" fill="#4f7958"/><path d="M927 87q28-38 65-3" stroke="#8eb076" stroke-width="9" fill="none"/>
+</g>
+<path d="M0 0H1200V720H0Z" fill="none" stroke="#c5ad91" stroke-width="8" opacity=".5"/>
+</svg>
