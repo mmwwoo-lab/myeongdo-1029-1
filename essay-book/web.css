@@ -93,3 +93,56 @@
 @media(max-width:790px){.book-preview-scene{height:360px}.book-preview-volume{transform:scale(.86) rotateY(-10deg)}.book-preview-dialog .book-preview-scene{height:430px}.book-preview-dialog .book-preview-volume{transform:scale(1.05)}}
 @media(max-width:450px){.book-preview-scene{height:310px}.book-preview-volume{transform:scale(.73) rotateY(-10deg)}.book-preview-dialog .book-preview-scene{height:370px}.book-preview-dialog .book-preview-volume{transform:scale(.86)}}
 @media(prefers-reduced-motion:reduce){.book-preview-volume{transition:none}}
+
+/* 2026-11-09 | full-size matched book-cover preview. */
+/* The interactive image, its clickable region and the visible cover match. */
+#newspaper .newspaper-layout{
+  grid-template-columns:minmax(275px,.57fr) minmax(0,1.43fr);
+  gap:24px;
+  align-items:center;
+}
+#newspaper .essay-book-preview{max-width:none;width:100%;min-width:0;}
+#newspaper .book-preview-button{
+  width:100%;height:auto;display:block;padding:12px;
+  border:1px solid #bdac96;border-radius:8px;overflow:hidden;
+  background:#f7f0e5;box-shadow:0 8px 25px #35261b24;
+}
+#newspaper .book-preview-scene{
+  width:100%;height:auto;min-height:0;aspect-ratio:1.17;
+  display:flex;align-items:center;justify-content:center;
+  perspective:1100px;overflow:visible;
+}
+#newspaper .book-preview-shadow{display:none;}
+#newspaper .book-preview-volume{
+  width:min(83%,390px);height:auto;aspect-ratio:265/360;
+  transform:rotateY(-7deg);flex:0 0 auto;
+  filter:drop-shadow(13px 17px 13px #4e35254a);
+}
+#newspaper .book-preview-cover{padding:clamp(14px,2vw,27px) clamp(12px,1.7vw,25px);}
+#newspaper .book-preview-cover h3{
+  font-size:clamp(25px,2.8vw,39px);line-height:1.4;
+}
+#newspaper .book-preview-series{font-size:clamp(10px,1.05vw,13px);}
+#newspaper .book-preview-landscape{height:36%;margin:10px 0 7px;flex-shrink:0;}
+#newspaper .book-preview-edition{font-size:clamp(9px,.98vw,12px);}
+#newspaper .book-preview-author{font-size:clamp(11px,1.05vw,14px);}
+#newspaper .book-preview-button:hover .book-preview-volume{transform:rotateY(-2deg);}
+#newspaper .preview-click-label{font-size:14px;padding:4px 0 0;}
+#newspaper .newspaper-caption{margin-top:12px;}
+#book-preview-dialog .book-preview-scene{
+  width:100%;height:auto;aspect-ratio:1.1;
+  min-height:360px;display:flex;align-items:center;justify-content:center;
+}
+#book-preview-dialog .book-preview-volume{width:min(75%,410px);height:auto;aspect-ratio:265/360;transform:rotateY(-4deg);}
+@media(max-width:850px){
+  #newspaper .newspaper-layout{grid-template-columns:1fr;}
+  #newspaper .book-preview-scene{aspect-ratio:1.15;}
+  #newspaper .book-preview-volume{width:min(80%,360px);}
+  #newspaper .book-preview-cover h3{font-size:clamp(25px,5vw,35px);}
+}
+@media(max-width:480px){
+  #newspaper .book-preview-button{padding:8px;}
+  #newspaper .book-preview-scene{aspect-ratio:.95;}
+  #newspaper .book-preview-volume{width:min(86%,300px);transform:rotateY(-3deg);}
+  #book-preview-dialog .book-preview-scene{min-height:310px;}
+}
