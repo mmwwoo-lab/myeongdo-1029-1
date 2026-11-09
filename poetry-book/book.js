@@ -104,7 +104,7 @@ let suppressClickUntil=0;
 let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video,audio'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
 // One watercolor motif for each work; source titles and text remain untouched.
 const illustrations={
- '용두골 단풍비':[12,'가을비에 젖은 용두골의 단풍과 신천 물결'],
+ '용두골 단풍비':[14,'가을비에 젖은 용두골의 단풍과 신천 물결'],
  '재봉틀 앞의 시간':[0,'실타래와 목화 가지 곁의 참새'],
  '풍경소리':[1,'물고기 모양 풍경과 날아오는 제비'],
  '연꽃을 바라보며':[2,'분홍 연꽃과 연잎 아래 은빛 물고기'],
@@ -291,7 +291,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
  let count=0;
  for(const [sectionIndex,section] of sections.entries()){
   section.poems=poems.filter(p=>section.categories.includes(p.category));
-  if(sectionIndex===3)section.poems.sort((a,b)=>Number(b.title==='물에게 길을 묻다')-Number(a.title==='물에게 길을 묻다'));
+  if(sectionIndex===3){const ending=['핑크빛 빈 벤치','용두골 단풍비'];section.poems.sort((a,b)=>{const rank=p=>p.title==='물에게 길을 묻다'?-1:ending.includes(p.title)?ending.indexOf(p.title)+1:0;return rank(a)-rank(b)});}
   section.page=pages.length;pages.push('');pageRecitalIds.push(null);section.entries=[];
   entries.push({title:`제${sectionIndex+1}부 ${section.title}`,page:section.page,heading:true});
   for(const p of section.poems){
