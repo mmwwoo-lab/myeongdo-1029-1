@@ -493,3 +493,15 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  }
  .book .page:has(.essay-sixteen) .essay-body p{margin-bottom:3px!important}
 }
+
+/* 2026-11-09: conservative even-leaf editorial fit, preserving every sentence. */
+.book .page.compact-essay .essay-body{font-size:11.8px!important;line-height:1.43!important;letter-spacing:-.025em!important;}
+.book .page.compact-essay .essay-body p{margin-bottom:3px!important;}
+.book .page.compact-essay .essay img{height:88px!important;margin-bottom:4px!important;}
+.book .page.compact-essay .essay h2{font-size:20px!important;line-height:1.25!important;}
+.book .page .essay-closing h2{font-size:24px;line-height:1.55;}
+@media(max-width:800px){
+ .book .page.compact-essay .essay-body{font-size:11.2px!important;line-height:1.4!important;letter-spacing:-.022em!important;}
+ .book .page.compact-essay .essay img{height:75px!important;}
+ .book .page.compact-essay .essay h2{font-size:18px!important;}
+}
