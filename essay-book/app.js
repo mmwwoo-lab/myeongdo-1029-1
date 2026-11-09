@@ -30,7 +30,11 @@ function fragments(essay,compact=false){
  };
  const fits=(body,items)=>{
   body.innerHTML=items.map(t=>formatParagraph(t,essay)).join('');
-  return body.scrollHeight<=body.clientHeight+1;
+  const last=body.lastElementChild;
+  const bottom=body.getBoundingClientRect().bottom;
+  // Combined check avoids clipping when overflow:hidden masks intrinsic height.
+  return body.scrollHeight<=body.clientHeight+1 &&
+   (!last || last.getBoundingClientRect().bottom<=bottom+1);
  };
  // A paragraph longer than the remaining page is split at word boundaries.
  function splitToFit(body,current,paragraph){
@@ -109,9 +113,12 @@ function build(){
  for(const essay of essays){
   // Re-measure the complete source against the denser leaf; don't honor
   // stale manually-authored 6/10 page breaks when text can fit in fewer leaves.
-  // Chapters 18 and 19 retain their authored four- and six-leaf divisions; all earlier works keep their existing pagination.
-  let parts=(essay.number===18&&essay.pageParts?.length===4)||(essay.number===19&&essay.pageParts?.length===6)
-   ? essay.pageParts.map(p=>p.slice()) : fragments(essay,true),continuousSix=false;
+  // Chapter 18 preserves its approved four-leaf arrangement; chapter 19 is measured to fill each page before flowing onwards.
+  // Recent chapters use measured pagination: fill the current leaf before
+  // beginning the next one. Earlier explicitly approved page divisions remain untouched.
+  let parts=essay.number===19 ? fragments(essay,true)
+   : (essay.number===18&&essay.pageParts?.length===4)
+      ? essay.pageParts.map(p=>p.slice()) : fragments(essay,true),continuousSix=false;
   if(parts.length>6 && essay.number!==18 && essay.number!==19){
    parts=continuousSixLeaves(essay);
    continuousSix=true;
