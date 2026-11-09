@@ -242,7 +242,8 @@ function splitIllustratedPoem(p,header){
  };
  const fits=(verse,text)=>{verse.textContent=text;return verse.scrollWidth<=verse.clientWidth+1};
  // First try a single two-column page; otherwise use exactly two pages.
- for(const font of [14.5,14,13.5,13,12.5,12]){
+ // Editorial standard: one 14px starting size for every poem; shrink only if a long work requires it.
+ for(const font of [14,13.5,13,12.5,12]){
   let {verse,height}=measure(false,font);
   if(fits(verse,p.text)){sheet.remove();return [{text:p.text,font,height}]}
   let breakAt=0;
@@ -319,6 +320,13 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
  $('#toc-list').innerHTML=entries.map(e=>e.heading?`<h3>${tocButton(e.title,e.page)}</h3>`:tocButton(e.title,e.page)).join('');
  const navigate=e=>{const button=e.target.closest('[data-page]');if(button){if(!$('#toc').hidden)toggleToc(false);go(Number(button.dataset.page))}};
  $('#toc-list').onclick=navigate;
+ // New-work shortcuts navigate inside the same book, using its real pagination.
+ document.querySelectorAll('[data-poem-title]').forEach(link=>{
+  const found=entries.find(item=>item.title===link.dataset.poemTitle);
+  if(!found)return;
+  link.href='#page-'+String(found.page+1);
+  link.addEventListener('click',event=>{event.preventDefault();if(!$('#toc').hidden)toggleToc(false);go(found.page)});
+ });
  $('#book').onclick=e=>{
   if(e.target.closest('[data-page]')){navigate(e);return}
   if(busy||Date.now()<suppressClickUntil||!$('#toc').hidden)return;
