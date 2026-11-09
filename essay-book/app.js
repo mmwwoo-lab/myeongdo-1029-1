@@ -16,7 +16,7 @@ const mobile=matchMedia('(max-width:800px)');let pages=[],index=0,speech=null,pa
 // Measure text in a real-sized, hidden book leaf, never by character count.
 function fragments(essay,compact=false){
  // Authored six-page essays: preserve leaf boundaries and all paragraph breaks.
- if(Array.isArray(essay.pageParts) && [6,10].includes(essay.pageParts.length))
+ if(!compact && Array.isArray(essay.pageParts) && [6,10].includes(essay.pageParts.length))
   return essay.pageParts.map(part=>part.slice());
  const paragraphs=essay.text.split(/\n\s*\n/).map(s=>s.trim()).filter(s=>s&&s!=='〔삽입시 끝〕');
  const host=document.createElement('article');
@@ -104,27 +104,36 @@ function continuousSixLeaves(essay){
  }
  return leaves.map(words=>[words.join(' ')]);
 }
-function build(){pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];for(const essay of essays){
- let parts=fragments(essay), compact=false, continuousSix=false;
- // Editions longer than four pages are set as six tightly flowing leaves.
- // Preserve intentionally authored six-page layouts; compress ten-page chapters.
- if((parts.length>4 && parts.length!==6) || (essay.number===17 && parts.length>4)){
-  parts=continuousSixLeaves(essay);
-  continuousSix=true;
+function build(){
+ pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];
+ for(const essay of essays){
+  // Re-measure the complete source against the denser leaf; don't honor
+  // stale manually-authored 6/10 page breaks when text can fit in fewer leaves.
+  let parts=fragments(essay,true),continuousSix=false;
+  if(parts.length>6){
+   parts=continuousSixLeaves(essay);
+   continuousSix=true;
+  }
+  const needsClosing=parts.length%2===1;
+  const chapterPages=parts.length+(needsClosing?1:0);
+  parts.forEach((part,i)=>pages.push({
+   type:'essay',essay,part,compact:false,compactEssay:true,continuousSix,
+   partNumber:i+1,total:chapterPages,title:essay.title+(i?' · 계속':'')
+  }));
+  if(needsClosing) pages.push({type:'essay-end',essay,title:essay.title+' · 그림과 작품 요약'});
  }
- // Keep the full manuscript. For an odd number of leaves, first retry with
- // slightly tighter, accessible typography before adding a closing leaf.
- if(parts.length%2!==0){
-  const tighter=fragments(essay,true);
-  if(tighter.length<parts.length && tighter.length%2===0){parts=tighter;compact=true}
- }
- parts.forEach((part,i)=>pages.push({type:'essay',essay,part,compact:!!(parts.compactLast&&i===parts.length-1),compactEssay:compact,continuousSix,partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}));
- if(parts.length%2!==0)pages.push({type:'essay-end',essay,title:essay.title+' · 맺는 쪽'});
-}pages.push({type:'back',title:'뒤표지'});const toc=$('#toc-list');toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||p.type==='back'||(p.type==='essay'&&p.partNumber===1))?`<button data-to="${i}">${p.type==='essay'?`제${String(p.essay.number).padStart(2,'0')}편 · `:''}${escapeHtml(p.title)}<strong class="toc-page" aria-label="시작 페이지 ${i+1}"> ${String(i+1).padStart(2,'0')}쪽</strong><span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('')}
+ pages.push({type:'back',title:'뒤표지'});
+ const toc=$('#toc-list');
+ toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||p.type==='back'||(p.type==='essay'&&p.partNumber===1))
+  ?`<button data-to="${i}">${p.type==='essay'?`제${String(p.essay.number).padStart(2,'0')}편 · `:''}${escapeHtml(p.title)}<strong class="toc-page" aria-label="시작 페이지 ${i+1}"> ${String(i+1).padStart(2,'0')}쪽</strong><span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('');
+}
 function htmlFor(p){if(!p)return '';
 if(p.type==='cover')return '<section class="cover hardback-front"><div class="cover-copy"><div class="eyebrow">명도재 이명우 · 디지털 수필집 제1권</div><h1>명도재,<br>창작으로 다시 걷다</h1><p class="cover-subtitle">삶에서 건져 올린 열일곱 빛깔의 이야기</p><p class="author">명도재에서 이명우지음</p></div></section>';
 if(p.type==='intro')return '<section class="frontmatter intro-preface"><span class="emblem">❧</span><h2>서문 · 다시 걷는 길</h2><p><strong>명도재는 교직을 마친 뒤 배움과 창작으로 다시 문을 연 나의 두 번째 교실이다.</strong></p><p>삼십육 년의 교단을 떠나 신천을 걷고 월촌역의 벗을 만나며, 아버지와 어머니의 시간을 글로 불러냈다. 시장의 한 그릇과 비 갠 앞산에서도 삶의 표정을 발견했다. 고산골 법장사 숲길에서는 나무가 써 내려가는 가을의 시를 읽었다. 아침 페이스북에서 만난 법문은 사람에게 건네는 말의 온기를 되새기게 했다. 보리밥 한 상에서는 어머니의 잔불과 함께 걷는 아내의 시간을 떠올렸다. 책장 속 두 권의 책에서는 아이들의 마음을 듣던 교실을 다시 만났다. 책장 속 상담심리 기록은 아이들의 이야기를 다시 들려주었다. 열일곱 편의 수필은 평범한 하루에서 건져 올린 기억과 새로운 출발의 기록이다.</p><p>남은 날에도 지나가는 풍경을 그냥 흘려보내지 않고, 한 문장씩 정성껏 남기고 싶다.</p><div class="author-bio"><h3>지은이 소개 <span>명도재 이명우</span></h3><p><b>활동</b> 한국미술협회·대구미술협회 회원, 대구미술대전 초대작가</p><p><b>수상</b> 대구미술대전 최우수상, 무등미술대전 우수상, 매일미술대전 우수상</p><p><b>심사</b> 대한민국미술대전·대구미술대전·광주미술대전·대전미술대전·부산미술대전 심사위원 역임</p><p><b>저서</b> 시집 『물빛에 놓아둔 마음』, 수필집 『명도재, 창작으로 다시 걷다』</p></div><p class="disclaimer">삶의 경험과 창작시를 바탕으로 문학적으로 재구성한 수필집입니다.</p></section>';
-if(p.type==='essay-end')return '<section class="frontmatter essay-closing"><span class="emblem">❧</span><h2>'+escapeHtml(p.essay.title)+'</h2><p>'+escapeHtml(p.essay.highlight||'한 편의 수필을 마음에 남깁니다.')+'</p><p class="disclaimer">명도재 생활수필 · 제'+p.essay.number+'편 끝</p></section>';
+if(p.type==='essay-end'){
+ const e=p.essay,src=escapeHtml(e.illustrationUrl||('images/'+e.illustration+'.svg'));
+ return '<section class="frontmatter essay-closing"><p class="eyebrow">명도재 생활수필 · 제'+e.number+'편 · 그림과 작품 요약</p><h2>'+escapeHtml(e.title)+'</h2><img class="closing-illustration" src="'+src+'" alt="'+escapeHtml(e.motif)+' 삽화"><div class="closing-summary"><strong>작품 요약</strong><p>'+escapeHtml(e.subtitle)+'. '+escapeHtml(e.motif)+'을 소재로 삶의 장면을 되돌아봅니다.</p><blockquote>'+escapeHtml(e.highlight||e.title)+'</blockquote></div><p class="disclaimer">명도재 이명우 · 제'+e.number+'편 끝</p></section>';
+}
 if(p.type==='back')return '<section class="cover hardback-back"><div class="cover-copy back-copy"><p class="back-quote">명도재는 나의 두 번째 출근지이다.<br>오늘도 창작으로 다시 걷는다.</p><p class="author">명도재에서 이명우지음</p></div></section>';
 if(p.type==='blank')return '<section class="frontmatter"></section>';
 if(p.type==='end')return '<section class="frontmatter"><span class="emblem">✦</span><h2>그늘을 지나면<br>다시 햇살이 있다</h2><p>열일곱 편의 수필을 덮으며, 오늘의 평범한 하루가 내일의 문장이 되기를.</p><p class="disclaimer">© 명도재 이명우 · 작가 최종 승인 전 시안</p></section>';
