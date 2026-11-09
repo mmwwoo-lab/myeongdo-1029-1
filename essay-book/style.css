@@ -505,3 +505,17 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page.compact-essay .essay img{height:75px!important;}
  .book .page.compact-essay .essay h2{font-size:18px!important;}
 }
+
+/* Six-leaf continuous literary flow: no chapter text is removed. */
+.book .page.continuous-six .essay-body{
+ font-size:11px!important;line-height:1.34!important;letter-spacing:-.025em!important;
+ padding:2px 0 28px!important;word-break:keep-all;overflow:hidden!important;
+}
+.book .page.continuous-six .essay-body p{margin:0!important;text-align:justify;line-height:inherit!important;}
+.book .page.continuous-six .essay img{height:72px!important;margin:1px 0 4px!important;}
+.book .page.continuous-six .essay h2{font-size:18px!important;line-height:1.25!important;margin:3px 0!important;}
+.book .page.continuous-six .essay .subtitle{margin:0 0 3px!important;font-size:11px!important;}
+@media(max-width:800px){
+ .book .page.continuous-six .essay-body{font-size:10px!important;line-height:1.32!important;letter-spacing:-.03em!important;}
+ .book .page.continuous-six .essay img{height:60px!important;}
+}
