@@ -88,15 +88,37 @@ function fragments(essay,compact=false){
  if(remaining.length)console.error('Unpaginated essay text:',essay.title);
  return result;
 }
+// Six-leaf continuous text edition: keep every word and avoid paragraph whitespace.
+function continuousSixLeaves(essay){
+ const text=essay.text.replace(/\\n/g,' ').replace(/\\s+/g,' ').trim();
+ const words=text.split(' ').filter(Boolean);
+ const weights=[0.72,1.056,1.056,1.056,1.056,1.054];
+ const total=words.join(' ').length;
+ const limits=weights.map(w=>w*total/6);
+ const leaves=Array.from({length:6},()=>[]);
+ let page=0,used=0;
+ for(let i=0;i<words.length;i++){
+  const word=words[i],next=used+word.length+(leaves[page].length?1:0);
+  if(page<5 && leaves[page].length && next>limits[page] && words.length-i>=5-page){page++;used=0}
+  leaves[page].push(word);used+=word.length+1;
+ }
+ return leaves.map(words=>[words.join(' ')]);
+}
 function build(){pages=[{type:'cover',title:'표지'},{type:'intro',title:'여는 글'}];for(const essay of essays){
- let parts=fragments(essay), compact=false;
+ let parts=fragments(essay), compact=false, continuousSix=false;
+ // Editions longer than four pages are set as six tightly flowing leaves.
+ // Preserve intentionally authored six-page layouts; compress ten-page chapters.
+ if(parts.length>4 && parts.length!==6){
+  parts=continuousSixLeaves(essay);
+  continuousSix=true;
+ }
  // Keep the full manuscript. For an odd number of leaves, first retry with
  // slightly tighter, accessible typography before adding a closing leaf.
  if(parts.length%2!==0){
   const tighter=fragments(essay,true);
   if(tighter.length<parts.length && tighter.length%2===0){parts=tighter;compact=true}
  }
- parts.forEach((part,i)=>pages.push({type:'essay',essay,part,compact:!!(parts.compactLast&&i===parts.length-1),compactEssay:compact,partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}));
+ parts.forEach((part,i)=>pages.push({type:'essay',essay,part,compact:!!(parts.compactLast&&i===parts.length-1),compactEssay:compact,continuousSix,partNumber:i+1,total:parts.length,title:essay.title+(i?' · 계속':'')}));
  if(parts.length%2!==0)pages.push({type:'essay-end',essay,title:essay.title+' · 맺는 쪽'});
 }pages.push({type:'essay17-preview',title:'제17편 · 어떤 말 곁에 머물 것인가'});pages.push({type:'essay17-reader',title:'제17편 · 원문 열람'});pages.push({type:'back',title:'뒤표지'});const toc=$('#toc-list');toc.innerHTML=pages.map((p,i)=>(i===0||p.type==='intro'||p.type==='back'||(p.type==='essay'&&p.partNumber===1))?`<button data-to="${i}">${p.type==='essay'?`제${String(p.essay.number).padStart(2,'0')}편 · `:''}${escapeHtml(p.title)}<strong class="toc-page" aria-label="시작 페이지 ${i+1}"> ${String(i+1).padStart(2,'0')}쪽</strong><span>${p.type==='essay'?escapeHtml(p.essay.subtitle):'명도재 디지털 수필집'}</span></button>`:'').join('')}
 function htmlFor(p){if(!p)return '';
@@ -135,7 +157,7 @@ function fitFixedEssay(el){
   if(body.scrollHeight<=body.clientHeight+1)break;
  }
 }
-function renderPage(el,p,i){el.classList.toggle('compact-leaf',!!(p&&p.compact));el.classList.toggle('compact-essay',!!(p&&p.compactEssay));el.innerHTML=htmlFor(p);el.dataset.page=i;el.dataset.number=String(i+1).padStart(2,'0');el.hidden=!p;fitPreface(el);fitFixedEssay(el);el.querySelector('[data-read]')?.addEventListener('click',()=>read(i))}
+function renderPage(el,p,i){el.classList.toggle('compact-leaf',!!(p&&p.compact));el.classList.toggle('compact-essay',!!(p&&p.compactEssay));el.classList.toggle('continuous-six',!!(p&&p.continuousSix));el.innerHTML=htmlFor(p);el.dataset.page=i;el.dataset.number=String(i+1).padStart(2,'0');el.hidden=!p;fitPreface(el);fitFixedEssay(el);el.querySelector('[data-read]')?.addEventListener('click',()=>read(i))}
 function render(){const step=mobile.matches?1:2;renderPage($('#left'),pages[index],index);renderPage($('#right'),mobile.matches?null:pages[index+1],index+1);$('#prev').disabled=index===0;$('#next').disabled=index+step>=pages.length;history.replaceState(null,'','#page-'+(index+1));updateReads()}
 function move(delta){const step=mobile.matches?1:2;index=Math.max(0,Math.min(Math.max(0,Math.ceil(pages.length/step)-1)*step,index+delta*step));stop();closeToc(false);render()}
 function closeToc(focus=true){$('#toc').hidden=true;$('#contents').setAttribute('aria-expanded','false');if(focus)$('#contents').focus()}
