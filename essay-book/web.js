@@ -106,7 +106,7 @@ const newspaperDialog=$('#newspaper-dialog');
 function openNewspaper(){if(typeof newspaperDialog.showModal==='function')newspaperDialog.showModal();else newspaperDialog.setAttribute('open','')}
 function closeNewspaper(){if(typeof newspaperDialog.close==='function')newspaperDialog.close();else newspaperDialog.removeAttribute('open')}
 $('#newspaper-open').addEventListener('click',openNewspaper);
-$('#newspaper-image-button').addEventListener('click',openNewspaper);
+// Newspaper opens from its dedicated button; the book preview has its own dialog.
 $('#newspaper-close').addEventListener('click',closeNewspaper);
 $('#newspaper-read').addEventListener('click',closeNewspaper);
 newspaperDialog.addEventListener('click',e=>{if(e.target===newspaperDialog)closeNewspaper()});
