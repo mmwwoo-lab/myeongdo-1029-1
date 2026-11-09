@@ -104,6 +104,7 @@ let suppressClickUntil=0;
 let start=null;$('#book').addEventListener('touchstart',e=>{if(e.target.closest('video,audio'))return;start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5){suppressClickUntil=Date.now()+500;go(position+(dx<0?step():-step()))}},{passive:true});mobile.addEventListener('change',()=>{if(!mobile.matches)position-=position%2;render()});
 // One watercolor motif for each work; source titles and text remain untouched.
 const illustrations={
+ '용두골 단풍비':[12,'가을비에 젖은 용두골의 단풍과 신천 물결'],
  '재봉틀 앞의 시간':[0,'실타래와 목화 가지 곁의 참새'],
  '풍경소리':[1,'물고기 모양 풍경과 날아오는 제비'],
  '연꽃을 바라보며':[2,'분홍 연꽃과 연잎 아래 은빛 물고기'],
@@ -295,7 +296,7 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
   entries.push({title:`제${sectionIndex+1}부 ${section.title}`,page:section.page,heading:true});
   for(const p of section.poems){
    count++;const entry={title:p.title,page:pages.length};entries.push(entry);section.entries.push(entry);
-   const header=`<div class="poem-header"><span>제${sectionIndex+1}부 · ${esc(section.title)}</span><span>${String(count).padStart(2,'0')} / 38</span></div>`;
+   const header=`<div class="poem-header"><span>제${sectionIndex+1}부 · ${esc(section.title)}</span><span>${String(count).padStart(2,'0')} / 39</span></div>`;
    const chunks=splitIllustratedPoem(p,header);
    let lineOffset=0;
    chunks.forEach(({text,font,height},i)=>{
@@ -308,10 +309,10 @@ Promise.all(['poems.json','ai-recitations.json'].map(file=>fetch(file).then(r=>{
   pages[section.page]=`<section class="section-opener"><div class="eyebrow">PART ${String(sectionIndex+1).padStart(2,'0')} · ${section.poems.length}편</div><h2>${esc(section.title)}</h2><p class="section-subtitle">${esc(section.subtitle)}</p><p class="section-note">${esc(section.intro)}</p><div class="chapter-list">${section.entries.map(e=>tocButton(e.title,e.page)).join('')}</div></section>`;
  }
  if(count!==poems.length)throw Error('Unassigned poems');
- pages[2]=`<section class="colophon editorial"><div class="eyebrow">EDITOR’S NOTE · 편집의 말</div><h2>기억을 건너,<br>계절을 지나</h2><p>『${BOOK_TITLE}』는 명도재 이명우의 창작시 서른여덟 편을 네 갈래의 길로 엮은 디지털 시집입니다.</p><p>가족의 기억에서 계절의 표정으로, 도시의 저녁에서 주리못의 물가로. 서로 다른 풍경을 지나며 삶을 바라보는 시선의 결을 따라갑니다.</p><p>첫 장의 노래를 듣고, 마음이 머무는 작품을 골라 읽어도 좋습니다. 천천히 한 장씩 넘기며 자신만의 순서로 이 책을 만나보세요.</p><p class="caption">시 제목과 본문은 기존 원문을 보존했습니다.<br>부제·부 구성·부별 여는 글은 이 디지털 판의 편집입니다.<br>편집의 말은 시인의 서문과 구분합니다.</p></section>`;
+ pages[2]=`<section class="colophon editorial"><div class="eyebrow">EDITOR’S NOTE · 편집의 말</div><h2>기억을 건너,<br>계절을 지나</h2><p>『${BOOK_TITLE}』는 명도재 이명우의 창작시 서른아홉 편을 네 갈래의 길로 엮은 디지털 시집입니다.</p><p>가족의 기억에서 계절의 표정으로, 도시의 저녁에서 주리못의 물가로. 서로 다른 풍경을 지나며 삶을 바라보는 시선의 결을 따라갑니다.</p><p>첫 장의 노래를 듣고, 마음이 머무는 작품을 골라 읽어도 좋습니다. 천천히 한 장씩 넘기며 자신만의 순서로 이 책을 만나보세요.</p><p class="caption">시 제목과 본문은 기존 원문을 보존했습니다.<br>부제·부 구성·부별 여는 글은 이 디지털 판의 편집입니다.<br>편집의 말은 시인의 서문과 구분합니다.</p></section>`;
  pages[3]=`<section class="book-contents"><div class="eyebrow">CONTENTS · 차례</div><h2>네 갈래의 길</h2><p class="section-subtitle">${BOOK_TITLE}<br><small>기억을 건너, 계절을 지나</small></p>${sections.map((section,i)=>`<div class="part-link">${tocButton(`제${i+1}부 ${section.title}`,section.page)}<p>${esc(section.subtitle)} · ${section.poems.length}편</p></div>`).join('')}<p class="caption">각 부의 첫 장에서 작품별 차례를 만날 수 있습니다.<br>상단 ‘목차’에서는 모든 작품으로 바로 이동할 수 있습니다.</p></section>`;
  const closing=pages.length;entries.push({title:'책을 덮으며 · 판권',page:closing});
- pageRecitalIds.push(null);pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『${BOOK_TITLE}』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 38편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>시낭송 · 방문자 기기의 한국어 음성합성 기능 사용, 시인 육성 아님.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
+ pageRecitalIds.push(null);pages.push(`<section class="colophon"><div class="eyebrow">COLOPHON · 책을 덮으며</div><h2>흐르는 것들은<br>저마다 길을 품고 있다.</h2><p>명도재 이명우 창작 시집<br>『${BOOK_TITLE}』<br><small>기억을 건너, 계절을 지나</small></p><p>수록 작품 · 이명우 창작시 39편<br>여는 영상 · 「물에게 길을 묻다」<br>구성 · 4부 주제별 편집</p><p class="caption">기존 저장소의 창작시 제목과 본문을 보존해 엮었습니다.<br>시집 부제와 구성, 여는 글은 이 디지털 판을 위한 편집입니다.<br>시화 삽화 · 작품 소재를 바탕으로 AI로 제작한 수채화.<br>시낭송 · 방문자 기기의 한국어 음성합성 기능 사용, 시인 육성 아님.<br>영상은 작가가 제공한 파일을 수록했습니다.<br>시와 영상의 권리는 각 권리자에게 있습니다.</p></section>`);
  // Keep the back cover as the final right-hand page on a desktop spread.
  if(pages.length%2===0){pageRecitalIds.push(null);pages.push('<section class="colophon"><div class="eyebrow">明道齋</div><h2>당신의 다음 계절에도<br>시가 함께하기를.</h2></section>');}
  entries.push({title:'뒷표지',page:pages.length});pages.push(backCover);pageRecitalIds.push(null);
