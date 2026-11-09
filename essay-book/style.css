@@ -647,3 +647,35 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page:has(.essay-eighteen) .essay-body{line-height:1.39!important}
  .book .page:has(.essay-eighteen) .essay-body p{margin-bottom:4px!important}
 }
+
+/* Editorial master: all essay leaves share the chapter-17 book geometry.
+   Apply only to essay pages (never covers, contents, or closing illustration). */
+@media screen and (min-width:801px){
+ .book .page:has(> .essay){
+  padding-left:clamp(73px,6.5vw,98px)!important;
+  padding-right:clamp(73px,6.5vw,98px)!important;
+ }
+}
+@media screen and (max-width:800px){
+ .book .page:has(> .essay){
+  padding-left:clamp(47px,10vw,65px)!important;
+  padding-right:clamp(47px,10vw,65px)!important;
+ }
+}
+.book .page:has(> .essay) .essay-body{
+ text-align:left!important;
+ word-break:keep-all!important;
+ overflow-wrap:break-word!important;
+}
+.book .page:has(> .essay) .essay-body p{
+ margin-top:0!important;
+ margin-bottom:5px!important;
+ text-align:justify!important;
+ text-justify:inter-character!important;
+ word-break:keep-all!important;
+ overflow-wrap:break-word!important;
+}
+.book .page:has(> .essay) .essay-body p:last-child{margin-bottom:0!important}
+@media(max-width:800px){
+ .book .page:has(> .essay) .essay-body p{margin-bottom:4px!important}
+}
