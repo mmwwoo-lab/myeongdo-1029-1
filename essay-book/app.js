@@ -90,7 +90,7 @@ function fragments(essay,compact=false){
 }
 // Six-leaf continuous text edition: keep every word and avoid paragraph whitespace.
 function continuousSixLeaves(essay){
- const text=essay.text.replace(/\\n/g,' ').replace(/\\s+/g,' ').trim();
+ const text=essay.text.replace(/\n/g,' ').replace(/\s+/g,' ').trim();
  const words=text.split(' ').filter(Boolean);
  const weights=[0.72,1.056,1.056,1.056,1.056,1.054];
  const total=words.join(' ').length;
