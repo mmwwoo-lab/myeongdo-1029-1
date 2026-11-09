@@ -306,6 +306,13 @@
       "voice_style": "delicate",
       "provider": "AI Voice Generator",
       "playback": "external_full_poem"
+    },
+    {
+      "id": "p39",
+      "title": "용두골 단풍비",
+      "voice_style": "delicate",
+      "provider": "Browser Speech Synthesis",
+      "playback": "native_speech"
     }
   ]
 }
