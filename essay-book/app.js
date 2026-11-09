@@ -109,8 +109,8 @@ function build(){
  for(const essay of essays){
   // Re-measure the complete source against the denser leaf; don't honor
   // stale manually-authored 6/10 page breaks when text can fit in fewer leaves.
-  // Chapter 18 alone has six deliberately edited leaves; all prior works keep their existing pagination.
-  let parts=essay.number===18 && Array.isArray(essay.pageParts) && essay.pageParts.length===6
+  // Chapter 18 alone has four deliberately edited leaves; all prior works keep their existing pagination.
+  let parts=essay.number===18 && Array.isArray(essay.pageParts) && essay.pageParts.length===4
    ? essay.pageParts.map(p=>p.slice()) : fragments(essay,true),continuousSix=false;
   if(parts.length>6 && essay.number!==18){
    parts=continuousSixLeaves(essay);
@@ -156,13 +156,14 @@ function fitPreface(el){
 function fitFixedEssay(el){
  const body=el.querySelector('.essay-fixed .essay-body');
  if(!body)return;
- // Fit writing to its fixed book leaf instead of adding an inner scrollbar.
- const initial=mobile.matches?12.2:13.3;
+ const is18=!!el.querySelector('.essay-eighteen');
+ const initial=is18?(mobile.matches?10.5:11.3):(mobile.matches?12.2:13.3);
+ const minimum=is18?8.6:10.2;
  body.style.removeProperty('font-size');
  body.style.removeProperty('line-height');
- for(let font=initial;font>=10.2;font-=.25){
+ for(let font=initial;font>=minimum;font-=.2){
   body.style.setProperty('font-size',font.toFixed(2)+'px','important');
-  body.style.setProperty('line-height',mobile.matches?'1.40':'1.46','important');
+  body.style.setProperty('line-height',is18?'1.28':(mobile.matches?'1.40':'1.46'),'important');
   if(body.scrollHeight<=body.clientHeight+1)break;
  }
 }
