@@ -716,3 +716,18 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  }
  .book .page:has(.essay-nineteen) .essay-body p{margin-bottom:4px!important}
 }
+
+/* Chapter 20: four authored leaves matching the common edition gutters,
+   paragraph gaps and responsive typography. */
+.book .page:has(.essay-twenty) .essay-body{
+ overflow:hidden!important;scrollbar-width:none!important;
+ font-family:var(--myeongjo)!important;font-size:13px!important;
+ line-height:1.44!important;letter-spacing:-.02em!important;
+ padding:2px 0 17px!important;
+}
+.book .page:has(.essay-twenty) .essay-body::-webkit-scrollbar{display:none!important}
+.book .page:has(.essay-twenty) .essay-body p{margin:0 0 5px!important;line-height:inherit!important}
+@media(max-width:800px){
+ .book .page:has(.essay-twenty) .essay-body{font-size:12px!important;line-height:1.40!important;padding-bottom:15px!important}
+ .book .page:has(.essay-twenty) .essay-body p{margin-bottom:4px!important}
+}
