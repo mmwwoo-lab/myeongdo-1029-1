@@ -586,3 +586,43 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page:has(.essay-eighteen) .essay-body{font-size:10.5px!important;line-height:1.28!important;padding-bottom:7px!important}
  .book .page:has(.essay-eighteen) .essay-body p{margin-bottom:1px!important}
 }
+
+/* Essay 18 final typesetting: use the complete printable leaf, with balanced
+   side gutters and close paragraph transitions. Scoped only to essay 18. */
+.book .page:has(.essay-eighteen){
+ padding:5px 29px 23px!important;
+}
+.book .page:has(.essay-eighteen) .essay{
+ display:flex!important;flex-direction:column!important;justify-content:flex-start!important;
+ min-height:0!important;height:100%!important;
+}
+.book .page:has(.essay-eighteen) .essay .eyebrow,
+.book .page:has(.essay-eighteen) .essay .continued{
+ margin:0 0 2px!important;line-height:1.2!important;
+}
+.book .page:has(.essay-eighteen) .essay h2{margin:0 0 1px!important;line-height:1.2!important}
+.book .page:has(.essay-eighteen) .essay .subtitle{margin:0 0 2px!important;line-height:1.2!important}
+.book .page:has(.essay-eighteen) .essay img{
+ flex:0 0 auto!important;height:58px!important;margin:0 0 3px!important;
+}
+.book .page:has(.essay-eighteen) .essay-body{
+ flex:1 1 auto!important;min-height:0!important;width:100%!important;
+ padding:0 0 7px!important;margin:0!important;
+ justify-content:flex-start!important;align-content:flex-start!important;
+ gap:0!important;white-space:normal!important;overflow:hidden!important;
+ font-size:12.4px!important;line-height:1.35!important;
+ letter-spacing:-.018em!important;
+}
+.book .page:has(.essay-eighteen) .essay-body p{
+ flex:none!important;display:block!important;
+ margin:0 0 2px!important;padding:0!important;
+ text-align:justify!important;line-height:inherit!important;
+}
+.book .page:has(.essay-eighteen) .essay-body p:last-child{margin-bottom:0!important}
+.book .page:has(.essay-eighteen) .page-read{bottom:7px!important;padding:3px 12px!important}
+@media(max-width:800px){
+ .book .page:has(.essay-eighteen){padding:5px 17px 24px!important}
+ .book .page:has(.essay-eighteen) .essay img{height:47px!important;margin-bottom:2px!important}
+ .book .page:has(.essay-eighteen) .essay-body{padding-bottom:5px!important}
+ .book .page:has(.essay-eighteen) .essay-body p{margin-bottom:1px!important}
+}
