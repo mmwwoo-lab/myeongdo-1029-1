@@ -102,15 +102,6 @@ $('#back-works').addEventListener('click',()=>{stopReading();reader.hidden=true;
 window.addEventListener('hashchange',route);window.addEventListener('popstate',route);window.addEventListener('pagehide',stopReading);
 renderCards();route();
 
-const newspaperDialog=$('#newspaper-dialog');
-function openNewspaper(){if(typeof newspaperDialog.showModal==='function')newspaperDialog.showModal();else newspaperDialog.setAttribute('open','')}
-function closeNewspaper(){if(typeof newspaperDialog.close==='function')newspaperDialog.close();else newspaperDialog.removeAttribute('open')}
-$('#newspaper-open').addEventListener('click',openNewspaper);
-// Newspaper opens from its dedicated button; the book preview has its own dialog.
-$('#newspaper-close').addEventListener('click',closeNewspaper);
-$('#newspaper-read').addEventListener('click',closeNewspaper);
-newspaperDialog.addEventListener('click',e=>{if(e.target===newspaperDialog)closeNewspaper()});
-
 const bookPreviewDialog=$('#book-preview-dialog');
 $('#book-preview-dialog-body').appendChild(document.querySelector('.book-preview-scene').cloneNode(true));
 $('#book-preview-button').addEventListener('click',()=>{if(typeof bookPreviewDialog.showModal==='function')bookPreviewDialog.showModal();else bookPreviewDialog.setAttribute('open','')});
