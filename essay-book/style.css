@@ -696,3 +696,23 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  }
  .book .page:has(.essay-nineteen) .essay-body p{margin-bottom:4px!important}
 }
+
+/* Chapter 19 measured flow: normal literary paragraph rhythm and no artificial
+   page gaps; pagination measures the actual body before each continuation leaf. */
+.book .page:has(.essay-nineteen) .essay-body{
+ display:block!important; flex:1 1 auto!important; min-height:0!important;
+ overflow:hidden!important; padding:2px 0 17px!important;
+ font-size:11.8px!important;line-height:1.43!important;
+ letter-spacing:-.025em!important;
+}
+.book .page:has(.essay-nineteen) .essay-body p{
+ display:block!important; margin:0 0 5px!important;
+ text-align:justify!important; line-height:inherit!important;
+}
+.book .page:has(.essay-nineteen) .essay-body p:last-child{margin-bottom:0!important}
+@media(max-width:800px){
+ .book .page:has(.essay-nineteen) .essay-body{
+  font-size:11.2px!important;line-height:1.4!important;padding-bottom:16px!important;
+ }
+ .book .page:has(.essay-nineteen) .essay-body p{margin-bottom:4px!important}
+}
