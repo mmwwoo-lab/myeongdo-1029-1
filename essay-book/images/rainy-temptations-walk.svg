@@ -1,18 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="비 내리는 고산골 단풍길, 신천으로 이어지는 산책로, 물가의 새와 식당의 따뜻한 불빛">
-<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#cbd5d6"/><stop offset=".56" stop-color="#e4dfd2"/><stop offset="1" stop-color="#ccc4b4"/></linearGradient><linearGradient id="path" x2=".5" y2="1"><stop stop-color="#d8c7ac"/><stop offset="1" stop-color="#a89584"/></linearGradient></defs>
-<rect width="1200" height="720" fill="url(#sky)"/>
-<path d="M0 410Q218 292 413 348Q565 292 726 347Q931 288 1200 370V720H0Z" fill="#96a498" opacity=".65"/>
-<path d="M0 505Q196 385 420 434Q584 374 753 429Q979 353 1200 457V720H0Z" fill="#7d978a" opacity=".82"/>
-<path d="M423 720Q487 533 621 390Q724 536 839 720Z" fill="url(#path)"/>
-<path d="M782 477Q978 456 1200 491V720H883Q833 615 782 477Z" fill="#9ab5ba"/>
-<path d="M845 543Q1002 517 1200 553" stroke="#d5e0d8" stroke-width="8" opacity=".6" fill="none"/>
-<g stroke="#625a52" stroke-width="22" stroke-linecap="round"><path d="M179 561L201 148M988 545L970 136"/></g>
-<g fill="#ae684f" opacity=".89"><circle cx="161" cy="187" r="93"/><circle cx="240" cy="202" r="83"/><circle cx="98" cy="281" r="78"/><circle cx="979" cy="160" r="105"/><circle cx="1090" cy="240" r="83"/></g>
-<g fill="#d0a16a" opacity=".88"><circle cx="230" cy="131" r="67"/><circle cx="100" cy="162" r="63"/><circle cx="1088" cy="157" r="69"/><circle cx="915" cy="250" r="73"/></g>
-<g fill="#657e66" opacity=".8"><path d="M310 466L355 255L406 466Z"/><path d="M289 520L357 319L418 520Z"/><path d="M684 468L729 285L768 468Z"/></g>
-<g transform="translate(95 410)"><rect x="0" y="0" width="208" height="157" rx="9" fill="#beae99" stroke="#71685e" stroke-width="6"/><path d="M-15 10L104 -53L225 10Z" fill="#766b61"/><rect x="27" y="43" width="155" height="70" fill="#e7d39e"/><path d="M32 68H175M65 44V112M128 44V112" stroke="#a38d6e" stroke-width="6"/><rect x="40" y="116" width="125" height="20" fill="#9b755c"/></g>
-<g transform="translate(568 466)"><path d="M-22 106Q-13 58 3 31Q23 10 47 31Q67 61 59 106Z" fill="#7c746f"/><circle cx="27" cy="14" r="22" fill="#a68c78"/><path d="M-52 8Q27 -54 102 8Z" fill="#5e777f" stroke="#3f5a60" stroke-width="7"/><path d="M27 -49V-69" stroke="#48585a" stroke-width="7"/><path d="M27 -48V115" stroke="#555458" stroke-width="4"/></g>
-<g fill="#a1aaa3" opacity=".7"><path d="M1044 487q12-39 19-2q-13 8-19 2z"/><path d="M1035 495q27-12 57-2q-36 15-57 2z"/></g>
-<g fill="#b66d4d"><path d="M323 603q38-24 59 6q-32 27-59-6z"/><path d="M854 610q34-21 50 9q-34 15-50-9z"/></g>
-<g stroke="#f7f8f3" stroke-width="2" opacity=".42" stroke-linecap="round"><path d="M69 70l-16 46M195 43l-14 45M304 110l-17 44M422 51l-19 48M543 92l-18 49M684 33l-16 46M806 91l-19 49M946 51l-17 42M1098 85l-17 47M1192 51l-17 45M62 320l-14 42M359 309l-16 46M511 268l-12 47M771 290l-15 44M1042 337l-15 47M1139 411l-12 44M467 548l-15 44M727 573l-15 49"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="비 내리는 늦가을 고산골 단풍 산책길과 신천, 우산을 쓴 두 노인, 물가의 백로를 그린 서정적인 풍경화">
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#aab8c2"/><stop offset=".6" stop-color="#d5d6d1"/><stop offset="1" stop-color="#ede1c9"/></linearGradient>
+<linearGradient id="river" x2="0" y2="1"><stop stop-color="#93aeb7"/><stop offset=".55" stop-color="#718e9d"/><stop offset="1" stop-color="#9eb5b7"/></linearGradient>
+<linearGradient id="walk" x2="0" y2="1"><stop stop-color="#c8b59c"/><stop offset="1" stop-color="#695e58"/></linearGradient>
+<linearGradient id="glass" x2="0" y2="1"><stop stop-color="#d7b896"/><stop offset=".7" stop-color="#775d4f"/><stop offset="1" stop-color="#343d42"/></linearGradient>
+<radialGradient id="warm"><stop stop-color="#ffe4a3"/><stop offset="1" stop-color="#cc9259" stop-opacity="0"/></radialGradient>
+<filter id="mist"><feGaussianBlur stdDeviation="19"/></filter>
+<filter id="watercolor" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="3" seed="7" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="6"/></filter>
+<pattern id="rain" width="83" height="67" patternUnits="userSpaceOnUse" patternTransform="skewX(-14)"><path d="M12 3v22M45 36v18M73 14v21" stroke="#f5f7f4" opacity=".45" stroke-width="2.2"/></pattern>
+<pattern id="ripples" width="92" height="42" patternUnits="userSpaceOnUse"><path d="M5 18q23-8 48 0M54 39q16-6 37 0" fill="none" stroke="#e4e9e4" stroke-width="2" opacity=".32"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<path d="M790 375q150-118 327-55q253-88 483 26V635H790Z" fill="#8b9b99" opacity=".4" filter="url(#mist)"/>
+<path d="M830 456Q1019 349 1179 399Q1390 333 1600 395V667H830Z" fill="#7a908b" opacity=".64"/>
+<path d="M1040 425q64-70 112-50q68 27 120-35q65 67 130 0q91 40 198 27v244H1040Z" fill="#8b9a8b" opacity=".5"/>
+<g opacity=".5" fill="#d8dcd6"><path d="M1260 350h65v116h-65zM1332 320h80v143h-80zM1423 339h57v128h-57zM1491 292h79v185h-79z"/><path d="M1200 416h60v43h-60z"/></g>
+<path d="M860 563Q1209 499 1600 557V900H943Z" fill="url(#river)"/>
+<path d="M860 563Q1209 499 1600 557V900H943Z" fill="url(#ripples)"/>
+<path d="M1022 623q245-33 578-7v69q-288 13-520 26z" fill="#c6d0ce" opacity=".87"/>
+<path d="M1021 680q300-6 579-8" fill="none" stroke="#f1f2e9" stroke-width="19" opacity=".8"/>
+<path d="M1096 725q240 20 504-8" fill="none" stroke="#eff4f0" stroke-width="6" opacity=".62"/>
+<path d="M0 545Q330 470 673 500Q830 486 946 554L1140 900H0Z" fill="url(#walk)"/>
+<path d="M0 642Q333 575 646 570" fill="none" stroke="#eed7b9" stroke-width="7" opacity=".45"/>
+<g fill="#b75d3b" opacity=".87" filter="url(#watercolor)"><circle cx="119" cy="91" r="174"/><circle cx="315" cy="125" r="169"/><circle cx="540" cy="99" r="145"/><circle cx="779" cy="87" r="120"/><circle cx="1033" cy="138" r="94"/><circle cx="929" cy="240" r="80"/><circle cx="1528" cy="180" r="105"/></g>
+<g fill="#dba849" opacity=".79" filter="url(#watercolor)"><circle cx="49" cy="289" r="105"/><circle cx="278" cy="256" r="112"/><circle cx="514" cy="240" r="101"/><circle cx="700" cy="196" r="112"/><circle cx="841" cy="258" r="84"/><circle cx="1178" cy="120" r="91"/><circle cx="1485" cy="269" r="78"/></g>
+<g fill="#803f34" opacity=".67"><circle cx="192" cy="344" r="73"/><circle cx="390" cy="325" r="64"/><circle cx="609" cy="312" r="66"/><circle cx="1045" cy="294" r="54"/></g>
+<g stroke="#53483d" stroke-width="23" stroke-linecap="round" fill="none"><path d="M102 561L130 22M444 511L385 0M773 518L722 36M1109 520L1060 41"/><path d="M128 194L11 84M122 218L311 44M403 142L572 42M762 167L897 89"/></g>
+<g transform="translate(0 350)">
+<path d="M-20 106L232 48L232 202L-20 235Z" fill="#233544"/><path d="M-30 90L241 28L260 66L-20 126Z" fill="#1c4672"/>
+<path d="M9 149L216 111V195L9 225Z" fill="url(#glass)" stroke="#313b3c" stroke-width="8"/>
+<path d="M26 165l173-33" stroke="#ffdb93" stroke-width="13" opacity=".85"/>
+<path d="M37 184l166-31" stroke="#eed5a2" stroke-width="7" opacity=".72"/>
+<g fill="#f4bd6e"><circle cx="40" cy="169" r="18"/><circle cx="133" cy="154" r="21"/><circle cx="202" cy="140" r="17"/></g>
+</g>
+<g transform="translate(630 420)">
+<path d="M7 302L32 192Q55 143 96 153L119 198L136 306Z" fill="#313b43"/>
+<path d="M32 301L31 360M113 303L114 357" stroke="#2c3034" stroke-width="31" stroke-linecap="round"/>
+<circle cx="72" cy="132" r="30" fill="#c49a79"/>
+<path d="M-24 123Q64 35 167 120Z" fill="#56676f" stroke="#39474c" stroke-width="8"/>
+<path d="M70 40v33M70 119v215" stroke="#37444a" stroke-width="7"/>
+</g>
+<g transform="translate(759 431)">
+<path d="M8 300L17 189Q56 133 99 179L123 298Z" fill="#90867f"/>
+<path d="M28 297L31 361M98 296L105 356" stroke="#4e4a49" stroke-width="31" stroke-linecap="round"/>
+<circle cx="61" cy="148" r="30" fill="#b69277"/>
+<path d="M-34 127Q62 26 161 118Z" fill="#54616c" stroke="#3c4651" stroke-width="8"/>
+<path d="M61 37v46M61 115v205" stroke="#48515a" stroke-width="7"/>
+</g>
+<g stroke="#5c5548" stroke-width="16" fill="none" stroke-linecap="round"><path d="M909 594L1029 853M991 580L1101 855M1060 565L1172 854"/><path d="M886 573Q985 548 1112 552M944 670Q1036 646 1141 647"/></g>
+<g fill="#f2f2e9" stroke="#68787c" stroke-width="3"><path d="M1374 662q-12-36 8-49q17 4 12 26l-15 17z"/><path d="M1372 661q-20-22-49-13q24 26 49 13z"/><path d="M1380 650l26 5-22 7" stroke-width="2"/></g>
+<g stroke="#787a78" stroke-width="3" fill="none"><path d="M1375 665l-7 56M1385 665l11 55"/></g>
+<g fill="#ad6640" opacity=".94"><path d="M106 666q30-29 63 0q-25 34-63 0z"/><path d="M277 799q39-33 77 3q-32 33-77-3z"/><path d="M573 812q33-29 67 1q-33 25-67-1z"/><path d="M848 735q27-31 56-1q-27 27-56 1z"/></g>
+<rect width="1600" height="900" fill="url(#rain)"/>
+<rect width="1600" height="900" fill="#f9e6c9" opacity=".06"/>
 </svg>
