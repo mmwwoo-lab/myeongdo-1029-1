@@ -401,7 +401,7 @@ window.MYEONGDO_ESSAYS=[
     "subtitle": "정보의 쓰레기장에서 보석을 찾는 시니어 창작자의 이야기",
     "motif": "명도재 작업실의 노트북과 유튜브 학습 화면, 미술 화구와 악보, 가을 햇살이 드는 창가",
     "color": "#8b735d",
-    "illustration": "youtube-learning-creator",
+    "illustration": "youtube-learning-creator-v2",
     "pageParts": [
       [
         "하루에도 몇 번씩 유튜브를 연다. 새로운 인공지능 프로그램이 궁금할 때도 있고, 세상 돌아가는 이야기를 듣고 싶을 때도 있다. 잠깐만 보려던 영상이 다음 영상을 부르고, 그렇게 하루 한 시간이 훌쩍 지나가곤 한다.",
