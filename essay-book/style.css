@@ -679,3 +679,20 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
 @media(max-width:800px){
  .book .page:has(> .essay) .essay-body p{margin-bottom:4px!important}
 }
+
+/* Essay 19: use the same book typography, gutters, paragraph rhythm and
+   image placement as the preceding essay collection. Keep all six written leaves. */
+.book .page:has(.essay-nineteen) .essay-body{
+ overflow:hidden!important;scrollbar-width:none!important;
+ font-family:var(--myeongjo)!important;
+ font-size:13.1px!important;line-height:1.46!important;
+ letter-spacing:-.02em!important;padding:2px 0 20px!important;
+}
+.book .page:has(.essay-nineteen) .essay-body::-webkit-scrollbar{display:none!important}
+.book .page:has(.essay-nineteen) .essay-body p{margin:0 0 5px!important;line-height:inherit!important}
+@media(max-width:800px){
+ .book .page:has(.essay-nineteen) .essay-body{
+  font-size:12.2px!important;line-height:1.4!important;padding-bottom:16px!important;
+ }
+ .book .page:has(.essay-nineteen) .essay-body p{margin-bottom:4px!important}
+}
