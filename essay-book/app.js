@@ -163,19 +163,19 @@ function fitFixedEssay(el){
   // Expand type to occupy the available leaf, then reduce only as needed.
   // The paragraph order and every word remain unchanged.
   const p=body.querySelectorAll('p');
-  const max=mobile.matches?12.9:14.1,min=9.2;
+  const max=mobile.matches?12.6:13.6,min=9.2;
   const available=()=>body.getBoundingClientRect().bottom;
   let chosen=min,found=false;
   for(let size=max;size>=min;size-=.2){
    body.style.setProperty('font-size',size.toFixed(2)+'px','important');
-   body.style.setProperty('line-height','1.35','important');
+   body.style.setProperty('line-height',mobile.matches?'1.39':'1.43','important');
    const last=p[p.length-1];
    const fits=body.scrollHeight<=body.clientHeight+1&&
      (!last||last.getBoundingClientRect().bottom<=available()+1);
    if(fits){chosen=size;found=true;break;}
   }
   body.style.setProperty('font-size',chosen.toFixed(2)+'px','important');
-  body.style.setProperty('line-height','1.35','important');
+  body.style.setProperty('line-height',mobile.matches?'1.39':'1.43','important');
   if(!found&&body.scrollHeight>body.clientHeight+1){
    console.warn('Essay 18 page needs a wider display to show the complete prose.');
   }
