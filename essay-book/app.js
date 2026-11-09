@@ -157,13 +157,34 @@ function fitFixedEssay(el){
  const body=el.querySelector('.essay-fixed .essay-body');
  if(!body)return;
  const is18=!!el.querySelector('.essay-eighteen');
- const initial=is18?(mobile.matches?10.5:11.3):(mobile.matches?12.2:13.3);
- const minimum=is18?8.6:10.2;
  body.style.removeProperty('font-size');
  body.style.removeProperty('line-height');
- for(let font=initial;font>=minimum;font-=.2){
+ if(is18){
+  // Expand type to occupy the available leaf, then reduce only as needed.
+  // The paragraph order and every word remain unchanged.
+  const p=body.querySelectorAll('p');
+  const max=mobile.matches?12.9:14.1,min=9.2;
+  const available=()=>body.getBoundingClientRect().bottom;
+  let chosen=min,found=false;
+  for(let size=max;size>=min;size-=.2){
+   body.style.setProperty('font-size',size.toFixed(2)+'px','important');
+   body.style.setProperty('line-height','1.35','important');
+   const last=p[p.length-1];
+   const fits=body.scrollHeight<=body.clientHeight+1&&
+     (!last||last.getBoundingClientRect().bottom<=available()+1);
+   if(fits){chosen=size;found=true;break;}
+  }
+  body.style.setProperty('font-size',chosen.toFixed(2)+'px','important');
+  body.style.setProperty('line-height','1.35','important');
+  if(!found&&body.scrollHeight>body.clientHeight+1){
+   console.warn('Essay 18 page needs a wider display to show the complete prose.');
+  }
+  return;
+ }
+ const initial=mobile.matches?12.2:13.3;
+ for(let font=initial;font>=10.2;font-=.25){
   body.style.setProperty('font-size',font.toFixed(2)+'px','important');
-  body.style.setProperty('line-height',is18?'1.28':(mobile.matches?'1.40':'1.46'),'important');
+  body.style.setProperty('line-height',mobile.matches?'1.40':'1.46','important');
   if(body.scrollHeight<=body.clientHeight+1)break;
  }
 }
