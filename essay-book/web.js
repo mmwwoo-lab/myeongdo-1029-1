@@ -59,7 +59,11 @@ function renderCards(query=''){
  const q=query.trim().toLocaleLowerCase('ko');
  const matches=essays.filter(e=>[e.title,e.subtitle,e.motif,e.text].some(v=>String(v).toLocaleLowerCase('ko').includes(q)));
  cards.innerHTML=matches.map(e=>'<article class="essay-card"><a href="#essay-'+e.number+'" data-essay="'+e.number+'" aria-label="'+escapeHtml(shortNumber(e.number)+' '+e.title)+' 전문 읽기"><img src="images/'+encodeURIComponent(e.illustration)+'.svg" loading="lazy" alt="'+escapeHtml(e.motif+' 삽화')+'"><div class="card-copy"><span class="card-num">'+shortNumber(e.number)+'</span><h3 class="card-title">'+escapeHtml(e.title)+'</h3><p class="card-subtitle">'+escapeHtml(e.subtitle)+'</p><span class="card-hint">작품 읽기 →</span></div></a></article>').join('');
- $('#empty-state').hidden=matches.length!==0;
+ const externalTitle='어떤 말 곁에 머물 것인가';
+ if(!q || ('제17편 '+externalTitle+' 말 언어 수필').toLocaleLowerCase('ko').includes(q)){
+  cards.insertAdjacentHTML('beforeend','<article class="essay-card"><a href="https://myeongdo-essay-editions.korea8014lee.chatgpt.site/#book/17" target="_blank" rel="noopener" aria-label="제17편 어떤 말 곁에 머물 것인가 기존 공개본 읽기"><div class="card-copy"><span class="card-num">제17편</span><h3 class="card-title">'+externalTitle+'</h3><p class="card-subtitle">기존 공개 원문 · 별도 페이지</p><span class="card-hint">원문 읽기 →</span></div></a></article>');
+ }
+ $('#empty-state').hidden=cards.children.length!==0;
 }
 function renderParagraph(p,e){
  if(p==='〔삽입시 끝〕')return '';
