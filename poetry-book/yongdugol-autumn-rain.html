@@ -1,0 +1,19 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>용두골 단풍비 | 명도재 이명우 창작 서정시</title><meta name="description" content="명도재 이명우 창작 서정시 용두골 단풍비 · 2026년 11월 9일"><style>body{margin:0;background:#f0f4ef;color:#263e37;font-family:'Malgun Gothic',sans-serif;line-height:1.9}header{background:#173b32;color:white;padding:18px 6%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}a{color:inherit}main{max-width:770px;margin:32px auto;padding:0 18px}.paper{background:#fffdf8;padding:40px 7%;box-shadow:0 8px 28px #213b3020;border:1px solid #e1e2d7;border-radius:6px}.kicker{font-size:12px;letter-spacing:.12em;color:#8b7462}h1{font-size:clamp(26px,5vw,38px);margin:8px 0}.byline,.date{color:#63776b}.verse{white-space:pre-wrap;font-size:clamp(16px,2.8vw,19px);line-height:2;word-break:keep-all}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.actions button{background:#173b32;color:#fff;border:0;padding:11px 18px;border-radius:6px;cursor:pointer}footer{text-align:center;padding:25px;color:#62746a;font-size:12px}@media(max-width:600px){.paper{padding:28px 22px}}@media print{header,.actions{display:none}.paper{box-shadow:none}}</style></head><body><header><strong>明道齋 · 명도재 창작 시집</strong><a href="./">← 시집으로 돌아가기</a></header><main><article class="paper"><div class="kicker">POETRY · 창작 서정시</div><h1>용두골 단풍비</h1><p class="byline">명도재 이명우</p><div class="verse">가을비 머금은 용두골
+푸른 잎새 사이
+붉게 익어 가는 단풍잎들
+
+달구벌 옛 성터에
+천년의 바람이 불어와
+옛사랑의 손짓처럼
+젖은 가지를 흔든다
+
+꽃무늬 비단을 펼친 산자락
+한 잎 두 잎
+신천 물결에 가을을 띄우고
+
+차마 보내지 못한 그리움 하나
+내 어깨에 내려앉는다
+
+그대의 손길인 듯
+젖은 단풍잎을
+오래도록 털어 내지 못한다</div><p class="date">2026년 11월 9일</p><div class="actions"><button id="read">▶ 시 읽기</button><button id="pause">⏸ 일시정지 / 이어 읽기</button><button id="stop">■ 정지</button></div></article></main><footer>© 명도재 이명우 · 창작 서정시</footer><script>let utter=null,paused=false;const synth=window.speechSynthesis;document.getElementById('read').onclick=()=>{if(!synth){alert('이 브라우저는 음성 읽기를 지원하지 않습니다.');return;}synth.cancel();utter=new SpeechSynthesisUtterance(document.querySelector('.verse').textContent);utter.lang='ko-KR';utter.rate=.84;synth.speak(utter);paused=false};document.getElementById('pause').onclick=()=>{if(!synth||!utter)return;if(paused){synth.resume();paused=false}else{synth.pause();paused=true}};document.getElementById('stop').onclick=()=>{if(synth)synth.cancel();utter=null;paused=false};window.addEventListener('pagehide',()=>synth?.cancel());</script></body></html>
