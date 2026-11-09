@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="비 내리는 고산골 단풍길, 신천으로 이어지는 산책로, 물가의 새와 식당의 따뜻한 불빛">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#cbd5d6"/><stop offset=".56" stop-color="#e4dfd2"/><stop offset="1" stop-color="#ccc4b4"/></linearGradient><linearGradient id="path" x2=".5" y2="1"><stop stop-color="#d8c7ac"/><stop offset="1" stop-color="#a89584"/></linearGradient></defs>
+<rect width="1200" height="720" fill="url(#sky)"/>
+<path d="M0 410Q218 292 413 348Q565 292 726 347Q931 288 1200 370V720H0Z" fill="#96a498" opacity=".65"/>
+<path d="M0 505Q196 385 420 434Q584 374 753 429Q979 353 1200 457V720H0Z" fill="#7d978a" opacity=".82"/>
+<path d="M423 720Q487 533 621 390Q724 536 839 720Z" fill="url(#path)"/>
+<path d="M782 477Q978 456 1200 491V720H883Q833 615 782 477Z" fill="#9ab5ba"/>
+<path d="M845 543Q1002 517 1200 553" stroke="#d5e0d8" stroke-width="8" opacity=".6" fill="none"/>
+<g stroke="#625a52" stroke-width="22" stroke-linecap="round"><path d="M179 561L201 148M988 545L970 136"/></g>
+<g fill="#ae684f" opacity=".89"><circle cx="161" cy="187" r="93"/><circle cx="240" cy="202" r="83"/><circle cx="98" cy="281" r="78"/><circle cx="979" cy="160" r="105"/><circle cx="1090" cy="240" r="83"/></g>
+<g fill="#d0a16a" opacity=".88"><circle cx="230" cy="131" r="67"/><circle cx="100" cy="162" r="63"/><circle cx="1088" cy="157" r="69"/><circle cx="915" cy="250" r="73"/></g>
+<g fill="#657e66" opacity=".8"><path d="M310 466L355 255L406 466Z"/><path d="M289 520L357 319L418 520Z"/><path d="M684 468L729 285L768 468Z"/></g>
+<g transform="translate(95 410)"><rect x="0" y="0" width="208" height="157" rx="9" fill="#beae99" stroke="#71685e" stroke-width="6"/><path d="M-15 10L104 -53L225 10Z" fill="#766b61"/><rect x="27" y="43" width="155" height="70" fill="#e7d39e"/><path d="M32 68H175M65 44V112M128 44V112" stroke="#a38d6e" stroke-width="6"/><rect x="40" y="116" width="125" height="20" fill="#9b755c"/></g>
+<g transform="translate(568 466)"><path d="M-22 106Q-13 58 3 31Q23 10 47 31Q67 61 59 106Z" fill="#7c746f"/><circle cx="27" cy="14" r="22" fill="#a68c78"/><path d="M-52 8Q27 -54 102 8Z" fill="#5e777f" stroke="#3f5a60" stroke-width="7"/><path d="M27 -49V-69" stroke="#48585a" stroke-width="7"/><path d="M27 -48V115" stroke="#555458" stroke-width="4"/></g>
+<g fill="#a1aaa3" opacity=".7"><path d="M1044 487q12-39 19-2q-13 8-19 2z"/><path d="M1035 495q27-12 57-2q-36 15-57 2z"/></g>
+<g fill="#b66d4d"><path d="M323 603q38-24 59 6q-32 27-59-6z"/><path d="M854 610q34-21 50 9q-34 15-50-9z"/></g>
+<g stroke="#f7f8f3" stroke-width="2" opacity=".42" stroke-linecap="round"><path d="M69 70l-16 46M195 43l-14 45M304 110l-17 44M422 51l-19 48M543 92l-18 49M684 33l-16 46M806 91l-19 49M946 51l-17 42M1098 85l-17 47M1192 51l-17 45M62 320l-14 42M359 309l-16 46M511 268l-12 47M771 290l-15 44M1042 337l-15 47M1139 411l-12 44M467 548l-15 44M727 573l-15 49"/></g>
+</svg>
