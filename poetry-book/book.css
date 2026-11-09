@@ -486,3 +486,37 @@ header button:focus-visible,header a:focus-visible{outline:3px solid #6e537f;out
  font-size:11px!important;line-height:1.2!important;
 }
 .book .page:has(> .page-read-control)>section{padding-bottom:49px!important;box-sizing:border-box;}
+
+/* 명도재 시집 편집실 · 전 작품 공통 판형 기준 (2026-11-09)
+   신작도 별도 카드나 별도 글꼴을 사용하지 않고 이 공통 스타일을 사용한다. */
+.book .page > section.poem .poem-header{
+ font-size:10px;letter-spacing:1px;
+ padding-bottom:10px;margin-bottom:18px;
+}
+.book .page > section.poem .poem-heading{
+ display:grid;grid-template-columns:minmax(0,1fr) 104px;
+ gap:14px;align-items:center;min-height:104px;margin:0 0 18px;
+}
+.book .page > section.poem .poem-heading h2{
+ font-family:'Myeongdo Brush','Batang','Noto Serif CJK KR',serif;
+ font-size:32px;font-weight:400;line-height:1.45;margin:0;
+}
+.book .page > section.poem .poem-art{
+ width:104px;height:104px;
+}
+.book .page > section.poem .verse-columns{
+ font-family:'Batang','Noto Serif CJK KR',serif;
+ font-size:var(--verse-size,14px);
+ line-height:1.8;white-space:pre-wrap;
+ column-count:2;column-gap:24px;column-rule:1px solid #e2e6db;
+ column-fill:auto;height:var(--verse-height);
+}
+@media(max-width:800px){
+ .book .page > section.poem .poem-heading{grid-template-columns:minmax(0,1fr) 88px;gap:10px;min-height:88px}
+ .book .page > section.poem .poem-heading h2{font-size:29px}
+ .book .page > section.poem .poem-art{width:88px;height:88px}
+ .book .page > section.poem .verse-columns{column-gap:16px}
+}
+@media print{
+ .book .page > section.poem .verse-columns{height:auto;column-fill:balance}
+}
