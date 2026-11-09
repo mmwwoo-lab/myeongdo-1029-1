@@ -109,8 +109,8 @@ function build(){
  for(const essay of essays){
   // Re-measure the complete source against the denser leaf; don't honor
   // stale manually-authored 6/10 page breaks when text can fit in fewer leaves.
-  // Chapter 18 alone has eight deliberately edited leaves; all prior works keep their existing pagination.
-  let parts=essay.number===18 && Array.isArray(essay.pageParts) && essay.pageParts.length===8
+  // Chapter 18 alone has six deliberately edited leaves; all prior works keep their existing pagination.
+  let parts=essay.number===18 && Array.isArray(essay.pageParts) && essay.pageParts.length===6
    ? essay.pageParts.map(p=>p.slice()) : fragments(essay,true),continuousSix=false;
   if(parts.length>6 && essay.number!==18){
    parts=continuousSixLeaves(essay);
