@@ -1,5 +1,5 @@
 'use strict';
-const essays=Array.isArray(window.MYEONGDO_ESSAYS)?window.MYEONGDO_ESSAYS:[];
+const essays=(Array.isArray(window.MYEONGDO_ESSAYS)?window.MYEONGDO_ESSAYS:[]).slice().sort((a,b)=>a.number-b.number);
 const $=s=>document.querySelector(s);
 const escapeHtml=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cards=$('#essay-grid'),reader=$('#reader');
