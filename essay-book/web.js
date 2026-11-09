@@ -110,3 +110,9 @@ $('#newspaper-image-button').addEventListener('click',openNewspaper);
 $('#newspaper-close').addEventListener('click',closeNewspaper);
 $('#newspaper-read').addEventListener('click',closeNewspaper);
 newspaperDialog.addEventListener('click',e=>{if(e.target===newspaperDialog)closeNewspaper()});
+
+const bookPreviewDialog=$('#book-preview-dialog');
+$('#book-preview-dialog-body').appendChild(document.querySelector('.book-preview-scene').cloneNode(true));
+$('#book-preview-button').addEventListener('click',()=>{if(typeof bookPreviewDialog.showModal==='function')bookPreviewDialog.showModal();else bookPreviewDialog.setAttribute('open','')});
+$('#book-preview-close').addEventListener('click',()=>{if(typeof bookPreviewDialog.close==='function')bookPreviewDialog.close();else bookPreviewDialog.removeAttribute('open')});
+bookPreviewDialog.addEventListener('click',e=>{if(e.target===bookPreviewDialog)bookPreviewDialog.close()});
