@@ -548,7 +548,7 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page .closing-illustration{max-height:190px;}
 }
 
-/* Chapter 18 only: eight authored book leaves, same typography and illustration layout. */
+/* Chapter 18 only: six fuller, authored book leaves, same typography and illustration layout. */
 .book .page:has(.essay-eighteen) .essay-body{
  overflow:hidden!important;overflow-y:hidden!important;scrollbar-width:none!important;
  font-family:var(--myeongjo)!important;font-size:13px!important;line-height:1.46!important;
@@ -560,3 +560,8 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page:has(.essay-eighteen) .essay-body{font-size:12px!important;line-height:1.39!important;padding-bottom:15px!important}
  .book .page:has(.essay-eighteen) .essay-body p{margin-bottom:3px!important}
 }
+
+/* Chapter 18 denser layout: fit longer paragraphs without introducing an inner scrollbar. */
+.book .page:has(.essay-eighteen) .essay-body{font-size:12.1px!important;line-height:1.36!important;letter-spacing:-.035em!important;padding-bottom:10px!important}
+.book .page:has(.essay-eighteen) .essay-body p{margin-bottom:3px!important}
+@media(max-width:800px){.book .page:has(.essay-eighteen) .essay-body{font-size:11px!important;line-height:1.32!important;padding-bottom:9px!important}.book .page:has(.essay-eighteen) .essay-body p{margin-bottom:2px!important}}
