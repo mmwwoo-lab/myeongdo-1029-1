@@ -626,3 +626,24 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  .book .page:has(.essay-eighteen) .essay-body{padding-bottom:5px!important}
  .book .page:has(.essay-eighteen) .essay-body p{margin-bottom:1px!important}
 }
+
+/* Essay 18 editorial revision: restore clearly separated literary paragraphs,
+   matching chapters 1–17 without changing their styles. */
+.book .page:has(.essay-eighteen) .essay-body{
+ line-height:1.43!important;
+ letter-spacing:-.018em!important;
+ text-align:left!important;
+}
+.book .page:has(.essay-eighteen) .essay-body p{
+ margin-top:0!important;
+ margin-bottom:5px!important;
+ line-height:inherit!important;
+ text-indent:0!important;
+ word-break:keep-all!important;
+ overflow-wrap:break-word!important;
+}
+.book .page:has(.essay-eighteen) .essay-body p:last-child{margin-bottom:0!important}
+@media(max-width:800px){
+ .book .page:has(.essay-eighteen) .essay-body{line-height:1.39!important}
+ .book .page:has(.essay-eighteen) .essay-body p{margin-bottom:4px!important}
+}
