@@ -1,5 +1,5 @@
 'use strict';
-const essays=window.MYEONGDO_ESSAYS||[];
+const essays=(window.MYEONGDO_ESSAYS||[]).slice().sort((a,b)=>a.number-b.number);
 const $=s=>document.querySelector(s),escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Signature sentence is highlighted only when its full wording occurs in a leaf.
 // Reading voice retains the unformatted original manuscript.
