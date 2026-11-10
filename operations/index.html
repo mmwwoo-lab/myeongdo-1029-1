@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#172a2b">
+<meta name="description" content="명도재 이명우의 디지털 문학관·문화예술신문·전시 홈페이지의 공개 운영 현황과 GitHub 검증 결과를 확인하는 운영 점검실입니다.">
+<meta property="og:title" content="명도재 AI 통합운영 점검실">
+<meta property="og:description" content="시집·수필집·문화예술신문·미술전시의 공개 경로와 GitHub 운영·품질 검사 현황">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mmwwoo-lab.github.io/myeongdo-1029-1/operations/">
+<title>명도재 AI 통합운영 점검실 | 문학·문화예술</title>
+<style>
+:root{color-scheme:light;--ink:#163232;--sub:#536865;--cream:#f7f5ee;--white:#fff;--accent:#1e6b61;--gold:#b18a52;--stroke:#d8e0d7;--ok:#18765f;--warn:#966b2d;--soft:#eaf2ed}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;line-height:1.66}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid #cc8d3a;outline-offset:3px}
+.wrap{max-width:1190px;margin:0 auto;padding:0 24px}
+header{background:#142b2b;color:#f6f2e7;border-bottom:1px solid #3f615a}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;flex-wrap:wrap}
+.brand{font-family:Georgia,"Nanum Myeongjo",serif;font-weight:700;font-size:21px;letter-spacing:.045em}
+.navlinks{display:flex;gap:19px;flex-wrap:wrap;font-size:13px}
+.navlinks a{opacity:.85;text-decoration:none}.navlinks a:hover{text-decoration:underline;opacity:1}
+.hero{background:radial-gradient(circle at 88% 15%,#3c6252 0%,transparent 34%),linear-gradient(135deg,#132a2a,#1d403a);color:#fcf8ed;position:relative;overflow:hidden}
+.hero:after{content:"明道齋";position:absolute;right:4%;bottom:-12%;font:140px serif;color:#ffffff0b;pointer-events:none}
+.hero-inner{padding:67px 0 70px;position:relative;z-index:1}
+.eyebrow{letter-spacing:.17em;color:#d6c59d;text-transform:uppercase;font-size:12px;font-weight:800}
+h1{font-family:Georgia,"Nanum Myeongjo",serif;font-size:clamp(32px,5.4vw,58px);letter-spacing:-.025em;margin:12px 0 18px;line-height:1.23}
+.hero p{max-width:715px;color:#d9e7df;margin:0 0 23px;font-size:15px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:7px;background:#f3eee2;color:#123832;border:1px solid #f3eee2;padding:11px 17px;border-radius:9px;font-weight:800;text-decoration:none;font-size:13px;cursor:pointer}
+.btn.outline{background:transparent;color:#f9f8f1;border-color:#6b8f81}.btn:hover{filter:brightness(.96)}
+main{padding:40px 0 78px}
+.intro-strip{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px;align-items:center}
+.note{font-size:12px;color:var(--sub)}
+.section{margin:45px 0}
+h2{font-family:Georgia,"Nanum Myeongjo",serif;font-size:25px;margin:0 0 7px;line-height:1.35}
+.section-lead{font-size:14px;color:var(--sub);margin:0 0 22px}
+.pills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pill{background:white;border:1px solid var(--stroke);padding:17px 18px;border-radius:13px;min-height:105px}
+.pill .number{font:700 29px Georgia,serif;color:var(--accent);display:block}
+.pill .label{font-size:12px;color:var(--sub)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{background:var(--white);border:1px solid var(--stroke);border-radius:16px;padding:22px;box-shadow:0 8px 24px #18392d08;min-width:0}
+.card .kicker{font-size:11px;color:var(--accent);font-weight:800;letter-spacing:.07em}
+.card h3{font-size:19px;line-height:1.4;margin:8px 0}
+.card p{color:var(--sub);font-size:13px;margin:0 0 16px}
+.card .meta{font-size:12px;color:var(--sub);padding-top:10px;border-top:1px solid #edf0e9}
+.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.buttons a{font-size:12px;font-weight:800;text-decoration:none;background:var(--soft);border-radius:8px;padding:9px 11px;color:#1d5e55}
+.buttons a.secondary{background:#f3f0e8;color:#766039}
+.status{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;background:#f6f2e7;border:1px solid #ebdfce;border-radius:30px;font-size:11px;font-weight:700;color:var(--warn)}
+.status.good{background:#e8f6ee;color:var(--ok);border-color:#cce9d9}
+.status.fail{background:#fcebec;color:#ae4242;border-color:#f4d2d4}
+.status.neutral{background:#eff2ef;border-color:#dce2de;color:#53615c}
+.monitor-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:15px}
+.monitor{background:white;border-radius:16px;border:1px solid var(--stroke);padding:23px}
+.monitor h3{font-size:16px;margin:0 0 6px}
+.monitor p{font-size:12px;color:var(--sub);margin:0 0 12px}
+.monitor-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #edf1eb;padding:12px 0;font-size:13px}
+.monitor-row:last-child{padding-bottom:0}
+#repo-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.repo{border:1px solid #e1e9e2;background:#fff;padding:15px;border-radius:10px;min-width:0}
+.repo strong{font-size:13px;display:block;overflow-wrap:anywhere}
+.repo small{font-size:11px;color:var(--sub);display:block;margin:5px 0}
+.repo a{font-size:11px;color:#23675d}
+.progress{display:inline-flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:100%;background:#9b9f9a}
+.dot.ok{background:#22825d}.dot.warn{background:#b5873e}.dot.fail{background:#be4f43}
+.callout{background:#eaf1e9;border-left:3px solid var(--accent);padding:17px 20px;border-radius:0 10px 10px 0;color:#35514c;font-size:13px}
+footer{background:#16302e;color:#d9e2dc;font-size:12px;padding:30px 0}
+footer a{color:#fff}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pills{grid-template-columns:repeat(2,minmax(0,1fr))}.monitor-grid{grid-template-columns:1fr}}
+@media(max-width:580px){.wrap{padding:0 16px}.hero-inner{padding:52px 0}.grid,.pills,#repo-list{grid-template-columns:1fr}.card{padding:19px}.monitor{padding:19px}h1{font-size:33px}.navlinks{gap:12px}.brand{font-size:18px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav><div class="brand">明道齋 · 명도재 AI 운영실</div><div class="navlinks"><a href="#sites">작품·신문</a><a href="#monitor">운영 현황</a><a href="#repositories">GitHub 저장소</a><a href="#guide">운영 원칙</a></div></nav></div></header>
+<section class="hero"><div class="wrap hero-inner"><span class="eyebrow">MYEONGDOJAE · PUBLIC OPERATIONS</span><h1>문학과 예술의 오늘을<br>연결하는 운영 점검실</h1><p>명도재 이명우의 디지털 시집·생활수필·문화예술 소식지·미술 전시 프로젝트를 한곳에서 찾아보고, GitHub 소스와 자동 품질 검사 현황을 확인할 수 있는 공개 안내 페이지입니다.</p><div class="ctas"><a class="btn" href="#sites">공개 작품관 둘러보기 ↗</a><a class="btn outline" href="#monitor">운영 점검 보기 ↗</a></div></div></section>
+<main class="wrap">
+<div class="intro-strip"><span class="status neutral" id="last-update">GitHub 최신 정보 조회 전</span><span class="note">검사 결과의 의미: <b>GitHub 코드·워크플로 확인</b>은 실제 웹 접속·오디오 실청취 검증과 다릅니다.</span></div>
+<div class="pills"><div class="pill"><span class="number">8</span><span class="label">확인된 공개 GitHub 저장소</span></div><div class="pill"><span class="number">3</span><span class="label">주요 운영 분야 · 문학·신문·미술</span></div><div class="pill"><span class="number" id="repo-ok">—</span><span class="label">이번 조회에서 응답한 저장소</span></div><div class="pill"><span class="number" id="ci-number">—</span><span class="label">최근 Codex 검사 결과</span></div></div>
+<section id="sites" class="section"><h2>문학·문화예술 공개 사이트</h2><p class="section-lead">실제 저장소 구조에서 확인한 경로를 중심으로 안내합니다. 링크는 새 창으로 열리며, 접속 성공 여부는 현장 환경에 따라 별도 점검이 필요합니다.</p>
+<div class="grid">
+<article class="card"><div class="kicker">DIGITAL POETRY</div><h3>명도재 디지털 시집</h3><p>서정시 작품을 책자형으로 감상하는 공간. 목차·페이지 넘김·낭송 자산을 관리합니다.</p><div class="meta">저장소 경로: poetry-book/</div><div class="buttons"><a href="../poetry-book/" target="_blank" rel="noopener">시집 열기 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/myeongdo-1029-1/tree/main/poetry-book" target="_blank" rel="noopener">원본 저장소</a></div></article>
+<article class="card"><div class="kicker">LITERARY ESSAY</div><h3>명도재 생활수필집</h3><p>신문형·책자형으로 읽는 생활수필. 콘텐츠 파일과 이미지, 읽기 기능을 관리합니다.</p><div class="meta">저장소 경로: essay-book/</div><div class="buttons"><a href="../essay-book/" target="_blank" rel="noopener">수필집 열기 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/myeongdo-1029-1/tree/main/essay-book" target="_blank" rel="noopener">원본 저장소</a></div></article>
+<article class="card"><div class="kicker">CULTURE NEWS</div><h3>대구 문화예술 소식지</h3><p>대구의 전시·공연·문화행사를 소개하는 웹신문. 기사별 검증과 출처 확인을 거쳐 발행합니다.</p><div class="meta">별도 저장소: myeongdo-artweb/culture-news/</div><div class="buttons"><a href="https://mmwwoo-lab.github.io/myeongdo-artweb/culture-news/" target="_blank" rel="noopener">문화예술신문 열기 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/myeongdo-artweb/tree/main/culture-news" target="_blank" rel="noopener">원본 저장소</a></div></article>
+<article class="card"><div class="kicker">ART & LITERATURE</div><h3>명도재 융합예술 전시관</h3><p>미술·문학·음악·영상과 작가별 온라인 전시를 아우르는 예술 창작 플랫폼.</p><div class="meta">별도 저장소: myeongdo-artweb/</div><div class="buttons"><a href="https://mmwwoo-lab.github.io/myeongdo-artweb/" target="_blank" rel="noopener">전시관 열기 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/myeongdo-artweb" target="_blank" rel="noopener">원본 저장소</a></div></article>
+<article class="card"><div class="kicker">DIGITAL EXHIBITION</div><h3>대구미술 40인 전시</h3><p>가상 전시공간과 작가 소개로 구성된 전시 프로젝트. 미술작품 사용 권한은 개별 확인이 필요합니다.</p><div class="meta">별도 저장소: daeguart40/</div><div class="buttons"><a href="https://mmwwoo-lab.github.io/daeguart40/" target="_blank" rel="noopener">전시 홈페이지 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/daeguart40" target="_blank" rel="noopener">원본 저장소</a></div></article>
+<article class="card"><div class="kicker">ART MAGAZINE</div><h3>명도재 예술전문지</h3><p>작가 소개, 시·회화·음악 콘텐츠를 담은 정적 HTML 예술 홈페이지.</p><div class="meta">메인 저장소: myeongdo-1029-1/</div><div class="buttons"><a href="../" target="_blank" rel="noopener">예술전문지 열기 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/myeongdo-1029-1" target="_blank" rel="noopener">원본 저장소</a></div></article>
+</div></section>
+<section id="monitor" class="section"><h2>운영·품질 점검</h2><p class="section-lead">GitHub의 공개 API로 최신 업무 기록을 조회합니다. 연결 오류나 API 제한이 있으면 ‘확인 불가’로 표시합니다.</p>
+<div class="monitor-grid">
+<div class="monitor"><h3>자동 점검 결과</h3><p>GitHub Actions의 결과를 읽습니다. 통과는 검사 항목의 성공이며, 모든 웹 기능의 정상 작동을 의미하지 않습니다.</p>
+<div class="monitor-row"><span>Codex 기사 형식·정적 경로 검사</span><span class="status neutral" id="codex-ci">조회 중</span></div>
+<div class="monitor-row"><span>GitHub Pages 배포 워크플로</span><span class="status neutral" id="pages-ci">조회 중</span></div>
+<div class="monitor-row"><span>외부 홈페이지 접속 점검</span><span class="status neutral" id="site-ci">조회 중</span></div>
+<p id="ci-time" class="note" style="margin-top:15px">최근 실행 시각 확인 중</p><div class="buttons"><a href="https://github.com/mmwwoo-lab/myeongdo-1029-1/actions" target="_blank" rel="noopener">Actions 실행 기록 ↗</a><a class="secondary" href="https://github.com/mmwwoo-lab/myeongdo-1029-1/pulls" target="_blank" rel="noopener">검토·승인 PR ↗</a></div>
+</div>
+<div class="monitor"><h3>관리 원칙 및 검수 범위</h3><p>자동 점검 결과와 별도로 사람의 최종 검수가 필요한 항목을 표시합니다.</p>
+<div class="monitor-row"><span>기존 시·수필 원문과 URL 보존</span><span class="status neutral">변경 시 검토</span></div>
+<div class="monitor-row"><span>뉴스의 실제 출처·행사 일정</span><span class="status neutral">편집 검증</span></div>
+<div class="monitor-row"><span>모바일 화면·음성 재생</span><span class="status neutral">실기기 검증</span></div>
+<div class="monitor-row"><span>기사·홈페이지 공개 배포</span><span class="status neutral">발행인 승인</span></div>
+<div class="monitor-row"><span>ChatGPT Sites · Vercel 자동 연결</span><span class="status neutral">별도 확인</span></div>
+</div></div></section>
+<section id="repositories" class="section"><h2>전체 GitHub 저장소</h2><p class="section-lead">공개 저장소의 최근 코드 갱신 정보를 화면에서 가져옵니다. API 장애 시에는 저장소 링크를 이용할 수 있습니다.</p><div id="repo-list" aria-live="polite"><div class="repo">GitHub 공개 저장소 정보를 조회하고 있습니다.</div></div></section>
+<section id="guide" class="section"><h2>공개 운영 기준</h2><div class="callout">이 페이지는 <strong>공개 안내·운영 상태 점검실</strong>입니다. 비밀번호, API 키, 고객정보를 저장하거나 배포할 수 없습니다. 자동화의 검사 성공은 콘텐츠 사실성·저작권 적법성·음성 실청취·실제 방문자 접속 성공을 일괄 보증하지 않습니다. 공개 콘텐츠 수정과 배포에는 발행인 최종 승인이 필요합니다.</div></section>
+</main>
+<footer><div class="wrap">© 명도재(明道齋) 이명우 · AI 디지털 문학·문화예술 운영실 <span style="opacity:.7">| GitHub 공개자료 연결 · 비공개 관리기능 없음</span><div style="margin-top:10px"><a href="https://github.com/mmwwoo-lab" target="_blank" rel="noopener">GitHub 프로젝트 전체 보기 ↗</a></div></div></footer>
+<script>
+(() => {
+"use strict";
+const owner="mmwwoo-lab", main="myeongdo-1029-1";
+const repos=["myeongdo-1029-1","myeongdo-artweb","daeguart40","myeongdo","myeongdo-","myeongdo-8014","myeongdo-1029","SEONGJO"];
+const $=id=>document.getElementById(id);
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const date=s=>s?new Date(s).toLocaleString("ko-KR",{timeZone:"Asia/Seoul",dateStyle:"medium",timeStyle:"short"}):"미확인";
+const badge=(node,label,kind)=>{if(!node)return;node.textContent=label;node.className="status "+kind};
+async function get(url){const c=new AbortController();const timer=setTimeout(()=>c.abort(),12000);try{const r=await fetch(url,{signal:c.signal,headers:{"Accept":"application/vnd.github+json"}});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json()}finally{clearTimeout(timer)}}
+async function loadRepos(){
+ const items=await Promise.all(repos.map(async name=>{try{const j=await get("https://api.github.com/repos/"+owner+"/"+encodeURIComponent(name));return{name,ok:true,pushed:j.pushed_at,branch:j.default_branch,archived:j.archived}}catch(e){return{name,ok:false,error:String(e)}}}));
+ $("repo-ok").textContent=String(items.filter(x=>x.ok).length);
+ $("last-update").textContent="GitHub 정보 조회 · "+date(new Date().toISOString());
+ $("repo-list").innerHTML=items.map(x=>'<div class="repo"><strong>'+safe(owner+'/'+x.name)+'</strong><small>'+ (x.ok?"최근 코드 변경 "+safe(date(x.pushed))+" · 기본 "+safe(x.branch):"조회 불가 · "+safe(x.error))+'</small><a target="_blank" rel="noopener" href="https://github.com/'+safe(owner)+'/'+encodeURIComponent(x.name)+'">GitHub 저장소 열기 ↗</a></div>').join("");
+}
+async function loadRuns(){
+ try{
+   const j=await get("https://api.github.com/repos/"+owner+"/"+main+"/actions/runs?per_page=75");
+   const runs=j.workflow_runs||[];
+   const pick=match=>runs.find(r=>match(r));
+   const checks=[
+    {id:"codex-ci",run:pick(r=>r.name==="Codex editorial and website checks")},
+    {id:"pages-ci",run:pick(r=>r.name==="Publish Myeongdo digital poetry books" || r.name==="pages build and deployment")},
+    {id:"site-ci",run:pick(r=>r.name==="Public site availability audit")}
+   ];
+   let count=0;
+   for(const c of checks){const r=c.run;if(!r){badge($(c.id),"실행 기록 없음","neutral");continue}
+      if(r.status!=="completed"){badge($(c.id),"진행 중","neutral");continue}
+      if(r.conclusion==="success"){badge($(c.id),"검사 성공","good");count++}
+      else if(r.conclusion==="failure"){badge($(c.id),"검사 실패","fail")}
+      else {badge($(c.id),r.conclusion||"확인 필요","neutral")}
+   }
+   $("ci-number").textContent=String(count)+"/3";
+   $("ci-time").textContent="최근 확인된 워크플로 기록 · "+date(runs[0]?.created_at);
+ }catch(e){
+   ["codex-ci","pages-ci","site-ci"].forEach(id=>badge($(id),"조회 불가","neutral"));
+   $("ci-number").textContent="—";
+   $("ci-time").textContent="GitHub API 연결 실패 · 공개 Actions에서 직접 확인하세요.";
+ }
+}
+loadRepos();loadRuns();
+})();
+</script>
+</body></html>
