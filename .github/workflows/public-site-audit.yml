@@ -1,0 +1,34 @@
+name: Public site availability audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 1 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'operations/**'
+      - 'scripts/audit_public_sites.py'
+      - '.github/workflows/public-site-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  http-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify public site HTTP availability
+        run: python scripts/audit_public_sites.py
+      - name: Upload audit report (including on failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: myeongdo-public-site-audit
+          path: audit-reports/
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,45 @@
+name: Codex editorial and website checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  draft-and-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check essential pages exist
+        shell: bash
+        run: |
+          test -s index.html
+          test -s poetry-book/index.html
+          test -s essay-book/index.html
+          test -s operations/index.html
+      - name: Validate article drafts (data format, not facts)
+        run: python scripts/validate_issue.py --dir content/drafts
+      - name: Scan primary pages for local resource paths (advisory)
+        run: python scripts/check_site.py --root . --paths index.html poetry-book/index.html essay-book/index.html operations/index.html --warn-only
+      - name: Compile Python auditing tools
+        run: python -m py_compile scripts/validate_issue.py scripts/check_site.py scripts/audit_public_sites.py
+      - name: Syntax check public operations dashboard JavaScript
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path('operations/index.html').read_text(encoding='utf-8')
+          assert '<html lang="ko">' in html
+          assert '</html>' in html
+          assert '<script>' in html and '</script>' in html
+          script = html.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/myeongdo-dashboard.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/myeongdo-dashboard.js
