@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="고산골 낙엽과 찬바람을 배경으로 한 아구탕 식당, 따뜻한 뚝배기와 멀리 대화를 나누는 두 남자의 서정적인 수채화 풍경">
+<defs><linearGradient id="wall" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#f0e3d0"/><stop offset="1" stop-color="#b99d84"/></linearGradient><linearGradient id="glass" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#b5c2ba"/><stop offset="1" stop-color="#e1c7a9"/></linearGradient><linearGradient id="wood" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#ba8661"/><stop offset="1" stop-color="#684a38"/></linearGradient><radialGradient id="broth"><stop stop-color="#e88436"/><stop offset=".8" stop-color="#aa4d2b"/><stop offset="1" stop-color="#642f25"/></radialGradient><filter id="mist"><feGaussianBlur stdDeviation="12"/></filter><pattern id="grain" width="45" height="36" patternUnits="userSpaceOnUse"><path d="M4 8q14-6 25 0M12 27q12-4 26 0" fill="none" stroke="#d5b99f" stroke-width="2" opacity=".22"/></pattern></defs>
+<rect width="1600" height="900" fill="url(#wall)"/>
+<rect x="76" y="62" width="840" height="520" fill="#90755f"/>
+<rect x="103" y="88" width="785" height="467" fill="url(#glass)"/>
+<path d="M103 407Q332 265 485 362Q721 232 888 356V555H103Z" fill="#91a199" opacity=".7"/>
+<g stroke="#645b4c" stroke-width="21" stroke-linecap="round" fill="none"><path d="M260 525L320 114M647 527L607 89M107 339L352 190M639 280L845 141"/></g>
+<g fill="#bc7149" opacity=".84"><circle cx="300" cy="168" r="112"/><circle cx="172" cy="235" r="87"/><circle cx="572" cy="156" r="111"/><circle cx="750" cy="258" r="91"/></g>
+<g fill="#ddae63" opacity=".79"><circle cx="189" cy="119" r="70"/><circle cx="471" cy="225" r="100"/><circle cx="731" cy="135" r="86"/></g>
+<g fill="#966049" opacity=".95"><path d="M178 479q30-24 53 4q-26 22-53-4zM372 512q36-26 66 5q-33 21-66-5zM802 493q29-26 56 4q-29 27-56-4z"/></g>
+<path d="M497 90V552" stroke="#b89c7f" stroke-width="18"/>
+<rect x="960" y="83" width="547" height="394" rx="13" fill="#d4b898" stroke="#806c56" stroke-width="11"/>
+<rect x="986" y="106" width="495" height="348" fill="#eee1cf"/>
+<text x="1237" y="185" text-anchor="middle" font-family="sans-serif" font-size="46" font-weight="bold" fill="#735849">찬바람 부는 날</text><text x="1237" y="248" text-anchor="middle" font-family="sans-serif" font-size="39" fill="#786250">낯선 세상을 엿듣다</text><path d="M1032 291H1435M1032 322H1401M1032 353H1427M1032 384H1320" stroke="#a89b8b" stroke-width="10"/>
+<path d="M0 575Q646 555 1600 612V900H0Z" fill="url(#wood)"/>
+<path d="M0 575Q646 555 1600 612V900H0Z" fill="url(#grain)"/>
+<g transform="translate(114 620)"><ellipse cx="280" cy="170" rx="292" ry="104" fill="#503c30" opacity=".17"/><ellipse cx="280" cy="118" rx="260" ry="91" fill="#d9d6cb" stroke="#4e4743" stroke-width="27"/><ellipse cx="280" cy="111" rx="224" ry="73" fill="url(#broth)"/><g fill="#e8bd74"><path d="M102 117q65-68 142 13q62 52 155-5q-53 87-150 38q-83-55-147-46z"/><path d="M170 84q67-28 105 15q-58 22-105-15z"/></g><g fill="#5a8c61"><path d="M95 111l33-21 19 26-28 13zM293 148l43-25 20 16-43 18zM399 95l28-13 18 20-23 21z"/></g><g fill="#e7d4af"><ellipse cx="314" cy="92" rx="26" ry="18"/><ellipse cx="196" cy="139" rx="30" ry="16"/></g></g>
+<g fill="none" stroke="#fff1d9" stroke-width="19" opacity=".67" filter="url(#mist)"><path d="M282 628Q233 568 289 506Q317 464 276 430"/><path d="M449 645Q509 579 456 512Q433 474 462 428"/></g>
+<g transform="translate(1040 361)"><path d="M4 245Q-7 122 74 108Q152 102 174 249Z" fill="#4e5a61"/><circle cx="87" cy="72" r="57" fill="#bd9780"/><path d="M29 58Q45-11 98 16Q153 11 143 70Q95 47 29 58Z" fill="#5a5656"/><path d="M25 181Q93 160 161 198" stroke="#a27d69" stroke-width="27" fill="none" stroke-linecap="round"/></g>
+<g transform="translate(1275 355)"><path d="M4 259Q-8 135 72 121Q158 113 177 257Z" fill="#928074"/><circle cx="89" cy="85" r="60" fill="#c6a288"/><path d="M31 77Q35 18 92 22Q149 18 145 83Q86 51 31 77Z" fill="#716e68"/><path d="M36 193Q105 163 168 200" stroke="#b58f74" stroke-width="27" fill="none" stroke-linecap="round"/></g>
+<path d="M1023 613Q1179 590 1452 629L1600 789H978Z" fill="#826a57"/>
+<g transform="translate(1106 648)"><ellipse cx="93" cy="61" rx="108" ry="32" fill="#e8e2d3" stroke="#b5aa9d" stroke-width="9"/><ellipse cx="93" cy="56" rx="84" ry="20" fill="#bc7970"/><path d="M26 55q56-26 131 0" fill="none" stroke="#d3ac91" stroke-width="8"/></g>
+<g transform="translate(1359 667)"><rect x="0" y="0" width="37" height="101" rx="9" fill="#8d9b85"/><rect x="55" y="2" width="37" height="98" rx="9" fill="#a08b70"/><path d="M0 25h37M55 27h37" stroke="#e1d3ba" stroke-width="6"/></g>
+<g fill="#b46a41"><path d="M68 856q35-29 76 1q-35 25-76-1zM793 818q31-23 69 5q-33 23-69-5z"/></g>
+</svg>
