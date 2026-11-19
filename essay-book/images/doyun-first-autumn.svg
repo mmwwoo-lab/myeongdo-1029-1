@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="비슬산 가을 카페의 은빛 억새와 붉은 단풍 앞에서 외할아버지가 첫 가을을 맞은 손주를 안고 있는 따뜻한 수채화">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2=".1" y2="1"><stop stop-color="#e9e6d7"/><stop offset=".6" stop-color="#f6dfb3"/><stop offset="1" stop-color="#c5b597"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bba77d"/><stop offset="1" stop-color="#836e5b"/></linearGradient>
+<radialGradient id="sun"><stop stop-color="#fff2cf" stop-opacity=".9"/><stop offset="1" stop-color="#fff2cf" stop-opacity="0"/></radialGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="11"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/><circle cx="1180" cy="219" r="240" fill="url(#sun)"/>
+<path d="M0 477Q265 331 540 414Q857 287 1110 414Q1350 343 1600 427V900H0Z" fill="#a7ac8e" opacity=".62"/>
+<path d="M0 530Q323 419 643 474Q1090 385 1600 470V900H0Z" fill="url(#ground)"/>
+<g fill="#ad4e3c" opacity=".91"><circle cx="172" cy="220" r="118"/><circle cx="304" cy="157" r="134"/><circle cx="438" cy="238" r="103"/><circle cx="86" cy="313" r="86"/></g>
+<g fill="#d98c4f" opacity=".84"><circle cx="235" cy="118" r="115"/><circle cx="410" cy="157" r="112"/><circle cx="105" cy="137" r="79"/></g>
+<path d="M260 496L267 135M267 324L121 185M264 311L423 187" stroke="#74634d" stroke-width="23" fill="none" stroke-linecap="round"/>
+<g transform="translate(980 185)" opacity=".9"><rect width="504" height="378" rx="15" fill="#d5c4ae" stroke="#8a7865" stroke-width="18"/><rect x="29" y="26" width="448" height="271" fill="#efe2ce"/><g fill="#84a0a2"><path d="M46 260V91h86v169zM151 259V70h94v189zM277 259V109h82v150zM378 259V60h77v199z"/></g><path d="M29 296h448" stroke="#92775a" stroke-width="17"/><rect x="62" y="306" width="379" height="43" rx="6" fill="#9d684f"/></g>
+<g stroke="#9d8c73" stroke-width="5" opacity=".84" fill="none"><path d="M50 847Q82 683 52 526M118 840Q142 657 111 489M191 850Q205 704 197 561M297 875Q303 689 280 526M401 848Q428 659 415 532M516 861Q518 693 492 543M592 847Q606 692 590 518M1396 879Q1390 698 1375 564M1501 862Q1510 708 1483 559"/></g>
+<g fill="#e6d6ad" opacity=".95"><ellipse cx="54" cy="514" rx="27" ry="71" transform="rotate(-23 54 514)"/><ellipse cx="110" cy="479" rx="30" ry="69" transform="rotate(15 110 479)"/><ellipse cx="190" cy="549" rx="30" ry="76" transform="rotate(-14 190 549)"/><ellipse cx="280" cy="513" rx="34" ry="70" transform="rotate(24 280 513)"/><ellipse cx="410" cy="519" rx="32" ry="79" transform="rotate(-18 410 519)"/><ellipse cx="490" cy="534" rx="31" ry="76" transform="rotate(16 490 534)"/><ellipse cx="590" cy="509" rx="30" ry="69" transform="rotate(-14 590 509)"/><ellipse cx="1376" cy="554" rx="30" ry="65" transform="rotate(-16 1376 554)"/><ellipse cx="1480" cy="550" rx="29" ry="72" transform="rotate(19 1480 550)"/></g>
+<g transform="translate(650 274)"><path d="M8 547Q-16 329 111 294Q221 265 264 399L294 619H0Z" fill="#596e66"/><circle cx="134" cy="161" r="104" fill="#d9b49a"/><path d="M40 147Q29 38 147 46Q241 41 231 158Q143 104 40 147Z" fill="#9b9b94"/><path d="M79 178q22-13 45 0M157 177q25-16 48-1" stroke="#625f5e" stroke-width="7" fill="none"/><path d="M119 219q23 20 44-2" stroke="#aa7968" stroke-width="5" fill="none"/><path d="M61 383Q172 317 257 410" stroke="#d2a991" stroke-width="38" fill="none" stroke-linecap="round"/></g>
+<g transform="translate(827 475)"><path d="M7 283Q-21 126 91 114Q209 89 242 287Z" fill="#e9c4a3"/><circle cx="121" cy="84" r="81" fill="#f3cfb2"/><path d="M43 66Q49-15 136 0Q197 2 202 70Q122 39 43 66Z" fill="#534b46"/><circle cx="93" cy="90" r="7" fill="#363737"/><circle cx="149" cy="90" r="7" fill="#363737"/><path d="M105 126q18 17 35-1" stroke="#ad7868" stroke-width="5" fill="none"/><path d="M24 206Q100 175 195 217" stroke="#f3cfb2" stroke-width="26" fill="none" stroke-linecap="round"/></g>
+<g transform="translate(1193 422)" opacity=".93"><path d="M20 284Q-2 137 96 125Q198 101 226 292Z" fill="#ae7a69"/><circle cx="113" cy="80" r="75" fill="#dbac91"/><path d="M41 61Q43-7 123 6Q186 14 183 72Q102 42 41 61Z" fill="#4d4746"/><path d="M65 106q50 38 93 0" stroke="#a1786c" stroke-width="6" fill="none"/></g>
+<path d="M0 0h1600v900H0z" stroke="#f6e5cb" stroke-width="17" fill="none" opacity=".54"/>
+</svg>
