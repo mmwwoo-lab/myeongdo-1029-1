@@ -767,3 +767,21 @@ button,.masthead,footer{font-family:var(--myeongjo)!important;font-weight:400;}
  }
  .book .page:has(.essay-twentytwo) .essay-body p {margin-bottom:4px!important}
 }
+
+/* Chapter 23 · balanced automatic literary continuation, using shared page gutters. */
+.book .page:has(.essay-twentythree) .essay-body{
+ display:block!important;flex:1 1 auto!important;min-height:0!important;
+ overflow:hidden!important;font-size:11.8px!important;line-height:1.43!important;
+ letter-spacing:-.025em!important;padding:2px 0 16px!important;
+}
+.book .page:has(.essay-twentythree) .essay-body p{
+ display:block!important;margin:0 0 5px!important;
+ line-height:inherit!important;text-align:justify!important;
+}
+.book .page:has(.essay-twentythree) .essay-body p:last-child{margin-bottom:0!important}
+@media(max-width:800px){
+ .book .page:has(.essay-twentythree) .essay-body{
+  font-size:11.2px!important;line-height:1.40!important;
+ }
+ .book .page:has(.essay-twentythree) .essay-body p{margin-bottom:4px!important}
+}
