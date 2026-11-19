@@ -205,5 +205,34 @@ $('#toc-list').addEventListener('click',e=>{const b=e.target.closest('[data-to]'
 $('#prev').onclick=()=>move(-1);$('#next').onclick=()=>move(1);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeToc();if(!$('#toc').hidden||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
 let start=null;$('#book').addEventListener('touchstart',e=>{start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});$('#book').addEventListener('touchend',e=>{if(!start)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5&&$('#toc').hidden)move(dx<0?1:-1);start=null},{passive:true});
-mobile.addEventListener('change',()=>{stop();build();index=0;render()});window.addEventListener('resize',()=>{if(document.querySelector('.essay-fixed')){fitFixedEssay($('#left'));fitFixedEssay($('#right'))}});window.addEventListener('pagehide',stop);
+// A change of reading width changes text wrapping. Rebuild from actual leaf
+// measurements and preserve the current chapter rather than showing clipped text.
+function repaginateKeepingChapter(){
+ const old=pages[index],essayNum=old&&old.essay?.number,part=old?.partNumber||1,kind=old?.type;
+ stop();build();
+ let target=-1;
+ if(essayNum!=null){
+  target=pages.findIndex(p=>p.essay?.number===essayNum&&p.type==='essay'&&p.partNumber===part);
+  if(target<0)target=pages.findIndex(p=>p.essay?.number===essayNum&&p.type==='essay');
+ }
+ if(target<0)target=pages.findIndex(p=>p.type===kind);
+ index=Math.max(0,target);
+ if(!mobile.matches)index-=index%2;
+ render();
+}
+let lastWidth=$('#book').getBoundingClientRect().width,resizeTimer=null;
+mobile.addEventListener('change',repaginateKeepingChapter);
+window.addEventListener('resize',()=>{
+ const width=$('#book').getBoundingClientRect().width;
+ if(Math.abs(width-lastWidth)<2)return;
+ lastWidth=width;
+ clearTimeout(resizeTimer);
+ resizeTimer=setTimeout(repaginateKeepingChapter,180);
+});
+if(document.fonts?.ready)document.fonts.ready.then(()=>{
+ // A late webfont may change each line's measured width.
+ const currentFont=document.fonts.check('12px "Noto Serif KR"');
+ if(currentFont)repaginateKeepingChapter();
+});
+window.addEventListener('pagehide',stop);
 build();const match=location.hash.match(/page-(\d+)/);if(match){index=Math.min(pages.length-1,Math.max(0,Number(match[1])-1));if(!mobile.matches)index-=index%2}render();
