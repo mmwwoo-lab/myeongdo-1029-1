@@ -209,6 +209,47 @@ footer{display:none!important}
  .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading .poem-art{width:70px!important;height:70px!important}
  .book .leaf[data-kind='poem'] .illustrated-poem .poem-center{padding-left:9px!important;padding-right:6px!important}
 }
+
+/* 2026-11-23: 삽화를 제목 오른쪽으로 고정하고 전체 균형 재조정 */
+.illustrated-poem .poem-heading{display:grid!important;grid-template-columns:minmax(0,1fr) 112px!important;gap:16px!important;align-items:center!important}
+.illustrated-poem .poem-heading-text{order:1!important;min-width:0!important;padding-right:4px!important}
+.illustrated-poem .poem-art{order:2!important;justify-self:end!important;align-self:center!important;margin:0 4px 0 0!important}
+.illustrated-poem .poem-center{padding-left:clamp(18px,2.2vw,28px)!important;padding-right:clamp(10px,1.2vw,16px)!important}
+@media(max-width:800px){
+ .illustrated-poem .poem-heading{grid-template-columns:minmax(0,1fr) 90px!important;gap:10px!important}
+ .illustrated-poem .poem-art{margin-right:2px!important}
+ .illustrated-poem .poem-center{padding-left:14px!important;padding-right:8px!important}
+}
+@media(max-height:650px){
+ .illustrated-poem .poem-heading{grid-template-columns:minmax(0,1fr) 70px!important;gap:8px!important}
+ .illustrated-poem .poem-center{padding-left:12px!important;padding-right:6px!important}
+}
+
+
+/* 최종 검증 수정: 이전 고우선순위 왼쪽 삽화 배치를 확실히 덮어쓰기 */
+.book .leaf[data-kind='poem'] .illustrated-poem .poem-heading{
+  grid-template-columns:minmax(0,1fr) 106px!important;
+  column-gap:12px!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+.book .leaf[data-kind='poem'] .illustrated-poem .poem-heading .poem-heading-text{
+  grid-column:1!important;grid-row:1!important;order:0!important;
+}
+.book .leaf[data-kind='poem'] .illustrated-poem .poem-heading .poem-art{
+  grid-column:2!important;grid-row:1!important;order:1!important;
+  width:100px!important;height:100px!important;
+  margin:0 3px 0 0!important;justify-self:end!important;
+}
+@media(max-width:800px){
+ .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading{grid-template-columns:minmax(0,1fr) 86px!important;column-gap:8px!important}
+ .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading .poem-art{width:82px!important;height:82px!important}
+ .bookframe{height:min(710px,calc(100dvh - 154px))!important}
+}
+@media(max-height:650px){
+ .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading{grid-template-columns:minmax(0,1fr) 68px!important;column-gap:6px!important}
+ .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading .poem-art{width:64px!important;height:64px!important}
+}
 </style></head><body><header class="topbar"><div><div class="brand">明道齋 · 명도재의 서가</div><div class="edition">제2집 · 시 100편 · 2026년 11월</div></div><div class="toolbar"><button id="tocButton" type="button">☰ 작품 목록</button><button id="firstButton" type="button">⌂ 표지</button><button id="turnSound" class="sound-toggle" type="button" aria-label="책장 넘김 소리 끄기" aria-pressed="true">🔊 책장 소리</button><a href="https://mmwwoo-lab.github.io/myeongdo-1029-1/poetry-book/" target="_blank" rel="noopener">제1시집 ↗</a></div></header>
 <main><p class="reader-note">책 양쪽의 금빛 ‹ › 버튼으로 책장을 넘기세요 · 스마트폰에서는 좌우로 밀기</p><div class="bookframe"><div id="book" class="book" aria-label="제2집 책장형 보기"><article id="left" class="leaf left"></article><article id="right" class="leaf right"></article><div id="flip" class="flip"></div><button id="edge-prev" type="button" class="page-crescent crescent-prev" aria-label="이전 페이지 넘기기" title="이전 페이지">‹</button><button id="edge-next" type="button" class="page-crescent crescent-next" aria-label="다음 페이지 넘기기" title="다음 페이지">›</button><aside id="tocOverlay" hidden aria-label="제2집 전체 목차"><div class="toc-head"><h2>제2집 · 100편 차례</h2><button type="button" id="closeToc" aria-label="닫기">✕</button></div><div id="tocEntries"></div></aside></div></div>
 <div class="controls"><button id="prev" type="button">❮ 이전</button><span id="pageStat">1 / 1</span><button id="next" type="button">다음 ❯</button></div><span id="voiceStatus" class="voice-status" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"></span></main><footer>© 2026 명도재 이명우 · 제2집 『고향 들길에서 고산골까지』 · 생활 속에서 길어 올린 서정시 100편</footer>
