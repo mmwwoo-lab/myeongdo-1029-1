@@ -144,6 +144,21 @@ footer{display:none!important}
  .illustrated-poem .poem-bottom{margin-top:5px!important;margin-bottom:32px!important}
  .leaf[data-kind='poem']>.page-read-control{bottom:6px!important}
 }
+
+/* 시 본문 오른쪽 들여쓰기: 기존 좌측 페이지 안쪽 여백 대비 약 30% 확대. 모든 100편 적용. */
+.book .leaf[data-kind="poem"] .illustrated-poem .poem-center{
+  padding-left:clamp(7px,0.96vw,12px)!important;
+  padding-right:0!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+}
+@media(max-width:800px){
+ .book .leaf[data-kind="poem"] .illustrated-poem .poem-center{padding-left:6px!important}
+}
+@media(max-width:480px){
+ .book .leaf[data-kind="poem"] .illustrated-poem .poem-center{padding-left:5px!important}
+}
 </style></head><body><header class="topbar"><div><div class="brand">明道齋 · 명도재의 서가</div><div class="edition">제2집 · 시 100편 · 2026년 11월</div></div><div class="toolbar"><button id="tocButton" type="button">☰ 작품 목록</button><button id="firstButton" type="button">⌂ 표지</button><button id="turnSound" class="sound-toggle" type="button" aria-label="책장 넘김 소리 끄기" aria-pressed="true">🔊 책장 소리</button><a href="https://mmwwoo-lab.github.io/myeongdo-1029-1/poetry-book/" target="_blank" rel="noopener">제1시집 ↗</a></div></header>
 <main><p class="reader-note">책 양쪽의 금빛 ‹ › 버튼으로 책장을 넘기세요 · 스마트폰에서는 좌우로 밀기</p><div class="bookframe"><div id="book" class="book" aria-label="제2집 책장형 보기"><article id="left" class="leaf left"></article><article id="right" class="leaf right"></article><div id="flip" class="flip"></div><button id="edge-prev" type="button" class="page-crescent crescent-prev" aria-label="이전 페이지 넘기기" title="이전 페이지">‹</button><button id="edge-next" type="button" class="page-crescent crescent-next" aria-label="다음 페이지 넘기기" title="다음 페이지">›</button><aside id="tocOverlay" hidden aria-label="제2집 전체 목차"><div class="toc-head"><h2>제2집 · 100편 차례</h2><button type="button" id="closeToc" aria-label="닫기">✕</button></div><div id="tocEntries"></div></aside></div></div>
 <div class="controls"><button id="prev" type="button">❮ 이전</button><span id="pageStat">1 / 1</span><button id="next" type="button">다음 ❯</button></div><span id="voiceStatus" class="voice-status" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"></span></main><footer>© 2026 명도재 이명우 · 제2집 『고향 들길에서 고산골까지』 · 생활 속에서 길어 올린 서정시 100편</footer>
