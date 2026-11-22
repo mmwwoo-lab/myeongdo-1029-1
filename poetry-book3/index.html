@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>명도재 이명우 제3시집 · 고산골 메타세쿼이아 길에서 신천 물길까지</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Brush+Script&display=swap');
+    @font-face {
+      font-family: 'Myeongdo Brush';
+      src: url('../poetry-book/media/fonts/NanumBrushScript-Regular.ttf') format('truetype');
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #263c3b;
+      --muted: #7d8175;
+      --paper: #ffffff;
+      --accent: #9b704b;
+      --book-cover: #173b32;
+      --book-foil: #eddbac;
+      --book-natural-height: 720px;
+      --book-viewport-scale: 1;
+      /* 시 본문 글자 크기 8포인트(8pt) 고정 */
+      --poem-font-size: 8pt;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background-color: #ffffff !important;
+      color: var(--ink);
+      font-family: 'Gowun Batang', 'Batang', 'Noto Serif KR', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; cursor: pointer; color: inherit; }
+
+    header {
+      height: 74px;
+      margin: 0 4%;
+      padding-inline: clamp(12px, 2.5vw, 34px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #eee7f6 !important;
+      color: #34323b !important;
+      border-bottom: 1px solid #d6c9e5 !important;
+      border-radius: 0 0 12px 12px;
+      gap: 8px;
+      position: relative;
+      z-index: 40;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: #34323b !important;
+      font-family: 'Gowun Batang', serif;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+    .brand span {
+      font: 12px 'Malgun Gothic', sans-serif;
+      letter-spacing: 1px;
+      margin-left: 10px;
+      font-weight: 500;
+    }
+    .edition {
+      font-size: 10.5px;
+      letter-spacing: 2.5px;
+      color: #555260 !important;
+      font-family: Arial, sans-serif;
+      white-space: nowrap;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill-btn {
+      background: #f9f6fc !important;
+      border: 1px solid #b5a5ca !important;
+      color: #34323b !important;
+      border-radius: 20px;
+      padding: 6px 13px;
+      font-size: 12px;
+      font-weight: 650;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .pill-btn:hover { background: #e6dcf2 !important; }
+    .pill-btn.active {
+      background: #173b32 !important;
+      color: #eddbac !important;
+      border-color: #173b32 !important;
+    }
+    .sel-interval {
+      background: #f9f6fc;
+      border: 1px solid #b5a5ca;
+      color: #34323b;
+      border-radius: 16px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .auto-progress-bar {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 3px;
+      background: rgba(23, 59, 50, 0.12);
+      border-radius: 0 0 12px 12px;
+      overflow: hidden;
+    }
+    .auto-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #173b32, #9b704b, #173b32);
+      transition: width 0.12s linear;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 14px auto 0;
+      padding: 0 26px;
+    }
+
+    .book-frame {
+      width: 92%;
+      height: calc(var(--book-natural-height) * var(--book-viewport-scale));
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 22px 48px rgba(15, 25, 22, 0.24), 0 4px 12px rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+      filter: drop-shadow(0 14px 20px rgba(25, 35, 35, 0.12));
+    }
+
+    .book {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      perspective: 2200px;
+      border-radius: 4px;
+      height: var(--book-natural-height);
+      width: calc(100% / var(--book-viewport-scale));
+      transform: scale(var(--book-viewport-scale));
+      transform-origin: top left;
+      isolation: isolate;
+      background: #fff;
+    }
+
+    .book::before {
+      content: "";
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+      left: calc(50% - 2px);
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(90deg, #9fa5a8 0%, #d0d3d4 27%, #eef0f0 50%, #c0c5c7 77%, #9da3a6 100%);
+      box-shadow: -6px 0 12px rgba(38, 46, 49, 0.14), 6px 0 12px rgba(38, 46, 49, 0.14);
+    }
+
+    .page {
+      position: relative !important;
+      background: #ffffff !important;
+      padding: 54px 66px 68px;
+      min-width: 0;
+      height: var(--book-natural-height);
+      overflow: hidden !important;
+      scrollbar-width: none !important;
+      cursor: pointer;
+    }
+    .page::-webkit-scrollbar { display: none !important; }
+
+    .book > .page.left:not(.cover-page):not(.back-cover-page) {
+      border-radius: 4px 0 0 4px;
+      background: linear-gradient(90deg, #ffffff 0%, #ffffff 82%, #f7f7f5 93%, #e9e9e7 99%, #d9dbdc 100%) !important;
+      box-shadow: inset -12px 0 17px -12px rgba(43, 49, 51, 0.25), 0 2px 3px rgba(34, 44, 46, 0.09);
+    }
+    .book > .page.right:not(.cover-page):not(.back-cover-page) {
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(90deg, #dadcdd 0%, #e8e9e8 1%, #f7f7f5 8%, #ffffff 19%, #ffffff 100%) !important;
+      box-shadow: inset 12px 0 17px -12px rgba(43, 49, 51, 0.25), 0 2px 3px rgba(34, 44, 46, 0.09);
+    }
+
+    .book > .page.section-leaf, .turn .page.section-leaf {
+      background: linear-gradient(105deg, #faf5e9 0%, #f9f3e5 50%, #f6efdf 100%) !important;
+    }
+
+    .page:after {
+      content: attr(data-number);
+      position: absolute;
+      bottom: 14px !important;
+      left: 50%;
+      transform: translateX(-50%);
+      font: 11px Georgia, serif;
+      color: #8e8b7e;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .page.cover-page, .page.back-cover-page {
+      padding: 12px !important;
+      background: var(--book-cover) !important;
+      border: 1px solid #83998b !important;
+      box-shadow: inset 5px 0 12px #071d1888, inset -2px 0 4px #b9cda544 !important;
+    }
+    .page.cover-page:after, .page.back-cover-page:after { display: none; }
+    .page.cover-page:before, .page.back-cover-page:before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      z-index: 2;
+      pointer-events: none;
+      border: 1px solid #a6b99a88 !important;
+      box-shadow: inset 0 0 0 2px #f8eedc18, 0 0 0 2px #071d1866 !important;
+    }
+
+    .cover.hardcover-front.editorial-cover, .back-cover {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: var(--book-cover) !important;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.042) 0 1px, transparent 1px 7px),
+        repeating-linear-gradient(0deg, rgba(235,231,207,.020) 0 1px, transparent 1px 5px),
+        linear-gradient(125deg, rgba(255,255,255,.035), transparent 46%, rgba(0,0,0,.09)) !important;
+      border: 1px solid #83998b !important;
+      box-shadow: inset 0 0 0 1px #d8c69022, inset 12px 0 17px #081d172e, 3px 3px 0 #0d2922, 5px 5px 0 #476357 !important;
+      overflow: hidden;
+    }
+
+    .editorial-cover-frame {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: calc(100% - 38px);
+      height: calc(100% - 38px);
+      margin: 19px;
+      padding: 36px 28px 34px;
+      border: 1px solid #e4d5a780 !important;
+      box-shadow: inset 0 0 0 1px #e4d5a71a !important;
+      text-align: center;
+      color: #efe6d0;
+    }
+    .editorial-cover-kicker {
+      margin: 0;
+      font: 500 11.5px/1.6 'Gowun Batang', serif;
+      letter-spacing: .24em;
+      color: #e3d6b3;
+    }
+    .editorial-cover-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+    .editorial-cover-rule {
+      width: 44px;
+      height: 1px;
+      background: #d5be83;
+      margin-bottom: 26px;
+    }
+    .editorial-cover-title {
+      margin: 0 !important;
+      font-family: 'Myeongdo Brush', 'Nanum Brush Script', 'Gowun Batang', serif !important;
+      font-size: clamp(36px, 3.6vw, 50px) !important;
+      font-weight: 700 !important;
+      line-height: 1.28 !important;
+      letter-spacing: -.03em !important;
+      color: var(--book-foil) !important;
+      text-shadow: 1px 2px 1px #0b251f, 0 4px 9px #071a1666 !important;
+    }
+    .editorial-cover-subtitle {
+      margin: 20px 0 0 !important;
+      font: 400 11.5px/1.75 'Gowun Batang', serif !important;
+      letter-spacing: .09em !important;
+      color: #eee5ce !important;
+    }
+    .editorial-cover-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #e6dbc1;
+      font: 400 11.5px/1.5 'Gowun Batang', serif;
+      letter-spacing: .15em;
+    }
+
+    .back-cover {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+    .back-cover-mark {
+      font: 23px/1.5 'Gowun Batang', serif;
+      letter-spacing: .22em;
+      color: var(--book-foil);
+    }
+    .back-cover-quote {
+      font: 14px/2.2 'Gowun Batang', serif;
+      margin: 40px 24px;
+      letter-spacing: 1.5px;
+      color: #f1ead8;
+    }
+    .back-cover-title {
+      font: 32px/1.4 'Myeongdo Brush', 'Nanum Brush Script', serif;
+      color: var(--book-foil);
+    }
+    .back-cover-author {
+      font-size: 10.5px;
+      letter-spacing: 3px;
+      color: #e7dbc2;
+      margin-top: 12px;
+    }
+
+    /* ==================== 본문 시 페이지 (1집 편집 구성 + 8pt + 상하좌우 넉넉한 여백) ==================== */
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      line-height: 1.7;
+      font-family: Arial, sans-serif;
+    }
+
+    section.poem {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 46px !important;
+    }
+
+    .poem-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #dedbcf;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      font-size: 8pt;
+      color: #8a8e80;
+      letter-spacing: 1px;
+    }
+
+    .poem-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 100px;
+      gap: 12px;
+      align-items: center;
+      min-height: 100px;
+      margin: 0 0 14px;
+      padding: 0 12px;
+    }
+
+    .poem-heading h2 {
+      font-family: 'Myeongdo Brush', 'Nanum Brush Script', 'Gowun Batang', serif;
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: #273c3c;
+      margin: 0;
+      word-break: keep-all;
+    }
+
+    .poem-art {
+      display: block;
+      width: 100px;
+      height: 100px;
+      margin: 0;
+      background-image: url('../poetry-book/media/poetry-watercolors.png');
+      background-size: 500% 400%;
+      background-position: var(--art-x) var(--art-y);
+      background-repeat: no-repeat;
+      border-radius: 4px;
+      mix-blend-mode: multiply;
+      mask-image: radial-gradient(ellipse at center, #000 55%, #000d 65%, transparent 76%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, #000d 65%, transparent 76%);
+    }
+
+    /* 페이지 내 시 글자 크기 8포인트(8pt) & 상하좌우 넉넉한 여백 */
+    .verse-box-8pt {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 30px;
+      margin: 6px 18px;
+      background: rgba(250, 247, 238, 0.38);
+      border-radius: 6px;
+    }
+
+    .verse {
+      white-space: pre-wrap;
+      font-family: 'Gowun Batang', 'Batang', 'Noto Serif KR', serif;
+      font-size: 8pt !important; /* 정확히 8포인트 고정 */
+      line-height: 1.78 !important;
+      letter-spacing: 0.01em;
+      color: #263c3b;
+      word-break: keep-all;
+      margin: 0;
+    }
+
+    .song, .colophon.editorial, .book-contents, .section-opener {
+      max-width: 440px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6px 14px 44px;
+    }
+
+    .song h1, .colophon h2, .book-contents h2, .section-opener h2 {
+      font-family: 'Gowun Batang', 'Batang', serif;
+      font-size: 23px !important;
+      font-weight: 400;
+      line-height: 1.38;
+      margin: 8px 0 10px !important;
+      color: #20343c;
+    }
+
+    .colophon.editorial p, .section-note, .song .intro {
+      font-size: 8pt !important;
+      line-height: 1.72 !important;
+      color: #4f5d57;
+      margin: 0 0 7px;
+      word-break: keep-all;
+    }
+
+    /* 여는 장(02쪽) 16:9 비율 꽉 찬 영상 컨테이너 & 〈가을〉 시낭송 영상 입력/선택창 */
+    .opening-video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0f1e1c;
+      border: 1px solid #cfd7d2;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px auto;
+      box-shadow: 0 6px 18px rgba(20, 35, 30, 0.15);
+      flex: 0 0 auto;
+    }
+    .opening-video-frame video,
+    .opening-video-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      max-height: none !important;
+      aspect-ratio: 16 / 9 !important;
+      object-fit: cover !important;
+      display: block !important;
+      margin: 0 !important;
+      border: 0 !important;
+    }
+    .video-input-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin: 4px 0;
+      font-size: 7.5pt;
+      width: 100%;
+    }
+    .video-input-bar select, .video-input-bar input[type="text"] {
+      border: 1px solid #c5cdc7;
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-size: 7.5pt;
+      background: #f9faf8;
+      color: #263c3b;
+    }
+
+    .part-link {
+      padding: 7px 0;
+      border-bottom: 1px solid #e2e4de;
+    }
+    .part-link button {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #263c3b;
+    }
+    .part-link button:hover { color: var(--accent); }
+    .part-link p {
+      font-size: 7.5pt;
+      color: #7d8175;
+      margin: 2px 0 0;
+    }
+
+    .chapter-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5px 14px;
+      margin-top: 6px;
+    }
+    .chapter-list button {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      border-bottom: 1px solid #e4dfd3;
+      background: none;
+      padding: 3px 0;
+      font-size: 7.8pt;
+      color: #263c3b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chapter-list button span {
+      font: 7pt Georgia, serif;
+      color: #92947f;
+      flex-shrink: 0;
+    }
+    .chapter-list button:hover { color: var(--accent); font-weight: 700; }
+
+    .book .page-crescent {
+      position: absolute;
+      top: 50%;
+      z-index: 24;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 38px;
+      height: 80px;
+      padding: 0;
+      border: 1px solid #b8a77d;
+      background: linear-gradient(135deg, #efe3bb, #d7c28c);
+      color: #493d25;
+      font-family: Georgia, serif;
+      font-size: 34px;
+      line-height: 1;
+      box-shadow: 0 3px 9px rgba(29, 34, 30, 0.17);
+      cursor: pointer;
+      transition: background .2s ease, filter .2s ease;
+    }
+    .book .crescent-prev {
+      left: 0;
+      border-left: 0;
+      border-radius: 0 90px 90px 0;
+      padding-right: 4px;
+    }
+    .book .crescent-next {
+      right: 0;
+      border-right: 0;
+      border-radius: 90px 0 0 90px;
+      padding-left: 4px;
+    }
+    .book .page-crescent:hover {
+      background: #eddaa5;
+      filter: brightness(1.04);
+    }
+    .book .page-crescent[hidden] { display: none !important; }
+
+    .book .page > .page-read-control {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 33px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      z-index: 32 !important;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+    .book .page > .page-read-control button {
+      pointer-events: auto !important;
+      min-height: 30px !important;
+      padding: 5px 14px !important;
+      background: #e8efe4;
+      color: #234b39;
+      border: 1px solid #a9bda9;
+      border-radius: 22px;
+      font-size: 11px !important;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    .book .page.cover-page .page-read-control button {
+      background: #eee2bb;
+      color: #28443b;
+      border-color: #d0bb83;
+    }
+
+    .turn {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      transform-origin: left center;
+      pointer-events: none;
+      transform-style: preserve-3d;
+      z-index: 15;
+    }
+    .turn.active {
+      display: block;
+      animation: forward .82s ease-in-out forwards;
+    }
+    .turn.back {
+      left: 0;
+      transform-origin: right center;
+      animation: backward .82s ease-in-out forwards;
+    }
+    .sheet-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: var(--paper);
+      box-shadow: 0 0 1px #b6ae9c, 8px 0 25px #0003;
+      overflow: hidden;
+    }
+    .sheet-front { transform: rotateY(0deg) translateZ(.2px); }
+    .sheet-back { transform: rotateY(180deg) translateZ(.2px); }
+    @keyframes forward { to { transform: rotateY(-180deg); } }
+    @keyframes backward { to { transform: rotateY(180deg); } }
+
+    .book #toc {
+      position: absolute;
+      z-index: 50;
+      left: 50%;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      height: 100%;
+      background: #faf7ee;
+      box-shadow: -8px 0 26px #13251c33;
+      overflow-y: auto;
+      padding: 16px 20px !important;
+    }
+    .book #toc[hidden] { display: none !important; }
+    .toc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+    .toc-head button { border: 0; background: none; padding: 5px 8px; }
+    .book #toc h2 { font: 18px 'Gowun Batang', serif; margin: 10px 0 12px; }
+    #toc-list button {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+      text-align: left;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid #e3dfd3;
+      padding: 6px 2px;
+      font-size: 8.5pt;
+    }
+    #toc-list button:hover { color: var(--accent); font-weight: 700; }
+    #toc-list h3 { margin: 12px 0 3px; font-size: 8.5pt; color: var(--accent); }
+    #toc-list button span { color: #96998c; font-size: 7.5pt; }
+
+    #recital-status {
+      display: block;
+      position: sticky;
+      top: 8px;
+      z-index: 35;
+      margin: 6px auto;
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: 1px solid #c4d3c6;
+      background: #eaf1e5;
+      color: #214836;
+      box-shadow: 0 3px 12px rgba(0,0,0,.12);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      max-width: 92%;
+      cursor: pointer;
+    }
+    #recital-status[hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="#page-1" onclick="event.preventDefault();go(0)">明道齋 <span>명도재의 서가 · 제3시집</span></a>
+    <span class="edition">POETRY COLLECTION III · 100 POEMS (8pt EDITION)</span>
+    <div class="header-actions">
+      <button type="button" id="btn-auto" class="pill-btn active" onclick="toggleAutoFlip()">⏸ 자동 넘김 중</button>
+      <select id="auto-sec" class="sel-interval" onchange="setAutoSec(this.value)" title="자동 책장 넘김 간격">
+        <option value="5">5초</option>
+        <option value="8" selected>8초</option>
+        <option value="12">12초</option>
+        <option value="18">18초</option>
+      </select>
+      <button type="button" id="btn-bgm" class="pill-btn" onclick="toggleBgm()">🎼 배경음악</button>
+      <button type="button" id="btn-sound" class="pill-btn active" onclick="togglePageSound()">🔊 책장 소리</button>
+      <button type="button" id="contents" class="pill-btn" aria-expanded="false" aria-controls="toc">목차 <span>☰</span></button>
+    </div>
+    <div class="auto-progress-bar"><div class="auto-progress-fill" id="auto-fill"></div></div>
+  </header>
+
+  <main>
+    <div class="book-frame">
+      <div id="book" class="book" aria-label="명도재 이명우 제3창작 시집">
+        <article id="left" class="page left"></article>
+        <article id="right" class="page right"></article>
+        <div id="turn" class="turn" aria-hidden="true"></div>
+        <button type="button" id="edge-prev" class="page-crescent crescent-prev" aria-label="이전 페이지 넘기기" title="이전 페이지">‹</button>
+        <button type="button" id="edge-next" class="page-crescent crescent-next" aria-label="다음 페이지 넘기기" title="다음 페이지">›</button>
+        <aside id="toc" hidden aria-label="시집 목차">
+          <div class="toc-head"><span>CONTENTS · 제3시집 100편</span><button id="close" aria-label="목차 닫기">✕</button></div>
+          <h2>차례 · 다섯 갈래의 길</h2>
+          <div id="toc-list"></div>
+        </aside>
+      </div>
+    </div>
+    <button id="recital-status" type="button" aria-live="polite" hidden>🔊 시낭송 중 · 화면을 누르면 일시정지</button>
+  </main>
+
+  <script>
+    'use strict';
+    const DATA = {"title": "고산골 메타세쿼이아 길에서 신천 물길까지", "subtitle": "시골 들판의 소 고삐부터 대명동·봉덕동·고산골·신천 산책까지", "sections": [{"num": 1, "title": "소 고삐 잡고 풀 먹이던 시골 하늘", "subtitle": "어린 시절 부모님 농사일 돕기와 농촌 풍경", "intro": "학교에서 돌아와 누렁소 고삐를 쥐고 풀 많은 언덕과 개울가를 찾아다니던 오후, 부모님 모내기와 보리타작을 돕고 느티나무 그늘에서 함께 먹던 새참 국수까지. 내 마음의 뿌리가 된 시골의 파란 하늘과 따뜻한 농촌 풍경을 담았습니다."}, {"num": 2, "title": "국민학교 운동장과 달리기 일등", "subtitle": "소꿉놀이 · 운동장 축구 · 고무줄놀이 · 가을 운동회", "intro": "깨진 기와장과 풀잎으로 밥상을 차리던 소꿉놀이, 가방 두 개로 골대를 세우고 해 질 때까지 뛰던 축구, 여학생들의 고무줄놀이와 만국기 펄럭이던 가을 운동회 날 달리기 일등으로 공책을 타던 순간까지. 웃음소리가 떠나지 않던 국민학교 운동장의 추억입니다."}, {"num": 3, "title": "대명동 고교 시절과 정든 봉덕동", "subtitle": "도시의 청춘, 대학 졸업 후 봉덕동에 뿌리내린 삶", "intro": "시골 소년이 도시로 나와 밤늦도록 스탠드 불을 밝히던 대명동 고등학교 시절과, 대학 졸업 후 봉덕동에 첫 둥지를 틀고 가정을 일구어 오늘에 이르기까지. 인정 넘치는 봉덕시장 골목과 창밖 앞산이 지켜보아 준 삶의 이야기입니다."}, {"num": 4, "title": "고산골 메타세쿼이아 길과 앞산 안개", "subtitle": "계절별 꽃 · 매미 소리 · 계곡 물소리와 바위 이끼 · 단풍", "intro": "지금도 날마다 봉덕동 집을 나서면 걷는 앞산 고산골 산책길. 하늘로 시원하게 뻗은 메타세쿼이아 길과 계절마다 피는 꽃들, 싱싱한 여름날의 매미 소리와 맑은 계곡 물소리, 초록 바위 이끼와 앞산 안개, 붉은 가을 단풍과 낙엽을 노래합니다."}, {"num": 5, "title": "신천 물길의 백로와 잉어, 시인의 산책", "subtitle": "오리 · 잉어 · 백로 · 왜가리와 함께 걷는 오늘의 길", "intro": "봉덕동에서 신천 둔치로 걸어 나가 맑은 강물을 바라봅니다. 나란히 헤엄치는 오리 가족과 물속의 큰 잉어, 여울목에 하얗게 서 있는 백로와 큰 날개를 펴고 나는 왜가리까지, 산책길에서 만난 생명들이 백 편의 시가 되어 흐릅니다."}], "poems": [{"num": "001", "part": 1, "title": "소 고삐 잡고 풀 찾아가던 오후", "text": "학교에서 돌아와 책보를 마루에 던져 놓고\n외양간에서 누렁소 고삐를 풀어 들고 나간다\n어디에 연하고 푸른 풀이 많이 자랐는지\n내 발걸음보다 소의 코가 먼저 알고 앞장선다\n\n개울가 둑길에 소를 매어 두고 풀을 뜯게 하면\n서걱서걱 풀 뜯는 소리가 시골 오후를 채운다\n소가 배불리 풀을 먹고 커다란 눈을 껌벅일 때\n나는 풀밭에 누워 뭉게구름이 흘러가는 하늘을 보았다\n\n소 등처럼 둥글고 따뜻했던 내 어린 날의 시골길,\n지금도 풀 냄새만 나면 그 누렁소의 방울 소리가 들린다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "002", "part": 1, "title": "부모님 모내기 돕던 물논의 하늘", "text": "오월의 논에는 하늘이 통째로 내려와 담겨 있다\n바지를 무릎까지 걷어붙이고 논물에 발을 넣으면\n미지근한 진흙이 발가락 사이를 간지럽히며 감싼다\n나는 못줄을 옮겨 잡고 어머니 옆으로 모 다발을 날랐다\n\n아버지가 허리를 굽혀 초록빛 모를 꽂으실 때마다\n논물 속에 비친 흰 구름도 출렁이며 함께 심어진다\n힘들어도 내가 던진 모 다발을 어머니가 받아 심으실 때면\n어깨가 으쓱해져 흙물이 튀는 줄도 몰랐다\n\n그날 부모님과 함께 논에 심은 것은 어린 모만이 아니라\n우리 식구들이 한 해 동안 먹고 자랄 희망이었다", "artX": "25.00%", "artY": "33.33%", "artAlt": "긴 꽃술을 펼친 분홍 상사화"}, {"num": "003", "part": 1, "title": "소가 좋아하는 토끼풀 언덕", "text": "비 개인 뒤 산기슭 언덕으로 소를 몰고 올라가면\n하얀 꽃이 핀 토끼풀이 융단처럼 깔려 있다\n고삐를 길게 풀어 주면 소는 꼬리로 파리를 쫓으며\n초록빛 풀밭을 차례차례 맛있게 베어 먹는다\n\n나는 네잎클로버를 찾으려 풀밭을 뒤적이다가\n불룩해진 소의 옆구리에 등을 기대고 앉는다\n따뜻한 소의 체온이 내 등을 통해 전해져 오면\n소와 나는 말 한마디 없이도 가장 친한 친구가 되었다\n\n해가 서산에 걸려 소를 몰고 집으로 내려올 때면\n내 운동화 끝에도 초록빛 풀물이 반쯤 들어 있었다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "004", "part": 1, "title": "논둑길에서 함께 먹던 새참 국수", "text": "뙤약볕 아래서 부모님과 밭의 김을 매고 있을 때\n멀리서 할머니가 이고 오시는 새참 광주리가 보인다\n느티나무 그늘에 옹기종기 둘러앉아 뚜껑을 열면\n시원한 열무김치와 하얀 국수 사리가 가득 담겨 있다\n\n흙 묻은 손을 개울물에 대충 씻고 둘러앉아\n후루룩 국수를 마시면 이마의 땀이 단숨에 식는다\n아버지는 내 그릇에 삶은 달걀 반쪽을 얹어 주시며\n우리 아들 일 잘한다고 머리를 쓰다듬어 주셨다\n\n세상 어떤 잔칫상보다 맛있었던 그 느티나무 그늘의 국수,\n바람마저 숟가락 옆에서 시원한 반찬이 되어 주던 오후", "artX": "75.00%", "artY": "33.33%", "artAlt": "하얀 자작나무 숲과 밤의 새"}, {"num": "005", "part": 1, "title": "가마솥에 끓이던 구수한 쇠죽 냄새", "text": "저녁 어스름이 시골 마당에 내려앉을 무렵이면\n외양간 옆 아궁이에서 쇠죽 끓는 김이 피어오른다\n잘게 썬 볏짚과 콩깍지, 쌀겨를 듬뿍 넣고\n내가 주워 온 마른 솔가지로 불을 지피던 시간\n\n무쇠 솥에서 구수한 쇠죽 냄새가 마당으로 퍼지면\n누렁소는 벌써 알고 워낭을 울리며 여물통을 두드린다\n따뜻한 쇠죽을 퍼 주면 김을 씩씩 뿜으며 먹는 모습을\n나는 외양간 기둥에 기대어 한참이나 바라보았다\n\n하루 일을 마친 소에게 따뜻한 저녁을 차려 주던 그 마음이\n내가 배운 가장 첫 번째 사랑이었다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "006", "part": 1, "title": "시골 하늘을 빨갛게 물들이던 저녁노을", "text": "농사일을 마치고 아버지 뒤를 따라 집으로 돌아올 때\n서쪽 산마루 위로 커다란 해가 천천히 내려앉는다\n누가 하늘에 빨간 감물을 한 동이 부어 놓았는지\n구름도 산도 들판의 허수아비도 모두 붉게 물든다\n\n초가지붕 굴뚝마다 저녁밥 짓는 하얀 연기가 오르고\n어머니가 부엌문 앞에서 내 이름을 길게 부르는 소리\n그 소리를 들으며 논둑길을 뛰어 들어가면\n노을빛이 내 등 뒤까지 따뜻하게 따라와 마당에 앉았다\n\n빌딩 하나 없던 그 시절 시골의 저녁 하늘은\n세상에서 가장 넓고 따뜻한 도화지였다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "007", "part": 1, "title": "보리타작하던 마당의 먼지와 웃음", "text": "유월의 마당에 넓은 멍석을 깔고 보리타작을 한다\n아버지가 도리깨를 높이 들었다가 힘차게 내리치면\n투둑투둑, 노란 보리 알갱이들이 멍석 위로 쏟아진다\n나는 빗자루를 들고 멍석 밖으로 튄 보리알을 쓸어 모았다\n\n보리 까끄라기가 목덜미에 들어가 따갑고 간지러워도\n멍석 위에 보리 산이 높아질수록 식구들 얼굴이 환해진다\n어머니가 건네주신 시원한 보리차 한 사발을 마시고\n하늘을 올려다보면 제비들이 마당 위를 낮게 날아다녔다\n\n땀방울이 떨어진 자리마다 노란 곡식이 쌓이던\n부지런하고 정직했던 우리 집 여름 마당", "artX": "25.00%", "artY": "33.33%", "artAlt": "긴 꽃술을 펼친 분홍 상사화"}, {"num": "008", "part": 1, "title": "지게 지신 아버지와 내 작은 풀망태", "text": "아버지는 커다란 나무 지게에 풀단을 산처럼 지시고\n나는 작은 망태기에 토끼풀을 담아 뒤를 따른다\n비탈진 산길을 내려올 때 아버지의 지게 작대기가\n돌부리를 짚으며 또각또각 든든한 박자를 만든다\n\n아무리 무거운 짐을 지셔도 한 번도 힘들다 말씀 않던 아버지\n오히려 뒤따라오는 내 걸음이 늦어질까 봐\n산모퉁이마다 멈춰 서서 땀을 닦으며 기다려 주셨다\n\n아버지의 넓은 지게 그림자 안에 쏙 들어가 걸으면\n어두워지는 산길도 조금도 무섭지 않았다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "009", "part": 1, "title": "소나기 오면 달려가 덮던 고추 멍석", "text": "여름 한낮, 마당에서 혼자 숙제를 하고 있는데\n갑자기 하늘이 어두워지더니 굵은 빗방울이 떨어진다\n어머니가 밭에 나가시며 부탁하신 빨간 고추 멍석이 생각나\n맨발로 마당으로 뛰어나가 비닐을 끌어당긴다\n\n비에 젖으면 어머니가 애써 농사지은 고추가 상할까 봐\n작은 손으로 멍석 네 귀퉁이에 돌멩이를 눌러 놓을 때\n들판에서 숨이 차도록 달려오신 어머니가 내 등부터 안아 주셨다\n\n비에 젖은 내 머리를 수건으로 닦아 주시던 어머니의 손길,\n그날 마당에는 매콤하고 달콤한 햇고추 냄새가 가득했다", "artX": "75.00%", "artY": "33.33%", "artAlt": "하얀 자작나무 숲과 밤의 새"}, {"num": "010", "part": 1, "title": "호박잎에 싸서 구워 먹던 개울가 붕어", "text": "소에게 풀을 먹여 놓고 친구들과 시골 개울로 들어가\n바위 밑을 더듬어 손바닥만 한 붕어와 피라미를 잡았다\n물이 어찌나 맑은지 물고기들이 돌 틈으로 숨는 모습이\n유리창을 들여다보듯 환하게 다 보였다\n\n개울가에 마른 나뭇가지를 모아 작은 모닥불을 피우고\n텃밭의 넓은 호박잎에 된장을 발라 물고기를 싸서 구웠다\n입가와 손등에 검은 숯검정이 묻은 줄도 모르고\n서로 얼굴을 마주 보며 까르르 웃던 시골 개울가\n\n자연이 우리의 놀이터였고 개울물이 친구였던 그 시절,\n하늘의 구름도 우리 머리 위에서 걸음을 멈추고 구경했다", "artX": "50.00%", "artY": "0.00%", "artAlt": "분홍 연꽃과 연잎 아래 은빛 물고기"}, {"num": "011", "part": 1, "title": "어머니와 마주 앉아 콩나물 다듬던 마루", "text": "저녁밥을 짓기 전 대청마루에 신문지를 넓게 펴 놓고\n어머니와 마주 앉아 소쿠리의 콩나물 꼬리를 다듬는다\n노란 콩 머리 아래 하얀 줄기가 부러지지 않게\n작은 손으로 잔뿌리만 톡톡 떼어 내던 시간\n\n어머니는 옛날이야기를 조근조근 들려주시고\n나는 학교에서 선생님께 칭찬받은 이야기를 자랑했다\n마당 끝에서는 감나무 그림자가 마루까지 길게 올라오고\n부엌에서는 밥 익는 냄새가 구수하게 풍겨 나왔다\n\n일하는 시간이 그대로 어머니와 대화하는 시간이 되었던\n평화롭고 따뜻했던 시골집의 저녁 마루", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "012", "part": 1, "title": "가을 황금 들판에서 메뚜기 잡던 날", "text": "벼가 누렇게 익어 고개를 숙인 시월의 시골 들판\n부모님이 낫으로 벼를 베시는 논둑을 따라다니며\n나는 빈 유리병 하나를 들고 메뚜기를 잡으러 뛰었다\n발을 옮길 때마다 후드득, 초록빛 메뚜기들이 튀어 오른다\n\n벼 이삭 사이로 숨는 메뚜기를 두 손으로 덮쳐 잡으면\n손바닥 안에서 톡톡 튀는 작은 생명의 힘이 느껴졌다\n저녁에 아궁이 잔불에 구워 주시던 고소한 메뚜기 맛\n\n황금빛 벼 물결 위로 잠자리가 떼 지어 날아다니던 가을,\n들판 전체가 풍요로운 웃음으로 출렁이던 날이었다", "artX": "100.00%", "artY": "66.67%", "artAlt": "가을비에 젖은 고산골 단풍과 들국화"}, {"num": "013", "part": 1, "title": "마당 모깃불 연기와 쏟아지던 별빛", "text": "무더운 여름밤이면 아버지는 마당 한가운데에\n마른 쑥과 솔가지를 모아 모깃불을 피워 주셨다\n하얗고 향긋한 쑥 연기가 마당의 모기를 쫓아내면\n식구들은 대나무 평상 위에 나란히 누워 부채질을 했다\n\n고개를 들면 시골 밤하늘에는 별이 금방이라도 쏟아질 듯 많았다\n저기 흐르는 하얀 강이 은하수라고 어머니가 손가락으로 가리키실 때\n개똥벌레 한 마리가 초록 불을 켜고 호박넝쿨 위를 날아갔다\n\n에어컨도 텔레비전도 없었지만\n밤하늘의 별과 모깃불 연기만으로도 행복했던 여름밤", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "014", "part": 1, "title": "새끼줄 꼬시는 아버지 곁에서 졸던 겨울밤", "text": "창밖에는 흰 눈이 소복소복 내리는 긴 겨울밤\n안방 아랫목에 볏짚을 들여놓고 아버지가 새끼를 꼬신다\n거친 두 손바닥을 쓱싹쓱싹 비비실 때마다\n마른 볏짚이 마술처럼 튼튼하고 둥근 새끼줄로 길어진다\n\n나는 옆에서 볏짚을 한 가닥씩 집어 드리며 돕다가\n규칙적인 볏짚 비비는 소리에 눈꺼풀이 스르르 감긴다\n잠결에 어머니가 내 어깨 위로 따뜻한 솜이불을 덮어 주시고\n화로 속에서는 고구마가 달콤한 냄새를 내며 익어 갔다\n\n아버지의 손바닥이 꼬아 놓은 그 긴 새끼줄처럼\n우리 가족의 사랑도 끊어지지 않고 단단하게 이어졌다", "artX": "75.00%", "artY": "33.33%", "artAlt": "하얀 자작나무 숲과 밤의 새"}, {"num": "015", "part": 1, "title": "시골 우물가의 시원한 두레박 물", "text": "농사일을 돕고 땀이 비 오듯 쏟아지는 여름 오후\n마당 구석 돌우물로 달려가 두레박을 깊숙이 내린다\n출렁, 하고 깊은 땅속에서 길어 올린 맑은 우물물은\n한여름에도 얼음처럼 차갑고 시원했다\n\n바가지로 물을 가득 떠서 꿀꺽꿀꺽 마시고 나면\n가슴속까지 시리도록 맑은 기운이 퍼져 나간다\n남은 물을 바가지째 머리 위로 끼얹으며 등목을 할 때\n어머니가 등 뒤에 찬물을 부어 주시며 웃으셨다\n\n마르지 않고 늘 맑은 물을 내어 주던 시골집 우물은\n언제나 우리를 품어 주시던 어머니의 마음과 닮아 있었다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "016", "part": 1, "title": "송아지가 태어나던 새벽의 외양간", "text": "찬 바람이 불던 이른 봄 새벽, 외양간이 소란스러워 나가 보니\n어미 소 곁에 젖은 털을 가진 작은 송아지 한 마리가 누워 있었다\n아버지는 마른 짚으로 송아지의 몸을 정성껏 닦아 주시고\n어머니는 따뜻한 미역국 같은 뜨물을 끓여 어미 소에게 주셨다\n\n비틀거리며 네 다리로 처음 땅을 딛고 일어서는 송아지\n어미 소가 커다란 혀로 새끼의 이마를 핥아 줄 때마다\n송아지는 까만 눈망울을 반짝이며 어미 품으로 파고들었다\n\n새 생명이 태어난 우리 집 외양간에\n아침 햇살이 그날따라 더 환하고 따뜻하게 비추어 들었다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "017", "part": 1, "title": "찔레꽃 하얗게 피던 시골 논둑길", "text": "오월의 시골 개울가와 논둑길 수풀 사이마다\n하얀 찔레꽃이 소박한 얼굴로 가득 피어난다\n소에게 풀을 먹이다가 배가 출출해지면\n연하게 올라온 찔레 순을 꺾어 껍질을 벗겨 먹었다\n\n아삭하고 달콤하면서도 쌉싸름한 봄의 풀 향기\n하얀 꽃잎을 따서 개울물에 띄워 보내면\n작은 꽃배가 되어 물살을 타고 아랫마을까지 흘러갔다\n\n과자 하나 없어도 들판의 꽃과 풀이 간식이 되어 주던\n순하고 맑았던 내 유년의 봄날", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "018", "part": 1, "title": "아버지 따라 새벽 물꼬 보러 가던 길", "text": "안개가 들판을 하얗게 덮은 이른 새벽\n삽 한 자루를 어깨에 메신 아버지를 따라 논으로 나간다\n풀잎마다 맺힌 아침 이슬이 내 바짓가랑이를 적시고\n논에서는 개구리들이 우리 발소리에 놀라 물속으로 뛰어든다\n\n아버지가 삽으로 논둑의 흙을 조금 파내어 물길을 터 주시면\n도랑물이 콸콸 소리를 내며 목마른 논배미로 흘러든다\n물을 마신 벼 포기들이 아침 햇살 속에 초록빛 허리를 펴는 모습\n\n부지런한 사람의 발소리를 듣고 곡식이 자란다는 것을\n나는 아버지의 새벽 등 뒤에서 자연스럽게 배웠다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "019", "part": 1, "title": "초가지붕 위에 둥글게 뜨던 박꽃", "text": "여름내 담장을 타고 올라간 초록빛 박 넝쿨이\n초가지붕 위에서 하얀 박꽃을 소담스럽게 피워 올린다\n낮에는 부끄러운 듯 꽃잎을 닫고 있다가\n저녁달이 떠오르면 하얀 나비처럼 활짝 열리는 꽃\n\n달빛을 먹고 자란 박이 지붕 위에서 보름달만큼 둥글어지면\n가을에는 어머니가 그 박을 타서 맛있는 박나물을 무쳐 주시고\n단단한 껍질은 삶아서 물을 푸는 둥근 바가지로 쓰셨다\n\n버릴 것 하나 없이 우리 살림이 되어 주던 시골집 지붕,\n지금도 보름달을 보면 초가지붕 위의 하얀 박꽃이 떠오른다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "020", "part": 1, "title": "내 마음의 고향, 시골의 파란 하늘", "text": "소를 끌고 들판을 걷던 그 어린 시절의 시골 하늘은\n아무리 오래 올려다보아도 눈이 아프지 않고 맑았다\n종달새가 보리밭 위에서 하늘 높이 솟구쳐 노래하고\n잠자리가 코스모스 꽃가지 끝에서 잠시 날개를 쉬던 곳\n\n부모님의 땀방울이 논밭의 곡식을 키우고\n자연의 사계절이 내 마음을 건강하게 키워 주었다\n\n세월이 흘러 도시의 회색 건물 사이를 걸을 때에도\n내 가슴속에는 언제나 그 시절 시골의 파란 하늘이 열려 있다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "021", "part": 2, "title": "국민학교 넓은 흙 운동장", "text": "교문을 들어서면 가장 먼저 우리를 반겨 주던 곳\n모래와 흙이 반짝이던 국민학교의 넓은 운동장이다\n아침 조회 시간에는 전교생이 줄을 맞추어 서고\n쉬는 시간 종만 울리면 아이들이 함성을 지르며 쏟아져 나왔다\n\n운동장 가장자리에는 키 큰 플라타너스가 그늘을 만들고\n철봉과 정글짐에는 늘 아이들이 원숭이처럼 매달려 있었다\n넘어져 무릎에 빨간 약을 바르고도 다시 뛰어나가던 운동장\n\n그 넓은 흙마당 위에서 우리의 키가 자라고\n평생 잊지 못할 어린 날의 우정이 단단하게 자라났다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "022", "part": 2, "title": "깨진 기와장과 풀잎으로 차린 소꿉놀이", "text": "학교가 끝난 뒤 담장 그늘 아래 동무들과 둘러앉아\n납작한 돌멩이와 깨진 기와 조각으로 소꿉놀이를 한다\n초록빛 강아지풀과 질경이 잎을 뜯어와 반찬을 만들고\n붉은 벽돌 가루를 빻아 고춧가루라며 솔솔 뿌린다\n\n누가 엄마를 할지 누가 아빠를 할지 가위바위보로 정하고\n흙으로 빚은 밥그릇에 하얀 모래 밥을 소복이 담아 내면\n진짜 진수성찬을 차린 것처럼 배가 부르고 즐거웠다\n\n해가 져서 어머니가 저녁 먹으러 오라고 부르실 때까지\n돌멩이 그릇 하나로 온 세상을 다 차려 내던 순수한 오후", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "023", "part": 2, "title": "해 질 때까지 뛰던 운동장 축구", "text": "가방 두 개를 운동장 양쪽 끝에 내려놓으면\n그 순간부터 멋진 축구 골대가 만들어진다\n바람이 조금 빠진 고무 축구공 하나를 가운데 놓고\n반 아이들이 두 편으로 나뉘어 흙먼지를 일으키며 달린다\n\n공 하나를 따라 스무 명의 발이 한꺼번에 몰려다니고\n누군가 가방 사이로 공을 차 넣으면 월드컵처럼 만세를 불렀다\n운동화가 닳아 구멍이 나고 얼굴이 땀과 흙으로 얼룩져도\n공만 굴러가면 지칠 줄 모르던 우리의 두 다리\n\n어스름이 내려 공이 보이지 않을 때에야 어깨동무를 하고\n내일 또 시합하자며 아쉬운 발걸음을 돌리곤 했다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "024", "part": 2, "title": "여학생들의 고무줄놀이와 짓궂은 장난", "text": "운동장 한쪽 나무 그늘에서는 여학생들이 모여\n검은 고무줄을 발목과 무릎에 걸고 노래를 부른다\n치맛자락을 살짝 잡고 가볍게 뛰어오를 때마다\n단발머리가 나비처럼 예쁘게 위아래로 흔들렸다\n\n축구를 하던 남학생 몇 명이 슬그머니 다가와\n손가락으로 고무줄을 툭 끊어 놓고 도망을 치면\n여학생들은 소리를 지르며 운동장 끝까지 쫓아오곤 했다\n\n끊어진 고무줄을 다시 묶어 한 뼘 더 짧아진 줄을 넘으며\n미움보다 웃음이 더 많았던 국민학교의 오후 시간", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "025", "part": 2, "title": "만국기가 하늘을 덮던 가을 운동회", "text": "일 년 중 가장 손꼽아 기다리던 시월의 가을 운동회 날\n아침 일찍 학교에 가 보면 운동장 하늘 가득히\n수백 장의 오색 만국기가 가을바람에 펄럭이고 있었다\n하얀 횟가루로 반듯하게 그어 놓은 운동장의 트랙\n\n청군 이겨라, 백군 이겨라 목이 터져라 응원가를 부르고\n부모님과 동네 어르신들까지 운동장 둘레에 가득 모이던 날\n점심시간이면 김밥과 삶은 밤, 사이다를 나누어 먹으며\n온 마을이 하나가 되어 웃음꽃을 피웠다\n\n만국기 사이로 보이던 그날의 높고 파란 가을 하늘은\n내 기억 속에서 언제나 잔칫날처럼 펄럭이고 있다", "artX": "100.00%", "artY": "66.67%", "artAlt": "가을비에 젖은 고산골 단풍과 들국화"}, {"num": "026", "part": 2, "title": "운동회 날 달리기 일등과 공책 상장", "text": "운동회 꽃인 백 미터 달리기 출발선에 섰을 때\n가슴속에서는 작은 북소리가 쿵쿵거리며 울렸다\n선생님의 호루라기 소리가 운동장에 울려 퍼지는 순간\n나는 앞만 보고 바람처럼 두 팔을 힘차게 흔들며 달렸다\n\n응원석에서 내 이름을 부르는 어머니의 목소리가 들리고\n가슴으로 하얀 결승선 테이프를 가장 먼저 끊던 그 짜릿한 순간\n손목에 파란 일등 도장을 찍고 상으로 받은 공책 세 권을\n어머니 앞에 자랑스럽게 내밀던 내 환한 얼굴\n\n그날 달리기 일등으로 받은 공책보다 더 귀했던 것은\n할 수 있다는 자신감으로 가득 찼던 내 어린 가슴이었다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "027", "part": 2, "title": "난로 위에서 익어 가던 양은 도시락", "text": "찬 바람이 교실 유리창을 흔드는 겨울이 오면\n교실 한가운데 무쇠 난로에 빨간 불이 켜진다\n아침마다 각자 싸 온 네모난 양은 도시락을\n난로 위에 층층이 쌓아 올려 따뜻하게 데우던 시간\n\n삼교시쯤 되면 도시락 밑바닥의 밥이 노릇하게 눌어붙고\n볶은 김치와 계란말이 냄새가 교실 안을 가득 채운다\n선생님 몰래 도시락 위아래 순서를 바꾸어 놓으며\n점심시간 종이 울리기만을 애타게 기다리던 눈동자들\n\n뚜껑을 열면 하얀 김과 함께 어머니의 사랑이 피어오르던\n세상에서 가장 따뜻했던 겨울 교실의 점심시간", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "028", "part": 2, "title": "짝꿍과 책상 가운데 그어 놓은 금", "text": "둘이 함께 쓰던 낡은 나무 책상 한가운데에\n분필과 연필로 반듯하게 경계선을 그어 놓았다\n내 팔꿈치가 조금만 그 선을 넘어가도\n짝꿍은 눈을 흘기며 자로 내 팔을 톡 치곤 했다\n\n그러다가도 내가 미술 시간에 크레파스를 안 가져오면\n아무 말 없이 자기 크레파스 통을 선 너머로 밀어 주던 아이\n비 오는 하굣길에는 작은 우산 하나를 함께 쓰고 걸었다\n\n책상 위의 금은 서로를 나누는 선이 아니라\n조금씩 양보하며 가까워지던 어린 날의 다정한 징검다리였다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "029", "part": 2, "title": "교실 창밖으로 퍼지던 선생님의 풍금 소리", "text": "음악 시간이 되면 선생님은 교탁 옆의 낡은 풍금 앞에 앉아\n두 발로 페달을 밟으며 건반을 누르셨다\n바람 소리와 함께 아름다운 풍금 가락이 흘러나오면\n아이들은 허리를 펴고 목청껏 동요를 따라 불렀다\n\n고향의 봄과 노을을 부를 때면\n열린 교실 창문 너머로 참새들도 나뭇가지에 앉아 귀를 기울이고\n운동장의 플라타너스 잎들도 박자에 맞춰 흔들렸다\n\n지금도 그 시절 동요를 나직이 흥얼거려 보면\n풍금을 치시던 선생님의 고운 옆모습이 눈앞에 그려진다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "030", "part": 2, "title": "주머니가 묵직하던 유리구슬과 딱지", "text": "학교가 끝나면 운동장 구석에 작은 구멍을 파 놓고\n친구들과 쭈그리고 앉아 유리구슬치기를 했다\n햇빛을 받으면 무지개빛으로 반짝이던 투명한 유리구슬\n엄지손가락으로 튕겨 친구의 구슬을 맞힐 때의 기쁨\n\n달력과 헌 책 표지를 접어 만든 두꺼운 딱지를\n온 힘으로 내리쳐 뒤집을 때면 손바닥이 얼얼했다\n구슬과 딱지를 많이 따서 주머니가 불룩해진 날에는\n걸을 때마다 짤랑거리는 소리가 개선장군의 행진곡 같았다\n\n작은 유리구슬 몇 알에 웃고 울던 그 시절,\n우리의 주머니 속에는 늘 작은 우주가 들어 있었다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "031", "part": 2, "title": "하굣길 신작로에서 돌멩이 차며 걷던 시간", "text": "수업이 끝나고 집으로 돌아가는 긴 흙길 신작로\n그냥 걷기가 심심해 발앞의 둥근 돌멩이 하나를 골라\n운동화 끝으로 톡톡 차면서 친구들과 걸어간다\n이 돌멩이를 마을 입구 다리까지 잃어버리지 않고 몰고 가기\n\n돌멩이가 길가 풀숲으로 굴러가면 다시 찾아내고\n전봇대 그림자를 하나씩 밟으며 끝없는 이야기를 나누었다\n십 리가 넘는 먼 길이었는데도 친구들과 웃으며 걷다 보면\n어느새 우리 집 굴뚝 연기가 눈앞에 보이곤 했다\n\n돌멩이 하나만 있어도 심심할 틈이 없었던\n느리고 정겨웠던 국민학교 하굣길", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "032", "part": 2, "title": "박이 터지던 운동회 청백 박 터뜨리기", "text": "운동회 한가운데 높은 장대 끝에 커다란 종이 박 두 개가 매달린다\n호루라기 소리와 함께 청군과 백군 아이들이\n콩주머니를 수십 개씩 하늘 높이 던져 올린다\n\n콩주머니가 박에 부딪힐 때마다 조마조마한 함성이 터지고\n마침내 종이 박이 쫙 갈라지며 오색 꽃종이와 함께\n경축이라는 현수막이 쏟아져 내릴 때의 환호성\n\n이긴 편도 진 편도 하늘에서 내리는 꽃종이를 맞으며\n모두가 일등이 된 것처럼 박수를 치던 가을 운동장", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "033", "part": 2, "title": "방과 후 교실 마룻바닥에 초 칠하던 당번", "text": "아이들이 모두 집으로 돌아간 조용한 방과 후 교실\n청소 당번이 된 날에는 책상을 뒤로 쭉 밀어 놓고\n빗자루로 쓸고 난 나무 마룻바닥에 하얀 양초를 문질렀다\n\n마른 걸레로 박박 문질러 반짝반짝 윤을 내고 나면\n무릎과 팔은 아팠지만 거울처럼 빛나는 교실이 뿌듯했다\n창밖으로는 운동장에서 축구하는 친구들의 함성이 들리고\n선생님은 당번 잘했다며 사탕 한 알씩을 손에 쥐여 주셨다\n\n오래된 나무 마룻바닥의 양초 냄새와 분필 가루 냄새,\n내 어린 날의 성실함을 길러 준 작은 교실", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "034", "part": 2, "title": "소풍 전날 밤 머리맡에 놓아둔 새 운동화", "text": "봄 소풍을 앞둔 전날 밤에는 가슴이 설레어 잠이 오지 않았다\n어머니가 장에서 사 오신 하얀 새 운동화와\n김밥 재료 냄새가 풍기는 부엌 쪽을 몇 번이나 기웃거렸다\n\n행여 내일 비가 올까 봐 마당에 나가 밤하늘의 별을 확인하고\n새 운동화를 베개 옆 머리맡에 나란히 놓아둔 채 눈을 감았다\n꿈속에서는 벌써 친구들과 소풍 가서 보물찾기를 하고 있었다\n\n작은 소풍 하나에도 온 세상이 다 설레던 그 밤,\n하얀 운동화 한 켤레가 내 머리맡을 환하게 밝혀 주었다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "035", "part": 2, "title": "보물찾기 종이쪽지를 찾던 소풍날의 숲", "text": "소풍 가서 점심 김밥을 먹고 나면 가장 기다리던 보물찾기 시간\n선생님이 숲속 바위 틈과 나뭇가지 사이에 숨겨 두신\n작게 접힌 흰 종이쪽지를 찾으려 눈을 크게 뜨고 숲을 누빈다\n\n소나무 껍질 틈에서 하얀 종이 끝을 발견하고 펼쳤을 때\n연필 한 다스라는 글자가 적혀 있으면 세상을 다 얻은 듯 뛰었다\n못 찾은 친구에게 내가 찾은 종이 한 장을 슬쩍 나누어 주면\n돌아오는 길 내내 둘의 어깨가 나란히 가벼웠다\n\n사실은 종이쪽지가 보물이 아니라\n친구들과 숲속을 함께 뛰어다니던 그 시간이 진짜 보물이었다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "036", "part": 2, "title": "비 오는 날 학교 현관에 찾아온 어머니의 우산", "text": "아침에는 맑았던 하늘이 마지막 수업 시간에 갑자기 어두워지더니\n운동장이 금세 흙탕물 호수가 되도록 소나기가 쏟아진다\n우산이 없는 아이들이 현관 처마 밑에 모여 발을 동동 구를 때\n\n교문 쪽에서 비를 맞으며 걸어오시는 익숙한 모습\n어머니가 비닐우산 하나를 가슴에 품고 내 이름을 부르신다\n우산을 받고 돌아서는 내 등 뒤에서 친구들이 부러운 눈으로 바라보았다\n\n어머니와 작은 우산 하나를 함께 쓰고 돌아오던 빗길,\n빗소리가 세상에서 가장 포근한 음악처럼 들리던 오후", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "037", "part": 2, "title": "철봉 위에서 거꾸로 바라본 운동장 하늘", "text": "운동장 구석 낮은 철봉을 두 손으로 꽉 움켜쥐고\n배에 힘을 주어 두 다리를 하늘로 힘차게 돌려 올린다\n몇 번이나 미끄러져 떨어지다가 마침내 성공한 첫 거꾸로 오르기\n\n철봉 위에 매달려 고개를 뒤로 젖히고 세상을 바라보면\n파란 하늘이 내 발아래에 있고 학교 지붕과 나무가 거꾸로 서 있다\n늘 보던 운동장이 전혀 다른 신기한 나라처럼 보이던 순간\n\n손바닥에 빨간 물집이 잡히도록 철봉에 매달리던 그날,\n나는 세상을 다른 눈으로 바라보는 즐거움을 처음 배웠다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "038", "part": 2, "title": "여름방학 숙제이던 곤충채집과 식물채집", "text": "여름방학이 끝나 갈 무렵이면 잠자리채를 들고 들판으로 나간다\n개망초와 강아지풀, 토끼풀을 조심스럽게 캐어\n두꺼운 신문지 사이에 끼워 말리던 식물채집 숙제\n\n잠자리를 잡았다가도 투명한 날개가 파르르 떨리는 것이 불쌍해\n채집통 문을 열어 다시 파란 하늘로 날려 보내 주곤 했다\n선생님께 도장은 하나 덜 받았어도 마음은 훨씬 시원했던 날\n\n들판의 풀 이름과 벌레의 숨결을 하나씩 배우며\n자연과 친구가 되어 가던 나의 여름방학", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "039", "part": 2, "title": "겨울 운동장 눈싸움과 코가 당근이던 눈사람", "text": "밤새 함박눈이 내려 국민학교 운동장이 하얀 설원이 된 아침\n첫째 시간에는 선생님도 책을 덮고 우리를 운동장으로 내보내셨다\n시린 손으로 눈뭉치를 단단히 뭉쳐 친구들과 눈싸움을 하고\n다 같이 힘을 합쳐 우리 키보다 큰 눈사람을 굴려 만들었다\n\n눈사람 눈에는 검은 숯 두 개를 박고 코에는 붉은 당근을 꽂은 뒤\n내 목도리를 풀어 눈사람 목에 둘러 주며 사진을 찍듯 둘러섰다\n\n봄이 와서 눈사람은 녹아 운동장 흙 속으로 스며들었어도\n그날의 하얀 웃음소리는 지금도 내 마음속에 녹지 않고 남아 있다", "artX": "100.00%", "artY": "33.33%", "artAlt": "비 그친 골목길 위 클로버와 작은 참새"}, {"num": "040", "part": 2, "title": "졸업식 날 부르던 노래와 정든 교문", "text": "육 년 동안 매일 드나들던 국민학교 교문을 나서는 졸업식 날\n빛나는 졸업장을 타신 언니께 노래를 부르다 보면\n후배들의 눈에도 우리들의 눈에도 눈물이 그렁그렁 맺혔다\n\n축구하던 운동장, 고무줄놀이하던 플라타너스 나무 그늘,\n소꿉놀이하던 담장 모서리를 한 번씩 더 돌아보며 걸었다\n어린 시절의 가장 순수했던 여섯 해가 그 운동장에 남아 있었다\n\n교문을 나서며 더 넓은 세상으로 첫걸음을 내디뎠던 그날,\n국민학교 운동장은 내 인생의 가장 따뜻한 출발선이었다", "artX": "50.00%", "artY": "33.33%", "artAlt": "코스모스와 강아지풀 사이의 흰나비"}, {"num": "041", "part": 3, "title": "시골 소년이 처음 마주한 도시의 불빛", "text": "시골 들판과 흙길만 알던 소년이 더 큰 공부를 위해 도시로 나왔다\n처음 마주한 대구 거리는 밤이 되어도 낮처럼 불빛이 환했고\n아스팔트 위로는 자동차와 버스가 쉴 새 없이 달려갔다\n\n높은 건물과 빠른 사람들의 걸음 속에서 처음에는 어지러웠지만\n가방 끈을 두 손으로 꽉 쥐고 내 걸음을 또박또박 걸었다\n밤에 창문을 열면 고향의 부모님이 나를 지켜보시는 것만 같았다\n\n낯선 도시의 거리에서 꿈이라는 작은 나침반 하나를 품고\n소년은 조금씩 단단한 청년으로 자라나기 시작했다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "042", "part": 3, "title": "고등학교 시절 대명동 골목의 아침", "text": "검은 교복에 모자를 눌러쓰고 책가방을 옆구리에 끼던 고등학교 시절\n내가 매일 아침 걸어 나가던 곳은 대명동의 정겨운 골목길이었다\n붉은 벽돌 담장 너머로 아침밥 짓는 냄새가 골목에 퍼지고\n우유 배달 자전거가 경쾌한 벨 소리를 내며 지나가던 아침\n\n오늘 외워야 할 영어 단어장을 손에 들고 중얼거리며 걷다가\n같은 학교 교복을 입은 친구를 만나면 반갑게 어깨를 쳤다\n\n푸른 꿈과 열정이 가득했던 대명동의 아침 골목길,\n내 청춘의 가장 부지런한 발자국들이 그 길 위에 찍혀 있다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "043", "part": 3, "title": "대명동 자취방 창가에 켜져 있던 스탠드 불빛", "text": "밤이 깊어 대명동 골목의 집들이 하나둘 불을 끄고 잠들 때\n내 작은 책상 위의 스탠드 불빛은 자정이 넘도록 켜져 있었다\n졸음이 쏟아지면 찬물에 세수를 하고 돌아와 다시 책을 펴고\n시골에서 고생하시는 부모님의 얼굴을 떠올리며 연필을 잡았다\n\n창문을 조금 열면 앞산 쪽에서 시원한 밤바람이 불어와\n뜨거워진 내 이마를 다정하게 식혀 주곤 했다\n\n그 시절 대명동 작은 방에서 밤새워 밝혔던 등불 하나가\n훗날 내 인생의 길을 환하게 비추어 주는 밑거름이 되었다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "044", "part": 3, "title": "대명동 버스 정류장에서 나누던 고교 시절의 우정", "text": "야간 자율학습이 끝나고 밤 열 시에 교문을 나서면\n대명동 버스 정류장 가로등 아래 친구들과 모여 섰다\n주머니 속 동전을 모아 포장마차에서 따뜻한 어묵 국물 한 컵씩을 나누고\n앞으로 어떤 어른이 되고 싶은지 밤하늘을 보며 이야기했다\n\n버스가 도착해도 하던 이야기가 끝나지 않아 한 대를 그냥 보내고\n다음 버스가 올 때까지 웃으며 어깨를 맞대던 친구들\n\n비록 가진 것은 무거운 책가방뿐이었지만\n서로의 꿈을 진심으로 응원해 주던 대명동의 빛나던 밤이었다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "045", "part": 3, "title": "시골에서 어머니가 보내 주신 대명동 쌀자루", "text": "대명동에서 고등학교를 다니던 어느 토요일 오후\n시골에서 올라온 버스 편으로 어머니가 보내신 보따리가 도착했다\n끈을 풀어 보니 하얀 햅쌀 한 자루와 참기름 병,\n그리고 신문지에 정성껏 싼 김치통이 들어 있었다\n\n쌀자루 맨 위에는 아끼고 아껴 모으신 꼬깃꼬깃한 지폐 몇 장과\n밥 굶지 말고 공부하라는 어머니의 짧은 편지가 놓여 있었다\n\n그날 저녁 대명동 방에서 지은 뜨거운 햅쌀밥 한 그릇을 먹으며\n나는 밥알마다 담긴 부모님의 눈물과 사랑을 함께 삼켰다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "046", "part": 3, "title": "대명동 은행나무 가로수 길의 사계절", "text": "고등학교 삼 년 내내 내가 걸어 다니던 대명동 큰길가에는\n키 큰 은행나무 가로수들이 줄지어 서 있었다\n봄이면 연두색 부채 같은 새잎을 돋아내어 그늘을 만들고\n가을이면 온 거리를 샛노란 황금빛 융단으로 덮어 주던 길\n\n시험 성적이 잘 나온 날에는 은행잎을 밟으며 발걸음이 가벼웠고\n마음이 무거운 날에는 은행나무 기둥을 손으로 짚으며 위로를 받았다\n\n사계절 내내 내 등하굣길을 말없이 지켜보아 주던 대명동 은행나무,\n내 열여덟 살의 성장을 가장 가까이서 지켜본 초록빛 증인이다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "047", "part": 3, "title": "대학을 졸업하고 처음 둥지를 튼 봉덕동", "text": "대학 사 년의 공부를 마치고 사회로 첫발을 내딛던 해\n나는 앞산이 가깝고 신천 물길이 흐르는 봉덕동에 자리를 잡았다\n작은 방에 책상과 이불을 들여놓고 첫 저녁을 맞이할 때\n이제 내 힘으로 삶을 일구어 간다는 설렘에 가슴이 벅찼다\n\n창문을 열면 남쪽으로 앞산의 푸른 능선이 든든하게 서 있고\n동쪽으로는 신천의 맑은 물소리가 바람을 타고 들려오던 동네\n\n청년의 꿈을 안고 처음 이삿짐을 풀었던 그 봉덕동이\n내 평생의 삶을 꽃피우는 제2의 고향이 되었다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "048", "part": 3, "title": "인정이 넘치던 봉덕시장 골목의 저녁", "text": "퇴근길에 버스를 내려 봉덕시장 골목으로 들어서면\n사람 사는 따뜻한 냄새가 저녁 공기를 가득 채운다\n김이 모락모락 나는 두부 가게와 고소한 참기름집,\n싱싱한 채소를 다듬으며 웃음 짓는 상인들의 활기찬 목소리\n\n채소 한 단을 사도 파 한 줌을 덤으로 더 얹어 주시던 아주머니의 인심\n그 골목을 지나 집으로 걸어오면 하루의 피로가 저절로 풀렸다\n\n화려한 백화점보다 내 마음을 더 푸근하게 해 주던 봉덕시장,\n이웃들의 정이 살아 숨 쉬는 내 삶의 든든한 마당이다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "049", "part": 3, "title": "봉덕동 골목을 비추던 밤의 가로등", "text": "직장 일을 마치고 밤늦게 봉덕동 골목길을 걸어 들어올 때\n골목 모퉁이마다 서 있는 노란 가로등이 내 그림자를 길게 늘인다\n조용히 잠든 이웃집 담장 위로 감나무 가지가 그림자를 드리우고\n멀리서 내 발소리를 알아챈 집 강아지가 반갑게 꼬리를 흔든다\n\n대문을 열고 들어서면 마루에 켜져 있는 따뜻한 불빛\n오늘 하루도 무사히 가족 곁으로 돌아왔다는 고마운 안도감\n\n수십 년 동안 내 늦은 귀갓길을 환하게 밝혀 준 봉덕동 가로등은\n말없이 나를 마중 나오던 오랜 친구와 같았다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "050", "part": 3, "title": "봉덕동 창가에서 바라보는 앞산의 사계", "text": "대학 졸업 후부터 지금까지 내가 살고 있는 봉덕동 집 창문을 열면\n언제나 앞산이 큰 병풍처럼 내 눈앞에 펼쳐져 있다\n봄이면 연분홍 진달래와 벚꽃으로 산허리가 환해지고\n여름이면 짙은 초록빛 숲이 시원한 바람을 동네로 보내 준다\n\n가을에는 울긋불긋한 단풍이 창문 안까지 붉은 빛을 들였다가\n겨울이면 하얀 눈을 이고 조용한 수묵화가 되는 앞산\n\n봉덕동에 살면서 날마다 앞산의 사계절을 바라본 덕분에\n도시에 살면서도 내 마음은 늘 자연의 품 안에 머물 수 있었다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "051", "part": 3, "title": "봉덕동 집 마당에 심은 작은 화분들", "text": "도시의 집이지만 어린 시절 시골 마당이 그리워\n봉덕동 집 베란다와 마당 구석에 화분을 하나둘 놓았다\n봄이면 빨간 영산홍과 노란 개나리가 먼저 꽃을 피우고\n여름이면 초록빛 고추 모종에 하얀 꽃이 달려 열매를 맺는다\n\n아침마다 물뿌리개로 화분마다 시원하게 물을 주면\n잎사귀들이 물방울을 매단 채 반갑게 고개를 끄덕인다\n\n작은 화분 몇 개가 봉덕동 우리 집을\n어린 시절 살던 시골집 마당처럼 푸르고 따뜻하게 만들어 준다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "052", "part": 3, "title": "아이들 손잡고 걷던 봉덕동 일요일 아침", "text": "봉덕동에서 가정을 이루고 아이들이 자라나던 시절\n일요일 아침이면 어린 자녀들의 작은 손을 양쪽에 잡고\n동네 골목을 지나 앞산 자락까지 천천히 산책을 나갔다\n아빠, 저 나무 이름은 뭐야 묻는 아이들의 초롱초롱한 눈망울\n\n어릴 적 내가 아버지께 배웠던 풀 이름과 새 이름을\n이제는 내가 아버지가 되어 아이들에게 하나씩 알려 주었다\n\n봉덕동 골목길 보도블록 위에는\n우리 가족이 함께 걸으며 남긴 행복한 발자국들이 겹겹이 쌓여 있다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "053", "part": 3, "title": "봉덕동 우체부 아저씨의 반가운 오토바이", "text": "골목 밖에서 부릉거리는 빨간 오토바이 소리가 멈추고\n대문 우체통에 편지가 툭 떨어지는 소리가 나면\n맨발로 마당을 가로질러 나가 우체통 덮개를 열었다\n\n고향 시골의 부모님이 보내신 편지와 반가운 친구들의 소식,\n봉투를 뜯기도 전에 글씨만 보아도 반가운 얼굴들이 떠올랐다\n\n인터넷이 없던 그 시절 봉덕동 우체통은\n그리운 사람들과 내 마음을 이어 주던 가장 설레는 창문이었다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "054", "part": 3, "title": "비 오는 날 봉덕동 창가에 앉아 듣는 빗소리", "text": "주말 오후 봉덕동에 촉촉한 비가 내리면\n따뜻한 차 한 잔을 타서 들고 창가 의자에 앉는다\n처마 끝에서 떨어지는 빗방울이 화분 잎사귀를 두드리고\n골목길 아스팔트가 빗물에 씻겨 거울처럼 깨끗해진다\n\n빗소리를 가만히 듣고 있으면 어린 시절 소를 몰고 들어와\n시골집 마루에서 듣던 그 빗소리와 조금도 다르지 않다\n\n도시에 살면서도 비 오는 날이면 내 마음은\n언제나 시골 고향집의 평화로운 마루 끝으로 돌아간다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "055", "part": 3, "title": "봉덕동 단골 이발소의 돌아가는 삼색 등", "text": "봉덕동 골목 모퉁이에는 내가 수십 년째 다니는 이발소가 있다\n문 앞에서 빨강, 파랑, 하얀 줄무늬 등이 빙글빙글 돌아가고\n문을 열면 익숙한 비누 향기와 라디오 소리가 반겨 준다\n\n젊은 청년이었던 내 머리를 깎아 주시던 이발사 아저씨와 나는\n이제 거울 속에서 나란히 하얀 백발이 되어 마주 웃는다\n말하지 않아도 내 머리 모양을 가장 잘 알아주는 고마운 손길\n\n한 동네에서 오래 살아간다는 것은\n이렇게 말없이 서로의 세월을 알아주는 이웃이 생기는 일이다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "056", "part": 3, "title": "대명동 옛 학교 앞을 다시 지나며", "text": "볼일이 있어 오랜만에 대명동 옛 고등학교 앞길을 걸었다\n교문 옆 분식집도 문구점도 간판이 새로 바뀌었지만\n학교 담장 너머로 우뚝 솟은 오래된 나무들은 그대로 서 있었다\n\n마침 하교 시간이 되어 교문을 쏟아져 나오는 학생들의 웃음소리\n저 아이들의 반짝이는 눈빛 속에서\n사십여 년 전 책가방을 메고 걸어나오던 열여덟 살의 나를 보았다\n\n나는 나이를 먹었어도 대명동 교문 앞에는\n언제나 푸른 청춘의 시간이 흐르고 있었다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "057", "part": 3, "title": "봉덕동에서 맞이하는 설날 아침의 떡국", "text": "새해 첫날 아침, 봉덕동 우리 집 거실에 온 가족이 모인다\n아내가 정성껏 끓여 낸 하얀 떡국 그릇 위로\n노란 계란 지단과 김 가루가 곱게 올라앉아 있다\n\n어릴 적 시골에서 어머니가 끓여 주시던 그 떡국 맛을 떠올리며\n이제는 손주들의 세배를 받고 덕담을 건네는 할아버지가 되었다\n떡국 한 그릇을 나누어 먹으며 나이 한 살보다 사랑을 한 겹 더 먹는다\n\n부모님이 물려주신 따뜻한 가정의 전통이\n봉덕동 우리 집 밥상 위에서 대를 이어 환하게 피어난다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "058", "part": 3, "title": "현관에 나란히 놓인 내 운동화 한 켤레", "text": "봉덕동 집 현관문을 열면 가장 먼저 눈에 띄는 것\n매일 내 두 발을 감싸고 산책길을 함께 걷는 운동화 한 켤레다\n밑창에는 고산골의 붉은 흙이 살짝 묻어 있고\n신발 끈에는 신천 강바람의 상쾌한 냄새가 배어 있다\n\n젊은 날에는 구두를 신고 바쁘게 직장으로 달려 나갔지만\n지금은 편안한 운동화 끈을 매고 자연을 만나러 나간다\n\n오늘도 나를 고산골 숲길과 신천 물가로 데려다줄\n내 인생 후반전의 가장 든든하고 고마운 동반자다", "artX": "0.00%", "artY": "33.33%", "artAlt": "고목 매화 가지에 머무는 작은 새"}, {"num": "059", "part": 3, "title": "봉덕동 이웃들과 나누는 아침 인사", "text": "이른 아침 운동화를 신고 봉덕동 골목을 나서면\n골목 앞을 쓸고 계신 옆집 어르신과 눈이 마주친다\n오늘도 고산골 다녀오시나 봐요, 날씨가 참 좋네요\n서로 고개를 숙여 건네는 짧은 인사에 아침이 환해진다\n\n오래 같은 동네에 살다 보니 눈빛만 보아도 반가운 얼굴들\n서로의 건강을 챙겨 주는 따뜻한 말 한마디가 보약보다 낫다\n\n정든 봉덕동 이웃들의 다정한 아침 인사를 등 뒤에 업고\n나는 오늘도 가벼운 발걸음으로 산책길을 나선다", "artX": "100.00%", "artY": "100.00%", "artAlt": "기와지붕 위 보름달과 소나무 숲"}, {"num": "060", "part": 3, "title": "봉덕동에서 고산골과 신천으로 이어지는 나의 길", "text": "대학을 졸업하고 봉덕동에 살기 시작한 것이 어제 같은데\n어느덧 반세 가까운 세월이 이 동네에서 흘러갔다\n남쪽으로 걸어 올라가면 앞산 고산골의 울창한 숲이 나를 반기고\n동쪽으로 걸어 내려가면 신천의 맑은 물길이 내 곁을 흘러간다\n\n산과 강을 모두 곁에 둔 봉덕동에 살고 있으니\n나는 날마다 두 권의 아름다운 자연 시집을 읽는 셈이다\n\n오늘도 봉덕동 대문을 나서며\n고산골의 나무들과 신천의 물새들에게 인사를 건네러 간다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "061", "part": 4, "title": "하늘로 시원하게 뻗은 고산골 메타세쿼이아 길", "text": "봉덕동에서 고산골 입구로 들어서면 가장 먼저 만나는 길\n키 큰 메타세쿼이아 나무들이 양옆으로 줄지어 선 초록 터널이다\n하늘을 향해 곧고 시원하게 뻗어 올라간 나무 기둥들을 보면\n구부정했던 내 어깨와 허리도 저절로 반듯하게 펴진다\n\n나무와 나무 사이로 아침 햇살이 금빛 줄기처럼 쏟아져 내리고\n흙길을 밟는 내 발걸음마다 상쾌한 숲의 향기가 피어오른다\n\n고산골 메타세쿼이아 길은 복잡한 도시의 생각을 내려놓고\n맑은 자연의 세계로 들어가는 초록빛 대문이다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "062", "part": 4, "title": "고산골 산책길에 계절마다 피어나는 꽃들", "text": "고산골 산책길은 달력이 없어도 꽃들이 먼저 계절을 알려 준다\n삼월이면 노란 생강나무 꽃과 개나리가 봄의 문을 열고\n사월이면 연분홍 진달래와 하얀 벚꽃이 산허리를 환하게 밝힌다\n\n여름이면 계곡가마다 탐스러운 수국이 파랗고 분홍빛으로 피어나고\n가을이면 보랏빛 쑥부쟁이와 구절초가 길가에서 수줍게 웃는다\n\n계절마다 잊지 않고 찾아와 고산골을 꾸며 주는 꽃들 덕분에\n내 산책길은 일 년 내내 향기로운 꽃밭이다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "063", "part": 4, "title": "싱싱한 여름날 고산골을 울리는 매미 소리", "text": "초록 잎이 가장 무성해지는 칠월과 팔월의 고산골\n숲에 들어서면 나무마다 매달린 매미들의 합창이 쏟아진다\n맴맴맴, 쓰르람쓰르람 산 전체가 떠나갈 듯 우는 소리에\n여름의 뜨거운 더위가 오히려 시원하게 씻겨 내려간다\n\n땅속 어두운 곳에서 여러 해를 참고 기다리다가\n마침내 세상에 나와 온 힘으로 여름을 노래하는 작은 생명들\n\n싱싱한 여름날 고산골의 우렁찬 매미 소리를 들으면\n내 가슴속에도 젊은 날의 힘찬 에너지가 다시 차오른다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "064", "part": 4, "title": "맑은 구슬처럼 구르는 고산골 계곡의 물소리", "text": "고산골 산책로를 따라 올라가는 내내\n길 옆 계곡에서는 맑은 물소리가 내 발걸음과 나란히 흐른다\n바위 사이를 지날 때는 졸졸졸 낮은 소리로 속삭이고\n작은 폭포를 떨어질 때는 쏴아 하고 시원한 웃음을 터뜨린다\n\n잠시 걸음을 멈추고 계곡물에 손을 담가 보면\n앞산 깊은 골짜기에서 내려온 물이 얼음처럼 차고 깨끗하다\n\n고산골 계곡의 물소리는 하루 종일 들어도 질리지 않는\n자연이 내게 들려주는 가장 맑은 피아노 연주다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "065", "part": 4, "title": "고산골 계곡 바위를 감싼 초록빛 이끼", "text": "계곡물이 흐르는 그늘진 바위 위를 가만히 들여다보면\n비단처럼 부드러운 초록빛 이끼가 바위를 포근히 감싸고 있다\n꽃처럼 화려하지도 않고 나무처럼 키가 크지도 않지만\n물방울을 머금은 채 가장 낮은 자리에서 초록을 지키는 생명\n\n딱딱하고 차가운 바위도 초록 이끼 옷을 입고 나니\n누가 앉아도 좋을 만큼 따뜻하고 부드러운 의자가 되었다\n\n눈에 잘 띄지 않는 작은 바위 이끼 하나가\n고산골 계곡의 깊고 오래된 시간을 조용히 보여 주고 있다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "066", "part": 4, "title": "능선을 부드럽게 감싸 안는 앞산 안개", "text": "비가 내린 이튿날 새벽 고산골로 산책을 올라가면\n하얀 앞산 안개가 산허리와 소나무 숲을 포근히 감싸고 있다\n멀리 보이던 봉우리는 구름 같은 안개 뒤로 살짝 숨고\n눈앞의 나무들은 신비로운 수묵화 속의 풍경처럼 다가온다\n\n안개 속을 천천히 걸어가면 내 몸도 구름 위를 걷는 듯 가벼워지고\n나뭇잎 끝에 맺힌 안개 물방울이 이마에 시원하게 닿는다\n\n앞산 안개는 산의 모든 모서리를 부드럽게 지워 주며\n바쁘게 살던 내 마음에도 고요한 쉼표를 찍어 준다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "067", "part": 4, "title": "가을 고산골을 붉게 물들이는 단풍", "text": "시월이 깊어지면 고산골의 나무들은 저마다 고운 물감을 꺼내어\n초록빛 잎사귀를 빨갛고 노란 단풍으로 물들인다\n아기 손바닥처럼 작은 단풍잎들이 햇살을 받아 반짝일 때면\n산길 전체가 환한 등불을 켜 놓은 것처럼 눈부시다\n\n어릴 적 시골 산에서 보던 그 고운 가을빛이\n오늘 봉덕동 앞산 고산골에서 다시 내 눈앞에 펼쳐진다\n\n단풍나무 아래 벤치에 앉아 붉은 잎들을 올려다보면\n내 마음까지 가을 단풍처럼 곱고 따뜻하게 물들어 간다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "068", "part": 4, "title": "발밑에서 바스락거리는 고산골 낙엽 길", "text": "가을 끝자락의 고산골 산책로는 떨어진 낙엽들이 수북이 쌓여\n푹신푹신한 갈색 양탄자를 깔아 놓은 것 같다\n한 걸음 옮길 때마다 발밑에서 바스락, 사각사각\n마른 낙엽들이 정겨운 소리로 내 발걸음에 대답을 한다\n\n봄부터 여름까지 나무 위에서 시원한 그늘을 만들어 주던 잎들이\n마지막에는 땅으로 내려와 산책하는 사람들의 발을 감싸 준다\n\n아름답게 물들었다가 기꺼이 땅의 거름이 되는 고산골 낙엽에서\n아낌없이 나누어 주는 자연의 따뜻한 마음을 배운다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "069", "part": 4, "title": "소원을 담아 하나씩 올린 고산골 돌탑", "text": "고산골에서 법장사로 올라가는 길가에는\n산책하는 사람들이 돌을 하나씩 쌓아 만든 돌탑들이 서 있다\n크고 넓적한 돌은 아래에서 든든하게 받쳐 주고\n작고 둥근 돌은 그 위에 조심스럽게 올라앉아 있다\n\n나도 길가의 작은 돌멩이 하나를 주워 돌탑 위에 올려놓으며\n우리 가족과 이웃들의 건강하고 평안한 하루를 빌어 본다\n\n접착제 하나 없이도 서로를 의지하며 비바람을 견디는 돌탑처럼\n사람과 사람도 서로를 받쳐 줄 때 무너지지 않는다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "070", "part": 4, "title": "산바람이 지나갈 때만 우는 법장사 풍경", "text": "고산골 산책길 위쪽 법장사 대웅전 처마 끝에는\n작은 물고기 모양을 매단 청동 풍경이 걸려 있다\n바람이 불지 않을 때는 아무 소리도 내지 않고 가만히 있다가\n산바람이 스쳐 지나갈 때만 뎅그렁, 맑은 소리를 낸다\n\n그 맑은 종소리가 한 번 울리면 소나무 숲이 더 고요해지고\n산길을 올라오느라 가빴던 내 숨결도 차분하게 가라앉는다\n\n꼭 필요할 때만 맑은 소리 하나를 내어놓는 법장사 풍경이\n내게 말을 아끼는 지혜를 조용히 가르쳐 준다", "artX": "25.00%", "artY": "0.00%", "artAlt": "물고기 모양 청동 풍경과 날아오는 제비"}, {"num": "071", "part": 4, "title": "고산골 약수터의 시원한 물 한 바가지", "text": "메타세쿼이아 길을 지나 산비탈을 한참 걸어 올라가면\n바위틈에서 사계절 마르지 않고 솟아나는 고산골 약수터가 나온다\n파란 바가지로 약수를 가득 받아 한 모금 마시면\n이마에 맺혔던 땀방울이 쏙 들어가고 목 안이 상쾌해진다\n\n어린 시절 시골 우물에서 두레박으로 길어 마시던 그 물맛처럼\n앞산 바위가 정성껏 걸러 낸 물은 달고 시원하다\n\n먼저 온 사람이 다음 사람을 위해 바가지를 깨끗이 헹구어 걸어 두는 곳,\n고산골 약수터에는 맑은 물과 함께 이웃의 배려가 흐른다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "072", "part": 4, "title": "고산골 맨발 황톳길을 걷는 기쁨", "text": "운동화와 양말을 벗어 들고 고산골 황톳길에 맨발을 내려놓는다\n보들보들하고 촉촉한 붉은 황토가 발바닥에 닿는 순간\n어릴 적 시골 논둑길을 맨발로 뛰어다니던 기억이 되살아난다\n\n한 걸음씩 천천히 걸을 때마다 땅의 건강한 기운이\n발바닥을 타고 온몸으로 따뜻하게 올라오는 것 같다\n\n구두 속에 갇혀 있던 두 발이 흙과 다시 인사를 나누는 시간,\n고산골 황톳길은 내 몸과 마음을 다시 젊어지게 한다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "073", "part": 4, "title": "도토리를 입에 물고 뛰어가는 고산골 다람쥐", "text": "상수리나무 그늘 아래 산책길을 조용히 걷고 있는데\n앞쪽 낙엽 더미에서 작은 다람쥐 한 마리가 불쑥 고개를 내민다\n떨어진 도토리 두 알을 양 볼이 불룩하도록 입에 넣더니\n까만 눈으로 나를 한 번 쳐다보고는 나무 위로 총총 뛰어오른다\n\n행여 다람쥐가 놀랄까 봐 나는 숨을 죽이고 걸음을 멈추었다\n겨울을 준비하는 부지런한 숲속의 작은 주인\n\n우리가 걷는 고산골 산책길은 사람의 길이기도 하지만\n다람쥐와 산새들이 살아가는 소중한 집이라는 것을 기억한다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "074", "part": 4, "title": "비 개인 뒤 고산골 솔숲의 진한 솔향기", "text": "소나기가 한 차례 고산골을 시원하게 씻어 내리고 간 뒤\n소나무 숲길에 들어서면 진한 솔향기가 코끝으로 밀려온다\n초록빛 솔잎 끝마다 투명한 빗방울이 보석처럼 매달려\n구름 사이로 나온 햇살을 받아 반짝반짝 빛난다\n\n가슴을 활짝 펴고 솔향기 가득한 공기를 깊이 들이마시면\n머릿속까지 푸른 소나무 숲처럼 맑아지는 기분이다\n\n비 온 뒤의 고산골 솔숲은 돈 주고도 살 수 없는\n자연의 가장 귀한 향수를 산책객들에게 아낌없이 뿌려 준다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "075", "part": 4, "title": "고산골 돌계단을 한 칸씩 오르는 걸음", "text": "앞산 전망대 쪽으로 이어지는 고산골의 돌계단\n젊은 날에는 두 칸씩 성큼성큼 뛰어오르기도 했지만\n이제는 내 숨소리에 맞추어 한 칸씩 천천히 밟아 오른다\n\n천천히 오르니 빨리 갈 때는 보이지 않던 것들이 보인다\n돌계단 틈에 핀 작은 제비꽃과 바위를 타고 오르는 다람쥐,\n계단 한 칸을 오를 때마다 조금씩 넓어지는 대구 시내의 풍경\n\n인생도 산길의 돌계단처럼 서두르지 않고\n자기 보폭으로 한 칸씩 오를 때 가장 아름다운 풍경을 만난다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "076", "part": 4, "title": "고산골 숲속에서 지저귀는 직박구리와 산비둘기", "text": "아침 고산골에 들어서면 수많은 산새들이 음악회를 연다\n나뭇가지 높은 곳에서는 직박구리가 경쾌한 목소리로 노래하고\n깊은 소나무 숲 안쪽에서는 산비둘기가 구구구 낮게 화음을 넣는다\n\n박새와 곤줄박이는 사람 가까이로 날아와 인사를 건네듯\n이 가지에서 저 가지로 포르르 옮겨 앉는다\n\n새들의 맑은 노랫소리를 들으며 산책길을 걷다 보면\n내 마음도 새의 날개를 달고 푸른 숲 위를 날아오르는 듯하다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "077", "part": 4, "title": "여름 고산골 나무 그늘 벤치의 시원한 바람", "text": "무더운 여름날 고산골 산책로를 한 바퀴 걷고 내려와\n메타세쿼이아 나무 그늘 아래 벤치에 앉아 땀을 식힌다\n계곡물을 스치고 올라온 시원한 산바람이\n젖은 내 셔츠 깃 속으로 솔솔 불어 들어온다\n\n어릴 적 시골 느티나무 그늘에서 아버지와 함께 맞던 그 바람\n수십 년이 지나 고산골 벤치에서도 똑같이 시원하게 불어온다\n\n나무가 사람에게 아무 대가 없이 내어 주는 넓은 그늘과 바람,\n그 고마운 선물 앞에서 나는 잠시 눈을 감고 미소를 짓는다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "078", "part": 4, "title": "흰 눈이 내려 수묵화가 된 겨울 고산골", "text": "간밤에 내린 흰 눈이 고산골의 바위와 나뭇가지를 하얗게 덮었다\n화려하던 가을 단풍이 모두 떨어진 빈 나뭇가지 위에\n하얀 눈꽃이 새로 피어나 겨울만의 깨끗한 아름다움을 보여 준다\n\n아무도 밟지 않은 산책로 눈길 위에 내 운동화 발자국을 찍으며\n뽀드득뽀드득 눈 밟는 소리를 들으며 천천히 걸어간다\n\n검은 나무 기둥과 하얀 눈이 어우러진 겨울 고산골은\n누군가 화선지 위에 정성껏 그려 놓은 한 폭의 동양화 같다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "079", "part": 4, "title": "얼음 밑에서 봄을 준비하는 고산골 계곡물", "text": "추운 겨울날 고산골 계곡을 들여다보면 겉은 하얗게 얼어 있지만\n투명한 얼음장 아래에서는 맑은 물이 쉬지 않고 흐르고 있다\n귀를 가까이 대어 보면 졸졸졸, 얼음 밑을 지나는 물소리가\n머지않아 따뜻한 봄이 올 것이라고 속삭여 준다\n\n계곡가 버드나무 가지 끝에도 벌써 작은 봄눈이 맺혀 있다\n\n아무리 추운 겨울 속에서도 자연은 멈추지 않고\n보이지 않는 곳에서 새로운 봄을 부지런히 준비하고 있었다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "080", "part": 4, "title": "고산골 산책을 마치고 내려오는 가벼운 발걸음", "text": "고산골 메타세쿼이아 길과 계곡 길을 한 시간쯤 걷고 내려올 때면\n올라갈 때 마음속에 있던 작은 걱정들이 흔적도 없이 사라진다\n맑은 물소리가 내 귀를 깨끗이 씻어 주었고\n초록빛 나무와 꽃들이 내 눈을 시원하게 밝혀 주었다\n\n산책길 입구에서 마주 오르는 이웃들에게 가벼운 목례를 건네며\n다시 봉덕동과 신천 쪽으로 발걸음을 옮긴다\n\n날마다 나를 건강하게 안아 주는 앞산 고산골이 곁에 있어\n나의 하루는 언제나 맑고 든든하게 시작된다", "artX": "25.00%", "artY": "66.67%", "artAlt": "굽은 소나무와 안개에 잠긴 앞산 고산골 산길"}, {"num": "081", "part": 5, "title": "봉덕동에서 걸어 나가는 맑은 신천 산책길", "text": "고산골 숲길을 다녀온 뒤나 해 질 무렵이면\n나는 봉덕동 집에서 가까운 신천 물길로 산책을 나간다\n가창에서 흘러내려와 대구 시내를 가로질러 흐르는 고마운 강\n물가를 따라 잘 다듬어진 산책로에는 사계절 바람이 시원하다\n\n흐르는 강물을 바라보며 천천히 걷다 보면\n어린 시절 소를 몰고 걷던 시골 개울가가 신천 물결 위에 겹쳐진다\n\n도심 한가운데로 이렇게 맑은 물길이 흘러 주니\n신천은 대구 시민들과 내 마음을 적셔 주는 생명의 강이다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "082", "part": 5, "title": "신천 물 위를 나란히 헤엄치는 오리 가족", "text": "신천 산책로를 걷다가 물가를 내려다보면\n오리 가족이 줄을 지어 사이좋게 물 위를 헤엄쳐 간다\n엄마 오리가 앞에서 물갈퀴를 저으며 길을 열면\n아기 오리들이 뒤처지지 않으려고 조그만 발을 바쁘게 움직인다\n\n가끔 물속으로 머리를 쏙 넣었다가 물방울을 털어 내는 귀여운 모습\n산책하던 아이들도 어른들도 걸음을 멈추고 미소를 짓는다\n\n나란히 물결을 가르며 나아가는 신천의 오리 가족을 보며\n함께 걸어가는 가족의 따뜻함을 다시 한번 느낀다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "083", "part": 5, "title": "맑은 신천 물속을 헤엄치는 물고기와 큰 잉어", "text": "신천 징검다리 위에 멈춰 서서 흐르는 물속을 들여다보면\n바닥의 조약돌이 다 보일 만큼 맑은 물속에서 물고기들이 논다\n작은 피라미 떼가 햇빛을 받아 은빛으로 반짝이며 지나가고\n그 아래로는 팔뚝보다 큰 잉어들이 유유히 꼬리를 흔들며 헤엄친다\n\n가끔 큰 잉어 한 마리가 수면 위로 철퍼덕 뛰어올라\n둥근 물결을 만들며 산책하는 사람들을 깜짝 놀라게 한다\n\n어릴 적 시골 개울에서 붕어를 잡던 소년은 이제 노인이 되어\n신천의 잉어들이 건강하게 헤엄치는 모습을 흐뭇하게 바라본다", "artX": "50.00%", "artY": "0.00%", "artAlt": "분홍 연꽃과 연잎 아래 은빛 물고기"}, {"num": "084", "part": 5, "title": "신천 여울목에 눈부시게 서 있는 하얀 백로", "text": "신천 물살이 자갈을 만나 하얗게 부서지는 여울목 한가운데\n눈처럼 하얀 백로 한 마리가 긴 다리로 고요히 서 있다\n주변으로 사람들이 걸어가고 자전거가 지나가도\n백로는 조금도 흔들리지 않고 물속의 물고기만 가만히 바라본다\n\n그러다 쏜살같이 부리를 뻗어 작은 물고기를 낚아채고는\n우아하게 긴 목을 들어 올리는 하얀 새\n\n바쁘게 흘러가는 강물 한가운데서 저토록 고요히 서 있는 백로는\n신천이 그려 놓은 가장 깨끗하고 아름다운 그림 한 폭이다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "085", "part": 5, "title": "큰 날개를 펴고 신천 하늘을 나는 왜가리", "text": "신천 둔치의 바위 위에 조각상처럼 우뚝 서 있던 회색빛 왜가리\n한참 동안 강물을 내려다보며 깊은 생각에 잠겨 있더니\n어느 순간 커다란 두 날개를 활짝 펴고 하늘로 날아오른다\n\n한 번 날개를 저을 때마다 강물 위의 바람이 크게 일렁이고\n왜가리는 다리를 길게 뻗은 채 앞산 쪽 하늘로 유유히 날아간다\n\n기다릴 때는 바위처럼 묵직하고 날아오를 때는 구름처럼 자유로운 왜가리,\n신천 산책길에서 만나는 가장 멋지고 당당한 친구다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "086", "part": 5, "title": "신천을 건너는 정겨운 돌 징검다리", "text": "신천 이쪽 둔치에서 저쪽 둔치로 건너가는 물길 위에\n네모나고 둥근 돌들이 나란히 놓인 징검다리가 있다\n한 발 한 발 돌을 디디며 강 한가운데로 걸어 들어가면\n발아래에서 흐르는 맑은 물소리가 한결 가깝고 시원하게 들린다\n\n반대편에서 건너오던 이웃과 징검다리 중간에서 마주치면\n서로 웃으며 살짝 비켜 주는 정겨운 풍경\n\n어린 시절 시골 개울의 징검다리를 건너던 그 마음 그대로\n나는 오늘도 신천 징검다리 위에서 동심으로 돌아간다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "087", "part": 5, "title": "신천 둔치 버드나무와 봄의 노란 개나리", "text": "신천 산책로에도 봄이 오면 가장 먼저 물가 버드나무가\n연두색 실 같은 가지를 바람에 부드럽게 흔든다\n둑길 위쪽으로는 노란 개나리와 분홍 벚꽃이 끝없이 이어져\n강물 위에도 노랗고 분홍빛인 꽃 그림자가 출렁인다\n\n꽃그늘 아래를 걷는 사람들의 얼굴마다 봄 햇살 같은 웃음이 피고\n오리와 백로도 봄물이 반가운지 물장구를 치며 논다\n\n겨울을 이겨 내고 다시 찾아온 신천의 눈부신 봄날,\n걸음마다 꽃향기가 따라오는 행복한 산책길이다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "088", "part": 5, "title": "저녁노을이 붉게 비치는 신천의 물결", "text": "하루 해가 앞산 너머로 천천히 기울어 가는 저녁 시간\n신천의 맑은 강물 위로 붉고 노란 저녁노을이 내려앉는다\n반짝이는 물결마다 금빛 보석을 뿌려 놓은 것처럼 아름다워\n산책하던 걸음을 멈추고 다리 난간에 기대어 물을 바라본다\n\n낮 동안 헤엄치던 오리들도 갈대숲 잠자리로 모여들고\n왜가리 한 마리가 노을빛 하늘을 가로질러 둥지로 돌아간다\n\n어린 시절 시골 들판에서 보던 그 따뜻한 저녁노을을\n오늘 봉덕동 신천 물결 위에서 다시 만나니 가슴이 뭉클해진다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "089", "part": 5, "title": "시골 소년에서 봉덕동 시인이 되기까지", "text": "신천 산책길을 천천히 걸으며 내가 지나온 세월을 돌아본다\n시골에서 소 고삐를 잡고 풀을 먹이며 부모님 농사일을 돕던 소년,\n국민학교 운동장에서 축구를 하고 운동회 달리기 일등을 하던 아이\n\n대명동에서 고등학교를 다니며 밤늦도록 공부하던 청춘을 지나\n대학 졸업 후 봉덕동에 자리 잡고 살아온 긴 세월\n\n그 모든 시간들이 하나도 사라지지 않고 내 마음속에 모여\n오늘 내가 쓰는 따뜻한 시의 씨앗이 되어 주었다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "090", "part": 5, "title": "산책길에서 만나 시가 되는 작은 생명들", "text": "시는 멀리 있는 어려운 책 속에서만 나오는 것이 아니었다\n매일 아침 내가 걷는 고산골 메타세쿼이아 길의 시원한 바람,\n계곡 바위를 감싼 초록 이끼와 여름날의 힘찬 매미 소리\n\n신천 물속을 헤엄치는 큰 잉어와 여울목에 서 있는 하얀 백로,\n그 작은 생명들을 따뜻한 눈으로 오래 바라보면\n저마다 내게 말을 걸어와 한 줄의 고운 시가 된다\n\n내 산책길은 날마다 새로운 시를 선물해 주는\n세상에서 가장 넓고 아름다운 야외 서재다", "artX": "50.00%", "artY": "66.67%", "artAlt": "물가의 오리 가족과 갈대 위 잠자리"}, {"num": "091", "part": 5, "title": "오랜 친구와 나란히 걷는 신천 둔치", "text": "가끔은 국민학교와 대명동 고교 시절의 오랜 친구를 불러\n신천 산책길과 고산골 숲길을 나란히 걷는다\n머리는 하얗게 세었지만 어릴 적 운동장에서 공을 차던 이야기와\n소 먹이러 다니던 시골 이야기를 꺼내면 금세 소년으로 돌아간다\n\n걷다가 다리가 아프면 물가 벤치에 나란히 앉아\n신천의 오리와 잉어를 바라보며 따뜻한 커피 한 잔을 나눈다\n\n오랜 세월을 함께 건너와 같은 강물을 바라볼 수 있는 친구,\n인생의 가을에 내가 가진 가장 든든한 보물이다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "092", "part": 5, "title": "손주에게 들려주는 할아버지의 어린 시절", "text": "주말에 놀러 온 손주의 작은 손을 잡고 신천 산책길을 걷는다\n할아버지는 어릴 때 시골에서 소에게 풀을 먹이고\n국민학교 운동회 날 달리기 일등을 해서 공책을 상으로 받았단다\n\n손주는 눈을 동그랗게 뜨고 신기한 옛날이야기를 듣듯 귀를 기울이다가\n물속의 큰 잉어와 하얀 백로를 보고 신이 나서 손가락으로 가리킨다\n\n내 어린 날의 시골 하늘과 오늘 손주와 걷는 신천의 하늘이\n따뜻한 맞잡은 손을 통해 하나로 이어지고 있다", "artX": "50.00%", "artY": "66.67%", "artAlt": "물가의 오리 가족과 갈대 위 잠자리"}, {"num": "093", "part": 5, "title": "평범한 오늘 하루가 가장 고마운 나이", "text": "젊은 날에는 남보다 빨리 높은 곳에 오르는 것이 행복인 줄 알았다\n하지만 봉덕동에서 오랜 세월을 살아온 지금에야 안다\n아침에 눈을 떠서 내 두 발로 고산골 숲길을 걸을 수 있는 것\n\n계곡의 맑은 물소리와 여름 매미 소리, 가을 단풍을 볼 수 있는 것,\n신천의 백로와 오리를 보며 집으로 돌아와 따뜻한 밥을 먹는 것\n\n이 평범하고 조용한 하루하루가\n사실은 무엇과도 바꿀 수 없는 가장 큰 축복이었다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "094", "part": 5, "title": "누구나 쉽게 읽고 미소 짓는 시를 쓰고 싶다", "text": "나는 어려운 말로 사람을 힘들게 하는 시보다\n중학생도 읽고 고개를 끄덕이며 미소 지을 수 있는 시를 쓰고 싶다\n시골의 파란 하늘과 어머니의 밥 냄새, 운동장의 함성처럼\n누구나 마음속에 하나씩 품고 있는 그리운 풍경을 그리는 시\n\n고산골의 꽃 한 송이와 신천의 물새 한 마리를\n이웃에게 이야기하듯 쉽고 맑은 우리말로 적어 내려간다\n\n내 시 한 편이 읽는 이의 지친 마음에\n고산골 계곡물 같은 시원한 위로가 되기를 소망한다", "artX": "50.00%", "artY": "66.67%", "artAlt": "물가의 오리 가족과 갈대 위 잠자리"}, {"num": "095", "part": 5, "title": "내 삶을 지탱해 온 네 가지 따뜻한 마음", "text": "어린 시절 시골과 국민학교의 소중한 추억을 잊지 않는 마음,\n가족과 이웃에게 따뜻한 사랑을 아끼지 않는 마음,\n오래된 친구와의 우정을 끝까지 지키는 마음,\n한 번 맺은 믿음을 쉽게 저버리지 않는 마음\n\n나는 봉덕동 명도재 책상 앞에 앉아 시를 쓰기 전에\n이 네 가지 마음을 먼저 가슴속에 반듯하게 새겨 둔다\n\n고산골의 메타세쿼이아 나무처럼 곧고 푸르게,\n오늘도 그 네 가지 마음으로 나의 산책길을 걸어간다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "096", "part": 5, "title": "풀 아래에 그대로 남아 있는 옛길", "text": "어릴 적 소를 끌고 다니던 시골길도, 오래된 못둑의 산책길도\n세월이 흘러 사라진 것처럼 보이지만 결코 사라지지 않는다\n여름 풀이 덮이고 가을 낙엽이 쌓여 있을 뿐\n풀을 살짝 헤쳐 보면 길 아래에 옛길이 그대로 남아 있다\n\n옛날에는 누렁소가 지나고 농사짓던 부모님이 지나고 바람이 지나더니\n오늘은 산책하는 시인의 발걸음과 시 한 편이 그 길을 지난다\n\n옛길은 낡아서 쓸모없는 길이 아니라\n오래된 기억으로 오늘의 우리를 따뜻하게 맞이해 주는 길이다", "artX": "50.00%", "artY": "66.67%", "artAlt": "물가의 오리 가족과 갈대 위 잠자리"}, {"num": "097", "part": 5, "title": "비어 있어서 더 가득 찬 물가의 벤치", "text": "산책길 물가에 놓인 벤치 하나가 조용히 비어 있다\n사람은 앉아 있지 않지만 그 자리가 쓸쓸해 보이지 않는다\n벤치 위에는 따뜻한 오후 햇살과 그리움이 앉아 있고\n물가에는 지나간 세월과 붉은 저녁노을이 함께 머물고 있다\n\n고산골과 신천, 주리못을 함께 걷던 그리운 사람들의 웃음소리가\n그 빈 벤치 주변에 아직도 따뜻하게 남아 있다\n\n눈에 보이지 않는 사랑과 추억이 가득 앉아 있기에\n산책길의 빈자리는 언제 보아도 가장 충만한 자리다", "artX": "50.00%", "artY": "100.00%", "artAlt": "산책길 빈 벤치와 들꽃"}, {"num": "098", "part": 5, "title": "퍼내도 마르지 않는 물에서 길어 올린 시 한 편", "text": "정성을 다해 시 한 편을 다 쓰고 나면\n고산골 계곡물과 신천의 강물이 한결 더 맑아 보인다\n마음속의 물을 다 떠다 시를 쓴 것 같아 잠시 비어 있는 듯해도\n하늘에서 비가 내리고 산에서 물이 흘러들면 다시 가득 찬다\n\n시는 고산골의 계곡물과 같고 주리못의 못물과 같아서\n아무리 퍼내어 써도 마르거나 없어지지 않는다\n\n오늘 시 한 편을 더 쓴다는 것은\n내가 매일 걷는 산책길 끝에 따뜻한 발자국 하나를 더 남기는 일이다", "artX": "50.00%", "artY": "66.67%", "artAlt": "물가의 오리 가족과 갈대 위 잠자리"}, {"num": "099", "part": 5, "title": "산과 물길을 타고 흐르는 시인의 목소리", "text": "고산골 숲길에서 시 한 줄을 읽으면 앞산 능선이 조용히 들어 주고\n신천과 주리못 물가에서 이름을 부르면 강물이 메아리가 되어 흐른다\n진심을 담아 부르는 목소리는 바람을 타고 풍경 속으로 번져 간다\n\n아름다운 시를 남긴 옛 시인의 목소리는 산새들 사이를 지나 물결이 되고\n오늘 산책길을 걷는 이명우의 목소리는\n백로와 오리가 노니는 물가에 앉아 따뜻한 저녁노을이 된다\n\n물결과 노을이 하나가 되는 저녁,\n내가 걷는 이 모든 산책길이 살아 있는 한 권의 시집이 된다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}, {"num": "100", "part": 5, "title": "시골 하늘에서 신천 물길까지, 백 번째 하늘", "text": "신천과 주리못 물가에 서서 바라보면 하늘이 두 개다\n하나는 고개 들어 올려다보는 푸른 하늘, 하나는 맑은 물속에 비친 하늘\n어느 하늘이 진짜냐고 물으면 물결은 환하게 웃으며\n위쪽 하늘도 물속 하늘도 모두 진짜라고 대답한다\n\n소 끌고 풀 먹이던 시골 하늘과 국민학교 운동장의 만국기 하늘,\n대명동 고교 시절과 봉덕동 고산골 메타세쿼이아 길의 하늘을 지나\n백발의 시인이 되어 오늘 신천의 백로와 잉어 앞에 다시 섰다\n\n내가 사랑하며 걸어온 그 모든 날의 하늘을 하나씩 다 세어 보니,\n그것이 바로 내 삶을 환하게 비추는 백 편의 시였다", "artX": "0.00%", "artY": "66.67%", "artAlt": "신천 물살을 바라보는 왜가리와 강가의 돌"}], "videoUrl": "", "posterUrl": "../poetry-book/media/cover-landscape.webp"};
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    let pages = [], pageMeta = [], position = 0, busy = false;
+    const mobile = matchMedia('(max-width:800px)');
+    let step = () => mobile.matches ? 1 : 2;
+
+    // 1. 앞표지 (제3시집 양장 하드커버)
+    const coverHtml = `
+      <section class="cover hardcover-front editorial-cover" aria-label="명도재 이명우 제3시집 앞표지">
+        <div class="editorial-cover-frame">
+          <p class="editorial-cover-kicker">明道齋 · 제3창작 시집 (第3詩集)</p>
+          <div class="editorial-cover-main">
+            <span class="editorial-cover-rule" aria-hidden="true"></span>
+            <h1 class="editorial-cover-title">고산골 메타세쿼이아 길에서<br>신천 물길까지</h1>
+            <p class="editorial-cover-subtitle">${esc(DATA.subtitle)}</p>
+          </div>
+          <div class="editorial-cover-footer">
+            <span>명도재 이명우 지음</span>
+            <span>명도재 제작 · 제3시집 백 편 서정</span>
+          </div>
+        </div>
+      </section>`;
+
+    // 2. 뒷표지
+    const backCoverHtml = `
+      <section class="back-cover">
+        <div class="back-cover-mark">明道齋 · 第3詩集</div>
+        <p class="back-cover-quote">소 고삐 잡고 걷던 시골 하늘에서<br>국민학교 운동장과 대명동·봉덕동을 지나,<br><br>오늘 걷는 고산골과 신천 물길이<br>백 편의 시가 됩니다.</p>
+        <div class="back-cover-title">고산골 메타세쿼이아 길에서 신천 물길까지</div>
+        <p class="back-cover-author">명도재 이명우 제3창작 시집</p>
+      </section>`;
+
+    // 3. 여는 장 (Page 02) — 16:9 비율 꽉 찬 〈가을〉 시낭송 영상(가을_명도재_이명우_시낭송영상.mp4) 및 영상 입력/선택창 탑재!
+    const openingMediaHtml = DATA.videoUrl
+      ? `<div class="opening-video-frame" onclick="event.stopPropagation()">
+           <video id="opening-video" controls playsinline preload="metadata" poster="${esc(DATA.posterUrl)}">
+             <source id="opening-video-src" src="${esc(DATA.videoUrl)}" type="video/mp4">
+             이 브라우저에서는 영상을 재생할 수 없습니다.
+           </video>
+         </div>
+         <div class="video-input-bar" onclick="event.stopPropagation()">
+           <select id="video-preset-sel" onchange="changeOpeningVideo(this.value)" style="flex:1;min-width:120px;">
+             <option value="가을_명도재_이명우_시낭송영상.mp4" selected>🍂 가을 — 명도재 이명우 시낭송 영상 (16:9)</option>
+             <option value="첫눈_명도재_이명우_시낭송영상.mp4">❄️ 첫눈 — 명도재 이명우 시낭송 영상 (16:9)</option>
+             <option value="가을_숲_바위길에_스미는_빛_명도재_AI융합예술_16대9.mp4">🌲 가을 숲 바위길에 스미는 빛 (16:9)</option>
+           </select>
+           <input type="text" id="custom-video-input" value="가을_명도재_이명우_시낭송영상.mp4" placeholder="영상 파일명/URL 입력" style="width:135px;" onchange="changeOpeningVideo(this.value)" />
+           <label class="pill-btn" style="padding:2px 7px;font-size:7pt;cursor:pointer;">📁 파일 선택<input type="file" accept="video/*" style="display:none;" onchange="loadLocalVideoFile(this)" /></label>
+         </div>`
+      : `<div class="opening-video-frame" onclick="event.stopPropagation()">
+           <video id="opening-video" controls playsinline preload="none" poster="${esc(DATA.posterUrl)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+         </div>`;
+
+    const songHtml = `
+      <section class="song" style="max-width:460px;width:100%;">
+        <div class="eyebrow">OPENING · 시에서 영상으로 (제3시집 여는 시 · 16:9)</div>
+        <h1>가 을</h1>
+        <p class="lead" style="font-size:8pt;color:#637065;line-height:1.5;margin-bottom:2px;">“가을이라는 이름을 가만히 불러 본다 · 고산골에 서면 하루가 조금 느려지고”</p>
+        ${openingMediaHtml}
+        <div class="caption" style="font-size:7.2pt;color:#808476;line-height:1.45;">「가을」 · 명도재 이명우 창작시 시화 시낭송 영상 (1920×1080 · 16:9 와이드)<br>서늘한 바람은 나뭇잎 사이를 지나 낙엽 한 장 내게 이야기를 건넨다</div>
+        <hr style="width:88%;border:0;border-top:1px solid #d9d5c7;margin:5px auto;">
+        <p class="intro" style="font-size:7.5pt !important;line-height:1.55 !important;margin:0 !important;">고산골 단풍 숲에서 시작되는 「가을」 16:9 시낭송 영상을 감상하시고, 다음 장으로 넘겨 백 편의 시를 만나보세요.</p>
+        <label style="display:inline-flex;align-items:center;gap:6px;font-size:11px;border:1px solid #c8d0c5;border-radius:9px;padding:5px 8px;cursor:pointer" onclick="event.stopPropagation()">🎬 시낭송 영상 선택·재생 <input type="file" accept="video/mp4,video/*" onchange="loadLocalVideoFile(this)" style="max-width:175px;font-size:10px" /></label>
+        <p style="font-size:10px;color:#6a756c;line-height:1.4;margin:3px 0">영상은 기기에서 선택하면 이 페이지에서 재생됩니다. 공개 서버에 영상 파일은 아직 등록되지 않았습니다.</p>
+      </section>`;
+
+    // 4. 시인의 말 (Page 03)
+    const editorialHtml = `
+      <section class="colophon editorial">
+        <div class="eyebrow">POET’S NOTE · 제3시집 시인의 말</div>
+        <h2>소 고삐 잡던 손으로<br>고산골과 신천을 걷습니다</h2>
+        <p>『${esc(DATA.title)}』는 명도재 이명우의 제3창작 시집(3집)으로, 어린 시절부터 오늘의 산책길까지 삶의 이야기를 누구나 읽기 쉬운 맑은 우리말로 엮은 백 편의 시집입니다.</p>
+        <p>시골에서 부모님 농사일을 돕고 소 끌고 풀 찾아다니던 기억, 국민학교 운동장에서 소꿉놀이와 축구·고무줄놀이를 하고 가을 운동회 달리기 일등을 하던 날, 대명동 고교 시절과 대학 졸업 후 정든 봉덕동 생활을 담았습니다.</p>
+        <p>지금도 날마다 걷는 고산골 메타세쿼이아 길의 꽃과 매미 소리, 계곡 물소리와 바위 이끼, 앞산 안개와 신천의 오리·잉어·백로·왜가리가 독자 여러분의 마음에도 시원한 산책길이 되기를 바랍니다.</p>
+      </section>`;
+
+    pages = [coverHtml, songHtml, editorialHtml, ''];
+    pageMeta = [{type:'cover'}, {type:'song'}, {type:'editorial'}, {type:'contents'}];
+
+    const tocEntries = [
+      { title: '앞표지 (제3시집)', page: 0 },
+      { title: '여는 영상 · 가을 (고산골 시낭송)', page: 1 },
+      { title: '시인의 말 · 소 고삐부터 신천까지', page: 2 },
+      { title: '차례 · 다섯 갈래의 길', page: 3 }
+    ];
+
+    const tocButton = (title, page) => `<button type="button" data-page="${page}">${esc(title)}<span>${String(page + 1).padStart(2, '0')}</span></button>`;
+
+    for (const sec of DATA.sections) {
+      const secPoems = DATA.poems.filter(p => p.part === sec.num);
+      sec.page = pages.length;
+      pages.push('');
+      pageMeta.push({ type: 'section', sectionNum: sec.num });
+      tocEntries.push({ title: `제${sec.num}부 ${sec.title}`, page: sec.page, heading: true });
+      sec.entries = [];
+
+      for (const p of secPoems) {
+        const pPage = pages.length;
+        const entry = { title: `${p.num}. ${p.title}`, page: pPage };
+        tocEntries.push(entry);
+        sec.entries.push(entry);
+
+        const header = `<div class="poem-header"><span>제${sec.num}부 · ${esc(sec.title)}</span><span>${p.num} / 100</span></div>`;
+        const heading = `
+          <div class="poem-heading">
+            <h2>${esc(p.title)}</h2>
+            <figure class="poem-art" role="img" aria-label="시화 삽화: ${esc(p.artAlt)}" style="--art-x:${p.artX};--art-y:${p.artY}"></figure>
+          </div>`;
+        const body = `
+          <section class="poem" data-poem-num="${p.num}">
+            <div>
+              ${header}
+              ${heading}
+            </div>
+            <div class="verse-box-8pt">
+              <p class="verse">${esc(p.text)}</p>
+            </div>
+          </section>`;
+        pages.push(body);
+        pageMeta.push({ type: 'poem', poem: p });
+      }
+
+      pages[sec.page] = `
+        <section class="section-opener">
+          <div class="eyebrow">PART ${String(sec.num).padStart(2, '0')} · ${secPoems.length}편</div>
+          <h2>제${sec.num}부 · ${esc(sec.title)}</h2>
+          <p class="section-subtitle" style="font-size:8.5pt;color:#637065;margin:2px 0 4px;">${esc(sec.subtitle)}</p>
+          <p class="section-note">${esc(sec.intro)}</p>
+          <div class="chapter-list">
+            ${sec.entries.map(e => tocButton(e.title, e.page)).join('')}
+          </div>
+        </section>`;
+    }
+
+    pages[3] = `
+      <section class="book-contents">
+        <div class="eyebrow">CONTENTS · 제3시집 차례</div>
+        <h2>다섯 갈래의 길</h2>
+        <p style="font-size:8pt;color:#69746d;margin:0 0 8px;">명도재 이명우 제3시집 · 전 100편</p>
+        ${DATA.sections.map(sec => `
+          <div class="part-link">
+            ${tocButton(`제${sec.num}부 ${sec.title}`, sec.page)}
+            <p>${esc(sec.subtitle)} · 20편</p>
+          </div>
+        `).join('')}
+      </section>`;
+
+    const colophonPage = pages.length;
+    tocEntries.push({ title: '책을 덮으며 · 판권', page: colophonPage });
+    pages.push(`
+      <section class="colophon editorial">
+        <div class="eyebrow">COLOPHON · 책을 덮으며</div>
+        <h2>시골 하늘에서 신천 물길까지,<br>그게 백 편이다.</h2>
+        <p><strong>명도재 이명우 제3창작 시집 『${esc(DATA.title)}』</strong><br><small>${esc(DATA.subtitle)}</small></p>
+        <p>수록 작품 · 이명우 창작시 100편 (제1부~제5부)<br>여는 영상 · 「가을」 시화 시낭송 영상<br>편집 구성 · 1집 『물빛에 놓아둔 마음』 정통 시화집 판형 계승<br>조판 규격 · 본문 8포인트(8pt) 및 상하좌우 여백 판형</p>
+        <p style="font-size:7.5pt;color:#788173;border-top:1px solid #e2e4de;padding-top:8px;">2026년 늦가을, 봉덕동 명도재(明道齋)에서 엮음.</p>
+      </section>`);
+    pageMeta.push({ type: 'colophon' });
+
+    if (pages.length % 2 === 0) {
+      pages.push(`<section class="colophon editorial" style="text-align:center;"><div class="eyebrow">明道齋 · 第3詩集</div><h2>당신의 오늘 산책길에도<br>맑은 시 한 편이 함께하기를.</h2></section>`);
+      pageMeta.push({ type: 'closing' });
+    }
+
+    tocEntries.push({ title: '뒷표지', page: pages.length });
+    pages.push(backCoverHtml);
+    pageMeta.push({ type: 'back-cover' });
+
+    $('#toc-list').innerHTML = tocEntries.map(e => e.heading ? `<h3>${tocButton(e.title, e.page)}</h3>` : tocButton(e.title, e.page)).join('');
+
+    // 여는 장(02쪽) 영상 입력창 핸들러
+    window.changeOpeningVideo = function(srcUrl) {
+      if (!srcUrl) return;
+      const vid = document.getElementById('opening-video');
+      const inp = document.getElementById('custom-video-input');
+      if (inp) inp.value = srcUrl;
+      if (vid) {
+        vid.src = srcUrl;
+        vid.load();
+        vid.play().catch(() => {});
+      }
+    };
+
+    window.loadLocalVideoFile = function(fileInput) {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      const vid = document.getElementById('opening-video');
+      const inp = document.getElementById('custom-video-input');
+      if (inp) inp.value = file.name;
+      if (vid) {
+        vid.src = url;
+        vid.load();
+        vid.play().catch(() => {});
+      }
+    };
+
+    let soundEnabled = true, audioContext = null;
+    function playPageTurnSound() {
+      if (!soundEnabled) return;
+      try {
+        const AudioEngine = window.AudioContext || window.webkitAudioContext;
+        if (!AudioEngine) return;
+        audioContext ??= new AudioEngine();
+        const play = () => {
+          if (!soundEnabled || audioContext.state !== 'running') return;
+          const now = audioContext.currentTime;
+          const tap = audioContext.createOscillator(), tapGain = audioContext.createGain();
+          tap.type = 'triangle';
+          tap.frequency.setValueAtTime(1050, now);
+          tap.frequency.exponentialRampToValueAtTime(380, now + .025);
+          tapGain.gain.setValueAtTime(.0001, now);
+          tapGain.gain.exponentialRampToValueAtTime(.07, now + .002);
+          tapGain.gain.exponentialRampToValueAtTime(.0001, now + .035);
+          tap.connect(tapGain); tapGain.connect(audioContext.destination);
+          tap.start(now); tap.stop(now + .04);
+          const duration = .55, buffer = audioContext.createBuffer(1, Math.ceil(audioContext.sampleRate * duration), audioContext.sampleRate), data = buffer.getChannelData(0);
+          for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (.7 + .3 * Math.sin(i / audioContext.sampleRate * 90));
+          const paper = audioContext.createBufferSource(), filter = audioContext.createBiquadFilter(), gain = audioContext.createGain();
+          paper.buffer = buffer; filter.type = 'bandpass'; filter.Q.value = .65;
+          filter.frequency.setValueAtTime(1100, now + .04);
+          filter.frequency.exponentialRampToValueAtTime(2900, now + .24);
+          filter.frequency.exponentialRampToValueAtTime(850, now + .58);
+          gain.gain.setValueAtTime(.0001, now);
+          gain.gain.exponentialRampToValueAtTime(.13, now + .14);
+          gain.gain.exponentialRampToValueAtTime(.0001, now + .58);
+          paper.connect(filter); filter.connect(gain); gain.connect(audioContext.destination);
+          paper.start(now + .04); paper.stop(now + .59);
+        };
+        if (audioContext.state === 'suspended') audioContext.resume().then(play).catch(() => {});
+        else play();
+      } catch (e) {}
+    }
+
+    function togglePageSound() {
+      soundEnabled = !soundEnabled;
+      const btn = $('#btn-sound');
+      btn.classList.toggle('active', soundEnabled);
+      btn.textContent = soundEnabled ? '🔊 책장 소리' : '🔇 소리 끔';
+    }
+
+    function setPaperContent(paper, html, number) {
+      paper.innerHTML = html || '';
+      paper.dataset.number = String(number + 1).padStart(2, '0');
+      const meta = pageMeta[number] || {};
+      paper.classList.toggle('cover-page', meta.type === 'cover' || meta.type === 'back-cover');
+      paper.classList.toggle('back-cover-page', meta.type === 'back-cover');
+      paper.classList.toggle('section-leaf', meta.type === 'section');
+
+      if (html) {
+        const control = document.createElement('div');        control.className = 'page-read-control';
+        control.innerHTML = `<button type="button" data-page-read="${number}" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>`;
+        paper.append(control);
+      }
+    }
+
+    function render() {
+      for (const [i, side] of ['left', 'right'].entries()) {
+        const el = $('#' + side), n = position + i;
+        setPaperContent(el, pages[n], n);
+        el.classList.toggle('mobile-hidden', mobile.matches && i === 1);
+      }
+      $('#edge-prev').hidden = position === 0;
+      $('#edge-next').hidden = position + step() >= pages.length;
+      updateRecitalStatus();
+    }
+
+    function go(target) {
+      if (!pages.length) return;
+      target = Math.max(0, Math.min(pages.length - step(), target));
+      if (!mobile.matches) target -= target % 2;
+      if (busy || target === position) return;
+      if (currentSpeech !== null) stopRecital();
+      busy = true;
+      autoElapsedMs = 0;
+      $('#auto-fill').style.width = '0%';
+      playPageTurnSound();
+      document.querySelectorAll('video,audio').forEach(v => v.pause());
+
+      const backward = target < position, turn = $('#turn');
+      const source = $(mobile.matches ? '#left' : backward ? '#left' : '#right');
+      const makeFace = (html, number, side) => {
+        const face = document.createElement('div');
+        face.className = `sheet-face sheet-${side}`;
+        const paper = document.createElement('div');
+        paper.className = 'page';
+        setPaperContent(paper, html, number);
+        face.classList.toggle('cover-sheet', paper.classList.contains('cover-page'));
+        paper.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+        paper.querySelectorAll('video,audio').forEach(v => { v.removeAttribute('controls'); v.preload = 'none'; });
+        face.append(paper);
+        return face;
+      };
+
+      const front = makeFace(source.innerHTML, Number(source.dataset.number) - 1, 'front');
+      const reverseIndex = mobile.matches ? target : backward ? target + 1 : target;
+      const back = makeFace(pages[reverseIndex], reverseIndex, 'back');
+      turn.replaceChildren(front, back);
+
+      const under = $(mobile.matches ? '#left' : backward ? '#left' : '#right');
+      const underIndex = mobile.matches ? target : backward ? target : target + 1;
+      setPaperContent(under, pages[underIndex], underIndex);
+
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        clearTimeout(fallback);
+        turn.removeEventListener('animationend', onEnd);
+        turn.className = 'turn';
+        turn.replaceChildren();
+        position = target;
+        render();
+        busy = false;
+      };
+      const onEnd = e => { if (e.target === turn) finish(); };
+      const fallback = setTimeout(finish, 950);
+      turn.addEventListener('animationend', onEnd);
+      turn.className = `turn active${backward ? ' back' : ''}`;
+    }
+
+    $('#edge-prev').addEventListener('click', () => go(position - step()));
+    $('#edge-next').addEventListener('click', () => go(position + step()));
+
+    function toggleToc(open) {
+      $('#toc').hidden = !open;
+      $('#contents').setAttribute('aria-expanded', String(open));
+    }
+    $('#contents').onclick = () => toggleToc($('#toc').hidden);
+    $('#close').onclick = () => toggleToc(false);
+
+    let currentSpeech = null, recitalToken = 0, recitalPaused = false;
+
+    function stopRecital() {
+      recitalToken++;
+      recitalPaused = false;
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      currentSpeech = null;
+      updateRecitalStatus();
+    }
+
+    function updateRecitalStatus() {
+      const status = $('#recital-status');
+      if (status) {
+        status.hidden = !currentSpeech;
+        status.textContent = recitalPaused
+          ? '⏸ 시낭송 일시정지 · 화면을 누르면 이어 읽기'
+          : '🔊 시낭송 중 · 화면을 누르면 일시정지';
+      }
+      document.querySelectorAll('[data-page-read]').forEach(b => {
+        if ('page-' + b.dataset.pageRead === currentSpeech) {
+          b.textContent = recitalPaused ? '▶ 이어 읽기' : '⏸ 일시정지';
+          b.setAttribute('aria-pressed', 'true');
+        } else {
+          b.textContent = '▶ 이 페이지 읽기';
+          b.setAttribute('aria-pressed', 'false');
+        }
+      });
+    }
+
+    function startRecital(pageIndex, onCompleteCallback = null) {
+      const id = 'page-' + pageIndex;
+      if (currentSpeech === id && !onCompleteCallback) {
+        stopRecital();
+        return;
+      }
+      stopRecital();
+      const token = ++recitalToken;
+      currentSpeech = id;
+      updateRecitalStatus();
+      speakPageByTts(pageIndex, token, onCompleteCallback);
+    }
+
+    function speakPageByTts(pageIndex, token, onCompleteCallback) {
+      if (!('speechSynthesis' in window)) {
+        stopRecital();
+        if (onCompleteCallback) onCompleteCallback();
+        return;
+      }
+      const host = document.querySelector(`.page[data-number="${String(pageIndex + 1).padStart(2, '0')}"]`);
+      if (!host) { stopRecital(); return; }
+      const section = host.querySelector('section');
+      if (!section) { stopRecital(); return; }
+      const copy = section.cloneNode(true);
+      copy.querySelectorAll('button,.page-read-control,.poem-header,video,audio,.video-input-bar,.chapter-list,.eyebrow').forEach(el => el.remove());
+      const lines = (copy.textContent || '').split(/\n+/).map(t => t.trim()).filter(Boolean);
+      if (!lines.length) { stopRecital(); return; }
+
+      let idx = 0;
+      const next = () => {
+        if (token !== recitalToken) return;
+        if (idx >= lines.length) {
+          stopRecital();
+          if (onCompleteCallback) onCompleteCallback();
+          return;
+        }
+        const u = new SpeechSynthesisUtterance(lines[idx++]);
+        u.lang = 'ko-KR';
+        u.rate = 0.88;
+        u.pitch = 1.04;
+        u.onend = next;
+        u.onerror = () => { if (token === recitalToken) stopRecital(); };
+        window.speechSynthesis.speak(u);
+      };
+      next();
+    }
+
+    document.addEventListener('click', e => {
+      const readBtn = e.target.closest('[data-page-read]');
+      if (readBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        startRecital(Number(readBtn.dataset.pageRead));
+        return;
+      }
+      if (e.target.id === 'recital-status') {
+        stopRecital();
+        return;
+      }
+    });
+
+    const navigate = e => {
+      const button = e.target.closest('[data-page]');
+      if (button) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!$('#toc').hidden) toggleToc(false);
+        go(Number(button.dataset.page));
+      }
+    };
+    $('#toc-list').onclick = navigate;
+
+    $('#book').onclick = e => {
+      if (e.target.closest('[data-page]')) { navigate(e); return; }
+      if (busy || !$('#toc').hidden) return;
+      if (e.target.closest('a,button,video,audio,input,select,label') || window.getSelection()?.toString()) return;
+      const page = e.target.closest('#left,#right');
+      if (!page) return;
+      const rect = page.getBoundingClientRect();
+      const backward = mobile.matches ? e.clientX < rect.left + rect.width / 2 : page.id === 'left';
+      go(position + (backward ? -step() : step()));
+    };
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') toggleToc(false);
+      if (!$('#toc').hidden || /INPUT|SELECT|VIDEO/.test(e.target.tagName)) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(position + step()); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(position - step()); }
+    });
+
+    let autoFlipEnabled = true;
+    let autoIntervalSec = 8;
+    let autoElapsedMs = 0;
+
+    function toggleAutoFlip() {
+      autoFlipEnabled = !autoFlipEnabled;
+      const btn = $('#btn-auto');
+      btn.classList.toggle('active', autoFlipEnabled);
+      btn.textContent = autoFlipEnabled ? '⏸ 자동 넘김 중' : '▶ 자동 넘김';
+      autoElapsedMs = 0;
+      $('#auto-fill').style.width = '0%';
+    }
+
+    function setAutoSec(v) {
+      autoIntervalSec = parseInt(v, 10) || 8;
+      autoElapsedMs = 0;
+    }
+
+    setInterval(() => {
+      const vid = document.getElementById('opening-video');
+      const videoPlaying = vid && !vid.paused && !vid.ended;
+      if (!autoFlipEnabled || busy || currentSpeech !== null || videoPlaying || !$('#toc').hidden) return;
+      autoElapsedMs += 100;
+      const totalMs = autoIntervalSec * 1000;
+      $('#auto-fill').style.width = Math.min(100, (autoElapsedMs / totalMs) * 100) + '%';
+      if (autoElapsedMs >= totalMs) {
+        autoElapsedMs = 0;
+        if (position + step() < pages.length) {
+          go(position + step());
+        } else {
+          go(0);
+        }
+      }
+    }, 100);
+
+    let synthTimer = null;
+    function toggleBgm() {
+      const btn = $('#btn-bgm');
+      if (synthTimer) {
+        clearInterval(synthTimer);
+        synthTimer = null;
+        btn.classList.remove('active');
+        return;
+      }
+      const AudioEngine = window.AudioContext || window.webkitAudioContext;
+      audioContext ??= new AudioEngine();
+      if (audioContext.state === 'suspended') audioContext.resume();
+      const notes = [293.66, 329.63, 392.00, 440.00, 523.25];
+      let s = 0;
+      const pluck = () => {
+        const o = audioContext.createOscillator(), g = audioContext.createGain();
+        o.frequency.value = notes[s++ % notes.length];
+        g.gain.setValueAtTime(0.001, audioContext.currentTime);
+        g.gain.linearRampToValueAtTime(0.035, audioContext.currentTime + 0.04);
+        g.gain.exponentialRampToValueAtTime(0.0008, audioContext.currentTime + 1.3);
+        o.connect(g); g.connect(audioContext.destination);
+        o.start(); o.stop(audioContext.currentTime + 1.35);
+      };
+      pluck();
+      synthTimer = setInterval(pluck, 850);
+      btn.classList.add('active');
+    }
+
+    function fitBookToScreen() {
+      const frame = $('.book-frame'), header = $('header');
+      if (!frame || !header) return;
+      const natural = 720;
+      const top = frame.getBoundingClientRect().top;
+      const reserve = 22;
+      const available = Math.max(260, window.innerHeight - top - reserve);
+      const scale = Math.min(0.92, available / natural);
+      document.documentElement.style.setProperty('--book-viewport-scale', String(scale));
+    }
+    addEventListener('resize', fitBookToScreen, { passive: true });
+    fitBookToScreen();
+
+    render();
+  </script>
+</body>
+</html>
