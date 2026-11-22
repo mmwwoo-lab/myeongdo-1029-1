@@ -250,6 +250,27 @@ footer{display:none!important}
  .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading{grid-template-columns:minmax(0,1fr) 68px!important;column-gap:6px!important}
  .book .leaf[data-kind='poem'] .illustrated-poem .poem-heading .poem-art{width:64px!important;height:64px!important}
 }
+
+/* 제2집 2쪽 시인의 말: 좌우 여백을 동일하게 확보해 글을 중앙에 배치 */
+.leaf[data-kind="intro"] .prose-page{
+  width: min(82%, 390px) !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+.leaf[data-kind="intro"] .prose-page h2{margin-top:12px!important;margin-bottom:20px!important;line-height:1.4!important}
+.leaf[data-kind="intro"] .prose-page p{font-size:clamp(12px,1.05vw,14px)!important;line-height:1.85!important;overflow-wrap:anywhere!important;word-break:keep-all!important}
+/* 제2집 3쪽 목차: 오른쪽으로 30px 들여쓰기 */
+.leaf[data-kind="toc"] .toc-page{
+  margin-left:30px!important;
+  width:calc(100% - 30px)!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:720px){
+  .leaf[data-kind="intro"] .prose-page{width:88%!important}
+  .leaf[data-kind="intro"] .prose-page p{font-size:12px!important;line-height:1.75!important}
+  .leaf[data-kind="toc"] .toc-page{margin-left:30px!important;width:calc(100% - 30px)!important}
+}
 </style></head><body><header class="topbar"><div><div class="brand">明道齋 · 명도재의 서가</div><div class="edition">제2집 · 시 100편 · 2026년 11월</div></div><div class="toolbar"><button id="tocButton" type="button">☰ 작품 목록</button><button id="firstButton" type="button">⌂ 표지</button><button id="turnSound" class="sound-toggle" type="button" aria-label="책장 넘김 소리 끄기" aria-pressed="true">🔊 책장 소리</button><a href="https://mmwwoo-lab.github.io/myeongdo-1029-1/poetry-book/" target="_blank" rel="noopener">제1시집 ↗</a></div></header>
 <main><p class="reader-note">책 양쪽의 금빛 ‹ › 버튼으로 책장을 넘기세요 · 스마트폰에서는 좌우로 밀기</p><div class="bookframe"><div id="book" class="book" aria-label="제2집 책장형 보기"><article id="left" class="leaf left"></article><article id="right" class="leaf right"></article><div id="flip" class="flip"></div><button id="edge-prev" type="button" class="page-crescent crescent-prev" aria-label="이전 페이지 넘기기" title="이전 페이지">‹</button><button id="edge-next" type="button" class="page-crescent crescent-next" aria-label="다음 페이지 넘기기" title="다음 페이지">›</button><aside id="tocOverlay" hidden aria-label="제2집 전체 목차"><div class="toc-head"><h2>제2집 · 100편 차례</h2><button type="button" id="closeToc" aria-label="닫기">✕</button></div><div id="tocEntries"></div></aside></div></div>
 <div class="controls"><button id="prev" type="button">❮ 이전</button><span id="pageStat">1 / 1</span><button id="next" type="button">다음 ❯</button></div><span id="voiceStatus" class="voice-status" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"></span></main><footer>© 2026 명도재 이명우 · 제2집 『고향 들길에서 고산골까지』 · 생활 속에서 길어 올린 서정시 100편</footer>
