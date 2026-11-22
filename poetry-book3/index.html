@@ -101,31 +101,6 @@
       color: #eddbac !important;
       border-color: #173b32 !important;
     }
-    .sel-interval {
-      background: #f9f6fc;
-      border: 1px solid #b5a5ca;
-      color: #34323b;
-      border-radius: 16px;
-      padding: 5px 10px;
-      font-size: 11.5px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .auto-progress-bar {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 3px;
-      background: rgba(23, 59, 50, 0.12);
-      border-radius: 0 0 12px 12px;
-      overflow: hidden;
-    }
-    .auto-progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #173b32, #9b704b, #173b32);
-      transition: width 0.12s linear;
-    }
 
     main {
       max-width: 1200px;
@@ -710,18 +685,10 @@
     <a class="brand" href="#page-1" onclick="event.preventDefault();go(0)">明道齋 <span>명도재의 서가 · 제3시집</span></a>
     <span class="edition">POETRY COLLECTION III · 100 POEMS (8pt EDITION)</span>
     <div class="header-actions">
-      <button type="button" id="btn-auto" class="pill-btn active" onclick="toggleAutoFlip()">⏸ 자동 넘김 중</button>
-      <select id="auto-sec" class="sel-interval" onchange="setAutoSec(this.value)" title="자동 책장 넘김 간격">
-        <option value="5">5초</option>
-        <option value="8" selected>8초</option>
-        <option value="12">12초</option>
-        <option value="18">18초</option>
-      </select>
       <button type="button" id="btn-bgm" class="pill-btn" onclick="toggleBgm()">🎼 배경음악</button>
       <button type="button" id="btn-sound" class="pill-btn active" onclick="togglePageSound()">🔊 책장 소리</button>
       <button type="button" id="contents" class="pill-btn" aria-expanded="false" aria-controls="toc">목차 <span>☰</span></button>
     </div>
-    <div class="auto-progress-bar"><div class="auto-progress-fill" id="auto-fill"></div></div>
   </header>
 
   <main>
@@ -989,15 +956,14 @@
       if (busy || target === position) return;
       if (currentSpeech !== null) stopRecital();
       busy = true;
-      autoElapsedMs = 0;
-      $('#auto-fill').style.width = '0%';
       playPageTurnSound();
       document.querySelectorAll('video,audio').forEach(v => v.pause());
 
       const backward = target < position, turn = $('#turn');
       const source = $(mobile.matches ? '#left' : backward ? '#left' : '#right');
       const makeFace = (html, number, side) => {
-        const face = document.createElement('div');        face.className = `sheet-face sheet-${side}`;
+        const face = document.createElement('div');
+        face.className = `sheet-face sheet-${side}`;
         const paper = document.createElement('div');
         paper.className = 'page';
         setPaperContent(paper, html, number);
@@ -1031,8 +997,7 @@
       };
       const onEnd = e => { if (e.target === turn) finish(); };
       const fallback = setTimeout(finish, 950);
-      turn.addEventListener('animationend', onEnd);
-      turn.className = `turn active${backward ? ' back' : ''}`;
+      turn.addEventListener('animationend', onEnd);      turn.className = `turn active${backward ? ' back' : ''}`;
     }
 
     $('#edge-prev').addEventListener('click', () => go(position - step()));
@@ -1163,40 +1128,6 @@
       if (e.key === 'ArrowRight') { e.preventDefault(); go(position + step()); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(position - step()); }
     });
-
-    let autoFlipEnabled = true;
-    let autoIntervalSec = 8;
-    let autoElapsedMs = 0;
-
-    function toggleAutoFlip() {
-      autoFlipEnabled = !autoFlipEnabled;
-      const btn = $('#btn-auto');
-      btn.classList.toggle('active', autoFlipEnabled);
-      btn.textContent = autoFlipEnabled ? '⏸ 자동 넘김 중' : '▶ 자동 넘김';
-      autoElapsedMs = 0;
-      $('#auto-fill').style.width = '0%';
-    }
-
-    function setAutoSec(v) {
-      autoIntervalSec = parseInt(v, 10) || 8;
-      autoElapsedMs = 0;
-    }
-
-    setInterval(() => {
-      if (!autoFlipEnabled || busy || currentSpeech !== null || !$('#toc').hidden) return;
-      autoElapsedMs += 100;
-      const totalMs = autoIntervalSec * 1000;
-      $('#auto-fill').style.width = Math.min(100, (autoElapsedMs / totalMs) * 100) + '%';
-      if (autoElapsedMs >= totalMs) {
-        autoElapsedMs = 0;
-        if (position + step() < pages.length) {
-          go(position + step());
-        } else {
-          go(0);
-        }
-      }
-    }, 100);
-
     let synthTimer = null;
     function toggleBgm() {
       const btn = $('#btn-bgm');
