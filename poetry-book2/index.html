@@ -60,6 +60,19 @@ main{max-width:1200px;margin:24px auto 24px;padding:0 30px}
 .leaf[data-kind="after"] .page-top{margin-bottom:16px}
 .leaf[data-kind="after"] .page-read-control{margin-top:auto;position:relative;bottom:auto;padding-top:12px;flex-shrink:0}
 @media(max-width:720px){.leaf[data-kind="after"] .poem .verse{font-size:10pt;line-height:1.56}.leaf[data-kind="after"] .poem .sep{margin-bottom:12px}.leaf[data-kind="after"] .page-top{margin-bottom:12px}}
+
+/* 109쪽 마지막 줄 보호: 본문과 낭송 버튼 공간 분리 */
+.leaf[data-kind="after"]{display:flex!important;flex-direction:column!important;overflow:hidden!important;padding-bottom:38px!important}
+.leaf[data-kind="after"] .after-poem{height:auto!important;min-height:0!important;flex:1 1 auto!important;display:flex!important;flex-direction:column!important;padding-bottom:0!important}
+.leaf[data-kind="after"] .after-poem .after-verse{flex:0 1 auto!important;font-size:9.5pt!important;line-height:1.43!important;white-space:pre-line!important;max-height:none!important;overflow:visible!important;margin-bottom:10px!important;padding-right:0!important}
+.leaf[data-kind="after"] .after-poem .poem-bottom{position:relative!important;bottom:auto!important;margin-top:auto!important;padding-top:6px!important;font-size:9px!important;min-height:15px!important}
+.leaf[data-kind="after"]>.page-read-control{position:relative!important;bottom:auto!important;flex:0 0 auto!important;margin:0!important;padding:7px 0 0!important;min-height:42px!important;align-self:stretch!important}
+.leaf[data-kind="after"] .after-poem .page-top{margin-bottom:10px!important;padding-bottom:7px!important}
+.leaf[data-kind="after"] .after-poem .sep{margin-bottom:9px!important}
+.leaf[data-kind="after"] .after-poem .poem-title{font-size:13pt!important;margin-bottom:4px!important;line-height:1.32!important}
+.leaf[data-kind="after"] .after-poem .author{margin-bottom:8px!important}
+@media(max-width:800px){.leaf[data-kind="after"] .after-poem .after-verse{font-size:9.2pt!important;line-height:1.36!important}.leaf[data-kind="after"]{padding-bottom:33px!important}}
+@media(max-width:480px){.leaf[data-kind="after"] .after-poem .after-verse{font-size:9pt!important;line-height:1.33!important}.leaf[data-kind="after"] .after-poem .page-top{font-size:9px!important}}
 </style></head><body><header class="topbar"><div><div class="brand">明道齋 · 명도재의 서가</div><div class="edition">제2집 · 시 100편 · 2026년 11월</div></div><div class="toolbar"><button id="tocButton" type="button">☰ 작품 목록</button><button id="firstButton" type="button">⌂ 표지</button><a href="https://mmwwoo-lab.github.io/myeongdo-1029-1/poetry-book/" target="_blank" rel="noopener">제1시집 ↗</a></div></header>
 <main><p class="reader-note">책 양쪽의 금빛 ‹ › 버튼으로 책장을 넘기세요 · 스마트폰에서는 좌우로 밀기</p><div class="bookframe"><div id="book" class="book" aria-label="제2집 책장형 보기"><article id="left" class="leaf left"></article><article id="right" class="leaf right"></article><div id="flip" class="flip"></div><button id="edge-prev" type="button" class="page-crescent crescent-prev" aria-label="이전 페이지 넘기기" title="이전 페이지">‹</button><button id="edge-next" type="button" class="page-crescent crescent-next" aria-label="다음 페이지 넘기기" title="다음 페이지">›</button><aside id="tocOverlay" hidden aria-label="제2집 전체 목차"><div class="toc-head"><h2>제2집 · 100편 차례</h2><button type="button" id="closeToc" aria-label="닫기">✕</button></div><div id="tocEntries"></div></aside></div></div>
 <div class="controls"><button id="prev" type="button">❮ 이전</button><span id="pageStat">1 / 1</span><button id="next" type="button">다음 ❯</button></div><div class="voice"><button id="read" type="button">▶ 현재 시 낭송</button><button id="pause" type="button">⏸ 일시정지</button><button id="stop" type="button">■ 정지</button><span id="voiceStatus" class="voice-status" role="status" aria-live="polite" aria-live="polite"></span></div></main><footer>© 2026 명도재 이명우 · 제2집 『고향 들길에서 고산골까지』 · 생활 속에서 길어 올린 서정시 100편</footer>
