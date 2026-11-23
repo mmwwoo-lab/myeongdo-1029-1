@@ -685,7 +685,6 @@
     <a class="brand" href="#page-1" onclick="event.preventDefault();go(0)">明道齋 <span>명도재의 서가 · 제3시집</span></a>
     <span class="edition">POETRY COLLECTION III · 100 POEMS (8pt EDITION)</span>
     <div class="header-actions">
-      <button type="button" id="btn-bgm" class="pill-btn" onclick="toggleBgm()">🎼 배경음악</button>
       <button type="button" id="btn-sound" class="pill-btn active" onclick="togglePageSound()">🔊 책장 소리</button>
       <button type="button" id="contents" class="pill-btn" aria-expanded="false" aria-controls="toc">목차 <span>☰</span></button>
     </div>
@@ -1128,34 +1127,6 @@
       if (e.key === 'ArrowRight') { e.preventDefault(); go(position + step()); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(position - step()); }
     });
-    let synthTimer = null;
-    function toggleBgm() {
-      const btn = $('#btn-bgm');
-      if (synthTimer) {
-        clearInterval(synthTimer);
-        synthTimer = null;
-        btn.classList.remove('active');
-        return;
-      }
-      const AudioEngine = window.AudioContext || window.webkitAudioContext;
-      audioContext ??= new AudioEngine();
-      if (audioContext.state === 'suspended') audioContext.resume();
-      const notes = [293.66, 329.63, 392.00, 440.00, 523.25];
-      let s = 0;
-      const pluck = () => {
-        const o = audioContext.createOscillator(), g = audioContext.createGain();
-        o.frequency.value = notes[s++ % notes.length];
-        g.gain.setValueAtTime(0.001, audioContext.currentTime);
-        g.gain.linearRampToValueAtTime(0.035, audioContext.currentTime + 0.04);
-        g.gain.exponentialRampToValueAtTime(0.0008, audioContext.currentTime + 1.3);
-        o.connect(g); g.connect(audioContext.destination);
-        o.start(); o.stop(audioContext.currentTime + 1.35);
-      };
-      pluck();
-      synthTimer = setInterval(pluck, 850);
-      btn.classList.add('active');
-    }
-
     function fitBookToScreen() {
       const frame = $('.book-frame'), header = $('header');
       if (!frame || !header) return;
