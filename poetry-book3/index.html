@@ -929,7 +929,8 @@
       paper.classList.toggle('back-cover-page', meta.type === 'back-cover');
       paper.classList.toggle('section-leaf', meta.type === 'section');
 
-      if (html) {
+      // 앞표지(1쪽)에는 오디오 읽기 버튼을 표시하지 않습니다.
+      if (html && meta.type !== 'cover') {
         const control = document.createElement('div');
         control.className = 'page-read-control';
         control.innerHTML = `<button type="button" data-page-read="${number}" aria-label="이 페이지 읽어주기">▶ 이 페이지 읽기</button>`;
