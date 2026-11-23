@@ -76,6 +76,23 @@ function openEssay(n,push=true){
  $('#article-title').textContent=e.title;$('#article-subtitle').textContent=e.subtitle;
  const img=$('#article-img');img.src=e.illustrationUrl||('images/'+encodeURIComponent(e.illustration)+'.svg');img.alt=e.motif+'을 소재로 한 삽화';
  $('#article-body').innerHTML=e.text.split(/\n\s*\n/).map(x=>renderParagraph(x,e)).join('');
+ // Keep user-provided source references available without modifying the literary prose.
+ if(Array.isArray(e.sourceLinks)&&e.sourceLinks.length){
+  const refs=document.createElement('section');
+  refs.className='essay-reference-links';
+  const title=document.createElement('h3');title.textContent='글에서 언급한 게시물';refs.appendChild(title);
+  const list=document.createElement('ul');
+  for(const item of e.sourceLinks){
+   try{
+    const u=new URL(item.url);
+    if(u.protocol!=='https:'||u.hostname!=='www.facebook.com')continue;
+    const li=document.createElement('li'),a=document.createElement('a');
+    a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';
+    a.textContent=item.label;li.appendChild(a);list.appendChild(li);
+   }catch(err){/* Invalid sources are not linked. */}
+  }
+  refs.appendChild(list);$('#article-body').appendChild(refs);
+ }
  $('#previous-essay').disabled=!essays.some(x=>x.number===n-1);
  $('#next-essay').disabled=!essays.some(x=>x.number===n+1);
  reader.hidden=false;if(push)history.pushState({essay:n},'', '#essay-'+n);
