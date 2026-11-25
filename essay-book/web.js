@@ -44,15 +44,7 @@ if(inApp){
  revealChromeGuide();
  // A one-time automatic Chrome hand-off is attempted only for Android in-app browsers.
  // User gesture is generally required by most webviews; the visible button is fallback.
- if(android&&!new URL(location.href).searchParams.has('chrome')){
-  const key='myeongdo-chrome-offer:'+location.pathname;
-  try{
-   if(!sessionStorage.getItem(key)){
-    sessionStorage.setItem(key,'1');
-    openChrome();
-   }
-  }catch(e){/* Embedded browsers may disable session storage. */}
- }
+ // Chrome hand-off requires an explicit user gesture.
 }
 function shortNumber(n){return '제'+String(n).padStart(2,'0')+'편'}
 function renderCards(query=''){
@@ -86,8 +78,8 @@ function readEssay(){
  if(!active)return;if(!('speechSynthesis'in window)){showSpeechHelp();return}
  if(utterance){if(paused){speechSynthesis.resume();paused=false;$('#read-aloud').textContent='⏸ 일시정지'}else{speechSynthesis.pause();paused=true;$('#read-aloud').textContent='▶ 이어 듣기'}return}
  stopReading();const token=readToken;const body=active.title+'. '+active.text.replace(/〔삽입시〕|〔삽입시 끝〕/g,'').replace(/\n+/g,' ');
- const chunks=body.match(/.{1,125}(?:[.!?。]|$)/g)||[body];const voice=speechSynthesis.getVoices().find(v=>/^ko/i.test(v.lang));let index=0;
- function next(){if(token!==readToken)return;if(index>=chunks.length){utterance=null;$('#read-aloud').textContent='▶ 듣기';return}const u=new SpeechSynthesisUtterance(chunks[index++]);u.lang='ko-KR';if(voice)u.voice=voice;u.rate=.86;u.onend=next;u.onerror=()=>{utterance=null;$('#read-aloud').textContent='▶ 듣기';showSpeechHelp()};utterance=u;speechSynthesis.speak(u)}
+ const chunks=body.match(/[\s\S]{1,125}/g)||[body];const voice=speechSynthesis.getVoices().find(v=>/^ko/i.test(v.lang));let index=0;
+ function next(){if(token!==readToken)return;if(index>=chunks.length){utterance=null;$('#read-aloud').textContent='▶ 듣기';return}const u=new SpeechSynthesisUtterance(chunks[index++]);u.lang='ko-KR';if(voice)u.voice=voice;u.rate=.86;u.onend=next;u.onerror=()=>{if(token!==readToken)return;utterance=null;$('#read-aloud').textContent='▶ 듣기';showSpeechHelp()};utterance=u;speechSynthesis.speak(u)}
  $('#read-aloud').textContent='⏸ 일시정지';next();
 }
 function route(){const m=location.hash.match(/^#essay-(\d+)$/);if(m)openEssay(Number(m[1]),false);else{stopReading();reader.hidden=true;active=null}}
@@ -100,10 +92,12 @@ $('#previous-essay').onclick=()=>{if(active)openEssay(active.number-1)};
 $('#next-essay').onclick=()=>{if(active)openEssay(active.number+1)};
 $('#back-works').addEventListener('click',()=>{stopReading();reader.hidden=true;active=null});
 window.addEventListener('hashchange',route);window.addEventListener('popstate',route);window.addEventListener('pagehide',stopReading);
+cards.addEventListener('error',ev=>{if(ev.target.tagName==='IMG'&&!ev.target.dataset.fallback){ev.target.dataset.fallback='1';ev.target.src='images/essay26-study.svg'}},true);
+$('#article-img').addEventListener('error',ev=>{if(!ev.target.src.endsWith('/images/essay26-study.svg'))ev.target.src='images/essay26-study.svg'});
 renderCards();route();
 
 const bookPreviewDialog=$('#book-preview-dialog');
 $('#book-preview-dialog-body').appendChild(document.querySelector('.book-preview-scene').cloneNode(true));
 $('#book-preview-button').addEventListener('click',()=>{if(typeof bookPreviewDialog.showModal==='function')bookPreviewDialog.showModal();else bookPreviewDialog.setAttribute('open','')});
 $('#book-preview-close').addEventListener('click',()=>{if(typeof bookPreviewDialog.close==='function')bookPreviewDialog.close();else bookPreviewDialog.removeAttribute('open')});
-bookPreviewDialog.addEventListener('click',e=>{if(e.target===bookPreviewDialog)bookPreviewDialog.close()});
+bookPreviewDialog.addEventListener('click',e=>{if(e.target===bookPreviewDialog){if(typeof bookPreviewDialog.close==='function')bookPreviewDialog.close();else bookPreviewDialog.removeAttribute('open')}});
