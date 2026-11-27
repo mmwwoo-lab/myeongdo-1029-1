@@ -1,0 +1,111 @@
+{
+  "baseline": "연구소 1의 59개 항목",
+  "comparison": "연구소 2의 이전 제작 목록 60선 제목·목적·핵심 기능을 대조. 동일 목적의 편집·발행·전시·허브 항목을 연구소 1로 통합.",
+  "removed": [
+    {
+      "removedId": 10,
+      "removedTitle": "시낭송 영상 제작기",
+      "lab1Id": "A20",
+      "lab1Title": "명도 스테인드글라스 미디어아트 스튜디오",
+      "reason": "시·그림·낭송·자막 영상 제작"
+    },
+    {
+      "removedId": 18,
+      "removedTitle": "수필 퇴고 연구실",
+      "lab1Id": "W02",
+      "lab1Title": "수필 쓰기 · 경험과 성찰",
+      "reason": "수필 원문 대조와 퇴고"
+    },
+    {
+      "removedId": 20,
+      "removedTitle": "디카시 창작 도구",
+      "lab1Id": "A20",
+      "lab1Title": "명도 스테인드글라스 미디어아트 스튜디오",
+      "reason": "사진·시를 시화로 구성"
+    },
+    {
+      "removedId": 21,
+      "removedTitle": "전시회 포스터 제작기",
+      "lab1Id": "E01",
+      "lab1Title": "작품 전시회 안내 만들기",
+      "reason": "전시 정보로 홍보물 제작"
+    },
+    {
+      "removedId": 23,
+      "removedTitle": "시화 카드 제작기",
+      "lab1Id": "A20",
+      "lab1Title": "명도 스테인드글라스 미디어아트 스튜디오",
+      "reason": "시화 카드 구성·저장"
+    },
+    {
+      "removedId": 33,
+      "removedTitle": "가상 미술 전시관",
+      "lab1Id": "A14",
+      "lab1Title": "NEXORA · 한국미술 100년",
+      "reason": "가상 전시실과 작품 감상"
+    },
+    {
+      "removedId": 39,
+      "removedTitle": "행사 안내 웹사이트",
+      "lab1Id": "E01",
+      "lab1Title": "작품 전시회 안내 만들기",
+      "reason": "일정·장소 중심 행사 안내"
+    },
+    {
+      "removedId": 40,
+      "removedTitle": "앱 통합 전시장",
+      "lab1Id": "A01",
+      "lab1Title": "명도 에듀 학습게임 모음",
+      "reason": "앱을 분류해 실행하는 허브"
+    },
+    {
+      "removedId": 46,
+      "removedTitle": "전자시집 제작기",
+      "lab1Id": "B01",
+      "lab1Title": "책자형 시집 만들기",
+      "reason": "표지·목차·본문의 시집 편집"
+    },
+    {
+      "removedId": 47,
+      "removedTitle": "디지털 신문 제작기",
+      "lab1Id": "N01",
+      "lab1Title": "신문형 시집 만들기",
+      "reason": "다단 문학신문 제작"
+    },
+    {
+      "removedId": 48,
+      "removedTitle": "전자 포토북 제작기",
+      "lab1Id": "A16",
+      "lab1Title": "도윤이의 성장 일기",
+      "reason": "사진과 글을 책장으로 편집"
+    },
+    {
+      "removedId": 49,
+      "removedTitle": "월간 수필집 제작기",
+      "lab1Id": "B02",
+      "lab1Title": "책자형 수필집 만들기",
+      "reason": "수필집 편집"
+    },
+    {
+      "removedId": 54,
+      "removedTitle": "가족 성장앨범 제작기",
+      "lab1Id": "A16",
+      "lab1Title": "도윤이의 성장 일기",
+      "reason": "가족 성장 사진첩"
+    },
+    {
+      "removedId": 56,
+      "removedTitle": "프롬프트 제작 사전",
+      "lab1Id": "P01",
+      "lab1Title": "한 문장으로 앱 정하기",
+      "reason": "대상·목표·기능의 제작 요청문 구성"
+    },
+    {
+      "removedId": 60,
+      "removedTitle": "개발 기술 종합 사전",
+      "lab1Id": "Q05",
+      "lab1Title": "업데이트와 개발 기록",
+      "reason": "제작 기록·기술 사전과 검색"
+    }
+  ]
+}
