@@ -55,5 +55,3 @@
 **꽃의 아름다움은 꽃잎에 있지만, 문장의 품격은 그 뿌리를 대하는 태도에 있으므로.**
 
 ― 명도재에서
-
-창작 참고: [서민경 시인의 〈낮게 내린 달〉](https://www.facebook.com/permalink.php?story_fbid=pfbid035SX5MtDnjdegsZT1XForpU1VgAtGNwgJVa9MPfLhRC2cXKbBZnWETpCv9r4ERPiQl&id=100039751928977), [김희곤 님의 글](https://www.facebook.com/hgkim3344/posts/pfbid02F4urYaiimDqKbQbvD7zJuWRsrvhdUGrorcfY1SH8ZyRnnhPFEcaUHv5Wczwa77Qcl). 제공 원고를 토대로 재창작했으며 게시물 원문 및 공직자 관련 의혹은 독립적으로 확인하지 않았다.
